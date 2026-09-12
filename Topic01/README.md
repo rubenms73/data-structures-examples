@@ -29,7 +29,7 @@ The script compiles the project before running the selected example. Use `./run.
 
 ## Demonstrations
 
-Slide numbers refer to the **number printed on the slide**, not the PDF page. The presentation has 58 main slides and an appendix numbered A1–A52.
+Slide numbers refer to the **number printed on the slide**, not the PDF page. The presentation has 59 main slides and an appendix numbered A1–A52.
 
 | Demo | Subject | Slides |
 | --- | --- | --- |
