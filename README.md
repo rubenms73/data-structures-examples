@@ -1,4 +1,4 @@
-# Data Structures — Classroom examples · 2026–2027
+# Data Structures — Classroom examples
 
 University of Oviedo · Rubén Muñiz Sánchez
 

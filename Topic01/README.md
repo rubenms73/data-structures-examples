@@ -1,6 +1,6 @@
 # Topic 1 — Classroom examples
 
-Data Structures · University of Oviedo · 2026–2027
+Data Structures · University of Oviedo
 
 Thirteen runnable Java demonstrations accompanying the current **Topic 1** presentation. Code and console output are in English. Each `Demo` class has its own `main` method.
 
