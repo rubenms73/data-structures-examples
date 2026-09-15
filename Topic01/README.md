@@ -2,30 +2,35 @@
 
 Data Structures · University of Oviedo
 
-Thirteen runnable Java demonstrations accompanying the current **Topic 1** presentation. Code and console output are in English. Each `Demo` class has its own `main` method.
+Thirteen self-contained Java projects accompany the Topic 1 presentation. Each folder contains its own `ds` package and an `app.Main` test program. Examples share no source folders, compiled classes or external libraries.
 
-## Open and run in VS Code
+## Open one example
 
-1. Open **this `Topic01` folder** using **File → Open Folder**.
-2. Use an installed JDK 21 or newer and the **Extension Pack for Java**. Accept the extension recommendation if needed.
-3. Open a class in `src/ds/topic01/demos` and click **Run** above `main`.
-4. To step through a demonstration, set a breakpoint and click **Debug**. The named configurations are also available under **Run and Debug**.
+1. Choose a folder below, for example **Demo05Movies**.
+2. Open **that example folder** in VS Code, with JDK 17 or newer and the Extension Pack for Java.
+3. Open `src/app/Main.java` and select **Run** or **Debug** above `main`.
 
-If VS Code asks which runtime to use, select **Java: Configure Java Runtime** from the command palette. The project uses the Java standard library and contains no machine-specific runtime path.
+You can copy a single example folder to another location. Its README includes slide references, commands, class links and expected output. Classes needed in two examples, such as `Movie`, are included in both.
 
-## Run from Terminal on macOS or Linux
-
-From this folder:
+On macOS or Linux, from an individual example folder:
 
 ```sh
-./run.sh list
-./run.sh Demo01Rational
-./run.sh Demo05Movies
-./run.sh Demo10FunctionalComparators
-./run.sh Demo12Wildcards
+bash run.sh
+bash run.sh test
 ```
 
-The script compiles the project before running the selected example. Use `./run.sh all` to run every demonstration, or `./run.sh test` to run the behaviour checks. Tests can also be run directly from `tests/ds/topic01/tests/ExampleChecks.java` in VS Code.
+## Run from the Topic01 folder
+
+The optional launcher builds each project separately:
+
+```sh
+bash run.sh list
+bash run.sh Demo05Movies
+bash run.sh all
+bash run.sh test
+```
+
+Do not combine all `src` folders into one Java project: names such as `app.Main` intentionally repeat. Each example has its own `bin` directory and VS Code configuration.
 
 ## Demonstrations
 
@@ -33,19 +38,19 @@ Slide numbers refer to the **number printed on the slide**, not the PDF page. Th
 
 | Demo | Subject | Slides |
 | --- | --- | --- |
-| [01 Rational](src/ds/topic01/demos/Demo01Rational.java) | Contract, interface, implementations, objects and references | 12, 16–18 |
-| [02 Integer arrays](src/ds/topic01/demos/Demo02IntArrays.java) | Abstract class, fixed and dynamic storage, one client algorithm | 19–24; A2–A3 |
-| [03 Generic arrays](src/ds/topic01/demos/Demo03GenericArrays.java) | Type parameters, generic methods and compile-time checks | 27–31 |
-| [04 String sorting](src/ds/topic01/demos/Demo04StringSorting.java) | Natural order, external order and `Arrays.sort` | 32–37 |
-| [05 Movies](src/ds/topic01/demos/Demo05Movies.java) | A class implementing `Comparable`, plus rating and title comparators | 33–40; additional example |
-| [06 Maximum](src/ds/topic01/demos/Demo06Maximum.java) | One algorithm with two comparison rules | 38–39 |
-| [07 Iterators](src/ds/topic01/demos/Demo07Iterators.java) | `IntRange`, independent positions and exhaustion | 43–48 |
-| [08 Collections](src/ds/topic01/demos/Demo08Collections.java) | List/set behaviour and methods inherited from `AbstractCollection` | 49–52; A45–A46 |
-| [09 Costs](src/ds/topic01/demos/Demo09Costs.java) | Counted additions and different costs behind `List.get` | 53–55 |
-| [10 Functional comparators](src/ds/topic01/demos/Demo10FunctionalComparators.java) | Named class, anonymous class and lambda | A25–A29 |
-| [11 Functional operations](src/ds/topic01/demos/Demo11FunctionalOperations.java) | `Predicate`, `Function`, `Consumer` and `Supplier` | A30; A42–A44 |
-| [12 Wildcards](src/ds/topic01/demos/Demo12Wildcards.java) | `?`, `? extends Shape`, `? super Rectangle`, comparator reuse | A31–A36 |
-| [13 Fibonacci](src/ds/topic01/demos/Demo13Fibonacci.java) | An iterator that computes a sequence | A39–A41 |
+| [01 Rational](Demo01Rational/README.md) | Contract, interface, implementations, objects and references | 12, 16–18 |
+| [02 Integer arrays](Demo02IntArrays/README.md) | Abstract class, fixed and dynamic storage, one client algorithm | 19–24; A2–A3 |
+| [03 Generic arrays](Demo03GenericArrays/README.md) | Type parameters, generic methods and compile-time checks | 27–31 |
+| [04 String sorting](Demo04StringSorting/README.md) | Natural order, external order and `Arrays.sort` | 32–37 |
+| [05 Movies](Demo05Movies/README.md) | A class implementing `Comparable`, plus rating and title comparators | 33–40; additional example |
+| [06 Maximum](Demo06Maximum/README.md) | One algorithm with two comparison rules | 38–39 |
+| [07 Iterators](Demo07Iterators/README.md) | `IntRange`, independent positions and exhaustion | 43–48 |
+| [08 Collections](Demo08Collections/README.md) | List/set behaviour and methods inherited from `AbstractCollection` | 49–52; A45–A46 |
+| [09 Costs](Demo09Costs/README.md) | Counted additions and different costs behind `List.get` | 53–55 |
+| [10 Functional comparators](Demo10FunctionalComparators/README.md) | Named class, anonymous class and lambda | A25–A29 |
+| [11 Functional operations](Demo11FunctionalOperations/README.md) | `Predicate`, `Function`, `Consumer` and `Supplier` | A30; A42–A44 |
+| [12 Wildcards](Demo12Wildcards/README.md) | `?`, `? extends Shape`, `? super Rectangle`, comparator reuse | A31–A36 |
+| [13 Fibonacci](Demo13Fibonacci/README.md) | An iterator that computes a sequence | A39–A41 |
 
 [ExpectedOutput.md](ExpectedOutput.md) contains the complete output of all demonstrations.
 
