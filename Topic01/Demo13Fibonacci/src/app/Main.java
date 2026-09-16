@@ -3,8 +3,10 @@ package app;
 import java.util.Iterator;
 import ds.Fibonacci;
 
-public final class Main {
-    public static void main(String[] args) {
+public final class Main
+{
+    public static void main(String[] args)
+    {
         Fibonacci sequence = new Fibonacci(10);
         System.out.print("First ten terms:");
         for (long value : sequence) System.out.print(" " + value);
@@ -13,9 +15,12 @@ public final class Main {
         Iterator<Long> b = sequence.iterator();
         System.out.println("Iterator a: " + a.next() + ", " + a.next());
         System.out.println("Iterator b starts at: " + b.next());
-        try {
+        try
+        {
             new Fibonacci(94);
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e)
+        {
             System.out.println("Rejected: " + e.getMessage());
         }
     }

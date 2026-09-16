@@ -4,8 +4,10 @@ import java.util.Arrays;
 import java.util.Comparator;
 import ds.LengthComparator;
 
-public final class Main {
-    public static void main(String[] args) {
+public final class Main
+{
+    public static void main(String[] args)
+    {
         String a = "pear", b = "banana";
         // boolean before = a < b; // Uncomment: objects cannot be ordered with <.
         System.out.println("pear.compareTo(banana): " + a.compareTo(b));

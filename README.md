@@ -32,3 +32,7 @@ bash run.sh test
 - [Expected console output](Topic01/ExpectedOutput.md).
 
 Comments identify small experiments that intentionally produce compilation errors. Uncomment one at a time, inspect the error, and restore the comment before continuing.
+
+## Source style
+
+All Java examples use **Allman style**: the opening brace of a class, method or control block is placed on the following line at the same indentation level. Array initializer braces remain inline because they delimit data rather than a code block.

@@ -1,10 +1,12 @@
 package ds;
 
-public class Rectangle implements Shape {
+public class Rectangle implements Shape
+{
     private final double width;
     private final double height;
 
-    public Rectangle(double width, double height) {
+    public Rectangle(double width, double height)
+    {
         if (!Double.isFinite(width) || !Double.isFinite(height)
                 || width < 0 || height < 0)
             throw new IllegalArgumentException("Dimensions must be finite and nonnegative");
@@ -12,5 +14,9 @@ public class Rectangle implements Shape {
         this.height = height;
     }
 
-    @Override public double area() { return width * height; }
+    @Override
+    public double area()
+    {
+        return width * height;
+    }
 }

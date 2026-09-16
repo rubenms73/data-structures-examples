@@ -8,8 +8,10 @@ import ds.Movie;
 import ds.RatingComparator;
 import ds.TitleComparator;
 
-public final class Main {
-    public static void main(String[] args) {
+public final class Main
+{
+    public static void main(String[] args)
+    {
         // Fictional titles and ratings for this classroom example.
         Movie[] movies = {
             new Movie("The Last Train", 2022, 7.4),
@@ -31,7 +33,8 @@ public final class Main {
         System.out.println("Collections.sort: " + list.get(0).title() + " comes first");
     }
 
-    private static void print(String heading, Movie[] movies) {
+    private static void print(String heading, Movie[] movies)
+    {
         System.out.println(heading);
         for (Movie movie : movies) System.out.println("  " + movie);
     }

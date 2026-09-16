@@ -8,8 +8,10 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import ds.Movie;
 
-public final class Main {
-    public static void main(String[] args) {
+public final class Main
+{
+    public static void main(String[] args)
+    {
         List<Movie> movies = Arrays.asList(
                 new Movie("The Last Train", 2022, 7.4),
                 new Movie("Blue Planet", 2018, 8.6),
@@ -21,7 +23,8 @@ public final class Main {
         Supplier<Movie> newExample = () -> new Movie("Winter Lights", 2018, 7.9);
 
         System.out.println("Movies rated at least 8.0:");
-        for (Movie movie : movies) {
+        for (Movie movie : movies)
+        {
             if (highlyRated.test(movie)) print.accept(label.apply(movie));
         }
         System.out.println("Supplier.get(): " + newExample.get());

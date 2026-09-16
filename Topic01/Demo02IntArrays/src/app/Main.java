@@ -6,8 +6,10 @@ import ds.DynamicMyIntArray;
 import ds.FixedMyIntArray;
 import ds.MyIntArray;
 
-public final class Main {
-    public static void main(String[] args) {
+public final class Main
+{
+    public static void main(String[] args)
+    {
         MyIntArray fixed = new FixedMyIntArray(3);
         MyIntArray dynamic = new DynamicMyIntArray(3);
         fill(fixed);
@@ -19,9 +21,12 @@ public final class Main {
         System.out.println("After set(1, 10): " + ArrayAlgorithms.contents(fixed));
         System.out.println("size = " + fixed.size() + ", contains(10) = " + fixed.contains(10));
 
-        try {
+        try
+        {
             fixed.add(16);
-        } catch (IllegalStateException e) {
+        }
+        catch (IllegalStateException e)
+        {
             System.out.println("Fixed add(16): " + e.getClass().getSimpleName());
         }
         System.out.println("Fixed still contains: " + ArrayAlgorithms.contents(fixed));
@@ -33,13 +38,15 @@ public final class Main {
         // System.out.println(dynamic.data.length);
     }
 
-    private static void fill(MyIntArray values) {
+    private static void fill(MyIntArray values)
+    {
         values.add(4);
         values.add(8);
         values.add(12);
     }
 
-    private static void show(String label, MyIntArray values) {
+    private static void show(String label, MyIntArray values)
+    {
         System.out.println(label + ": " + ArrayAlgorithms.contents(values)
                 + "; sum = " + ArrayAlgorithms.sum(values));
     }

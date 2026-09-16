@@ -1,7 +1,8 @@
 package ds;
 
 /** Selected observer operations from the main presentation. */
-public interface Rational {
+public interface Rational
+{
     /** Returns the numerator of this representation. */
     int numerator();
 

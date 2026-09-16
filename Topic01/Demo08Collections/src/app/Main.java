@@ -6,8 +6,10 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import ds.ArrayBag;
 
-public final class Main {
-    public static void main(String[] args) {
+public final class Main
+{
+    public static void main(String[] args)
+    {
         Collection<String> list = new ArrayList<>(Arrays.asList("pear", "fig", "pear"));
         Collection<String> set = new LinkedHashSet<>(list);
         print("List", list);
@@ -18,14 +20,18 @@ public final class Main {
         print("Bag after clearing its source", bag);
         System.out.println("Inherited contains(fig): " + bag.contains("fig"));
         System.out.println("Inherited isEmpty(): " + bag.isEmpty());
-        try {
+        try
+        {
             bag.add("plum");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e)
+        {
             System.out.println("Adding to the bag: " + e.getClass().getSimpleName());
         }
     }
 
-    private static void print(String label, Iterable<String> values) {
+    private static void print(String label, Iterable<String> values)
+    {
         System.out.print(label + ":");
         for (String value : values) System.out.print(" " + value);
         System.out.println();

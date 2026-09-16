@@ -1,5 +1,6 @@
 package ds;
 
-public interface Shape {
+public interface Shape
+{
     double area();
 }

@@ -4,8 +4,10 @@ import ds.Rational;
 import ds.RationalImp1;
 import ds.RationalImp2;
 
-public final class Main {
-    public static void main(String[] args) {
+public final class Main
+{
+    public static void main(String[] args)
+    {
         Rational a = new RationalImp1(3, 4);
         Rational b = new RationalImp2(3, 4);
         show(a);
@@ -16,15 +18,19 @@ public final class Main {
         System.out.println("a and b refer to the same object: " + (a == b));
         System.out.println("a and b return the same value: " + (a.value() == b.value()));
 
-        try {
+        try
+        {
             new RationalImp1(3, 0);
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e)
+        {
             System.out.println("Rejected: " + e.getMessage());
         }
     }
 
     // This client only uses operations declared by Rational.
-    private static void show(Rational r) {
+    private static void show(Rational r)
+    {
         System.out.println(r.numerator() + "/" + r.denominator() + " = " + r.value());
     }
 }
