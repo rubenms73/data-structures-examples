@@ -1,7 +1,8 @@
 package ds;
 
 /** An ordered sequence of integers, accessed through zero-based indices. */
-public interface MyIntArray {
+public interface MyIntArray
+{
     /** Returns the number of stored elements. */
     int size();
 

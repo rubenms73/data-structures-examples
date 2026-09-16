@@ -3,13 +3,18 @@ package ds;
 import java.util.List;
 
 /** Algorithms whose work is discussed by the client. */
-public final class CostAlgorithms {
-    private CostAlgorithms() {}
+public final class CostAlgorithms
+{
+    private CostAlgorithms()
+    {
+    }
 
-    public static void sumAndCount(int[] values) {
+    public static void sumAndCount(int[] values)
+    {
         int total = 0;
         int additions = 0;
-        for (int value : values) {
+        for (int value : values)
+        {
             total += value;
             additions++;
         }
@@ -18,7 +23,8 @@ public final class CostAlgorithms {
     }
 
     /** Requires a nonempty list. */
-    public static String middle(List<String> values) {
+    public static String middle(List<String> values)
+    {
         return values.get(values.size() / 2);
     }
 }

@@ -10,7 +10,34 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[1] / "Topic01"
 
 
+def is_block_prefix(prefix):
+    text = prefix.strip()
+    return bool(
+        re.search(r"\b(class|interface|enum|record)\b", text)
+        or re.match(r"^(if|for|while|switch|catch|synchronized)\s*\(", text)
+        or re.match(r"^(try|else|finally|do)(\s|$)", text)
+        or "->" in text
+        or (re.search(r"\)\s*(?:throws\s+[\w., <>?]+)?$", text)
+            and not re.search(r"=\s*new\s+\w+\s*\[", text))
+    )
+
+
+def check_allman_style():
+    violations = []
+    for path in sorted(ROOT.rglob("*.java")):
+        for number, line in enumerate(path.read_text().splitlines(), 1):
+            stripped = line.rstrip()
+            if stripped.endswith("{"):
+                prefix = stripped[:stripped.rfind("{")]
+                if is_block_prefix(prefix):
+                    violations.append(f"{path.relative_to(ROOT.parent)}:{number}")
+            if re.search(r"}\s*(else|catch|finally)\b", stripped):
+                violations.append(f"{path.relative_to(ROOT.parent)}:{number}")
+    assert not violations, "Allman style violations:\n" + "\n".join(violations)
+
+
 def main():
+    check_allman_style()
     names = (ROOT / "demos.txt").read_text().splitlines()
     combined = dict(re.findall(
         r"## (Demo\w+)\n\n```text\n(.*?)```",

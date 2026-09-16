@@ -4,19 +4,24 @@ import java.util.*;
 import java.math.BigInteger;
 import ds.*;
 
-public final class ExampleChecks {
+public final class ExampleChecks
+{
     private static int checks;
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         fibonacci();
         System.out.println("All " + checks + " checks passed.");
     }
 
-    private static void fibonacci() {
-        for (int n : new int[] {0, 1, 2, 3, 10, 92, 93}) {
+    private static void fibonacci()
+    {
+        for (int n : new int[] {0, 1, 2, 3, 10, 92, 93})
+        {
             List<Long> terms = collect(new Fibonacci(n));
             equal(n, terms.size());
             BigInteger a = BigInteger.ZERO, b = BigInteger.ONE;
-            for (long term : terms) {
+            for (long term : terms)
+            {
                 equal(a.longValueExact(), term);
                 BigInteger next = a.add(b); a = b; b = next;
             }
@@ -33,26 +38,33 @@ public final class ExampleChecks {
         equal(0L, second.next());
     }
 
-    private static <T> List<T> collect(Iterable<T> values) {
+    private static <T> List<T> collect(Iterable<T> values)
+    {
         List<T> result = new ArrayList<>();
         for (T value : values) result.add(value);
         return result;
     }
 
-    private static void equal(Object expected, Object actual) {
+    private static void equal(Object expected, Object actual)
+    {
         check(Objects.equals(expected, actual), "Expected " + expected + ", got " + actual);
     }
 
-    private static void check(boolean condition, String message) {
+    private static void check(boolean condition, String message)
+    {
         checks++;
         if (!condition) throw new AssertionError(message);
     }
 
-    private static void throwsType(Class<? extends Throwable> expected, Runnable action) {
+    private static void throwsType(Class<? extends Throwable> expected, Runnable action)
+    {
         checks++;
-        try {
+        try
+        {
             action.run();
-        } catch (Throwable actual) {
+        }
+        catch (Throwable actual)
+        {
             if (expected.isInstance(actual)) return;
             throw new AssertionError("Expected " + expected.getSimpleName() + ", got " + actual, actual);
         }

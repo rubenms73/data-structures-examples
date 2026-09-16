@@ -1,7 +1,8 @@
 package ds;
 
 /** The generic array interface used in this topic. Nulls are permitted. */
-public interface MyArray<E> {
+public interface MyArray<E>
+{
     int size();
 
     /** @throws IndexOutOfBoundsException if index is outside [0, size()) */

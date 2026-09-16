@@ -12,8 +12,10 @@ import ds.Shape;
 import ds.ShapeAlgorithms;
 import ds.Square;
 
-public final class Main {
-    public static void main(String[] args) {
+public final class Main
+{
+    public static void main(String[] args)
+    {
         List<Rectangle> rectangles = new ArrayList<>(Arrays.asList(
                 new Rectangle(2, 3), new Rectangle(1, 10)));
         printCount(rectangles); // Collection<?> accepts any element type.
@@ -52,12 +54,14 @@ public final class Main {
         // comparator.compare(new Circle(1), new Circle(2));
     }
 
-    private static void printCount(Collection<?> values) {
+    private static void printCount(Collection<?> values)
+    {
         System.out.println("Count: " + values.size());
         // values.add("extra"); // The element type is unknown.
     }
 
-    public static void addRectangle(Collection<? super Rectangle> destination) {
+    public static void addRectangle(Collection<? super Rectangle> destination)
+    {
         destination.add(new Rectangle(2, 3));
         destination.add(new Square(2));
         Object first = destination.iterator().next();

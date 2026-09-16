@@ -6,9 +6,12 @@ import java.util.LinkedList;
 import java.util.List;
 import ds.CostAlgorithms;
 
-public final class Main {
-    public static void main(String[] args) {
-        for (int size : new int[] {4, 8, 16}) {
+public final class Main
+{
+    public static void main(String[] args)
+    {
+        for (int size : new int[] {4, 8, 16})
+        {
             int[] values = new int[size];
             Arrays.fill(values, 1);
             CostAlgorithms.sumAndCount(values);
