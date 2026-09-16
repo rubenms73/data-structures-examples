@@ -11,7 +11,9 @@ public final class ArrayAlgorithms
     {
         int total = 0;
         for (int i = 0; i < values.size(); i++)
+        {
             total += values.get(i);
+        }
         return total;
     }
 
@@ -21,7 +23,8 @@ public final class ArrayAlgorithms
         StringBuilder result = new StringBuilder("[");
         for (int i = 0; i < values.size(); i++)
         {
-            if (i > 0) result.append(", ");
+            if (i > 0)
+                result.append(", ");
             result.append(values.get(i));
         }
         return result.append("]").toString();

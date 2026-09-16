@@ -33,7 +33,10 @@ public final class Main
     private static void print(String label, Iterable<String> values)
     {
         System.out.print(label + ":");
-        for (String value : values) System.out.print(" " + value);
+        for (String value : values)
+        {
+            System.out.print(" " + value);
+        }
         System.out.println();
     }
 }

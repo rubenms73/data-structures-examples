@@ -27,7 +27,10 @@ public final class Main
             System.out.println("Next after the end: " + e.getClass().getSimpleName());
         }
         System.out.print("A fresh enhanced for loop:");
-        for (int value : range) System.out.print(" " + value);
+        for (int value : range)
+        {
+            System.out.print(" " + value);
+        }
         System.out.println();
     }
 }

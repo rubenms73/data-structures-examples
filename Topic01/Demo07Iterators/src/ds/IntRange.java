@@ -37,7 +37,8 @@ public final class IntRange implements Iterable<Integer>
         @Override
         public Integer next()
         {
-            if (!hasNext()) throw new NoSuchElementException();
+            if (!hasNext())
+                throw new NoSuchElementException();
             return current++;
         }
     }

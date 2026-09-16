@@ -25,7 +25,8 @@ public final class Main
         System.out.println("Movies rated at least 8.0:");
         for (Movie movie : movies)
         {
-            if (highlyRated.test(movie)) print.accept(label.apply(movie));
+            if (highlyRated.test(movie))
+                print.accept(label.apply(movie));
         }
         System.out.println("Supplier.get(): " + newExample.get());
 

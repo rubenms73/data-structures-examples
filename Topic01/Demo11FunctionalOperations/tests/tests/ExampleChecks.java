@@ -24,7 +24,10 @@ public final class ExampleChecks
     private static <T> List<T> collect(Iterable<T> values)
     {
         List<T> result = new ArrayList<>();
-        for (T value : values) result.add(value);
+        for (T value : values)
+        {
+            result.add(value);
+        }
         return result;
     }
 
@@ -36,7 +39,8 @@ public final class ExampleChecks
     private static void check(boolean condition, String message)
     {
         checks++;
-        if (!condition) throw new AssertionError(message);
+        if (!condition)
+            throw new AssertionError(message);
     }
 
     private static void throwsType(Class<? extends Throwable> expected, Runnable action)
@@ -48,7 +52,8 @@ public final class ExampleChecks
         }
         catch (Throwable actual)
         {
-            if (expected.isInstance(actual)) return;
+            if (expected.isInstance(actual))
+                return;
             throw new AssertionError("Expected " + expected.getSimpleName() + ", got " + actual, actual);
         }
         throw new AssertionError("Expected " + expected.getSimpleName());

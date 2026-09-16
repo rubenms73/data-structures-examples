@@ -36,6 +36,9 @@ public final class Main
     private static void print(String heading, Movie[] movies)
     {
         System.out.println(heading);
-        for (Movie movie : movies) System.out.println("  " + movie);
+        for (Movie movie : movies)
+        {
+            System.out.println("  " + movie);
+        }
     }
 }

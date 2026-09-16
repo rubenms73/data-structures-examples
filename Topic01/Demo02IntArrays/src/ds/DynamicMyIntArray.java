@@ -51,7 +51,8 @@ public final class DynamicMyIntArray extends AbstractMyIntArray
 
     private void ensureCapacity()
     {
-        if (size < data.length) return;
+        if (size < data.length)
+            return;
         int newCapacity = data.length == 0 ? 1
                 : (int) Math.min(2L * data.length, Integer.MAX_VALUE);
         if (newCapacity <= data.length)

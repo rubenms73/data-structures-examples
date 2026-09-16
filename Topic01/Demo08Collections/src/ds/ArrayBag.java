@@ -43,7 +43,8 @@ public final class ArrayBag<E> extends AbstractCollection<E>
         @SuppressWarnings("unchecked")
         public E next()
         {
-            if (!hasNext()) throw new NoSuchElementException();
+            if (!hasNext())
+                throw new NoSuchElementException();
             // All entries came from Collection<? extends E>; data never changes.
             return (E) data[index++];
         }

@@ -12,7 +12,10 @@ public final class ShapeAlgorithms
     public static double totalArea(Collection<? extends Shape> shapes)
     {
         double total = 0;
-        for (Shape s : shapes) total += s.area();
+        for (Shape s : shapes)
+        {
+            total += s.area();
+        }
         return total;
     }
 }

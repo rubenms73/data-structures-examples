@@ -43,11 +43,13 @@ public final class Fibonacci implements Iterable<Long>
         @Override
         public Long next()
         {
-            if (!hasNext()) throw new NoSuchElementException();
+            if (!hasNext())
+                throw new NoSuchElementException();
             long current = a;
             a = b;
             // Do not compute an unneeded term beyond the requested prefix.
-            if (n > 2) b += current;
+            if (n > 2)
+                b += current;
             n--;
             return current;
         }

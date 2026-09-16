@@ -35,4 +35,12 @@ Comments identify small experiments that intentionally produce compilation error
 
 ## Source style
 
-All Java examples use **Allman style**: the opening brace of a class, method or control block is placed on the following line at the same indentation level. Array initializer braces remain inline because they delimit data rather than a code block.
+Apply these rules to all Java sources, including tests and future examples:
+
+- Use **Allman style**: opening and closing block braces go on separate lines at the same indentation level, with four spaces per indentation level and no tabs.
+- For `if` and `else`, omit braces when the branch contains a single statement. Put that statement on the next line, indented by four spaces.
+- Keep braces around branches containing multiple statements, and whenever removing them would change which `if` an `else` belongs to.
+- Keep braces around all loop bodies (`for`, enhanced `for`, `while` and `do`), including single-statement bodies.
+- Preserve each example's packages and behaviour, and compile with Java 17.
+
+Array initializer braces may remain inline because they delimit data rather than a code block.

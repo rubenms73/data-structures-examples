@@ -40,16 +40,19 @@ public final class Movie implements Comparable<Movie>
     public int compareTo(Movie other)
     {
         int result = Integer.compare(year, other.year);
-        if (result != 0) return result;
+        if (result != 0)
+            return result;
         result = title.compareTo(other.title);
-        if (result != 0) return result;
+        if (result != 0)
+            return result;
         return Double.compare(rating, other.rating);
     }
 
     @Override
     public boolean equals(Object other)
     {
-        if (!(other instanceof Movie)) return false;
+        if (!(other instanceof Movie))
+            return false;
         Movie movie = (Movie) other;
         return year == movie.year && title.equals(movie.title)
                 && Double.compare(rating, movie.rating) == 0;
