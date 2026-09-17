@@ -1,58 +1,66 @@
 package tests;
 
-import java.util.*;
-import java.math.BigInteger;
-import ds.*;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+import ds.FixedMyArray;
+import ds.MyArray;
 
 public final class ExampleChecks
 {
     private static int checks;
+
     public static void main(String[] args)
     {
-        ranges();
-        System.out.println("All " + checks + " checks passed.");
-    }
-
-    private static void ranges()
-    {
-        IntRange range = new IntRange(2, 5);
-        equal(Arrays.asList(2, 3, 4), collect(range));
-        Iterator<Integer> a = range.iterator();
-        Iterator<Integer> b = range.iterator();
-        equal(true, a.hasNext());
-        equal(true, a.hasNext());
-        equal(2, a.next()); equal(3, a.next()); equal(2, b.next()); equal(4, a.next());
-        equal(false, a.hasNext());
-        throwsType(NoSuchElementException.class, a::next);
-        throwsType(NoSuchElementException.class, a::next);
-        throwsType(UnsupportedOperationException.class, b::remove);
-        equal(Arrays.asList(), collect(new IntRange(4, 4)));
-        throwsType(NoSuchElementException.class, new IntRange(4, 4).iterator()::next);
-        throwsType(IllegalArgumentException.class, () -> new IntRange(5, 4));
-        equal(Arrays.asList(Integer.MAX_VALUE - 1), collect(new IntRange(Integer.MAX_VALUE - 1, Integer.MAX_VALUE)));
-        equal(Arrays.asList(-2, -1, 0), collect(new IntRange(-2, 1)));
-    }
-
-    private static <T> List<T> collect(Iterable<T> values)
-    {
-        List<T> result = new ArrayList<>();
-        for (T value : values)
+        MyArray<String> names = new FixedMyArray<>(new String[4]);
+        Iterator<String> empty = names.iterator();
+        equal(false, empty.hasNext());
+        throwsType(NoSuchElementException.class, empty::next);
+        names.add("Ana");
+        names.add("Ruben");
+        Iterator<String> first = names.iterator();
+        Iterator<String> second = names.iterator();
+        equal(true, first.hasNext());
+        equal(true, first.hasNext());
+        equal("Ana", first.next());
+        equal("Ruben", first.next());
+        equal("Ana", second.next());
+        equal(false, first.hasNext());
+        throwsType(NoSuchElementException.class, first::next);
+        throwsType(NoSuchElementException.class, first::next);
+        equal("Ruben", second.next());
+        equal(false, second.hasNext());
+        throwsType(UnsupportedOperationException.class, second::remove);
+        StringBuilder output = new StringBuilder();
+        for (String name : names)
         {
-            result.add(value);
+            output.append(name).append(";");
         }
-        return result;
+        equal("Ana;Ruben;", output.toString());
+        MyArray<Integer> scores = new FixedMyArray<>(new Integer[3]);
+        scores.add(8);
+        scores.add(10);
+        int sum = 0;
+        for (Integer score : scores)
+        {
+            sum += score;
+        }
+        equal(18, sum);
+        scores.add(null);
+        Iterator<Integer> withNull = scores.iterator();
+        equal(8, withNull.next());
+        equal(10, withNull.next());
+        equal(null, withNull.next());
+        equal(false, withNull.hasNext());
+        equal(3, scores.size());
+        System.out.println("All " + checks + " checks passed.");
     }
 
     private static void equal(Object expected, Object actual)
     {
-        check(Objects.equals(expected, actual), "Expected " + expected + ", got " + actual);
-    }
-
-    private static void check(boolean condition, String message)
-    {
         checks++;
-        if (!condition)
-            throw new AssertionError(message);
+        if (!Objects.equals(expected, actual))
+            throw new AssertionError("Expected " + expected + ", got " + actual);
     }
 
     private static void throwsType(Class<? extends Throwable> expected, Runnable action)
@@ -66,7 +74,7 @@ public final class ExampleChecks
         {
             if (expected.isInstance(actual))
                 return;
-            throw new AssertionError("Expected " + expected.getSimpleName() + ", got " + actual, actual);
+            throw new AssertionError("Unexpected exception", actual);
         }
         throw new AssertionError("Expected " + expected.getSimpleName());
     }

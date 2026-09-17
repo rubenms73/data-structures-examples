@@ -23,6 +23,21 @@ The supplier is tested through a direct `get()` call before the traversal. The p
 
 This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
 
+## Guided walkthrough
+
+1. Read the four interface variables in `Main`, identifying input and return types before evaluating the lambdas.
+2. Run each direct method call. The predicate is tested with both an even and an odd input; the supplier produces the value used by the function and consumer.
+3. Step into `FunctionalOperations.process`. For each array element, follow the predicate, then the transformation and action only when accepted.
+4. Inspect the second call: the same traversal now selects values greater than four and prints their squares.
+
+## What to observe and try
+
+The first combined traversal processes 2, 4 and 6. The second processes 5 and 6, producing squares 25 and 36. The function returns a value; the consumer performs a visible action and returns nothing. The supplier has no argument and is demonstrated separately.
+
+Change only the predicate to accept odd numbers, then only the transformation to label cubes. Try an empty array and a predicate that is always false. Explain why rejected elements must not reach the transformation.
+
+These examples use ordinary arrays, no streams and no list implementations. Reference-type parameters use `Integer`; the arithmetic expressions demonstrate boxing and unboxing. Avoid null array entries for the supplied arithmetic lambdas.
+
 ## Open and run
 
 Open **this `Demo10FunctionalOperations` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.

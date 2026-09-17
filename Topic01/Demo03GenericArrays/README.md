@@ -8,6 +8,24 @@ Storage is supplied by `FixedMyArray`, an implementation of the local `MyArray<E
 
 This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
 
+## Problem statement and prerequisites
+
+Generalize an array interface so one implementation works with strings and integers. Write a generic method that returns the first element with its correct static type. Prerequisites are the integer-array example, interfaces, arrays and basic type parameters.
+
+## Guided walkthrough
+
+1. Read `MyArray<E>` and identify where the element type is used.
+2. Read `FixedMyArray<E>`. The supplied typed array determines capacity; the constructor copies it and begins with logical size zero.
+3. Follow the two vectors in `Main`: `names` stores strings and `scores` stores integers.
+4. Inspect `GenericAlgorithms.first`. Its type parameter connects the input's element type with its return type.
+5. Compare the commented compilation errors with the deliberately invalid cast from `Object[]`, which fails only at execution.
+
+## What to observe and try
+
+Try adding an integer to `names` and assigning it to `MyArray<Object>`; restore each comment before continuing. Then test an empty vector, the last valid index and a full vector. Null elements are permitted and consume a slot.
+
+Use a storage array whose component type matches the chosen element type. The example uses fixed capacity and does not implement iteration yet. Demo07 builds on this exact design by adding an inner iterator class.
+
 ## Open and run
 
 Open **this `Demo03GenericArrays` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.

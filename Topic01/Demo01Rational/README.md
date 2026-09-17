@@ -6,6 +6,24 @@ Contract, interface, implementations, objects and references.
 
 This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
 
+## Problem statement and prerequisites
+
+Represent the same rational number with two different classes and write one client that works with either implementation through `Rational`. You should already know classes, constructors, interfaces, references and integer versus floating-point division.
+
+## Guided walkthrough
+
+1. Read `Rational.java`: its observer methods form the contract available to a client.
+2. Compare `RationalImp1` with `RationalImp2`. The second stores two integers in an array; this representation does not appear in the interface.
+3. Follow `Main.show`. Its parameter is a `Rational`, so the same code prints either representation.
+4. Trace the assignments to `a`, `b` and `r`. Only `r` and `a` refer to the same object.
+5. Observe how construction rejects a zero denominator before producing an invalid object.
+
+## What to observe and try
+
+Both representations print `3/4 = 0.75`. Equal numerical results do not imply identical references. Try `2/4` and `1/2`, then a negative numerator. Explain the difference between comparing references and comparing returned values.
+
+These classes do not reduce fractions, implement arithmetic or define value-based `equals`. The comparison of `value()` in this small example is not a general exact equality algorithm for rational numbers. Restore the original inputs before comparing against the documented output.
+
 ## Open and run
 
 Open **this `Demo01Rational` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.

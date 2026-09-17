@@ -6,6 +6,26 @@ A class implementing `Comparable`, plus rating and title comparators.
 
 This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
 
+## Problem statement and prerequisites
+
+Give a domain class its natural order and provide two alternative orders without changing that class. Prerequisites are objects, interfaces, arrays, `Comparable` and `Comparator`.
+
+## Guided walkthrough
+
+1. Read the fields and constructor of `Movie`. Titles and ratings in this example are fictional.
+2. Inspect `compareTo`: it compares year first, then uses title and rating to resolve ties.
+3. Inspect `RatingComparator` and `TitleComparator` to follow their comparison rules and tie-breakers.
+4. Follow the three sorts in `Main`. Every sort works on the same array.
+5. Compare `equals` and `hashCode` with the natural-order definition.
+
+## What to observe and try
+
+Natural order begins with the oldest movies. Rating order puts the highest ratings first; title order follows titles. Trace the two movies with rating 8.6 to understand why an explicit tie-breaker matters.
+
+Add two films from the same year, then two entries with the same title but different ratings. Predict the result under each comparator. Test a rating outside the accepted range and explain the constructor's rejection.
+
+Natural ordering is part of the class's design; an external comparator lets a particular client choose another ordering. This program requires no list or set implementations.
+
 ## Open and run
 
 Open **this `Demo05Movies` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.

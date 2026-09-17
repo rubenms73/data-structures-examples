@@ -6,6 +6,25 @@ Named class, anonymous class and lambda.
 
 This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
 
+## Problem statement and prerequisites
+
+Express the same string-length comparator in three ways: a named class, an anonymous class and a lambda. Use the same client method with all three. Prerequisites are the string-sorting example, interfaces and the introduction to anonymous classes and lambdas.
+
+## Guided walkthrough
+
+1. Read `LengthComparator`, then instantiate it as `named`.
+2. Compare that class with the anonymous implementation assigned to `anonymous`.
+3. Identify the parameters and returned expression in `lambda`.
+4. Follow `show`: its parameter is a `Comparator<String>`, independently of how the object was created.
+
+## What to observe and try
+
+All three print `[fig, pear, banana]`. Each call creates a fresh array, so every implementation receives the same starting input.
+
+Change all three rules to longest-first and compare the results. Then change just one rule to see why syntactic alternatives are equivalent only when they implement the same operation. Add an equal-length string and explain a zero comparison.
+
+A lambda needs a target functional-interface type. Its concise syntax does not remove the comparison contract or turn it into an arbitrary untyped function.
+
 ## Open and run
 
 Open **this `Demo09FunctionalComparators` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.

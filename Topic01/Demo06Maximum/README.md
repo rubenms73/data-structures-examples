@@ -6,6 +6,25 @@ One algorithm with two comparison rules.
 
 This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
 
+## Problem statement and prerequisites
+
+Write one generic algorithm that selects a maximum using a supplied comparator. Use it to find the alphabetically greatest string and the longest string. Prerequisites are generic methods, arrays, loops and comparators; the client also uses simple lambdas.
+
+## Guided walkthrough
+
+1. Read the signature and preconditions of `Maximum.max`.
+2. Trace the initial candidate and each comparison with the remaining values.
+3. Compare the two calls in `Main`. The array stays the same while the comparison rule changes.
+4. Follow the empty-array call and the exception handler.
+
+## What to observe and try
+
+For `pear, banana, fig`, alphabetical maximum is `pear` and longest is `banana`. The algorithm selects an element without sorting or modifying the array.
+
+Try one element and two equally long strings. Check which tied value is retained by the strict comparison. Reverse the comparator and explain why the same method then selects a minimum under the original ordering.
+
+The array, comparator and compared elements must satisfy the method's contract. An empty array has no maximum and is rejected explicitly. The traversal is linear in the number of elements when one comparator call has constant cost.
+
 ## Open and run
 
 Open **this `Demo06Maximum` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.

@@ -6,6 +6,25 @@ Counted additions in an array traversal and constant-time direct array access.
 
 This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
 
+## Problem statement and prerequisites
+
+Count the work performed by summing an array and compare that traversal with accessing a middle element directly. Prerequisites are arrays, integer arithmetic, loops and the meaning of input size.
+
+## Guided walkthrough
+
+1. Follow the creation of arrays of lengths 4, 8 and 16.
+2. In `CostAlgorithms.sumAndCount`, distinguish the accumulated sum from the number of additions.
+3. Observe that each visited element causes one counted addition.
+4. Inspect `middle`: it computes one index and performs one array access.
+
+## What to observe and try
+
+With all entries equal to one, the sum and addition count both equal the length, but they represent different quantities. Change the entries to two: the sum doubles while the addition count stays unchanged.
+
+Try lengths 0, 1 and an even length. The sum loop accepts an empty array; `middle` requires a nonempty array. For an even length, integer division selects index `length / 2`.
+
+The printed costs concern these operations under the usual array-access model. They are not timing measurements, and initialization and console output are not included in the counted additions. A full traversal is linear; a single direct access is constant-time.
+
 ## Open and run
 
 Open **this `Demo08Costs` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.

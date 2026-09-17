@@ -6,6 +6,26 @@ An iterator that computes a sequence.
 
 This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
 
+## Problem statement and prerequisites
+
+Expose a finite prefix of the Fibonacci sequence through `Iterable<Long>`, computing terms as requested instead of storing them in an array. Prerequisites are the vector-iterator example, inner classes and basic recurrence relations.
+
+## Guided walkthrough
+
+1. Inspect `Fibonacci`: the outer object stores how many terms are requested.
+2. Follow `iterator()`, which creates a private inner `FibIterator`.
+3. Inspect the iterator's remaining-count and two numeric state fields.
+4. Trace one `next` call: preserve the returned term, update the state and decrease the remaining count.
+5. Compare two iterators created from the same sequence; each starts independently at zero.
+
+## What to observe and try
+
+The default ten terms are `0 1 1 2 3 5 8 13 21 34`. In Demo07 the iterator reads stored values; here it computes them. Both clients use the same traversal protocol.
+
+Try prefixes of lengths 0, 1 and 2, then request one more element after exhaustion. Explain why `hasNext` must not generate or consume a term. Trace the boundary guard that avoids computing an unnecessary overflowing value.
+
+The constructor accepts 0 through 93 terms, corresponding up to F92 in a signed `long`. Length 94 is rejected. Each iterator stores only a constant amount of numeric state; the sequence object does not cache all terms.
+
 ## Open and run
 
 Open **this `Demo12Fibonacci` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.

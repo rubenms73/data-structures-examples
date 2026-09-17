@@ -8,6 +8,24 @@ This example uses the local `MyArray<E>` interface and `FixedMyArray<E>` impleme
 
 This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
 
+## Problem statement and prerequisites
+
+Use the generic vector from Demo03 to demonstrate unknown, upper-bounded and lower-bounded element types. Reuse a comparator for shapes when selecting a rectangle. Prerequisites are generics, inheritance, the local `MyArray` contract and comparators.
+
+## Guided walkthrough
+
+1. Compare `printCount(MyArray<?>)` with a method restricted to `MyArray<Object>`. The former accepts vectors of strings or rectangles.
+2. Read a rectangle through a `MyArray<? extends Shape>` view. The result can be used as a `Shape`, but the unknown actual type prevents arbitrary shape insertions.
+3. Trace `ShapeAlgorithms.totalArea` with rectangles and squares.
+4. Follow `FlexibleMaximum.max`: a `Comparator<Shape>` can compare rectangles, while the result remains statically a `Rectangle`.
+5. Inspect `addRectangle(MyArray<? super Rectangle>)`. It can add rectangles and squares to suitable destinations, but reads only as `Object`.
+
+## What to observe and try
+
+Uncomment each invalid assignment or call separately, predict the compiler error, then restore it. Explain why a circle cannot be added through the lower-bounded rectangle view and why a vector of rectangles is not a vector of shapes.
+
+The wildcard changes what a reference permits, not the runtime object or its contents. An upper-bounded view is not an immutable copy. Both destinations must have room for the two additions. Supporting vector classes are included locally so Java Collections are not prerequisites.
+
 ## Open and run
 
 Open **this `Demo11Wildcards` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.

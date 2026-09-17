@@ -6,6 +6,24 @@ Abstract class, fixed and dynamic storage, one client algorithm.
 
 This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
 
+## Problem statement and prerequisites
+
+Implement one integer-array contract using fixed storage and dynamically growing storage. Reuse the same client algorithms with both. Start after interfaces, abstract classes, inheritance, arrays and indexed loops.
+
+## Guided walkthrough
+
+1. Read `MyIntArray` to identify the operations clients can use.
+2. Inspect `AbstractMyIntArray`: shared behaviour such as `contains` is expressed through the interface operations.
+3. Compare the storage and `add` implementations of `FixedMyIntArray` and `DynamicMyIntArray`.
+4. Follow `Main.fill` and `Main.show`. Neither needs to know how the argument stores its integers.
+5. Step through adding a fourth element to arrays initially sized for three. The fixed implementation rejects it; the dynamic one grows.
+
+## What to observe and try
+
+Distinguish logical size from storage capacity. Replacing an existing element with `set` does not change size. A failed fixed-array insertion leaves the previous values intact.
+
+Try a zero-capacity dynamic array, an invalid index and a negative capacity. Predict each result before running. Uncomment the abstract-class instantiation and private-field access separately to explain the compiler errors. Dynamic growth is an implementation choice; it does not change the client contract.
+
 ## Open and run
 
 Open **this `Demo02IntArrays` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.

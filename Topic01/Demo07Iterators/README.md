@@ -1,10 +1,37 @@
 # 07 Iterators
 
-`IntRange`, independent positions and exhaustion.
+Iteration over the generic vector from Demo03, independent positions and exhaustion.
 
 **Slides:** 43–48 (printed slide numbers).
 
 This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
+
+## Problem statement and prerequisites
+
+Start from Demo03's generic vector and make it iterable. Extend `MyArray<E>` with `Iterable<E>`, and implement `iterator()` in `FixedMyArray<E>`. The iterator must be a **private inner class**, just like the inner iterator in the Fibonacci example.
+
+Prerequisites are the generic-array example, interfaces, inner classes and the `Iterable`/`Iterator` contracts.
+
+## What changes from Demo03
+
+The storage, capacity, `add`, `get` and `set` operations keep the same design. `MyArray<E>` now extends `Iterable<E>`. Each call to `FixedMyArray.iterator()` creates a new `ArrayIterator`, whose own `current` field starts at zero. As a non-static inner class, it can access its enclosing vector's private `data` and `size`.
+
+The example includes its own copies of these files; it does not import another project.
+
+## Guided walkthrough
+
+1. Follow construction of `names` with `Ana` and `Ruben`, as in Demo03.
+2. Create two iterators and inspect their separate cursors.
+3. Call `hasNext` twice: it reports availability without advancing.
+4. Follow `next`: check availability, return the current element and advance.
+5. Exhaust the first iterator. A further `next` throws `NoSuchElementException`; the second iterator still has its own position.
+6. Run the enhanced `for` loop. It obtains a fresh iterator automatically. Repeat with integers and compute their sum.
+
+## What to observe and try
+
+Draw the vector once, with two iterator objects pointing to it. Their positions belong to the iterators, not to the vector. The traversal stops at logical size, not capacity.
+
+Try an empty vector and a vector containing a null element. Null is a valid stored value and is not an end marker. Iterator `remove` is unsupported. For this introductory implementation, do not modify the vector during an active traversal; concurrent-modification detection is introduced only in the closing bags example.
 
 ## Open and run
 
@@ -32,7 +59,8 @@ java -cp bin app.Main
 
 The classes in `ds` are:
 
-- [IntRange.java](src/ds/IntRange.java)
+- [MyArray.java](src/ds/MyArray.java)
+- [FixedMyArray.java](src/ds/FixedMyArray.java)
 
 Each example owns its sources and compiled output. Open examples as separate projects: combining their source folders would mix repeated names such as `app.Main` and `ds.Movie`.
 
@@ -41,13 +69,13 @@ Each example owns its sources and compiled output. Open examples as separate pro
 ```text
 hasNext(): true
 hasNext() again: true
-first.next(): 2
-first.next(): 3
-second.next(): 2
-first.next(): 4
+first.next(): Ana
+first.next(): Ruben
+second.next(): Ana
 first.hasNext(): false
 Next after the end: NoSuchElementException
-A fresh enhanced for loop: 2 3 4
+A fresh enhanced for loop: Ana Ruben
+Integer vector sum: 18
 ```
 
 Commented compilation errors are intentional exercises. Restore each comment before continuing.

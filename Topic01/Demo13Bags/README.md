@@ -22,6 +22,23 @@ Use this example **at the end of Topic 1**, after explaining generic interfaces,
 - `SortedMutableBag` extends `MutableBag`. It computes the insertion position before mutation, including comparison validation for the first element. Without a comparator, elements must be mutually comparable. Comparators must obey their usual ordering contract and must not mutate the bag. Do not change an element's ordering fields while it is stored. Comparator equivalence does not define bag equality: `equals` does.
 - All three reject null elements. Mutating bulk operations on mutable bags may complete partially if a later element fails; the exception guarantee above concerns one `add` operation.
 
+## Guided walkthrough
+
+1. Start in `Main` with the immutable integer bag. Compare `original` and the result of `withAdded` before considering collection inheritance.
+2. Follow the mutable copy's `add` and `remove`. Its object identity stays the same while its contents change.
+3. Inspect `AbstractBag.occurrences`, then `equals` and `hashCode`. Work through the two nested bags with identical multiplicities but different order.
+4. Read `MutableBag.BagIterator.remove`. After shifting entries left, the next unread entry occupies the removed index. That is why the cursor must move back and the last slot must be cleared.
+5. Read `SortedMutableBag.add`. Comparisons finish before the backing storage is modified; only then is space made at the insertion position.
+6. Finish with the text client. Its collection operations reuse the same contracts with strings.
+
+## What to observe and try
+
+Remove consecutive equal elements through an iterator, then test `clear`, `removeAll` and `retainAll`. Repeat with a reverse-order comparator. Supply a comparator that throws and check that the failed single insertion leaves size and contents unchanged.
+
+Create an immutable bag containing a `StringBuilder`, then change the builder. Explain why the bag's structure is still fixed although the element's visible value changes. Contrast this with modifying the array originally passed to the constructor, which must not change the bag.
+
+For equality, try bags with the same size but different repetition counts. Distinguish the multiset contract from positional list equality and from comparator equivalence. The tests deliberately check these distinctions rather than just the happy-path output.
+
 ## Open and run
 
 Open this example folder in VS Code using JDK 17 or newer and the Extension Pack for Java. Run `src/app/Main.java`. The local `text.txt` is used by default; an optional command-line argument selects another UTF-8 file.

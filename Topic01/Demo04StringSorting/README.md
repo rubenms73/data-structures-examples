@@ -6,6 +6,25 @@ Natural order, external order and `Arrays.sort`.
 
 This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
 
+## Problem statement and prerequisites
+
+Sort the same array of strings by natural order and by length. Prerequisites are arrays, interfaces, method calls and the role of a comparison result.
+
+## Guided walkthrough
+
+1. Run the direct call to `String.compareTo`. Its sign indicates order; comparison methods need not return exactly -1 or 1.
+2. Follow `Arrays.sort(words)`, which uses the strings' natural order.
+3. Read `LengthComparator.compare`, which compares integer lengths.
+4. Follow `Arrays.sort(words, byLength)`, which receives an external comparison rule.
+
+## What to observe and try
+
+The original sequence is `pear, banana, fig`. Natural order gives `banana, fig, pear`; length order gives `fig, pear, banana`. Both calls rearrange the supplied array.
+
+Add `plum` to create a length tie. Explain why two different strings can compare as zero under a length comparator without being equal strings. Reverse the comparison arguments to sort longest first. Uncomment the comparison with `<` to see why Java does not use that operator to order strings.
+
+The focus is the comparison contract and the choice of ordering, not the internal sorting algorithm. Natural string order is not a locale-sensitive dictionary ordering.
+
 ## Open and run
 
 Open **this `Demo04StringSorting` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.

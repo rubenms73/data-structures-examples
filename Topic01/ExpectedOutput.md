@@ -76,13 +76,13 @@ Rejected: Empty array
 ```text
 hasNext(): true
 hasNext() again: true
-first.next(): 2
-first.next(): 3
-second.next(): 2
-first.next(): 4
+first.next(): Ana
+first.next(): Ruben
+second.next(): Ana
 first.hasNext(): false
 Next after the end: NoSuchElementException
-A fresh enhanced for loop: 2 3 4
+A fresh enhanced for loop: Ana Ruben
+Integer vector sum: 18
 ```
 
 ## Demo08Costs

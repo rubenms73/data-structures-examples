@@ -36,6 +36,8 @@ Comments identify small experiments that intentionally produce compilation error
 
 ## Source style
 
+Each example's README includes its problem statement, prerequisites, a guided code walkthrough, observations and experiments, execution instructions and expected output. Keep these explanations aligned with the implementation when adding or changing examples. Demo07 extends Demo03's generic vector with a private inner iterator; Demo12 uses the same inner-class pattern for a computed sequence. Demo13 is the closing example after the collection and iterator contracts have been introduced.
+
 Apply these rules to all Java sources, including tests and future examples:
 
 - Use **Allman style**: opening and closing block braces go on separate lines at the same indentation level, with four spaces per indentation level and no tabs.

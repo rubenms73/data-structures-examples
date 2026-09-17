@@ -48,7 +48,7 @@ Slide numbers refer to the **number printed on the slide**, not the PDF page. Th
 | [04 String sorting](Demo04StringSorting/README.md) | Natural order, external order and `Arrays.sort` | 32–37 |
 | [05 Movies](Demo05Movies/README.md) | A class implementing `Comparable`, plus rating and title comparators | 33–40; additional example |
 | [06 Maximum](Demo06Maximum/README.md) | One algorithm with two comparison rules | 38–39 |
-| [07 Iterators](Demo07Iterators/README.md) | `IntRange`, independent positions and exhaustion | 43–48 |
+| [07 Iterators](Demo07Iterators/README.md) | Generic vector, private inner iterator, independent positions and exhaustion | 43–48 |
 | [08 Costs](Demo08Costs/README.md) | Counted additions versus direct array access | 53–55 |
 | [09 Functional comparators](Demo09FunctionalComparators/README.md) | Named class, anonymous class and lambda | A25–A29 |
 | [10 Functional operations](Demo10FunctionalOperations/README.md) | `Predicate`, `Function`, `Consumer` and `Supplier` | A30; A42–A44 |

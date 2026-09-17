@@ -2,21 +2,25 @@ package app;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import ds.IntRange;
+import ds.FixedMyArray;
+import ds.MyArray;
 
 public final class Main
 {
     public static void main(String[] args)
     {
-        IntRange range = new IntRange(2, 5);
-        Iterator<Integer> first = range.iterator();
-        Iterator<Integer> second = range.iterator();
+        // Start with the same generic vector used in Demo03.
+        MyArray<String> names = new FixedMyArray<>(new String[4]);
+        names.add("Ana");
+        names.add("Ruben");
+
+        Iterator<String> first = names.iterator();
+        Iterator<String> second = names.iterator();
         System.out.println("hasNext(): " + first.hasNext());
         System.out.println("hasNext() again: " + first.hasNext());
         System.out.println("first.next(): " + first.next());
         System.out.println("first.next(): " + first.next());
         System.out.println("second.next(): " + second.next());
-        System.out.println("first.next(): " + first.next());
         System.out.println("first.hasNext(): " + first.hasNext());
         try
         {
@@ -26,11 +30,22 @@ public final class Main
         {
             System.out.println("Next after the end: " + e.getClass().getSimpleName());
         }
+
         System.out.print("A fresh enhanced for loop:");
-        for (int value : range)
+        for (String name : names)
         {
-            System.out.print(" " + value);
+            System.out.print(" " + name);
         }
         System.out.println();
+
+        MyArray<Integer> scores = new FixedMyArray<>(new Integer[4]);
+        scores.add(8);
+        scores.add(10);
+        int sum = 0;
+        for (int score : scores)
+        {
+            sum += score;
+        }
+        System.out.println("Integer vector sum: " + sum);
     }
 }
