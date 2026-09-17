@@ -11,7 +11,7 @@ import java.util.Objects;
 public class MutableBag<E> extends AbstractBag<E>
 {
     private static final int MIN_CAPACITY = 10;
-    protected Object[] data;
+    protected E[] data;
     protected int numItems;
     private int modificationCount;
 
@@ -20,11 +20,13 @@ public class MutableBag<E> extends AbstractBag<E>
         this(MIN_CAPACITY);
     }
 
+    @SuppressWarnings("unchecked")
     public MutableBag(int capacity)
     {
         if (capacity < 0)
             throw new IllegalArgumentException("Negative capacity");
-        data = new Object[Math.max(capacity, MIN_CAPACITY)];
+        // Java cannot create new E[]; keep the unchecked cast at allocation.
+        data = (E[]) new Object[Math.max(capacity, MIN_CAPACITY)];
     }
 
     public MutableBag(Collection<? extends E> source)
@@ -43,10 +45,9 @@ public class MutableBag<E> extends AbstractBag<E>
         return numItems;
     }
 
-    @SuppressWarnings("unchecked")
     protected final E elementAt(int index)
     {
-        return (E) data[index];
+        return data[index];
     }
 
     private void append(E item)
