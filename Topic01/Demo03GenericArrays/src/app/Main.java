@@ -8,10 +8,10 @@ public final class Main
 {
     public static void main(String[] args)
     {
-        MyArray<String> names = new FixedMyArray<>(new String[4]);
+        MyArray<String> names = new FixedMyArray<>(4);
         names.add("Ana");
         names.add("Ruben");
-        MyArray<Integer> scores = new FixedMyArray<>(new Integer[4]);
+        MyArray<Integer> scores = new FixedMyArray<>(4);
         scores.add(8);
         scores.add(10);
 

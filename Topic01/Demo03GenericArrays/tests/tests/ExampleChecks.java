@@ -15,7 +15,7 @@ public final class ExampleChecks
 
     private static void generics()
     {
-        MyArray<String> names = new FixedMyArray<>(new String[4]);
+        MyArray<String> names = new FixedMyArray<>(4);
         throwsType(IllegalArgumentException.class, () -> GenericAlgorithms.first(names));
         equal(true, names.add("Ana"));
         equal("Ana", GenericAlgorithms.first(names));
@@ -26,7 +26,7 @@ public final class ExampleChecks
         equal(null, names.get(1));
         throwsType(IndexOutOfBoundsException.class, () -> names.get(2));
         throwsType(IndexOutOfBoundsException.class, () -> names.set(-1, "x"));
-        MyArray<Integer> scores = new FixedMyArray<>(new Integer[4]);
+        MyArray<Integer> scores = new FixedMyArray<>(4);
         scores.add(8);
         Integer first = GenericAlgorithms.first(scores);
         equal(8, first);
@@ -39,7 +39,13 @@ public final class ExampleChecks
         throwsType(IllegalStateException.class, () -> fixed.add("overflow"));
         equal(1, fixed.size());
         equal("kept", fixed.get(0));
-        MyArray<String> empty = new FixedMyArray<>(new String[0]);
+        MyArray<String> bounded = new FixedMyArray<>(1);
+        equal(0, bounded.size());
+        bounded.add("only");
+        throwsType(IllegalStateException.class, () -> bounded.add("overflow"));
+        equal("only", bounded.get(0));
+        throwsType(NegativeArraySizeException.class, () -> new FixedMyArray<String>(-1));
+        MyArray<String> empty = new FixedMyArray<>(0);
         equal(0, empty.size());
         throwsType(IllegalStateException.class, () -> empty.add("overflow"));
         throwsType(IndexOutOfBoundsException.class, () -> empty.get(0));
