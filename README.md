@@ -2,7 +2,7 @@
 
 University of Oviedo · Rubén Muñiz Sánchez
 
-Runnable Java examples accompanying the course. Start with [Topic 1](Topic01/README.md): twelve demonstrations of data abstraction, generic programming, comparison, iteration and functional interfaces.
+Runnable Java examples accompanying the course. Start with [Topic 1](Topic01/README.md): thirteen demonstrations of data abstraction, generic programming, comparison, iteration and functional interfaces.
 
 ## Run an example
 
@@ -17,18 +17,19 @@ On macOS or Linux, from the `Topic01` folder:
 
 ```sh
 bash run.sh Demo05Movies
-bash run.sh Demo10FunctionalComparators
-bash run.sh Demo12Wildcards
+bash run.sh Demo09FunctionalComparators
+bash run.sh Demo11Wildcards
 bash run.sh test
 ```
 
 ## Explore Topic 1
 
-- [All twelve Topic 1 examples and their slide references](Topic01/README.md).
+- [All thirteen Topic 1 examples and their slide references](Topic01/README.md).
 - [Movies: Comparable and Comparator](Topic01/Demo05Movies/README.md).
-- [Named class, anonymous class and lambda](Topic01/Demo10FunctionalComparators/README.md).
-- [Predicate, Function, Consumer and Supplier](Topic01/Demo11FunctionalOperations/README.md).
-- [Wildcards with Shape and Rectangle](Topic01/Demo12Wildcards/README.md).
+- [Named class, anonymous class and lambda](Topic01/Demo09FunctionalComparators/README.md).
+- [Predicate, Function, Consumer and Supplier](Topic01/Demo10FunctionalOperations/README.md).
+- [Wildcards with Shape and Rectangle](Topic01/Demo11Wildcards/README.md).
+- [Closing example: immutable and mutable bags](Topic01/Demo13Bags/README.md).
 - [Expected console output](Topic01/ExpectedOutput.md).
 
 Comments identify small experiments that intentionally produce compilation errors. Uncomment one at a time, inspect the error, and restore the comment before continuing.

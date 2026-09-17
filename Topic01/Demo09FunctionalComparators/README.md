@@ -1,4 +1,4 @@
-# 10 Functional comparators
+# 09 Functional comparators
 
 Named class, anonymous class and lambda.
 
@@ -8,7 +8,7 @@ This folder is a complete Java project. You can copy it anywhere and run it with
 
 ## Open and run
 
-Open **this `Demo10FunctionalComparators` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.
+Open **this `Demo09FunctionalComparators` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.
 
 On macOS or Linux, from this folder:
 

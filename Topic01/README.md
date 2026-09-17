@@ -2,7 +2,7 @@
 
 Data Structures · University of Oviedo
 
-Twelve self-contained Java projects accompany the Topic 1 presentation. Each folder contains its own `ds` package and an `app.Main` test program. Examples share no source folders, compiled classes or external libraries.
+Thirteen self-contained Java projects accompany the Topic 1 presentation. Each folder contains its own `ds` package and an `app.Main` test program. Examples share no source folders, compiled classes or external libraries.
 
 ## Open one example
 
@@ -34,9 +34,9 @@ Do not combine all `src` folders into one Java project: names such as `app.Main`
 
 ## Demonstrations
 
-The teaching programs use ordinary arrays and the local `MyArray` interface rather than Java collection implementations. `Demo08Collections` has been [reserved for later](../DeferredExamples/README.md); the other demo numbers stay unchanged so existing links remain valid. Start with the basic interface and array examples, then comparison and iteration. The functional-interface and wildcard examples correspond to the appendix and should follow their theory explanations.
+Examples 01–12 use ordinary arrays and the local `MyArray` interface rather than Java collection implementations. The earlier list/set `Collections` demo remains [reserved for later](../DeferredExamples/README.md). Example 13 is a closing exercise using `Collection` and `AbstractCollection`, after those interfaces and iterator operations have been explained. The examples are numbered consecutively from 01 to 13. Start with the basic interface and array examples, then comparison and iteration. The functional-interface and wildcard examples correspond to the appendix and should follow their theory explanations.
 
-For a step-by-step test of `Predicate`, `Supplier`, `Consumer` and `Function`, see [Demo11FunctionalOperations](Demo11FunctionalOperations/README.md). Its README includes the problem statement, each interface's operation and the expected output.
+For a step-by-step test of `Predicate`, `Supplier`, `Consumer` and `Function`, see [Demo10FunctionalOperations](Demo10FunctionalOperations/README.md). Its README includes the problem statement, each interface's operation and the expected output.
 
 Slide numbers refer to the **number printed on the slide**, not the PDF page. The presentation has 59 main slides and an appendix numbered A1–A52.
 
@@ -49,11 +49,12 @@ Slide numbers refer to the **number printed on the slide**, not the PDF page. Th
 | [05 Movies](Demo05Movies/README.md) | A class implementing `Comparable`, plus rating and title comparators | 33–40; additional example |
 | [06 Maximum](Demo06Maximum/README.md) | One algorithm with two comparison rules | 38–39 |
 | [07 Iterators](Demo07Iterators/README.md) | `IntRange`, independent positions and exhaustion | 43–48 |
-| [09 Costs](Demo09Costs/README.md) | Counted additions versus direct array access | 53–55 |
-| [10 Functional comparators](Demo10FunctionalComparators/README.md) | Named class, anonymous class and lambda | A25–A29 |
-| [11 Functional operations](Demo11FunctionalOperations/README.md) | `Predicate`, `Function`, `Consumer` and `Supplier` | A30; A42–A44 |
-| [12 Wildcards](Demo12Wildcards/README.md) | `?`, `? extends Shape`, `? super Rectangle`, comparator reuse | A31–A36 |
-| [13 Fibonacci](Demo13Fibonacci/README.md) | An iterator that computes a sequence | A39–A41 |
+| [08 Costs](Demo08Costs/README.md) | Counted additions versus direct array access | 53–55 |
+| [09 Functional comparators](Demo09FunctionalComparators/README.md) | Named class, anonymous class and lambda | A25–A29 |
+| [10 Functional operations](Demo10FunctionalOperations/README.md) | `Predicate`, `Function`, `Consumer` and `Supplier` | A30; A42–A44 |
+| [11 Wildcards](Demo11Wildcards/README.md) | `?`, `? extends Shape`, `? super Rectangle`, comparator reuse | A31–A36 |
+| [12 Fibonacci](Demo12Fibonacci/README.md) | An iterator that computes a sequence | A39–A41 |
+| [13 Bags](Demo13Bags/README.md) | Immutable and mutable objects, bag equality, iterator removal and sorted storage | Closing exercise after Collection and AbstractCollection |
 
 [ExpectedOutput.md](ExpectedOutput.md) contains the complete output of all demonstrations.
 

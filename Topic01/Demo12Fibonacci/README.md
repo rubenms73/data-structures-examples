@@ -1,14 +1,14 @@
-# 09 Costs
+# 12 Fibonacci
 
-Counted additions in an array traversal and constant-time direct array access.
+An iterator that computes a sequence.
 
-**Slides:** 53–55 (printed slide numbers).
+**Slides:** A39–A41 (printed slide numbers).
 
 This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
 
 ## Open and run
 
-Open **this `Demo09Costs` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.
+Open **this `Demo12Fibonacci` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.
 
 On macOS or Linux, from this folder:
 
@@ -32,18 +32,17 @@ java -cp bin app.Main
 
 The classes in `ds` are:
 
-- [CostAlgorithms.java](src/ds/CostAlgorithms.java)
+- [Fibonacci.java](src/ds/Fibonacci.java)
 
 Each example owns its sources and compiled output. Open examples as separate projects: combining their source folders would mix repeated names such as `app.Main` and `ds.Movie`.
 
 ## Expected output
 
 ```text
-n = 4: sum = 4, additions = 4
-n = 8: sum = 8, additions = 8
-n = 16: sum = 16, additions = 16
-Array middle: C
-Array middle: direct access, O(1).
+First ten terms: 0 1 1 2 3 5 8 13 21 34
+Iterator a: 0, 1
+Iterator b starts at: 0
+Rejected: Expected 0 to 93 terms
 ```
 
 Commented compilation errors are intentional exercises. Restore each comment before continuing.

@@ -1,4 +1,4 @@
-# 11 Functional operations
+# 10 Functional operations
 
 `Predicate`, `Function`, `Consumer` and `Supplier`.
 
@@ -19,13 +19,13 @@ Use lambdas to supply the implementations. With the ordinary array `{1, 2, 3, 4,
 
 The supplier is tested through a direct `get()` call before the traversal. The program uses no lists, sets, streams or collection implementations. Prerequisites are interfaces, type parameters, arrays, loops and lambda expressions. Read `src/app/Main.java` first, then follow the calls into `src/ds/FunctionalOperations.java`.
 
-`Comparable` and `Comparator`, also discussed in the presentation, are exercised in [Movies](../Demo05Movies/README.md) and [Functional comparators](../Demo10FunctionalComparators/README.md).
+`Comparable` and `Comparator`, also discussed in the presentation, are exercised in [Movies](../Demo05Movies/README.md) and [Functional comparators](../Demo09FunctionalComparators/README.md).
 
 This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
 
 ## Open and run
 
-Open **this `Demo11FunctionalOperations` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.
+Open **this `Demo10FunctionalOperations` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.
 
 On macOS or Linux, from this folder:
 

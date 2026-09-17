@@ -85,7 +85,7 @@ Next after the end: NoSuchElementException
 A fresh enhanced for loop: 2 3 4
 ```
 
-## Demo09Costs
+## Demo08Costs
 
 ```text
 n = 4: sum = 4, additions = 4
@@ -95,7 +95,7 @@ Array middle: C
 Array middle: direct access, O(1).
 ```
 
-## Demo10FunctionalComparators
+## Demo09FunctionalComparators
 
 ```text
 Named class: [fig, pear, banana]
@@ -103,7 +103,7 @@ Anonymous class: [fig, pear, banana]
 Lambda: [fig, pear, banana]
 ```
 
-## Demo11FunctionalOperations
+## Demo10FunctionalOperations
 
 ```text
 Predicate.test(4): true
@@ -120,7 +120,7 @@ Consumer.accept: Square 25
 Consumer.accept: Square 36
 ```
 
-## Demo12Wildcards
+## Demo11Wildcards
 
 ```text
 Count: 2
@@ -136,11 +136,26 @@ Destination sizes: 2, 3
 First Object destination element: Existing text
 ```
 
-## Demo13Fibonacci
+## Demo12Fibonacci
 
 ```text
 First ten terms: 0 1 1 2 3 5 8 13 21 34
 Iterator a: 0, 1
 Iterator b starts at: 0
 Rejected: Expected 0 to 93 terms
+```
+
+## Demo13Bags
+
+```text
+Immutable original: [2, -3, 2, 18]
+New immutable bag: [2, -3, 2, 18, 7]
+Without one 2: [-3, 2, 18]
+Mutable after add and remove: [-3, 2, 18, 7]
+Equal bags (same multiplicities): 2
+Sorted: [-3, 2, 2, 18]
+Same bag despite order: true
+Words: 322
+Occurrences of the: 15
+Occurrences of for: 1
 ```
