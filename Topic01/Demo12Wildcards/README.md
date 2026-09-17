@@ -1,5 +1,7 @@
 # 12 Wildcards
 
+This example uses the local `MyArray<E>` interface and `FixedMyArray<E>` implementation from the generic-arrays example, included here so the project remains self-contained. It demonstrates `MyArray<?>`, `MyArray<? extends Shape>` and `MyArray<? super Rectangle>` without requiring Java Collections. The same wildcard rules apply later to collection interfaces.
+
 `?`, `? extends Shape`, `? super Rectangle`, comparator reuse.
 
 **Slides:** A31–A36 (printed slide numbers).
@@ -31,6 +33,9 @@ java -cp bin app.Main
 - `tests/tests/ExampleChecks.java`: automated checks, separate from the teaching program.
 
 The classes in `ds` are:
+
+- [MyArray.java](src/ds/MyArray.java)
+- [FixedMyArray.java](src/ds/FixedMyArray.java)
 
 - [Circle.java](src/ds/Circle.java)
 - [FlexibleMaximum.java](src/ds/FlexibleMaximum.java)

@@ -5,7 +5,6 @@ Demo04StringSorting
 Demo05Movies
 Demo06Maximum
 Demo07Iterators
-Demo08Collections
 Demo09Costs
 Demo10FunctionalComparators
 Demo11FunctionalOperations

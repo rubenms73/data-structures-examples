@@ -4,6 +4,8 @@ Type parameters, generic methods and compile-time checks.
 
 **Slides:** 27–31 (printed slide numbers).
 
+Storage is supplied by `FixedMyArray`, an implementation of the local `MyArray<E>` interface using an ordinary array. The constructor takes an array of the intended element type to determine capacity, copies it, and starts with size zero. For example, `new FixedMyArray<>(new String[4])` can hold four strings. Adding to a full array throws `IllegalStateException`. This example requires no knowledge of `List` or `ArrayList`.
+
 This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
 
 ## Open and run
@@ -32,7 +34,7 @@ java -cp bin app.Main
 
 The classes in `ds` are:
 
-- [ArrayListMyArray.java](src/ds/ArrayListMyArray.java)
+- [FixedMyArray.java](src/ds/FixedMyArray.java)
 - [GenericAlgorithms.java](src/ds/GenericAlgorithms.java)
 - [MyArray.java](src/ds/MyArray.java)
 

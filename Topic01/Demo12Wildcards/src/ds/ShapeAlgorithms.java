@@ -1,20 +1,18 @@
 package ds;
 
-import java.util.Collection;
-
 public final class ShapeAlgorithms
 {
     private ShapeAlgorithms()
     {
     }
 
-    /** Sums the areas of non-null shapes in a non-null collection. */
-    public static double totalArea(Collection<? extends Shape> shapes)
+    /** Sums the areas of non-null shapes in a non-null generic array. */
+    public static double totalArea(MyArray<? extends Shape> shapes)
     {
         double total = 0;
-        for (Shape s : shapes)
+        for (int i = 0; i < shapes.size(); i++)
         {
-            total += s.area();
+            total += shapes.get(i).area();
         }
         return total;
     }

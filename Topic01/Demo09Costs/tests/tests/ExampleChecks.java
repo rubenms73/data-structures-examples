@@ -15,7 +15,7 @@ public final class ExampleChecks
 
     private static void example()
     {
-        equal("C", CostAlgorithms.middle(Arrays.asList("A", "B", "C", "D", "E")));
+        equal("C", CostAlgorithms.middle(new String[] {"A", "B", "C", "D", "E"}));
     }
 
     private static <T> List<T> collect(Iterable<T> values)

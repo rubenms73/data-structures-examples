@@ -60,7 +60,6 @@ Title order
   Blue Planet (2018, 8.6)
   The Last Train (2022, 7.4)
   Winter Lights (2018, 7.9)
-Collections.sort: Blue Planet comes first
 ```
 
 ## Demo06Maximum
@@ -86,27 +85,14 @@ Next after the end: NoSuchElementException
 A fresh enhanced for loop: 2 3 4
 ```
 
-## Demo08Collections
-
-```text
-List: pear fig pear
-Set: pear fig
-Bag after clearing its source: pear fig pear
-Inherited contains(fig): true
-Inherited isEmpty(): false
-Adding to the bag: UnsupportedOperationException
-```
-
 ## Demo09Costs
 
 ```text
 n = 4: sum = 4, additions = 4
 n = 8: sum = 8, additions = 8
 n = 16: sum = 16, additions = 16
-ArrayList middle: C
-LinkedList middle: C
-ArrayList.get: direct array access, O(1).
-LinkedList.get at the middle: follows links, O(n).
+Array middle: C
+Array middle: direct access, O(1).
 ```
 
 ## Demo10FunctionalComparators
@@ -120,11 +106,18 @@ Lambda: [fig, pear, banana]
 ## Demo11FunctionalOperations
 
 ```text
-Movies rated at least 8.0:
-  Blue Planet (2018)
-  A Quiet Harbour (2020)
-Supplier.get(): Winter Lights (2018, 7.9)
-Each interface has exactly one abstract operation to implement.
+Predicate.test(4): true
+Predicate.test(5): false
+Supplier.get(): 4
+Function.apply(4): Number 4
+Consumer.accept: Number 4
+Even values from an array:
+Consumer.accept: Number 2
+Consumer.accept: Number 4
+Consumer.accept: Number 6
+Values greater than 4, squared:
+Consumer.accept: Square 25
+Consumer.accept: Square 36
 ```
 
 ## Demo12Wildcards

@@ -23,12 +23,12 @@ public final class ExampleChecks
         check(direct.compare(a, b) < 0, "wildcard lambda has Rectangle parameters");
         Rectangle largest = FlexibleMaximum.max(new Rectangle[] {a, b}, byArea);
         check(largest == b, "the return type remains Rectangle");
-        equal(16.0, ShapeAlgorithms.totalArea(Arrays.asList(a, b)));
-        equal(13.0, ShapeAlgorithms.totalArea(Arrays.asList(new Square(2), new Square(3))));
-        equal(Math.PI, ShapeAlgorithms.totalArea(Arrays.asList(new Circle(1))));
-        equal(0.0, ShapeAlgorithms.totalArea(new ArrayList<Shape>()));
+        equal(16.0, ShapeAlgorithms.totalArea(array(new Rectangle[] {a, b})));
+        equal(13.0, ShapeAlgorithms.totalArea(array(new Square[] {new Square(2), new Square(3)})));
+        equal(Math.PI, ShapeAlgorithms.totalArea(array(new Circle[] {new Circle(1)})));
+        equal(0.0, ShapeAlgorithms.totalArea(new FixedMyArray<>(new Shape[0])));
         throwsType(IllegalArgumentException.class, () -> FlexibleMaximum.max(new Rectangle[0], byArea));
-        List<Object> destination = new ArrayList<>();
+        MyArray<Object> destination = new FixedMyArray<>(new Object[3]);
         destination.add("Already present");
         app.Main.addRectangle(destination);
         equal(3, destination.size());
@@ -36,10 +36,10 @@ public final class ExampleChecks
         check(destination.get(1) instanceof Rectangle, "Rectangle added to Object destination");
     }
 
-    private static <T> List<T> collect(Iterable<T> values)
+    private static <E> MyArray<E> array(E[] values)
     {
-        List<T> result = new ArrayList<>();
-        for (T value : values)
+        MyArray<E> result = new FixedMyArray<>(values);
+        for (E value : values)
         {
             result.add(value);
         }

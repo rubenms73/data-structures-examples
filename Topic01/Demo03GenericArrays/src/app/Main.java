@@ -1,6 +1,6 @@
 package app;
 
-import ds.ArrayListMyArray;
+import ds.FixedMyArray;
 import ds.GenericAlgorithms;
 import ds.MyArray;
 
@@ -8,10 +8,10 @@ public final class Main
 {
     public static void main(String[] args)
     {
-        MyArray<String> names = new ArrayListMyArray<>();
+        MyArray<String> names = new FixedMyArray<>(new String[4]);
         names.add("Ana");
         names.add("Ruben");
-        MyArray<Integer> scores = new ArrayListMyArray<>();
+        MyArray<Integer> scores = new FixedMyArray<>(new Integer[4]);
         scores.add(8);
         scores.add(10);
 

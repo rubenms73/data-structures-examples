@@ -56,7 +56,6 @@ Title order
   Blue Planet (2018, 8.6)
   The Last Train (2022, 7.4)
   Winter Lights (2018, 7.9)
-Collections.sort: Blue Planet comes first
 ```
 
 Commented compilation errors are intentional exercises. Restore each comment before continuing.

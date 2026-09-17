@@ -1,7 +1,5 @@
 package ds;
 
-import java.util.List;
-
 /** Algorithms whose work is discussed by the client. */
 public final class CostAlgorithms
 {
@@ -22,9 +20,9 @@ public final class CostAlgorithms
                 + ", additions = " + additions);
     }
 
-    /** Requires a nonempty list. */
-    public static String middle(List<String> values)
+    /** Requires a nonempty array. */
+    public static String middle(String[] values)
     {
-        return values.get(values.size() / 2);
+        return values[values.length / 2];
     }
 }

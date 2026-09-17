@@ -2,7 +2,7 @@
 
 University of Oviedo · Rubén Muñiz Sánchez
 
-Runnable Java examples accompanying the course. Start with [Topic 1](Topic01/README.md): thirteen demonstrations of data abstraction, generic programming, comparison, iteration and Java Collections.
+Runnable Java examples accompanying the course. Start with [Topic 1](Topic01/README.md): twelve demonstrations of data abstraction, generic programming, comparison, iteration and functional interfaces.
 
 ## Run an example
 
@@ -24,7 +24,7 @@ bash run.sh test
 
 ## Explore Topic 1
 
-- [All thirteen examples and their slide references](Topic01/README.md).
+- [All twelve Topic 1 examples and their slide references](Topic01/README.md).
 - [Movies: Comparable and Comparator](Topic01/Demo05Movies/README.md).
 - [Named class, anonymous class and lambda](Topic01/Demo10FunctionalComparators/README.md).
 - [Predicate, Function, Consumer and Supplier](Topic01/Demo11FunctionalOperations/README.md).

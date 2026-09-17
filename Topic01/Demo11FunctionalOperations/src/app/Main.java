@@ -1,37 +1,40 @@
 package app;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-import ds.Movie;
+import ds.FunctionalOperations;
 
 public final class Main
 {
     public static void main(String[] args)
     {
-        List<Movie> movies = Arrays.asList(
-                new Movie("The Last Train", 2022, 7.4),
-                new Movie("Blue Planet", 2018, 8.6),
-                new Movie("A Quiet Harbour", 2020, 8.6));
+        // Predicate: receives a value and returns a boolean.
+        Predicate<Integer> even = x -> x % 2 == 0;
+        System.out.println("Predicate.test(4): " + even.test(4));
+        System.out.println("Predicate.test(5): " + even.test(5));
 
-        Predicate<Movie> highlyRated = movie -> movie.rating() >= 8.0;
-        Function<Movie, String> label = movie -> movie.title() + " (" + movie.year() + ")";
-        Consumer<String> print = text -> System.out.println("  " + text);
-        Supplier<Movie> newExample = () -> new Movie("Winter Lights", 2018, 7.9);
+        // Supplier: receives no arguments and returns a value.
+        Supplier<Integer> example = () -> 4;
+        Integer value = example.get();
+        System.out.println("Supplier.get(): " + value);
 
-        System.out.println("Movies rated at least 8.0:");
-        for (Movie movie : movies)
-        {
-            if (highlyRated.test(movie))
-                print.accept(label.apply(movie));
-        }
-        System.out.println("Supplier.get(): " + newExample.get());
+        // Function: receives a value and returns a transformed value.
+        Function<Integer, String> label = x -> "Number " + x;
+        System.out.println("Function.apply(4): " + label.apply(value));
 
-        // Equivalent method reference, introduced only after the lambda:
-        Consumer<String> printLine = System.out::println;
-        printLine.accept("Each interface has exactly one abstract operation to implement.");
+        // Consumer: receives a value, performs an action and returns no value.
+        Consumer<String> print = text -> System.out.println("Consumer.accept: " + text);
+        print.accept(label.apply(value));
+
+        Integer[] numbers = {1, 2, 3, 4, 5, 6};
+        System.out.println("Even values from an array:");
+        FunctionalOperations.process(numbers, even, label, print);
+
+        // Reuse the same traversal with different operations.
+        System.out.println("Values greater than 4, squared:");
+        FunctionalOperations.process(numbers, x -> x > 4,
+                x -> "Square " + x * x, print);
     }
 }

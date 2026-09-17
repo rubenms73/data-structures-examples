@@ -1,9 +1,6 @@
 package app;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import ds.Movie;
 import ds.RatingComparator;
 import ds.TitleComparator;
@@ -28,9 +25,6 @@ public final class Main
         Arrays.sort(movies, new TitleComparator());
         print("Title order", movies);
 
-        List<Movie> list = new ArrayList<>(Arrays.asList(movies));
-        Collections.sort(list); // Uses the same compareTo method.
-        System.out.println("Collections.sort: " + list.get(0).title() + " comes first");
     }
 
     private static void print(String heading, Movie[] movies)

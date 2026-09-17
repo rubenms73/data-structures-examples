@@ -1,6 +1,6 @@
 # 09 Costs
 
-Counted additions and different costs behind `List.get`.
+Counted additions in an array traversal and constant-time direct array access.
 
 **Slides:** 53–55 (printed slide numbers).
 
@@ -42,10 +42,8 @@ Each example owns its sources and compiled output. Open examples as separate pro
 n = 4: sum = 4, additions = 4
 n = 8: sum = 8, additions = 8
 n = 16: sum = 16, additions = 16
-ArrayList middle: C
-LinkedList middle: C
-ArrayList.get: direct array access, O(1).
-LinkedList.get at the middle: follows links, O(n).
+Array middle: C
+Array middle: direct access, O(1).
 ```
 
 Commented compilation errors are intentional exercises. Restore each comment before continuing.

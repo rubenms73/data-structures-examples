@@ -1,61 +1,43 @@
 package tests;
 
-import java.util.*;
-import java.math.BigInteger;
-import ds.*;
+import ds.FunctionalOperations;
 
 public final class ExampleChecks
 {
     private static int checks;
+
     public static void main(String[] args)
     {
-        example();
+        StringBuilder output = new StringBuilder();
+        FunctionalOperations.process(new Integer[] {1, 2, 3, 4}, x -> x % 2 == 0,
+                x -> "[" + x + "]", text -> output.append(text));
+        equal("[2][4]", output.toString());
+
+        output.setLength(0);
+        FunctionalOperations.process(new Integer[] {1, 2, 3}, x -> x > 1,
+                x -> "[" + x * x + "]", text -> output.append(text));
+        equal("[4][9]", output.toString());
+
+        output.setLength(0);
+        FunctionalOperations.process(new Integer[0], x -> true,
+                x -> x.toString(), text -> output.append(text));
+        equal("", output.toString());
+
+        FunctionalOperations.process(new Integer[] {1, 3}, x -> x % 2 == 0,
+                ExampleChecks::unexpectedTransform, text -> output.append(text));
+        equal("", output.toString());
         System.out.println("All " + checks + " checks passed.");
     }
 
-    private static void example()
+    private static String unexpectedTransform(Integer value)
     {
-        Movie movie = new Movie("Example", 2020, 8.5);
-        equal("Example", movie.title());
-        equal(2020, movie.year());
-        equal(8.5, movie.rating());
+        throw new AssertionError("Rejected values must not be transformed: " + value);
     }
 
-    private static <T> List<T> collect(Iterable<T> values)
-    {
-        List<T> result = new ArrayList<>();
-        for (T value : values)
-        {
-            result.add(value);
-        }
-        return result;
-    }
-
-    private static void equal(Object expected, Object actual)
-    {
-        check(Objects.equals(expected, actual), "Expected " + expected + ", got " + actual);
-    }
-
-    private static void check(boolean condition, String message)
+    private static void equal(String expected, String actual)
     {
         checks++;
-        if (!condition)
-            throw new AssertionError(message);
-    }
-
-    private static void throwsType(Class<? extends Throwable> expected, Runnable action)
-    {
-        checks++;
-        try
-        {
-            action.run();
-        }
-        catch (Throwable actual)
-        {
-            if (expected.isInstance(actual))
-                return;
-            throw new AssertionError("Expected " + expected.getSimpleName() + ", got " + actual, actual);
-        }
-        throw new AssertionError("Expected " + expected.getSimpleName());
+        if (!expected.equals(actual))
+            throw new AssertionError("Expected " + expected + ", got " + actual);
     }
 }

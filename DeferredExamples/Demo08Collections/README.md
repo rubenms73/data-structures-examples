@@ -1,5 +1,7 @@
 # 08 Collections
 
+**Deferred:** this example is reserved for a later topic. It requires prior coverage of `List`, `Set`, `ArrayList`, `LinkedHashSet` and `AbstractCollection`; it is no longer part of Topic 1.
+
 List/set behaviour and methods inherited from `AbstractCollection`.
 
 **Slides:** 49–52; A45–A46 (printed slide numbers).
