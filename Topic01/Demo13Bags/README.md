@@ -24,6 +24,8 @@ Use this example **at the end of Topic 1**, after explaining generic interfaces,
 
 ## Guided walkthrough
 
+The immutable update methods follow three explicit steps: create a private mutable copy, apply the change to that copy, and construct a new immutable snapshot. This reuses the mutable bag's operations and avoids a special constructor flag for array ownership. It allocates an intermediate copy for clarity rather than minimizing allocations. The original bag is never modified.
+
 1. Start in `Main` with the immutable integer bag. Compare `original` and the result of `withAdded` before considering collection inheritance.
 2. Follow the mutable copy's `add` and `remove`. Its object identity stays the same while its contents change.
 3. Inspect `AbstractBag.occurrences`, then `equals` and `hashCode`. Work through the two nested bags with identical multiplicities but different order.

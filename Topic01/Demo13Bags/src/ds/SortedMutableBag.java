@@ -2,7 +2,6 @@ package ds;
 
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.Objects;
 
 /** Mutable bag kept in comparator order, or natural order when none is supplied. */
 public final class SortedMutableBag<E> extends MutableBag<E>
@@ -37,7 +36,7 @@ public final class SortedMutableBag<E> extends MutableBag<E>
 
     public SortedMutableBag(Collection<? extends E> source, Comparator<? super E> comparator)
     {
-        this(Objects.requireNonNull(source).size(), comparator);
+        this(source.size(), comparator);
         addAll(source);
     }
 
@@ -54,11 +53,12 @@ public final class SortedMutableBag<E> extends MutableBag<E>
     @Override
     public boolean add(E item)
     {
-        Objects.requireNonNull(item, "Null elements are not supported");
+        if (item == null)
+            throw new NullPointerException("Null elements are not supported");
         // Validate even the first element. No mutation occurs before comparisons finish.
         compare(item, item);
         int position = 0;
-        while (position < numItems && compare(item, elementAt(position)) >= 0)
+        while (position < numItems && compare(item, data[position]) >= 0)
         {
             position++;
         }

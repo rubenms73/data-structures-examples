@@ -16,7 +16,9 @@ public final class Movie implements Comparable<Movie>
 
     public Movie(String title, int year, double rating)
     {
-        this.title = Objects.requireNonNull(title);
+        if (title == null)
+            throw new NullPointerException("Title must not be null");
+        this.title = title;
         if (!Double.isFinite(rating) || rating < 0 || rating > 10)
             throw new IllegalArgumentException("Rating must be between 0 and 10");
         this.year = year;

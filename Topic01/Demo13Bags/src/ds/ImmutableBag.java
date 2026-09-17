@@ -1,10 +1,8 @@
 package ds;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.util.function.Predicate;
 
 /** Structurally immutable snapshot. Element objects themselves are not deep-copied. */
@@ -20,50 +18,38 @@ public final class ImmutableBag<E> extends AbstractBag<E>
     @SafeVarargs
     public ImmutableBag(E... elements)
     {
-        Objects.requireNonNull(elements);
         data = new Object[elements.length];
         for (int i = 0; i < elements.length; i++)
         {
-            data[i] = Objects.requireNonNull(elements[i], "Null elements are not supported");
+            if (elements[i] == null)
+                throw new NullPointerException("Null elements are not supported");
+            data[i] = elements[i];
         }
     }
 
     public ImmutableBag(Collection<? extends E> source)
     {
-        data = Objects.requireNonNull(source).toArray();
+        data = source.toArray();
         for (Object item : data)
         {
-            Objects.requireNonNull(item, "Null elements are not supported");
+            if (item == null)
+                throw new NullPointerException("Null elements are not supported");
         }
-    }
-
-    // Only private operations pass newly allocated arrays to this constructor.
-    private ImmutableBag(Object[] ownedData, boolean owned)
-    {
-        data = ownedData;
     }
 
     public ImmutableBag<E> withAdded(E item)
     {
-        Objects.requireNonNull(item, "Null elements are not supported");
-        Object[] copy = Arrays.copyOf(data, data.length + 1);
-        copy[data.length] = item;
-        return new ImmutableBag<E>(copy, true);
+        MutableBag<E> copy = new MutableBag<>(this);
+        copy.add(item);
+        return new ImmutableBag<>(copy);
     }
 
     public ImmutableBag<E> withoutOne(Object item)
     {
-        for (int i = 0; i < data.length; i++)
-        {
-            if (Objects.equals(data[i], item))
-            {
-                Object[] copy = new Object[data.length - 1];
-                System.arraycopy(data, 0, copy, 0, i);
-                System.arraycopy(data, i + 1, copy, i, data.length - i - 1);
-                return new ImmutableBag<E>(copy, true);
-            }
-        }
-        return this;
+        MutableBag<E> copy = new MutableBag<>(this);
+        if (!copy.remove(item))
+            return this;
+        return new ImmutableBag<>(copy);
     }
 
     @Override

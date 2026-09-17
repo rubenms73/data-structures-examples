@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 
 /** An unordered bag with mutable, array-backed storage. Nulls are rejected. */
 public class MutableBag<E> extends AbstractBag<E>
@@ -31,7 +30,7 @@ public class MutableBag<E> extends AbstractBag<E>
 
     public MutableBag(Collection<? extends E> source)
     {
-        this(Objects.requireNonNull(source).size());
+        this(source.size());
         // Do not call an overridable method from a constructor.
         for (E item : source)
         {
@@ -45,14 +44,10 @@ public class MutableBag<E> extends AbstractBag<E>
         return numItems;
     }
 
-    protected final E elementAt(int index)
-    {
-        return data[index];
-    }
-
     private void append(E item)
     {
-        Objects.requireNonNull(item, "Null elements are not supported");
+        if (item == null)
+            throw new NullPointerException("Null elements are not supported");
         if (numItems == data.length)
         {
             int capacity = (int) Math.min((long) data.length * 2, Integer.MAX_VALUE);
@@ -113,7 +108,7 @@ public class MutableBag<E> extends AbstractBag<E>
             if (current >= numItems)
                 throw new NoSuchElementException();
             lastReturned = current;
-            return elementAt(current++);
+            return data[current++];
         }
 
         @Override
