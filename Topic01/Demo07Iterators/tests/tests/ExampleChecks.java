@@ -12,7 +12,7 @@ public final class ExampleChecks
 
     public static void main(String[] args)
     {
-        MyArray<String> names = new FixedMyArray<>(new String[4]);
+        MyArray<String> names = new FixedMyArray<>(4);
         Iterator<String> empty = names.iterator();
         equal(false, empty.hasNext());
         throwsType(NoSuchElementException.class, empty::next);
@@ -53,6 +53,25 @@ public final class ExampleChecks
         equal(null, withNull.next());
         equal(false, withNull.hasNext());
         equal(3, scores.size());
+        MyArray<Number> copy = new FixedMyArray<>(scores);
+        equal(3, copy.size());
+        Iterator<Number> copied = copy.iterator();
+        equal(8, copied.next());
+        equal(10, copied.next());
+        equal(null, copied.next());
+        equal(false, copied.hasNext());
+        scores.set(0, 99);
+        equal(8, copy.get(0));
+        copy.set(1, 2.5);
+        equal(10, scores.get(1));
+        throwsType(IllegalStateException.class, () -> copy.add(12));
+        MyArray<String> zero = new FixedMyArray<>(0);
+        MyArray<String> emptyCopy = new FixedMyArray<>(zero);
+        equal(0, emptyCopy.size());
+        equal(false, emptyCopy.iterator().hasNext());
+        throwsType(IllegalStateException.class, () -> zero.add("overflow"));
+        throwsType(IllegalStateException.class, () -> emptyCopy.add("overflow"));
+        throwsType(NegativeArraySizeException.class, () -> new FixedMyArray<String>(-1));
         System.out.println("All " + checks + " checks passed.");
     }
 

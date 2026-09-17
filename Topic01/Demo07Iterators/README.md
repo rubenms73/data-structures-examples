@@ -18,6 +18,14 @@ The storage, capacity, `add`, `get` and `set` operations keep the same design. `
 
 The example includes its own copies of these files; it does not import another project.
 
+## Constructors
+
+`FixedMyArray(int capacity)` creates an empty vector with the requested number of slots, as in Demo03. It allocates `data = (E[]) new Object[capacity]`, because Java does not allow `new E[capacity]`. The unchecked cast is confined to this constructor, and the backing field remains a private `E[]`. Zero capacity is valid; negative capacity produces `NegativeArraySizeException`.
+
+`FixedMyArray(MyArray<? extends E> source)` is a conversion constructor. It delegates with `this(source.size())`, then uses an enhanced `for` loop to add the source elements in order. This loop demonstrates a practical use of the source's iterator. The new vector starts with all copied elements and capacity equal to their number, so it is already full. The wildcard allows, for example, copying a `MyArray<Integer>` into a `FixedMyArray<Number>`.
+
+The vectors have independent backing arrays: replacing an element in one does not change the other. The element references themselves are copied, including nulls; mutable element objects are not duplicated. The earlier `FixedMyArray(E[] storage)` constructor is also retained: it copies the supplied storage array but starts with logical size zero.
+
 ## Guided walkthrough
 
 1. Follow construction of `names` with `Ana` and `Ruben`, as in Demo03.
@@ -25,7 +33,7 @@ The example includes its own copies of these files; it does not import another p
 3. Call `hasNext` twice: it reports availability without advancing.
 4. Follow `next`: check availability, return the current element and advance.
 5. Exhaust the first iterator. A further `next` throws `NoSuchElementException`; the second iterator still has its own position.
-6. Run the enhanced `for` loop. It obtains a fresh iterator automatically. Repeat with integers and compute their sum.
+6. Run the enhanced `for` loop. It obtains a fresh iterator automatically. Create the integer vector with a capacity, copy it through the conversion constructor, and compute the sum over the copy.
 
 ## What to observe and try
 

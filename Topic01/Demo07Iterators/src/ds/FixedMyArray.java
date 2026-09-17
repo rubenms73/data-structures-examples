@@ -9,6 +9,23 @@ public final class FixedMyArray<E> implements MyArray<E>
     private final E[] data;
     private int size;
 
+    /** Creates an empty vector with the requested capacity. */
+    @SuppressWarnings("unchecked")
+    public FixedMyArray(int capacity)
+    {
+        data = (E[]) new Object[capacity];
+    }
+
+    /** Copies the source elements into independent storage. */
+    public FixedMyArray(MyArray<? extends E> source)
+    {
+        this(source.size());
+        for (E item : source)
+        {
+            add(item);
+        }
+    }
+
     /** The supplied array determines the capacity; a private copy is used. */
     public FixedMyArray(E[] storage)
     {
