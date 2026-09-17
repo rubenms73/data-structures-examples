@@ -27,7 +27,7 @@ public final class Main
         show("Lambda", lambda);
     }
 
-    private static void show(String label, Comparator<String> order)
+    private static void show(String label, Comparator<? super String> order)
     {
         String[] words = {"pear", "banana", "fig"};
         Arrays.sort(words, order);

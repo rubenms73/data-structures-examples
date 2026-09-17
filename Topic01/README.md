@@ -63,7 +63,7 @@ Slide numbers refer to the **number printed on the slide**, not the PDF page. Th
 - `Rational` includes the observer operations used in the main sequence. These examples do not implement the appendix's extended factory/reduction interface. Both provided representations expose no mutators.
 - `MyIntArray` and its three classes retain the hierarchy in the presentation. The abstract class supplies only `isEmpty` and `contains`; each concrete class owns its storage and implements `add`.
 - `FixedMyArray` supplies fixed-capacity storage using an ordinary array. It implements the local `MyArray` interface without requiring Java Collections.
-- `Maximum` and `FlexibleMaximum` are separate alternatives. Their `max` methods cannot both be added to the same class as overloads because their parameter types have the same erasure.
+- `Maximum` and `FlexibleMaximum` both use `max(T[] values, Comparator<? super T> order)`. The maximum example introduces this signature directly; the wildcard example explains why a comparator for a supertype can be reused. The separate classes keep each project self-contained.
 - `Movie` extends the examples without changing the presentation. Its titles and ratings are fictional. Its natural order is chronological, with title and rating as tie-breakers; equality uses the same three fields.
 - The cost example counts additions in an array traversal and contrasts them with direct array access. It does not introduce linked lists.
 

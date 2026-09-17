@@ -36,6 +36,8 @@ Comments identify small experiments that intentionally produce compilation error
 
 ## Source style
 
+When a method accepts a comparator to compare elements of type `T`, use `Comparator<? super T>` from the outset. Apply the same rule to concrete element types and stored comparator fields. Comparator implementations still declare their actual supported type, such as `implements Comparator<Movie>`.
+
 Each example's README includes its problem statement, prerequisites, a guided code walkthrough, observations and experiments, execution instructions and expected output. Keep these explanations aligned with the implementation when adding or changing examples. Demo07 extends Demo03's generic vector with a private inner iterator; Demo12 uses the same inner-class pattern for a computed sequence. Demo13 is the closing example after the collection and iterator contracts have been introduced.
 
 Apply these rules to all Java sources, including tests and future examples:

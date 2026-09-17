@@ -13,7 +13,7 @@ public final class Maximum
      * The array and comparator must be non-null; order must accept its elements.
      * @throws IllegalArgumentException if values is empty
      */
-    public static <T> T max(T[] values, Comparator<T> order)
+    public static <T> T max(T[] values, Comparator<? super T> order)
     {
         if (values.length == 0)
             throw new IllegalArgumentException("Empty array");

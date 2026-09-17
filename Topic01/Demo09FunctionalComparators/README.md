@@ -15,7 +15,7 @@ Express the same string-length comparator in three ways: a named class, an anony
 1. Read `LengthComparator`, then instantiate it as `named`.
 2. Compare that class with the anonymous implementation assigned to `anonymous`.
 3. Identify the parameters and returned expression in `lambda`.
-4. Follow `show`: its parameter is a `Comparator<String>`, independently of how the object was created.
+4. Follow `show`: its parameter is a `Comparator<? super String>`, independently of how the object was created. It accepts comparators for strings or their supertypes.
 
 ## What to observe and try
 

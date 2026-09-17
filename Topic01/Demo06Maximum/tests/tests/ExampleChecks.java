@@ -21,6 +21,9 @@ public final class ExampleChecks
         equal("pear", Maximum.max(words, Comparator.naturalOrder()));
         equal("pear", words[0]);
         equal("pear", Maximum.max(new String[] {"pear", "plum"}, length));
+        Comparator<Number> numeric = (a, b) -> Double.compare(a.doubleValue(), b.doubleValue());
+        Integer largest = Maximum.max(new Integer[] {2, 9, 4}, numeric);
+        equal(9, largest);
         throwsType(IllegalArgumentException.class, () -> Maximum.max(new String[0], length));
     }
 
