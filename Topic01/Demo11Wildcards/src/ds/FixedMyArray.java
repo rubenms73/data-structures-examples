@@ -9,6 +9,8 @@ public final class FixedMyArray<E> implements MyArray<E>
     /** The supplied array determines the capacity; a private copy is used. */
     public FixedMyArray(E[] storage)
     {
+        if (storage == null)
+            throw new NullPointerException("Storage must not be null");
         data = storage.clone();
     }
 
