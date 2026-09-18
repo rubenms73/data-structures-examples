@@ -135,6 +135,130 @@ arc directions makes the whole example connected. A full BFS forest does not
 give distances from a common source; it continues with an existing marked set.
 A new single-source search from F, with fresh marks, can reach all ten vertices.
 
+## Resulting traversal forests
+
+Each forest contains **two trees**, rooted at A and F. Every arrow below is
+a recorded parent-to-child arc. Non-tree arcs from the original graph are omitted.
+The two trees are drawn separately for readability; together they form one forest.
+
+### BFS forest
+
+Tree rooted at A:
+
+```mermaid
+flowchart TD
+    A["A (root)"] --> B
+    A --> D
+    A --> E
+    B --> C
+```
+
+Tree rooted at F:
+
+```mermaid
+flowchart TD
+    F["F (root)"] --> G
+    F --> I
+    F --> J
+    G --> H
+```
+
+BFS discovers B, D and E directly from A. C is discovered from B.
+In the second tree, F discovers G, I and J; G discovers H.
+
+### DFS forest
+
+Tree rooted at A:
+
+```mermaid
+flowchart TD
+    A["A (root)"] --> B
+    A --> E
+    B --> C
+    B --> D
+```
+
+Tree rooted at F:
+
+```mermaid
+flowchart TD
+    F["F (root)"] --> G
+    F --> I
+    F --> J
+    G --> H
+```
+
+DFS follows A -> B -> C, backtracks to B, then discovers D before returning
+to A and discovering E. **D is the only vertex whose parent differs**:
+A in BFS, B in DFS. The tree rooted at F has the same parent arcs in both
+forests, although discovery order differs: F, G, I, J, H in BFS and
+F, G, H, I, J in DFS. The drawing shows parent relationships, not a timeline.
+
+## Forests with all original arcs
+
+The forest diagrams above show parent arcs only. The following drawings overlay
+**all nineteen original arcs**, preserving the arrangement used in the theory slide.
+Only the tree arcs form the forest; adding the other arcs gives back the original
+graph, including its cycle. Roots A and F retain the slide's green and blue fills.
+
+### DFS arc classification
+
+![DFS forest with tree, forward, back and cross arcs](docs/dfs-classified-arcs.svg)
+
+| Arc type | Appearance | Meaning in the completed DFS forest |
+| --- | --- | --- |
+| Tree | Green, solid | The source is the recorded parent of the destination. |
+| Forward | Blue, dashed | To a proper descendant, but not a tree arc. |
+| Back | Red, dash-dot | To an ancestor. |
+| Cross | Purple, dotted | Neither endpoint is an ancestor of the other. |
+
+Check the parent relation first: tree arcs also point to descendants, but are
+classified as tree arcs rather than forward arcs. Ancestor relationships must
+come from this **same completed DFS forest**, not from alphabetical labels or
+geometric positions. A cross arc can connect different branches of one tree or
+two different trees.
+
+Here A -> D is forward because D is reached through A -> B -> D; C -> A is
+back because A is an ancestor of C. E -> B is cross despite both vertices being
+in the tree rooted at A. G -> E crosses between the two trees.
+
+### BFS tree and non-tree arcs
+
+![BFS forest with all original arcs](docs/bfs-classified-arcs.svg)
+
+Green solid arrows are BFS parent arcs; grey dashed arrows are all remaining
+arcs. The four-way classification above is the DFS classification taught in
+the presentation; it is not applied to BFS here. In particular A -> D becomes
+a tree arc in BFS, while B -> D becomes a non-tree arc.
+
+### Complete arc-by-arc comparison
+
+| Original arc | DFS classification | BFS classification |
+| --- | --- | --- |
+| A → B | Tree | Tree |
+| A → D | Forward | Tree |
+| A → E | Tree | Tree |
+| B → C | Tree | Tree |
+| B → D | Tree | Non-tree |
+| C → A | Back | Non-tree |
+| E → B | Cross | Non-tree |
+| E → D | Cross | Non-tree |
+| F → G | Tree | Tree |
+| F → I | Tree | Tree |
+| F → J | Tree | Tree |
+| G → E | Cross | Non-tree |
+| G → H | Tree | Tree |
+| H → C | Cross | Non-tree |
+| H → D | Cross | Non-tree |
+| I → D | Cross | Non-tree |
+| I → H | Cross | Non-tree |
+| J → G | Cross | Non-tree |
+| J → I | Cross | Non-tree |
+
+DFS has 8 tree arcs, 1 forward arc, 1 back arc and 9 cross arcs.
+BFS has 8 tree arcs and 11 non-tree arcs. Each forest has 10 vertices and
+2 roots, hence 10 - 2 = 8 parent arcs.
+
 ## Contracts and design choices
 
 - Vertices and the comparator must be non-null. Invalid arguments throw
