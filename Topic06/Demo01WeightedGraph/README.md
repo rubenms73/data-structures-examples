@@ -43,6 +43,54 @@ All scripts select their own working directory. Windows needs `java` and `javac`
 on PATH, without Bash or WSL. Gson and its annotation dependency are bundled in
 `lib`, together with their licences. Running the demo requires no internet.
 
+## Offline graphical demonstration
+
+Every normal run also writes **`bin/navigation-map.html`**. Open that file in a
+browser; it is a self-contained HTML document, so it works from `file://`, offline,
+and when copied to another computer. No web server, API key or browser library
+installation is required. The next run overwrites it with the new origin/destination.
+Generated files stay in the ignored `bin` directory.
+
+From the **individual demo folder**, on macOS:
+
+```sh
+bash run.sh run data/northern-spain.json 'Oviedo' 'León'
+open bin/navigation-map.html
+```
+
+On Windows, after the same run with `.\run.cmd`, use
+`start bin\navigation-map.html` in Command Prompt, or
+`Start-Process .\bin\navigation-map.html` in PowerShell.
+On Linux, use `xdg-open bin/navigation-map.html` or open it from the file manager.
+The `Topic06/run.sh` script selects demos; these route arguments belong to
+`Demo01WeightedGraph/run.sh`.
+
+The viewer initially compares the original route (blue) with the route after
+removing the affected connections (orange). Red dashed lines show the **whole
+affected graph connections**, not an exact incident point. Select any of the five
+scenario buttons to see its saved route, physical distance, routing cost and
+per-connection details. Coincident blue/orange strokes mean the routes share a
+road. The table preserves travel order and direction, including reverse edges.
+Use **Fit routes**, **Iberian Peninsula**, the zoom buttons, mouse wheel or drag to
+inspect the map. **Show sampled network** adds the other represented corridors.
+Click a road or select it in the table to inspect its ID, references and penalty.
+
+The geographic background is an offline Natural Earth country-outline map, not a
+street-level tile map. The routes follow the saved OSRM road geometry. No live
+traffic or remote tiles are loaded. Country outlines are deliberately coarse at
+close zoom; road geometry has higher detail. The peninsula overview covers this
+network's area, not every Spanish territory.
+
+`NavigationMapWriter` exports immutable Java route snapshots; `web/navigation-map.html`
+only draws them. Changing a scenario does **not** run Dijkstra in JavaScript. To
+change the origin, destination or incident, rerun Java. The viewer is supporting
+presentation material, separate from the graph and algorithm lesson.
+
+An unreachable route is labelled **No route**, with infinite cost; a route from a
+locality to itself has zero cost. Custom JSON without optional coordinates or
+geometry still loads: the viewer omits unavailable shapes and reports missing
+selected-road geometry rather than drawing invented straight-line roads.
+
 ## The map data
 
 `data/northern-spain.json` contains **42 localities and 120 directed road
@@ -69,6 +117,16 @@ The retained alternatives from Oviedo to León distinguish the AP-66 route from
 the N-630 option. Dijkstra minimises distance/cost among this **sampled network**,
 not over every road in Spain. OSRM's route service optimises its driving profile,
 so a returned corridor is not a guarantee of globally minimum physical distance.
+
+Each road also stores `geometry`: an encoded polyline with precision 5
+(latitude/longitude deltas, in 1e-5 degrees). It concatenates the step geometries
+from the same fingerprinted OSRM response, removing consecutive duplicate points
+without further simplification. Geometry is display metadata and never changes a
+weight. `referenceCoordinates` places locality labels on the map.
+
+`data/map-context.json` contains country outlines for Spain and nearby countries,
+extracted from Natural Earth's 1:50m country dataset. Its source URL and public-domain
+attribution are embedded in that file and in the HTML viewer.
 
 Every JSON road includes its query URL. `data/route-evidence.json` records the
 returned distance in metres, road steps, snapped coordinates, retrieval time and
@@ -156,6 +214,7 @@ Dijkstra implementations without changing their graph contract.
 - `Route`: the selected roads and their captured costs, kept separate from distance.
 - `NavigationNetworkReader`: strict UTF-8 JSON loading with Gson and simple checks.
 - `Main`: the five scenarios, with restoration in `finally` blocks.
+- `NavigationMapWriter` and `web/navigation-map.html`: offline visualisation of the saved results.
 
 The basic graph rejects null vertices, non-finite weights and self-loops; an
 existing arc is left unchanged. Finite negative graph weights are permitted but
@@ -270,4 +329,5 @@ Physical distance: 528.953 km; routing cost: 528.953
   Valladolid -> Madrid | road-55 | N-601, AP-6, A-6 | 190.241 km | penalty 0.000
 Physical distance: 521.107 km; routing cost: 521.107
 Both algorithms give the same distances for every scenario.
+Offline map: bin/navigation-map.html
 ```

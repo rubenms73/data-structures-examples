@@ -4,6 +4,7 @@ import ds.NavigationNetwork;
 import ds.Road;
 import ds.Route;
 import io.NavigationNetworkReader;
+import io.NavigationMapWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Locale;
@@ -42,10 +43,14 @@ public final class Main
             if (road.from().equals("Oviedo") && road.to().equals("León"))
                 System.out.printf(Locale.ROOT, "  %s | %s | %.3f km%n", road.id(), road.name(), road.kilometres());
         }
+        List<Route> snapshots = new ArrayList<>();
         Route baseline = network.route(from, to);
-        show("1. Original route", baseline);
+        show(snapshots, "1. Original route", baseline);
         if (!baseline.reachable() || baseline.legs.isEmpty())
+        {
+            writeMap(file, snapshots, List.of());
             return;
+        }
         String roadId = baseline.legs.get(0).roadId;
         String corridor = null;
         // Prefer Pajares: the real kilometre weights make it shorter than AP-66.
@@ -89,7 +94,7 @@ public final class Main
         }
         try
         {
-            show("2. Affected connections removed", network.route(from, to));
+            show(snapshots, "2. Affected connections removed", network.route(from, to));
         }
         finally
         {
@@ -98,7 +103,7 @@ public final class Main
                 network.addRoad(road);
             }
         }
-        show("3. Connections restored", network.route(from, to));
+        show(snapshots, "3. Connections restored", network.route(from, to));
         // The JSON loader starts every road with zero penalty.
         for (Road road : affected)
         {
@@ -106,7 +111,7 @@ public final class Main
         }
         try
         {
-            show("4. Temporary penalty of 1000 per affected connection", network.route(from, to));
+            show(snapshots, "4. Temporary penalty of 1000 per affected connection", network.route(from, to));
         }
         finally
         {
@@ -115,12 +120,21 @@ public final class Main
                 road.setPenalty(0);
             }
         }
-        show("5. Penalty removed", network.route(from, to));
+        show(snapshots, "5. Penalty removed", network.route(from, to));
         System.out.println("Both algorithms give the same distances for every scenario.");
+        writeMap(file, snapshots, affected);
     }
 
-    private static void show(String title, Route route)
+    private static void writeMap(Path file, List<Route> snapshots, List<Road> affected)
+            throws IOException
     {
+        NavigationMapWriter.write(file, snapshots, affected, Path.of("bin/navigation-map.html"));
+        System.out.println("Offline map: bin/navigation-map.html");
+    }
+
+    private static void show(List<Route> snapshots, String title, Route route)
+    {
+        snapshots.add(route);
         System.out.println("\n" + title);
         if (!route.reachable())
         {

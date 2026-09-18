@@ -59,4 +59,5 @@ Physical distance: 528.953 km; routing cost: 528.953
   Valladolid -> Madrid | road-55 | N-601, AP-6, A-6 | 190.241 km | penalty 0.000
 Physical distance: 521.107 km; routing cost: 521.107
 Both algorithms give the same distances for every scenario.
+Offline map: bin/navigation-map.html
 ```

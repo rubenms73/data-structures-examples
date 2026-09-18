@@ -223,6 +223,7 @@ public final class ExampleChecks
     public static void main(String[] args) throws IOException
     {
         checks += NavigationChecks.run();
+        checks += MapChecks.run();
         contractChecks();
         randomChecks();
         jsonChecks();

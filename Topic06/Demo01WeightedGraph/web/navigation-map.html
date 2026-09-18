@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Road navigation · Dijkstra in Spain</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#152f3b;background:#f3f5f4;font-size:15px}
+*{box-sizing:border-box}body{margin:0}header{padding:24px 30px 18px;border-bottom:1px solid #d8e1e1;background:white}
+.eyebrow{font-size:11px;font-weight:750;letter-spacing:.15em;color:#47706b;text-transform:uppercase}h1{font-size:28px;margin:6px 0}p{line-height:1.5;margin:7px 0;color:#4b636b}
+header p{font-size:14px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:18px;padding:20px 30px}
+.panel{background:white;border:1px solid #d8e1e1;border-radius:12px;overflow:hidden}.tabs{display:flex;gap:6px;padding:12px;flex-wrap:wrap;border-bottom:1px solid #e1e8e7}
+button{font:inherit;cursor:pointer;border:1px solid #cbd8d8;border-radius:7px;padding:8px 12px;background:#fff;color:#244750}button:hover{background:#eaf1f0}button:focus-visible,a:focus-visible{outline:3px solid #2a7eaf;outline-offset:3px}button[aria-pressed=true]{background:#164e50;color:white;border-color:#164e50}
+.toolbar{display:flex;gap:7px;align-items:center;flex-wrap:wrap;padding:10px 14px;background:#fbfcfc}.toolbar button{font-size:13px;padding:6px 10px}.toolbar label{font-size:12px;margin-left:auto;cursor:pointer}
+svg{display:block;width:100%;height:560px;background:#dfeef0;touch-action:none;cursor:grab}svg:active{cursor:grabbing}.road{cursor:pointer;stroke-linecap:round;stroke-linejoin:round;fill:none}.road:focus{outline:none;filter:drop-shadow(0 0 2px #182c35)}
+.map-wrap{position:relative}.overview{position:absolute;left:15px;bottom:15px;width:180px;border:1px solid #c1d1d2;background:#fff;border-radius:8px;overflow:hidden;pointer-events:none}.overview span{display:block;font-size:10px;padding:6px 9px;color:#537079}.overview svg{height:130px;cursor:default}
+.legend{display:flex;gap:17px;flex-wrap:wrap;font-size:12px;padding:12px 15px;border-top:1px solid #d8e1e1}.key{display:inline-block;width:22px;border-top:4px solid;margin-right:6px;vertical-align:middle}.blue{color:#2469ba}.orange{color:#c66509}.red{color:#c33743}
+aside{display:flex;flex-direction:column;gap:14px}.card{padding:19px}.card h2{font-size:17px;margin:0 0 13px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}.stat{font-size:25px;font-weight:750;letter-spacing:-.04em}.unit{display:block;font-size:11px;letter-spacing:0;font-weight:500;color:#526b74;margin-top:3px}
+#status{font-size:13px;margin-top:13px;padding:10px;border-radius:6px;background:#edf4f1;color:#28584c}#detail{font-size:13px;white-space:pre-line;line-height:1.6;min-height:100px}#route-names{font-size:13px;margin-top:16px}.small{font-size:12px}.table-wrap{max-height:265px;overflow:auto}table{border-collapse:collapse;width:100%;font-size:12px}th,td{text-align:left;padding:9px 3px;border-bottom:1px solid #e4ebea}th{color:#55707a}td button{padding:0;border:0;color:#286796;text-align:left;font-size:12px}td:last-child,th:last-child{text-align:right}
+footer{padding:0 30px 22px;font-size:11px;line-height:1.7;color:#536d76}a{color:#246b89}#warning{color:#943124;font-size:13px;padding:0 15px}noscript{display:block;padding:20px}
+@media(max-width:950px){.layout{grid-template-columns:1fr;padding:14px}aside{display:grid;grid-template-columns:1fr 1fr}header{padding:18px}svg{height:480px}footer{padding:0 15px 18px}}
+@media(max-width:570px){aside{display:flex}svg{height:390px}h1{font-size:23px}.tabs button{font-size:12px}.toolbar label{margin-left:0}}
+</style>
+</head>
+<body>
+<header><div class="eyebrow">Data Structures / Topic 06 / Dijkstra</div><h1 id="title">Road navigation in Spain</h1><p>Remove a connection, introduce a temporary penalty, and compare the route chosen by the algorithm.</p></header>
+<main class="layout">
+<section class="panel" aria-label="Interactive route map">
+<div class="tabs" id="scenarios" aria-label="Choose scenario"></div>
+<div class="toolbar"><button id="fit">Fit routes</button><button id="spain">Iberian Peninsula</button><button id="zoom-in" aria-label="Zoom in">+</button><button id="zoom-out" aria-label="Zoom out">−</button><label><input type="checkbox" id="network"> Show sampled network</label></div>
+<div class="map-wrap"><svg id="map" viewBox="0 0 1000 650" role="img" aria-label="Road routes on a geographic map. Drag to pan, scroll to zoom, or use the controls."><g id="drawing"></g></svg><div class="overview"><span>IBERIAN PENINSULA · LOCATION</span><svg id="overview" aria-label="Route location on the Iberian Peninsula"></svg></div></div>
+<div class="legend"><span><i class="key blue"></i>Original route</span><span><i class="key orange"></i>Selected route</span><span><i class="key red" style="border-top-style:dashed"></i>Affected connections</span></div><p id="warning" role="status"></p>
+</section>
+<aside>
+<section class="panel card" aria-live="polite"><h2 id="scenario-title">Route comparison</h2><div class="stats"><div><div class="stat" id="distance">—</div><span class="unit">physical distance · km</span></div><div><div class="stat" id="cost">—</div><span class="unit">routing cost · km + penalty</span></div></div><div id="status"></div><p id="route-names"></p></section>
+<section class="panel card"><h2>Selected connections</h2><div class="table-wrap"><table><thead><tr><th>Connection</th><th>km / cost</th></tr></thead><tbody id="legs"></tbody></table></div><p class="small">Select a connection here or on the map for its road references and penalty.</p></section>
+<section class="panel card"><h2>Connection detail</h2><div id="detail">Choose a coloured road to inspect it.</div></section>
+</aside>
+</main>
+<footer>This is a saved demonstration, not live traffic. Scenario buttons display Java-computed results; the browser does not run Dijkstra.<br>Penalties are equivalent-distance cost units, not extra road kilometres or measured delay. Red lines mark whole affected graph connections, not the exact location of a real incident.<br>Road geometry and distances: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>, ODbL, via OSRM. Country outlines: <a href="https://www.naturalearthdata.com/about/terms-of-use/">Natural Earth</a>, public domain. Offline map; no external tiles or scripts.</footer>
+<noscript>Enable JavaScript to view the map. Route calculations are also available in the Java console output.</noscript>
+<script id="navigation-data" type="application/json">__NAVIGATION_DATA__</script>
+<script>
+'use strict';
+// Presentation only: all selected roads and costs were computed by Java.
+const data = JSON.parse(document.getElementById('navigation-data').textContent);
+const $ = id => document.getElementById(id);
+const NS = 'http://www.w3.org/2000/svg';
+const titles = ['1. Original route', '2. Connections removed', '3. Connections restored', '4. Temporary penalty', '5. Penalty removed'];
+const colours = {original:'#2469ba', selected:'#c66509', incident:'#c33743'};
+let selected = data.scenarios.length > 1 ? 1 : 0;
+let camera;
+const number = n => n.toLocaleString('en-GB', {minimumFractionDigits:3, maximumFractionDigits:3});
+const project = ([lon, lat]) => [lon, -Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360)) * 180 / Math.PI];
+// OSRM's encoded polylines store latitude then longitude, in 1e-5 degrees.
+function decode(encoded)
+{
+    const points = []; let i = 0, lat = 0, lon = 0;
+    while (i < encoded.length)
+    {
+        const delta = [];
+        for (let axis = 0; axis < 2; axis++)
+        {
+            let value = 0, shift = 0, byte;
+            do
+            {
+                if (i >= encoded.length || shift > 30) throw new Error('Invalid road geometry');
+                byte = encoded.charCodeAt(i++) - 63;
+                if (byte < 0 || byte > 63) throw new Error('Invalid road geometry');
+                value |= (byte & 31) << shift; shift += 5;
+            } while (byte >= 32);
+            delta.push(value & 1 ? ~(value >>> 1) : value >>> 1);
+        }
+        lat += delta[0]; lon += delta[1]; points.push(project([lon / 1e5, lat / 1e5]));
+    }
+    return points;
+}
+function path(points, close = false)
+{
+    return points.map((p,i) => (i ? 'L' : 'M') + p.map(v => v.toFixed(5)).join(',')).join('') + (close ? 'Z' : '');
+}
+const roads = new Map(data.network.roads.map(r =>
+{
+    const points = r.geometry ? decode(r.geometry) : [];
+    return [r.id, {...r, points, path:path(points)}];
+}));
+const countries = data.context.countries.map(c =>
+{
+    const polygons = c.geometry.type === 'Polygon' ? [c.geometry.coordinates] : c.geometry.coordinates;
+    return {...c, path:polygons.map(p => p.map(ring => path(ring.map(project), true)).join('')).join('')};
+});
+const coordinates = data.network.referenceCoordinates || {};
+function element(tag, attrs = {}, text)
+{
+    const el = document.createElementNS(NS, tag);
+    for (const [key,value] of Object.entries(attrs)) el.setAttribute(key,value);
+    if (text !== undefined) el.textContent = text;
+    return el;
+}
+function description(road, penalty = 0)
+{
+    return `${road.from} → ${road.to}\n${road.name}\nID: ${road.id}\nDistance: ${number(road.km)} km\nPenalty: ${number(penalty)}\nCost: ${number(road.km + penalty)}`;
+}
+function drawRoad(road, colour, width, dash, penalty, label)
+{
+    if (!road || !road.path) return;
+    const line = element('path', {d:road.path, class:'road', stroke:colour, 'stroke-width':width,
+        'vector-effect':'non-scaling-stroke', 'stroke-dasharray':dash || '', tabindex:0, role:'button',
+        'aria-label':label + ': ' + road.from + ' to ' + road.to});
+    const detail = label + '\n' + description(road, penalty);
+    line.append(element('title', {}, detail));
+    line.addEventListener('click', () => $('detail').textContent = detail);
+    line.addEventListener('keydown', event =>
+    {
+        if (event.key === 'Enter' || event.key === ' ')
+        {
+            event.preventDefault(); $('detail').textContent = detail;
+        }
+    });
+    $('drawing').append(line);
+}
+function render()
+{
+    const drawing = $('drawing'); drawing.replaceChildren();
+    $('map').setAttribute('viewBox', camera.join(' '));
+    for (const country of countries)
+        drawing.append(element('path', {d:country.path, fill:country.name === 'Spain' ? '#fbfaf3' : '#e7e8df', stroke:'#acbfc0', 'stroke-width':1, 'vector-effect':'non-scaling-stroke', 'fill-rule':'evenodd'}));
+    if ($('network').checked)
+        for (const road of roads.values())
+            drawing.append(element('path', {d:road.path, fill:'none', stroke:'#92a9ad', 'stroke-width':1, 'vector-effect':'non-scaling-stroke', opacity:.55}));
+    const current = data.scenarios[selected];
+    const overview = $('overview'); overview.replaceChildren();
+    const top = project([-10,44.7]), bottom = project([4.8,35.5]);
+    overview.setAttribute('viewBox', [top[0],top[1],bottom[0]-top[0],bottom[1]-top[1]].join(' '));
+    for (const country of countries)
+        overview.append(element('path', {d:country.path,fill:country.name==='Spain'?'#fbfaf3':'#e7e8df',stroke:'#acbfc0','stroke-width':.6,'vector-effect':'non-scaling-stroke'}));
+    for (const leg of current.legs)
+        if (roads.get(leg.roadId)?.path)
+            overview.append(element('path',{d:roads.get(leg.roadId).path,fill:'none',stroke:colours.selected,'stroke-width':2,'vector-effect':'non-scaling-stroke'}));
+    overview.append(element('rect',{x:camera[0],y:camera[1],width:camera[2],height:camera[3],fill:'none',stroke:'#2469ba','stroke-width':1,'vector-effect':'non-scaling-stroke'}));
+    for (const leg of data.scenarios[0].legs)
+        drawRoad(roads.get(leg.roadId), colours.original, 7, '', leg.penalty, 'Original route');
+    for (const leg of current.legs)
+        drawRoad(roads.get(leg.roadId), colours.selected, 3, '', leg.penalty, 'Selected route');
+    if (selected === 1 || selected === 3)
+        for (const id of data.affected)
+            drawRoad(roads.get(id), colours.incident, 3, '7 7', selected === 3 ? 1000 : 0,
+                selected === 1 ? 'Removed connection (unavailable)' : 'Penalised connection');
+    // Keep endpoint labels first, suppress overlapping secondary labels at wide zoom.
+    const names = [...new Set([current.from, current.to, ...current.localities, ...data.scenarios[0].localities])];
+    const scale = Math.max(camera[2] / $('map').clientWidth, camera[3] / $('map').clientHeight);
+    const boxes = [];
+    for (const name of names)
+    {
+        if (!coordinates[name]) continue;
+        const [x,y] = project(coordinates[name]);
+        const endpoint = name === current.from || name === current.to;
+        drawing.append(element('circle', {cx:x, cy:y, r:(endpoint ? 4.5 : 3)*scale, fill:endpoint ? '#164e50' : '#fff', stroke:'#164e50', 'stroke-width':1.4, 'vector-effect':'non-scaling-stroke'}));
+        const box = [x+7*scale,y-18*scale,(name.length*7+5)*scale,17*scale];
+        if (!endpoint && boxes.some(b => box[0]<b[0]+b[2] && box[0]+box[2]>b[0] && box[1]<b[1]+b[3] && box[1]+box[3]>b[1])) continue;
+        boxes.push(box);
+        drawing.append(element('text', {x:box[0], y:y-5*scale, 'font-size':12*scale, 'font-weight':endpoint?750:550, fill:'#193d46', stroke:'#fff', 'stroke-width':3*scale, 'paint-order':'stroke', 'stroke-linejoin':'round'},name));
+    }
+}
+function fit()
+{
+    const ids = new Set([...data.scenarios[0].legs, ...data.scenarios[selected].legs].map(l => l.roadId));
+    const points = [...ids].flatMap(id => roads.get(id)?.points || []);
+    for (const name of [data.scenarios[selected].from,data.scenarios[selected].to])
+        if (coordinates[name]) points.push(project(coordinates[name]));
+    if (!points.length) return peninsula();
+    const xs=points.map(p=>p[0]), ys=points.map(p=>p[1]);
+    const minX=xs.reduce((a,b)=>Math.min(a,b)),maxX=xs.reduce((a,b)=>Math.max(a,b));
+    const minY=ys.reduce((a,b)=>Math.min(a,b)),maxY=ys.reduce((a,b)=>Math.max(a,b));
+    const width=Math.max(.45,maxX-minX)*1.28, height=Math.max(.45,maxY-minY)*1.28;
+    camera=[(minX+maxX-width)/2,(minY+maxY-height)/2,width,height];render();
+}
+function peninsula()
+{
+    const a=project([-10,44.7]),b=project([4.8,35.5]);camera=[a[0],a[1],b[0]-a[0],b[1]-a[1]];render();
+}
+function zoom(factor, anchor)
+{
+    if (camera[2]*factor < .01 || camera[2]*factor > 70) return;
+    const [x,y] = anchor || [camera[0]+camera[2]/2,camera[1]+camera[3]/2];
+    camera=[x+(camera[0]-x)*factor,y+(camera[1]-y)*factor,camera[2]*factor,camera[3]*factor];render();
+}
+function select(index)
+{
+    selected=index;const route=data.scenarios[index];
+    [...$('scenarios').children].forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));
+    $('scenario-title').textContent=titles[index];
+    $('distance').textContent=route.reachable?number(route.kilometres):'—';
+    $('cost').textContent=route.reachable?number(route.cost):'∞';
+    $('status').textContent=!route.reachable?'No route is available.':index===1?'Affected connections removed from the graph.':index===3?'Penalty: +1000 per affected directed connection.':'No incident. Original road weights restored.';
+    $('route-names').textContent=route.reachable?route.localities.join(' → '):`${route.from} → ${route.to}: unreachable`;
+    $('detail').textContent='Choose a coloured road to inspect it.';
+    $('legs').replaceChildren();
+    for (const leg of route.legs)
+    {
+        const tr=document.createElement('tr'),td=document.createElement('td'),button=document.createElement('button'),cost=document.createElement('td');
+        button.textContent=leg.from+' → '+leg.to;
+        button.onclick=()=> $('detail').textContent=description(roads.get(leg.roadId),leg.penalty);
+        td.append(button);cost.textContent=number(leg.kilometres)+' / '+number(leg.kilometres+leg.penalty);tr.append(td,cost);$('legs').append(tr);
+    }
+    const missing=route.legs.filter(l=>!roads.get(l.roadId)?.path).length;
+    $('warning').textContent=missing?'Geographic geometry is missing for '+missing+' selected connection(s). They are omitted from the map; the table still shows their costs.':'';
+    if (!camera) fit(); else render();
+}
+data.scenarios.forEach((route,i)=>
+{
+    const b=document.createElement('button');b.textContent=titles[i];b.onclick=()=>select(i);$('scenarios').append(b);
+});
+$('title').textContent=data.scenarios[0].from+' → '+data.scenarios[0].to;
+$('fit').onclick=fit;$('spain').onclick=peninsula;$('zoom-in').onclick=()=>zoom(.7);$('zoom-out').onclick=()=>zoom(1/.7);$('network').onchange=render;
+const svg=$('map');
+function world(event)
+{
+    const pt=svg.createSVGPoint();pt.x=event.clientX;pt.y=event.clientY;const v=pt.matrixTransform(svg.getScreenCTM().inverse());return [v.x,v.y];
+}
+svg.addEventListener('wheel',e=>{e.preventDefault();zoom(e.deltaY<0?.85:1/.85,world(e));},{passive:false});
+let drag;
+svg.addEventListener('pointerdown',e=>{if(e.button!==0)return;drag={point:world(e),x:e.clientX,y:e.clientY,moving:false};});
+svg.addEventListener('pointermove',e=>
+{
+    if(!drag)return;
+    if(!drag.moving && Math.hypot(e.clientX-drag.x,e.clientY-drag.y)<4)return;
+    drag.moving=true;svg.setPointerCapture(e.pointerId);
+    const p=world(e);camera=[camera[0]+drag.point[0]-p[0],camera[1]+drag.point[1]-p[1],camera[2],camera[3]];render();
+});
+svg.addEventListener('pointerup',()=>drag=null);svg.addEventListener('pointercancel',()=>drag=null);
+window.addEventListener('resize',()=>{if(camera)render();});select(selected);
+</script>
+</body>
+</html>
