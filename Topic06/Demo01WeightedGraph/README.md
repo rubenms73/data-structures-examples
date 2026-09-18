@@ -1,284 +1,273 @@
-# Weighted graphs and Dijkstra: Asturias and León
+# Road navigation: shortest paths and temporary incidents
 
-## Problem and prerequisites
+## Goal and prerequisites
 
-Find a minimum-distance route in a network of localities. Represent the network
-with adjacency maps, then compare two implementations of Dijkstra: a linear
-minimum scan and a priority queue. Read the graph terminology, weighted directed
-graph and Dijkstra sections of **Topic 6** first. Maps, sets, comparators and the
-priority queue from earlier topics are prerequisites.
+Choose an origin and destination, compute a route, remove a road, and ask
+Dijkstra for an alternative. Restore the road, give it a large temporary weight,
+and repeat. The program prints the actual road alternatives selected, their
+physical kilometres and the routing cost separately.
 
-The supplied JSON contains **29 localities and 40 two-way connections** (80
-directed arcs). Names are real; the rounded kilometre weights are **invented
-teaching data, not measured road distances**. They do not constitute a navigation
-dataset. The example illustrates shortest paths within this model, not the
-shortest real journey between two towns.
+Read Topic 6's adjacency-map representation, nonnegative weights, relaxation
+and Dijkstra invariant first. Maps, sets, comparators and priority queues come
+from earlier topics. `WeightedGraph` and its linear and heap Dijkstra algorithms
+are unchanged. The new navigation layer supplies the roads and incident state.
 
-## Run it
+## Run the demonstration
 
-Open **this individual demo folder** in VS Code, with JDK 17 and Extension Pack
-for Java. Run `src/app/Main.java`, or use the terminal:
+Open this individual folder in VS Code with JDK 17 or newer. Use **Run** on
+`src/app/Main.java`. The default trip is **Gijón → Madrid**.
 
-```sh
-bash run.sh
-bash run.sh test
-bash run.sh run data/asturias-leon.json 'Cudillero' 'Ponferrada'
-```
-
-The optional arguments are the JSON filename, source and destination. All three
-must be supplied together. The default source is Gijón and the target is León.
-`run.sh` changes to the example folder before loading relative filenames. The
-VS Code launch configurations also use that folder as their working directory.
-
-No Maven, Gradle or download is required at run time. The bundled Gson library
-parses JSON; its compile-time annotation dependency and both licences are in
-`lib`. The graph and algorithms themselves use only the Java standard library.
-JSON parsing is supporting infrastructure, not an additional algorithm students
-need to implement in this lesson.
-
-## Files and reading order
-
-1. `data/asturias-leon.json`: inspect vertices and roads before reading Java.
-2. `src/ds/WeightedGraph.java`: representation, graph operations, linear Dijkstra,
-   immutable queue entries, heap Dijkstra and the shared relaxation operation.
-3. `src/ds/ShortestPaths.java`: a result snapshot and path reconstruction.
-4. `src/app/Main.java`: load the network, print adjacency lists, compare distances
-   and show both paths. One search produces all distances; printing another path
-   from that result does not repeat Dijkstra.
-5. `src/io/RoadNetworkReader.java`: UTF-8 loading and schema checks.
-6. `tests/tests/ExampleChecks.java`: contracts, JSON errors and independent
-   shortest-path verification. These are checks, not a second teaching demo.
-
-## Graph contract and relation to theory
-
-The class follows the current Topic 6 presentation's simple directed graph:
-
-- The constructor receives `Comparator<? super V>`. Vertices need not implement
-  `Comparable`. The comparator must be consistent with `equals`, and comparison,
-  equality and hash codes must remain stable while vertices are in use.
-- A vertex cannot be null. `addEdge` creates missing endpoints, but rejects
-  non-finite weights before changing anything. Finite negative weights are valid
-  graph data; **both Dijkstra methods reject every negative edge**, including
-  edges in components unreachable from the source.
-- Self-loops and duplicate arcs return `false` without changing the graph or an
-  existing weight. A rejected self-loop does not create its vertex.
-- `weightEdge` throws `NoSuchElementException` for an absent arc. There is no
-  ambiguous sentinel weight for an absent edge.
-- Removing a vertex removes and counts all its outgoing and incoming arcs.
-  Removing an arc keeps the endpoint vertices. Missing removals return `false`.
-- `vertices` and `adjacentsTo` are ordered, read-only views. Their elements cannot
-  be removed through those views. Obtain a new neighbour view after removing and
-  re-adding its vertex. Degree queries require an existing vertex.
-- A copy has independent outer and adjacency maps; vertex objects are shared.
-
-`vertexCount`, `edgeCount` and `vertices` correspond to the slides' `getNumVertices`,
-`getNumEdges` and `getAllVertices`. `ShortestPaths` is an ordinary documented class
-rather than a record. Its maps are immutable snapshots in comparator order, so
-subsequent graph changes cannot invalidate an earlier result. Paths are newly
-allocated lists. The API does not keep a mutable 'last Dijkstra run' in the graph.
-
-The earlier public minimal graph allowed self-loops and rejected negative edges
-at insertion. This version deliberately aligns those contracts, the sorted-map
-representation and the neighbour views with the current theory presentation.
-
-## Follow Dijkstra step by step
-
-Initially the source has distance zero and every other vertex has infinity.
-The next vertex is the unsettled one with the smallest tentative distance.
-Once settled, its distance is final because remaining edges are nonnegative.
-Relaxing an outgoing edge means testing whether travelling through this vertex
-improves its neighbour's distance. Record the new predecessor only for a strict
-improvement; zero-weight edges and equal-cost alternatives are valid.
-
-In `dijkstra`, scan all distances to choose the minimum. Stop when no finite
-unsettled distance remains: disconnected vertices keep infinity.
-
-In `dijkstraHeap`, insert an immutable `(vertex, distance)` entry for every
-improvement. `PriorityQueue` does not provide decrease-key. An earlier, worse
-entry may remain in the queue; skip it after its vertex has been settled. Never
-make the queue comparator read a mutable distance map. Ties use the graph's
-vertex comparator, making this example reproducible.
-
-For a small trace, use arcs A→B:10, A→C:1, C→B:2. Processing A inserts B:10 and
-C:1; processing C inserts B:3. B:3 is removed first. The later B:10 entry is
-ignored. Follow this sequence with a breakpoint at `queue.remove()`.
-
-The default Gijón→León route is:
-
-`Gijón → Oviedo → Mieres → Pola de Lena → Campomanes → Pajares → Villamanín → La Robla → León`
-
-Its model cost is `30 + 20 + 15 + 8 + 25 + 21 + 25 + 26 = 170 km`.
-The alternative Campomanes→La Robla arc costs 72; the route through Pajares and
-Villamanín costs 71, illustrating that fewer arcs need not mean a shorter route.
-
-To reconstruct a path, follow predecessor links from the target and add each
-vertex to the front of a list. An unreachable target gives an empty list. The
-source gives a one-element list. Unknown targets and sources are rejected.
-Overflow of a candidate distance throws `ArithmeticException`; infinity is
-reserved for unreachable vertices. Ordinary double rounding still applies.
-
-## JSON format and changes to try
-
-```json
-{
-  "description": "A small example; this text is optional",
-  "directed": false,
-  "vertices": ["Gijón", "Oviedo", "León"],
-  "roads": [
-    {"from": "Gijón", "to": "Oviedo", "km": 30},
-    {"from": "Oviedo", "to": "León", "km": 140}
-  ]
-}
-```
-
-`directed`, `vertices` and `roads` are required and have the types shown. With
-`directed: false`, list each road once: the loader adds both arcs with the same
-weight. With `true`, each entry adds only `from → to`. Do not include a second
-reversed entry for a two-way road. Locality names must be nonempty strings with
-no outer spaces. Every road endpoint must already be listed in `vertices`.
-Distances must be JSON numbers, finite and nonnegative; numeric strings are not
-accepted. Duplicate vertices, duplicate arcs and self-loops are errors. Invalid
-input never returns a partially built graph. Description and other extra metadata
-are ignored. UTF-8 preserves accents in locality names.
-
-Try these experiments without changing the algorithm:
-
-- Add an isolated locality and observe infinity and an empty path.
-- Set `directed` to true and compare the two directions of the same trip.
-- Remove a connection or change its cost and predict the new predecessor links.
-- Make two routes equally cheap; compare distances rather than requiring a unique path.
-- Add a zero-weight connection and trace strict relaxation.
-- Supply an unknown endpoint, negative distance or duplicate road and inspect
-  the simple validation conditional that rejects it.
-
-## Costs
-
-Write V for the number of vertices and E for the number of directed arcs.
-TreeMap membership and single-arc updates take O(log V), assuming constant-time
-comparisons. Reading neighbours costs O(log V + out-degree); removing a vertex
-or computing its incoming degree takes O(V log V).
-
-With sorted distance maps and expected constant-time HashSet marking, the linear
-version takes O(V² + E log V) time and O(V) auxiliary storage. The heap version
-on this simple graph takes O((V + E) log(V + 1)) time and O(V + E) auxiliary
-storage, including stale queue entries. Both validate all E arcs first. These
-bounds describe this representation, not an indexed-array decrease-key heap.
-
-## Corrections to the recovered example
-
-The original TreeMap silently required comparable vertices although its type
-parameter did not declare that requirement. It shared adjacency maps in copies,
-returned modifiable internal views, failed to update edge counts when deleting
-vertices, and did not validate weights or the search source. The heap variant
-reprocessed outdated queue entries, and results were stored as mutable graph
-state. Those issues are corrected here. Console printing belongs to `Main`,
-not to the graph implementation. Code and comments use English, Allman style,
-four spaces, simple validation conditions and Java 17.
-
-## Verification
-
-`bash run.sh test` checks graph mutations, copy isolation, read-only results,
-invalid inputs, unreachable vertices, zero weights, stale heap entries and
-overflow. Twenty seeded random directed graphs are checked against an independent
-Floyd–Warshall distance table. Every returned route's arcs and summed cost are
-verified. The JSON network is checked from every source with both algorithms.
-The example is also copied to an isolated folder to verify its scripts and data
-paths. Expected output below uses the unmodified supplied JSON.
-
-## Expected output
-
-```text
-Road network: 29 localities, 80 directed arcs
-Teaching data: illustrative distances in km, not measured road distances.
-
-Adjacency lists (destination: km)
-Arriondas -> [Cangas de Onís: 8] [Infiesto: 20] [Ribadesella: 19]
-Astorga -> [León: 52] [Ponferrada: 62]
-Avilés -> [Cudillero: 28] [Gijón: 28] [Oviedo: 30]
-Bembibre -> [Ponferrada: 22] [Villablino: 61]
-Campomanes -> [La Robla: 72] [Pajares: 25] [Pola de Lena: 8]
-Cangas de Onís -> [Arriondas: 8] [Riaño: 68]
-Cangas del Narcea -> [Tineo: 31] [Villablino: 63]
-Cistierna -> [León: 60] [Riaño: 35]
-Cudillero -> [Avilés: 28] [Pravia: 15]
-Gijón -> [Avilés: 28] [Langreo: 33] [Oviedo: 30] [Villaviciosa: 27]
-Grado -> [Oviedo: 26] [Pravia: 29] [Salas: 23]
-Infiesto -> [Arriondas: 20] [Oviedo: 46] [Villaviciosa: 30]
-La Robla -> [Campomanes: 72] [León: 26] [Riaño: 80] [Villablino: 72] [Villamanín: 25]
-Langreo -> [Gijón: 33] [Mieres: 20] [Oviedo: 26]
-León -> [Astorga: 52] [Cistierna: 60] [La Robla: 26]
-Llanes -> [Ribadesella: 29]
-Mieres -> [Langreo: 20] [Oviedo: 20] [Pola de Lena: 15]
-Oviedo -> [Avilés: 30] [Gijón: 30] [Grado: 26] [Infiesto: 46] [Langreo: 26] [Mieres: 20]
-Pajares -> [Campomanes: 25] [Villamanín: 21]
-Pola de Lena -> [Campomanes: 8] [Mieres: 15]
-Ponferrada -> [Astorga: 62] [Bembibre: 22] [Villablino: 65]
-Pravia -> [Cudillero: 15] [Grado: 29]
-Riaño -> [Cangas de Onís: 68] [Cistierna: 35] [La Robla: 80]
-Ribadesella -> [Arriondas: 19] [Llanes: 29] [Villaviciosa: 46]
-Salas -> [Grado: 23] [Tineo: 23]
-Tineo -> [Cangas del Narcea: 31] [Salas: 23]
-Villablino -> [Bembibre: 61] [Cangas del Narcea: 63] [La Robla: 72] [Ponferrada: 65]
-Villamanín -> [La Robla: 25] [Pajares: 21]
-Villaviciosa -> [Gijón: 27] [Infiesto: 30] [Ribadesella: 46]
-
-Distances from Gijón (km)
-Arriondas: 77
-Astorga: 222
-Avilés: 28
-Bembibre: 257
-Campomanes: 73
-Cangas de Onís: 85
-Cangas del Narcea: 133
-Cistierna: 188
-Cudillero: 56
-Gijón: 0
-Grado: 56
-Infiesto: 57
-La Robla: 144
-Langreo: 33
-León: 170
-Llanes: 102
-Mieres: 50
-Oviedo: 30
-Pajares: 98
-Pola de Lena: 65
-Ponferrada: 261
-Pravia: 71
-Riaño: 153
-Ribadesella: 73
-Salas: 79
-Tineo: 102
-Villablino: 196
-Villamanín: 119
-Villaviciosa: 27
-
-Linear scan path: [Gijón, Oviedo, Mieres, Pola de Lena, Campomanes, Pajares, Villamanín, La Robla, León]
-Heap path:        [Gijón, Oviedo, Mieres, Pola de Lena, Campomanes, Pajares, Villamanín, La Robla, León]
-Total distance: 170 km
-Both algorithms give the same distances.
-```
-
-## Windows
-
-Open a terminal in this folder (PowerShell, Command Prompt or the VS Code
-terminal). Install a JDK 17 or newer and put its `bin` directory on `PATH`;
-`java -version` and `javac -version` should both work. No Bash, WSL or Git Bash
-is required.
+Windows, from PowerShell, Command Prompt or the VS Code terminal:
 
 ```powershell
 .\run.cmd
 .\run.cmd test
+.\run.cmd run data/northern-spain.json "Oviedo" "León"
+.\run.cmd run data/northern-spain.json "Cudillero" "Cangas de Onís"
 ```
 
-The first command runs the demonstration; the second compiles and runs its checks.
-The launcher handles its own working directory, paths with spaces and any
-bundled JAR libraries. It uses the included Windows PowerShell 5.1;
-`run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
-remain available when the individual example folder is open.
+macOS and Linux:
 
-For another route, pass the JSON file, source and target after `run`:
+```sh
+bash run.sh
+bash run.sh test
+bash run.sh run data/northern-spain.json 'Oviedo' 'León'
+```
 
-```powershell
-.\run.cmd run data/asturias-leon.json "Cudillero" "Cangas de Onís"
+Supply all three arguments: JSON file, origin and destination. An optional fourth
+argument selects one directed road ID for the incident. Otherwise the demo uses
+the tagged Pajares pass when present, then AP-66, then the first connection.
+For an unreachable destination or an origin equal to the destination, it prints
+the result and does not invent a road to disrupt. Unknown names are errors.
+All scripts select their own working directory. Windows needs `java` and `javac`
+on PATH, without Bash or WSL. Gson and its annotation dependency are bundled in
+`lib`, together with their licences. Running the demo requires no internet.
+
+## The map data
+
+`data/northern-spain.json` contains **42 localities and 120 directed road
+alternatives**. It retains the original Asturias/León network and extends it to
+Benavente, Zamora, Salamanca, Valladolid, Palencia, Burgos, Santander, Bilbao,
+Lugo, A Coruña, Santiago de Compostela, Ourense and Madrid.
+
+Weights now come from **OSRM routes on OpenStreetMap**, queried on
+18 September 2026. They are map-derived road lengths, not invented distances
+or straight-line measurements. Each locality has an explicit reference coordinate;
+OSRM snaps it to the road network. Forward and reverse directions were queried
+separately, so their lengths need not match.
+
+Each edge represents a **whole directed corridor between two reference points**,
+including any urban access streets. Its name lists the road references returned
+by OSRM, in traversal order. A corridor can use several numbered roads and can
+pass other localities without stopping at their reference points. It is not a
+single physical road segment. Only represented corridors can be chosen or switched
+between; crossings inside a corridor are not additional graph vertices.
+
+OSRM supplies a recommended driving route for each pair; the separately requested
+Pajares alternatives use a waypoint in Pajares/Payares to follow the N-630 corridor.
+The retained alternatives from Oviedo to León distinguish the AP-66 route from
+the N-630 option. Dijkstra minimises distance/cost among this **sampled network**,
+not over every road in Spain. OSRM's route service optimises its driving profile,
+so a returned corridor is not a guarantee of globally minimum physical distance.
+
+Every JSON road includes its query URL. `data/route-evidence.json` records the
+returned distance in metres, road steps, snapped coordinates, retrieval time and
+a SHA-256 fingerprint of the original response. Divide metres by 1000 to obtain
+the stored kilometres. The service did not report an OSM extract date, so retrieval
+time must not be mistaken for the underlying map's publication date. Live traffic,
+closures, toll prices and current accessibility are not queried.
+
+Sources and attribution:
+
+- [OSRM route API](https://project-osrm.org/docs/v5.24.0/api/#route-service).
+- © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright).
+  The map-derived dataset is supplied under ODbL 1.0 with attribution and the
+  corresponding share-alike terms. That licence applies to the dataset, not
+  automatically to the Java implementation.
+
+The former invented network is retained only as a regression-test fixture in
+`tests/data/illustrative-network.json`; the demonstration never loads it.
+
+## Classroom sequence
+
+1. **Original route.** Inspect its localities, road IDs and references, kilometres
+   and total cost. With no incidents, cost equals distance.
+2. **Connections removed.** Call `removeRoad(id)` and recompute. Save the removed
+   objects so they can be restored with `addRoad`.
+3. **Connections restored.** Recompute with the original network.
+4. **Large temporary penalty.** Add 1000 cost units to each affected connection
+   and recompute. The road still exists and may be chosen if no cheaper route
+   is available. This differs from removing or closing it.
+5. **Penalty removed.** Restore the zero penalty and recompute once more.
+
+`try/finally` ensures that temporary changes are undone if recalculation fails.
+The JSON file is never changed by these experiments. Every displayed scenario
+runs both Dijkstra implementations and compares all computed costs.
+
+For the Pajares pass, the demonstration removes/penalises **every represented
+connection tagged `N-630-Pajares`, in both directions**. Those tags identify N-630
+route geometry crossing the pass area, not every road with the N-630 reference.
+The JSON documents the coordinate bounds; the evidence records matching points.
+AP-66 is a second corridor tag based on its exact road reference. Grouping avoids
+silently reopening an incident through a different overlapping connection.
+These tags describe this teaching snapshot, not precise real-time incident limits.
+For a localised incident, split corridors at the incident/junction and use separate
+edge IDs. Supplying a road ID explicitly changes only that one directed edge;
+it does not close all other corridors that might share physical road segments.
+
+## Distance, cost and alternatives
+
+`Road.kilometres()` never changes. `Road.cost()` is `kilometres + penalty`.
+A penalty uses **equivalent-distance cost units**, not extra kilometres of road
+and not measured minutes of delay. The output prints physical distance separately.
+This is a simple classroom model of a navigator's response, not a live traffic
+or travel-time model. A time-based version would instead need coherent baseline
+travel-time and delay weights for every connection.
+
+`Road.setClosed(true)` is another reversible operation: route construction skips
+that road, while `setClosed(false)` reopens it. Closures leave its previous penalty
+intact. `setPenalty(0)` clears a penalty. All weights must be finite and nonnegative;
+invalid changes leave the road unchanged. Equal-cost alternatives are legitimate,
+so restoration guarantees the original optimum cost, not uniqueness of the path.
+
+Parallel roads must not overwrite one another. The navigation network stores
+Road objects by **unique ID**, allowing several roads from A to B. For each query,
+it selects the cheapest open road for each ordered pair and builds a fresh simple
+`WeightedGraph`. With one additive scalar cost, a more expensive parallel edge
+cannot improve any path, so this reduction preserves the optimum. All alternatives
+remain in the navigation network and are reconsidered after an incident.
+
+The chosen Road is retained alongside each graph arc. The returned `Route` takes
+snapshots of IDs, names, distances and penalties. Later changes cannot rewrite a
+previous result. A route with no destination path has infinite cost and distance;
+an origin-to-itself route has zero cost and no legs. This design reuses the existing
+Dijkstra implementations without changing their graph contract.
+
+## Code walkthrough
+
+- `Road`: one directed alternative, immutable identifying data and distance,
+  mutable closure/penalty, explicit validation.
+- `NavigationNetwork`: localities, alternative roads, removal/restoration and
+  construction of the current weighted graph.
+- `WeightedGraph`: sorted adjacency maps, linear minimum scan and priority queue
+  with immutable entries and stale-entry skipping. Graph copies own their maps;
+  read-only neighbour views prevent external structural modification.
+- `ShortestPaths`: independent distance/predecessor snapshot and reconstruction.
+- `Route`: the selected roads and their captured costs, kept separate from distance.
+- `NavigationNetworkReader`: strict UTF-8 JSON loading with Gson and simple checks.
+- `Main`: the five scenarios, with restoration in `finally` blocks.
+
+The basic graph rejects null vertices, non-finite weights and self-loops; an
+existing arc is left unchanged. Finite negative graph weights are permitted but
+Dijkstra rejects them, even in unreachable components. The navigation layer
+requires nonnegative distances and penalties. A nonrepresentable candidate sum
+raises `ArithmeticException` rather than mislabelling a destination unreachable.
+The objects are not thread-safe; do not change them during a query.
+
+## JSON schema
+
+The root contains `directed: true`, a `vertices` array of locality names and a
+`roads` array. Each road has `id`, `from`, `to`, `name`, `km` and source metadata.
+Endpoints must already be listed. IDs are unique; endpoints may repeat across
+different alternatives. Optional `corridors` is an array of nonblank strings used
+to group connections affected by the same incident. Explicit reverse edges carry their independently queried
+weights. Closure and penalty state start at false and zero in memory.
+
+```json
+{
+  "directed": true,
+  "vertices": ["A", "B"],
+  "roads": [
+    {"id": "motorway", "from": "A", "to": "B", "name": "AP-example", "km": 10},
+    {"id": "national", "from": "A", "to": "B", "name": "N-example", "km": 15}
+  ]
+}
+```
+
+This tiny schema illustration is fictional; the bundled northern-Spain dataset
+uses the sourced distances described above. Unknown metadata fields are ignored.
+Missing fields, invalid types, duplicate IDs, unknown endpoints and invalid
+weights are rejected before a partially loaded network is returned.
+
+## Checks and experiments
+
+The tests verify parallel alternatives, deletion/restoration, closure/reopening,
+penalty changes, unchanged physical distances, result snapshots, unreachable
+vertices, directionality and invalid inputs. Existing graph tests also compare
+both Dijkstra variants with Floyd–Warshall on seeded random graphs and check
+every reconstructed path's arcs and summed weight.
+
+Try a penalty just below, equal to and just above the difference between two
+parallel alternatives. Ask when the selected road changes. Then close both
+alternatives and distinguish 'unreachable' from 'expensive but still reachable'.
+Try incidents on roads outside the original route and explain why some changes
+have no effect. The main program can be edited to close only one direction.
+
+## Costs
+
+Let R count road alternatives, V localities and E the selected ordered pairs.
+Building the current graph costs expected O(R + (V + E) log(V + 1)), using hash
+lookup for selecting alternatives and sorted maps for the basic graph.
+The linear Dijkstra version takes O(V² + E log(V + 1)); its heap variant takes
+O((V + E) log(V + 1)) for this simple graph. The demo runs both for comparison.
+Each scenario recomputes from scratch. It does not use an incremental shortest-path
+algorithm. Code follows Java 17, Allman style and four-space indentation.
+
+## Expected output
+
+```text
+Network: 42 localities, 120 directed road alternatives
+Map-derived distances: OpenStreetMap / OSRM snapshot; no live traffic.
+Cost = kilometres + teaching penalty (equivalent-distance units).
+Parallel alternatives from Oviedo to León:
+  road-59 | O-12, A-66, AP-66, N-120 | 122.762 km
+  pajares-south | O-12, A-66, N-630, N-630A | 114.917 km
+
+1. Original route
+[Gijón, Oviedo, León, Palencia, Valladolid, Madrid]
+  Gijón -> Oviedo | road-02 | GJ-81, A-8, A-66R, A-63, O-12, N-630 | 33.768 km | penalty 0.000
+  Oviedo -> León | pajares-south | O-12, A-66, N-630, N-630A | 114.917 km | penalty 0.000
+  León -> Palencia | road-44 | LE-20, LE-30, A-60, A-231, CL-615 | 133.424 km | penalty 0.000
+  Palencia -> Valladolid | road-45 | P-11, A-67, A-62, VA-20 | 48.758 km | penalty 0.000
+  Valladolid -> Madrid | road-55 | N-601, AP-6, A-6 | 190.241 km | penalty 0.000
+Physical distance: 521.107 km; routing cost: 521.107
+
+Incident: N-630-Pajares in both directions (4 represented connections)
+
+2. Affected connections removed
+[Gijón, Oviedo, León, Palencia, Valladolid, Madrid]
+  Gijón -> Oviedo | road-02 | GJ-81, A-8, A-66R, A-63, O-12, N-630 | 33.768 km | penalty 0.000
+  Oviedo -> León | road-59 | O-12, A-66, AP-66, N-120 | 122.762 km | penalty 0.000
+  León -> Palencia | road-44 | LE-20, LE-30, A-60, A-231, CL-615 | 133.424 km | penalty 0.000
+  Palencia -> Valladolid | road-45 | P-11, A-67, A-62, VA-20 | 48.758 km | penalty 0.000
+  Valladolid -> Madrid | road-55 | N-601, AP-6, A-6 | 190.241 km | penalty 0.000
+Physical distance: 528.953 km; routing cost: 528.953
+
+3. Connections restored
+[Gijón, Oviedo, León, Palencia, Valladolid, Madrid]
+  Gijón -> Oviedo | road-02 | GJ-81, A-8, A-66R, A-63, O-12, N-630 | 33.768 km | penalty 0.000
+  Oviedo -> León | pajares-south | O-12, A-66, N-630, N-630A | 114.917 km | penalty 0.000
+  León -> Palencia | road-44 | LE-20, LE-30, A-60, A-231, CL-615 | 133.424 km | penalty 0.000
+  Palencia -> Valladolid | road-45 | P-11, A-67, A-62, VA-20 | 48.758 km | penalty 0.000
+  Valladolid -> Madrid | road-55 | N-601, AP-6, A-6 | 190.241 km | penalty 0.000
+Physical distance: 521.107 km; routing cost: 521.107
+
+4. Temporary penalty of 1000 per affected connection
+[Gijón, Oviedo, León, Palencia, Valladolid, Madrid]
+  Gijón -> Oviedo | road-02 | GJ-81, A-8, A-66R, A-63, O-12, N-630 | 33.768 km | penalty 0.000
+  Oviedo -> León | road-59 | O-12, A-66, AP-66, N-120 | 122.762 km | penalty 0.000
+  León -> Palencia | road-44 | LE-20, LE-30, A-60, A-231, CL-615 | 133.424 km | penalty 0.000
+  Palencia -> Valladolid | road-45 | P-11, A-67, A-62, VA-20 | 48.758 km | penalty 0.000
+  Valladolid -> Madrid | road-55 | N-601, AP-6, A-6 | 190.241 km | penalty 0.000
+Physical distance: 528.953 km; routing cost: 528.953
+
+5. Penalty removed
+[Gijón, Oviedo, León, Palencia, Valladolid, Madrid]
+  Gijón -> Oviedo | road-02 | GJ-81, A-8, A-66R, A-63, O-12, N-630 | 33.768 km | penalty 0.000
+  Oviedo -> León | pajares-south | O-12, A-66, N-630, N-630A | 114.917 km | penalty 0.000
+  León -> Palencia | road-44 | LE-20, LE-30, A-60, A-231, CL-615 | 133.424 km | penalty 0.000
+  Palencia -> Valladolid | road-45 | P-11, A-67, A-62, VA-20 | 48.758 km | penalty 0.000
+  Valladolid -> Madrid | road-55 | N-601, AP-6, A-6 | 190.241 km | penalty 0.000
+Physical distance: 521.107 km; routing cost: 521.107
+Both algorithms give the same distances for every scenario.
 ```

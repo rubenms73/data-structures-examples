@@ -181,7 +181,7 @@ public final class ExampleChecks
 
     private static void jsonChecks() throws IOException
     {
-        WeightedGraph<String> roads = RoadNetworkReader.read(Path.of("data/asturias-leon.json"));
+        WeightedGraph<String> roads = RoadNetworkReader.read(Path.of("tests/data/illustrative-network.json"));
         equal(29, roads.vertexCount());
         equal(80, roads.edgeCount());
         for (String from : roads.vertices())
@@ -222,6 +222,7 @@ public final class ExampleChecks
 
     public static void main(String[] args) throws IOException
     {
+        checks += NavigationChecks.run();
         contractChecks();
         randomChecks();
         jsonChecks();

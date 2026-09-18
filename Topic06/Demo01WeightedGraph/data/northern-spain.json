@@ -1,0 +1,1441 @@
+{
+  "description": "Road distances computed by OSRM on OpenStreetMap, between explicit reference coordinates. Each road is directed; reverse directions were queried separately. Snapshot, not live traffic.",
+  "directed": true,
+  "attribution": "© OpenStreetMap contributors, ODbL 1.0. https://www.openstreetmap.org/copyright",
+  "routingService": "https://project-osrm.org/docs/v5.24.0/api/",
+  "vertices": [
+    "Gijón",
+    "Oviedo",
+    "Avilés",
+    "Cudillero",
+    "Pravia",
+    "Grado",
+    "Salas",
+    "Tineo",
+    "Cangas del Narcea",
+    "Villablino",
+    "Mieres",
+    "Langreo",
+    "Pola de Lena",
+    "Campomanes",
+    "Pajares",
+    "Villamanín",
+    "La Robla",
+    "León",
+    "Villaviciosa",
+    "Infiesto",
+    "Arriondas",
+    "Ribadesella",
+    "Cangas de Onís",
+    "Riaño",
+    "Llanes",
+    "Cistierna",
+    "Astorga",
+    "Ponferrada",
+    "Bembibre",
+    "Benavente",
+    "Zamora",
+    "Salamanca",
+    "Valladolid",
+    "Palencia",
+    "Burgos",
+    "Santander",
+    "Bilbao",
+    "Lugo",
+    "A Coruña",
+    "Santiago de Compostela",
+    "Ourense",
+    "Madrid"
+  ],
+  "referenceCoordinates": {
+    "Gijón": [
+      -5.6611,
+      43.5357
+    ],
+    "Oviedo": [
+      -5.8494,
+      43.3614
+    ],
+    "Avilés": [
+      -5.9248,
+      43.5565
+    ],
+    "Cudillero": [
+      -6.1456,
+      43.5618
+    ],
+    "Pravia": [
+      -6.1115,
+      43.4887
+    ],
+    "Grado": [
+      -6.0745,
+      43.3881
+    ],
+    "Salas": [
+      -6.2604,
+      43.4089
+    ],
+    "Tineo": [
+      -6.4159,
+      43.3371
+    ],
+    "Cangas del Narcea": [
+      -6.5494,
+      43.1774
+    ],
+    "Villablino": [
+      -6.3196,
+      42.9385
+    ],
+    "Mieres": [
+      -5.7757,
+      43.2509
+    ],
+    "Langreo": [
+      -5.683,
+      43.299
+    ],
+    "Pola de Lena": [
+      -5.8284,
+      43.1605
+    ],
+    "Campomanes": [
+      -5.8144,
+      43.1089
+    ],
+    "Pajares": [
+      -5.7726416,
+      43.0179491
+    ],
+    "Villamanín": [
+      -5.6566,
+      42.9381
+    ],
+    "La Robla": [
+      -5.6295,
+      42.8028
+    ],
+    "León": [
+      -5.5671,
+      42.5987
+    ],
+    "Villaviciosa": [
+      -5.4356,
+      43.4812
+    ],
+    "Infiesto": [
+      -5.3647,
+      43.3486
+    ],
+    "Arriondas": [
+      -5.1855,
+      43.389
+    ],
+    "Ribadesella": [
+      -5.0596,
+      43.4615
+    ],
+    "Cangas de Onís": [
+      -5.1288,
+      43.3513
+    ],
+    "Riaño": [
+      -5.0036,
+      42.9777
+    ],
+    "Llanes": [
+      -4.755,
+      43.421
+    ],
+    "Cistierna": [
+      -5.1269,
+      42.8026
+    ],
+    "Astorga": [
+      -6.0566,
+      42.4558
+    ],
+    "Ponferrada": [
+      -6.5962,
+      42.5463
+    ],
+    "Bembibre": [
+      -6.4163,
+      42.6158
+    ],
+    "Benavente": [
+      -5.678,
+      42.0023
+    ],
+    "Zamora": [
+      -5.7446,
+      41.5033
+    ],
+    "Salamanca": [
+      -5.664,
+      40.965
+    ],
+    "Valladolid": [
+      -4.7286,
+      41.6523
+    ],
+    "Palencia": [
+      -4.5286,
+      42.0095
+    ],
+    "Burgos": [
+      -3.6969,
+      42.3439
+    ],
+    "Santander": [
+      -3.8099,
+      43.4623
+    ],
+    "Bilbao": [
+      -2.935,
+      43.263
+    ],
+    "Lugo": [
+      -7.556,
+      43.0097
+    ],
+    "A Coruña": [
+      -8.405,
+      43.3623
+    ],
+    "Santiago de Compostela": [
+      -8.5448,
+      42.8782
+    ],
+    "Ourense": [
+      -7.8639,
+      42.3358
+    ],
+    "Madrid": [
+      -3.7038,
+      40.4168
+    ]
+  },
+  "roads": [
+    {
+      "id": "road-01",
+      "from": "Gijón",
+      "to": "Avilés",
+      "name": "GJ-81, A-8, AI-81, AS-392",
+      "variant": "default",
+      "km": 27.098,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.6611,43.5357;-5.9248,43.5565?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-01-reverse",
+      "from": "Avilés",
+      "to": "Gijón",
+      "name": "N-632a, AS-392, AI-81, A-8, GJ-81",
+      "variant": "default",
+      "km": 26.6102,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.9248,43.5565;-5.6611,43.5357?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-02",
+      "from": "Gijón",
+      "to": "Oviedo",
+      "name": "GJ-81, A-8, A-66R, A-63, O-12, N-630",
+      "variant": "default",
+      "km": 33.7678,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.6611,43.5357;-5.8494,43.3614?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-02-reverse",
+      "from": "Oviedo",
+      "to": "Gijón",
+      "name": "N-630, O-11, A-66, A-66R, A-8, GJ-81",
+      "variant": "default",
+      "km": 31.7987,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.8494,43.3614;-5.6611,43.5357?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-03",
+      "from": "Gijón",
+      "to": "Villaviciosa",
+      "name": "N-632, A-8",
+      "variant": "default",
+      "km": 26.451400000000003,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.6611,43.5357;-5.4356,43.4812?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-03-reverse",
+      "from": "Villaviciosa",
+      "to": "Gijón",
+      "name": "AS-380, N-632, A-8",
+      "variant": "default",
+      "km": 26.160700000000002,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.4356,43.4812;-5.6611,43.5357?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-04",
+      "from": "Gijón",
+      "to": "Langreo",
+      "name": "AS-I, AS-117, AS-117a, AS-269, AS-376, LA-3",
+      "variant": "default",
+      "km": 34.204699999999995,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.6611,43.5357;-5.683,43.299?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-04-reverse",
+      "from": "Langreo",
+      "to": "Gijón",
+      "name": "LA-3, AS-376, AS-117a, AS-269, AS-I",
+      "variant": "default",
+      "km": 34.3996,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.683,43.299;-5.6611,43.5357?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-05",
+      "from": "Avilés",
+      "to": "Oviedo",
+      "name": "N-632a, AS-392, AI-81, A-8, A-66R, A-66, A-63, O-12, N-630",
+      "variant": "default",
+      "km": 36.1091,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.9248,43.5565;-5.8494,43.3614?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-05-reverse",
+      "from": "Oviedo",
+      "to": "Avilés",
+      "name": "N-630, O-11, A-66, A-66R, A-8, AI-81, AS-392",
+      "variant": "default",
+      "km": 34.793,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.8494,43.3614;-5.9248,43.5565?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-06",
+      "from": "Avilés",
+      "to": "Cudillero",
+      "name": "N-632a, AS-17, N-632, A-8, CU-3, CU-2",
+      "variant": "default",
+      "km": 32.6457,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.9248,43.5565;-6.1456,43.5618?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-06-reverse",
+      "from": "Cudillero",
+      "to": "Avilés",
+      "name": "CU-2, N-632, A-8, AS-237",
+      "variant": "default",
+      "km": 26.3395,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.1456,43.5618;-5.9248,43.5565?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-07",
+      "from": "Cudillero",
+      "to": "Pravia",
+      "name": "CU-2, N-632, AS-16, AS-347, PV-4",
+      "variant": "default",
+      "km": 17.4692,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.1456,43.5618;-6.1115,43.4887?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-07-reverse",
+      "from": "Pravia",
+      "to": "Cudillero",
+      "name": "PV-4, AS-368, AS-347, AS-16, A-8, CU-3, CU-2",
+      "variant": "default",
+      "km": 21.591900000000003,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.1115,43.4887;-6.1456,43.5618?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-08",
+      "from": "Pravia",
+      "to": "Grado",
+      "name": "PV-4, AS-368, AS-347, AS-16, N-634",
+      "variant": "default",
+      "km": 22.087,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.1115,43.4887;-6.0745,43.3881?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-08-reverse",
+      "from": "Grado",
+      "to": "Pravia",
+      "name": "N-634, AS-16, AS-347, PV-4",
+      "variant": "default",
+      "km": 21.4803,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.0745,43.3881;-6.1115,43.4887?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-09",
+      "from": "Grado",
+      "to": "Oviedo",
+      "name": "N-634, A-63, N-630, O-12",
+      "variant": "default",
+      "km": 23.5673,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.0745,43.3881;-5.8494,43.3614?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-09-reverse",
+      "from": "Oviedo",
+      "to": "Grado",
+      "name": "O-12, N-630, N-634",
+      "variant": "default",
+      "km": 23.3948,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.8494,43.3614;-6.0745,43.3881?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-10",
+      "from": "Grado",
+      "to": "Salas",
+      "name": "N-634, A-63, N-634a",
+      "variant": "default",
+      "km": 18.4493,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.0745,43.3881;-6.2604,43.4089?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-10-reverse",
+      "from": "Salas",
+      "to": "Grado",
+      "name": "N-634a, N-634",
+      "variant": "default",
+      "km": 21.6554,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.2604,43.4089;-6.0745,43.3881?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-11",
+      "from": "Salas",
+      "to": "Tineo",
+      "name": "N-634a, AS-216",
+      "variant": "default",
+      "km": 22.357,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.2604,43.4089;-6.4159,43.3371?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-11-reverse",
+      "from": "Tineo",
+      "to": "Salas",
+      "name": "AS-216, N-634, N-634a",
+      "variant": "default",
+      "km": 22.5108,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.4159,43.3371;-6.2604,43.4089?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-12",
+      "from": "Tineo",
+      "to": "Cangas del Narcea",
+      "name": "AS-215, AS-15, AS-213",
+      "variant": "default",
+      "km": 29.7698,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.4159,43.3371;-6.5494,43.1774?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-12-reverse",
+      "from": "Cangas del Narcea",
+      "to": "Tineo",
+      "name": "AS-213, AS-15, AS-215",
+      "variant": "default",
+      "km": 29.795900000000003,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.5494,43.1774;-6.4159,43.3371?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-13",
+      "from": "Cangas del Narcea",
+      "to": "Villablino",
+      "name": "AS-213, LE-497, CL-626",
+      "variant": "default",
+      "km": 48.7972,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.5494,43.1774;-6.3196,42.9385?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-13-reverse",
+      "from": "Villablino",
+      "to": "Cangas del Narcea",
+      "name": "LE-3309, CL-626, LE-497, AS-213",
+      "variant": "default",
+      "km": 48.8975,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.3196,42.9385;-6.5494,43.1774?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-14",
+      "from": "Oviedo",
+      "to": "Mieres",
+      "name": "O-12, A-66",
+      "variant": "default",
+      "km": 18.3293,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.8494,43.3614;-5.7757,43.2509?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-14-reverse",
+      "from": "Mieres",
+      "to": "Oviedo",
+      "name": "A-66, O-12",
+      "variant": "default",
+      "km": 18.7595,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.7757,43.2509;-5.8494,43.3614?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-15",
+      "from": "Oviedo",
+      "to": "Langreo",
+      "name": "N-630, O-11, A-66, O-14, A-64, AS-17, AS-117, AS-117a, AS-269, AS-376, LA-3",
+      "variant": "default",
+      "km": 26.6765,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.8494,43.3614;-5.683,43.299?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-15-reverse",
+      "from": "Langreo",
+      "to": "Oviedo",
+      "name": "LA-3, AS-376, AS-117a, AS-269, AS-17, A-64, A-66, A-63, O-12, N-630",
+      "variant": "default",
+      "km": 29.281599999999997,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.683,43.299;-5.8494,43.3614?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-16",
+      "from": "Langreo",
+      "to": "Mieres",
+      "name": "LA-3, AS-376, AS-117a, AS-269, AS-117, AS-I",
+      "variant": "default",
+      "km": 17.148799999999998,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.683,43.299;-5.7757,43.2509?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-16-reverse",
+      "from": "Mieres",
+      "to": "Langreo",
+      "name": "AS-I, AS-117, AS-117a, AS-269, AS-376, LA-3",
+      "variant": "default",
+      "km": 17.2546,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.7757,43.2509;-5.683,43.299?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-17",
+      "from": "Mieres",
+      "to": "Pola de Lena",
+      "name": "MI-2, A-66, LN-1, AS-375",
+      "variant": "default",
+      "km": 12.4675,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.7757,43.2509;-5.8284,43.1605?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-17-reverse",
+      "from": "Pola de Lena",
+      "to": "Mieres",
+      "name": "AS-242, N-630, LN-1, A-66",
+      "variant": "default",
+      "km": 13.1104,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.8284,43.1605;-5.7757,43.2509?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-18",
+      "from": "Pola de Lena",
+      "to": "Campomanes",
+      "name": "AS-242, N-630, LN-1, A-66",
+      "variant": "default",
+      "km": 8.095,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.8284,43.1605;-5.8144,43.1089?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-18-reverse",
+      "from": "Campomanes",
+      "to": "Pola de Lena",
+      "name": "N-630, A-66, LN-1, AS-375",
+      "variant": "default",
+      "km": 8.7829,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.8144,43.1089;-5.8284,43.1605?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-19",
+      "from": "Campomanes",
+      "to": "Pajares",
+      "name": "N-630",
+      "variant": "default",
+      "km": 15.6244,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.8144,43.1089;-5.7726416,43.0179491?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-19-reverse",
+      "from": "Pajares",
+      "to": "Campomanes",
+      "name": "N-630",
+      "variant": "default",
+      "km": 15.6329,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.7726416,43.0179491;-5.8144,43.1089?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-20",
+      "from": "Pajares",
+      "to": "Villamanín",
+      "name": "N-630, LE-3505",
+      "variant": "default",
+      "km": 17.2879,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.7726416,43.0179491;-5.6566,42.9381?steps=true&overview=false&alternatives=false",
+      "corridors": [
+        "N-630-Pajares"
+      ]
+    },
+    {
+      "id": "road-20-reverse",
+      "from": "Villamanín",
+      "to": "Pajares",
+      "name": "LE-3505, N-630",
+      "variant": "default",
+      "km": 17.2733,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.6566,42.9381;-5.7726416,43.0179491?steps=true&overview=false&alternatives=false",
+      "corridors": [
+        "N-630-Pajares"
+      ]
+    },
+    {
+      "id": "road-21",
+      "from": "Villamanín",
+      "to": "La Robla",
+      "name": "LE-3505, LE-3503, N-630, CL-626",
+      "variant": "default",
+      "km": 21.9671,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.6566,42.9381;-5.6295,42.8028?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-21-reverse",
+      "from": "La Robla",
+      "to": "Villamanín",
+      "name": "N-630, LE-3505",
+      "variant": "default",
+      "km": 21.8812,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.6295,42.8028;-5.6566,42.9381?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-22",
+      "from": "La Robla",
+      "to": "León",
+      "name": "N-630, N-630A",
+      "variant": "default",
+      "km": 26.5685,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.6295,42.8028;-5.5671,42.5987?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-22-reverse",
+      "from": "León",
+      "to": "La Robla",
+      "name": "N-630, CL-626",
+      "variant": "default",
+      "km": 26.836599999999997,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.5671,42.5987;-5.6295,42.8028?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-23",
+      "from": "Campomanes",
+      "to": "La Robla",
+      "name": "N-630, A-66, CL-626",
+      "variant": "default",
+      "km": 65.1646,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.8144,43.1089;-5.6295,42.8028?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-23-reverse",
+      "from": "La Robla",
+      "to": "Campomanes",
+      "name": "N-630, CL-626, AP-66, A-66",
+      "variant": "default",
+      "km": 64.96430000000001,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.6295,42.8028;-5.8144,43.1089?steps=true&overview=false&alternatives=false",
+      "corridors": [
+        "AP-66"
+      ]
+    },
+    {
+      "id": "road-24",
+      "from": "Villaviciosa",
+      "to": "Infiesto",
+      "name": "AS-380, AS-255, N-634, N-634a",
+      "variant": "default",
+      "km": 21.1986,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.4356,43.4812;-5.3647,43.3486?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-24-reverse",
+      "from": "Infiesto",
+      "to": "Villaviciosa",
+      "name": "N-634a, N-634, AS-255, VV-16",
+      "variant": "default",
+      "km": 21.1814,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.3647,43.3486;-5.4356,43.4812?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-25",
+      "from": "Infiesto",
+      "to": "Arriondas",
+      "name": "N-634a, N-634",
+      "variant": "default",
+      "km": 21.1767,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.3647,43.3486;-5.1855,43.389?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-25-reverse",
+      "from": "Arriondas",
+      "to": "Infiesto",
+      "name": "N-634, N-634a",
+      "variant": "default",
+      "km": 21.2922,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.1855,43.389;-5.3647,43.3486?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-26",
+      "from": "Villaviciosa",
+      "to": "Ribadesella",
+      "name": "AS-380, N-632, A-8",
+      "variant": "default",
+      "km": 37.9439,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.4356,43.4812;-5.0596,43.4615?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-26-reverse",
+      "from": "Ribadesella",
+      "to": "Villaviciosa",
+      "name": "N-632, A-8",
+      "variant": "default",
+      "km": 38.1046,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.0596,43.4615;-5.4356,43.4812?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-27",
+      "from": "Arriondas",
+      "to": "Ribadesella",
+      "name": "N-634, N-632",
+      "variant": "default",
+      "km": 18.0977,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.1855,43.389;-5.0596,43.4615?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-27-reverse",
+      "from": "Ribadesella",
+      "to": "Arriondas",
+      "name": "N-632, N-634",
+      "variant": "default",
+      "km": 18.577099999999998,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.0596,43.4615;-5.1855,43.389?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-28",
+      "from": "Arriondas",
+      "to": "Cangas de Onís",
+      "name": "N-625",
+      "variant": "default",
+      "km": 7.922899999999999,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.1855,43.389;-5.1288,43.3513?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-28-reverse",
+      "from": "Cangas de Onís",
+      "to": "Arriondas",
+      "name": "N-625",
+      "variant": "default",
+      "km": 8.2915,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.1288,43.3513;-5.1855,43.389?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-29",
+      "from": "Cangas de Onís",
+      "to": "Riaño",
+      "name": "N-625, N-621",
+      "variant": "default",
+      "km": 65.257,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.1288,43.3513;-5.0036,42.9777?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-29-reverse",
+      "from": "Riaño",
+      "to": "Cangas de Onís",
+      "name": "N-625",
+      "variant": "default",
+      "km": 64.1682,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.0036,42.9777;-5.1288,43.3513?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-30",
+      "from": "Ribadesella",
+      "to": "Llanes",
+      "name": "N-632, N-634, A-8, AS-379",
+      "variant": "default",
+      "km": 31.6018,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.0596,43.4615;-4.755,43.421?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-30-reverse",
+      "from": "Llanes",
+      "to": "Ribadesella",
+      "name": "LLN-7, AS-379, A-8, N-634, N-632",
+      "variant": "default",
+      "km": 31.0728,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-4.755,43.421;-5.0596,43.4615?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-31",
+      "from": "Riaño",
+      "to": "Cistierna",
+      "name": "N-621",
+      "variant": "default",
+      "km": 35.5265,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.0036,42.9777;-5.1269,42.8026?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-31-reverse",
+      "from": "Cistierna",
+      "to": "Riaño",
+      "name": "N-621",
+      "variant": "default",
+      "km": 35.3988,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.1269,42.8026;-5.0036,42.9777?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-32",
+      "from": "Cistierna",
+      "to": "León",
+      "name": "N-621, CL-626, CL-624, LE-20",
+      "variant": "default",
+      "km": 66.92439999999999,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.1269,42.8026;-5.5671,42.5987?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-32-reverse",
+      "from": "León",
+      "to": "Cistierna",
+      "name": "N-621, CL-624, CL-626",
+      "variant": "default",
+      "km": 66.0123,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.5671,42.5987;-5.1269,42.8026?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-33",
+      "from": "Riaño",
+      "to": "La Robla",
+      "name": "N-621, CL-626",
+      "variant": "default",
+      "km": 77.8712,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.0036,42.9777;-5.6295,42.8028?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-33-reverse",
+      "from": "La Robla",
+      "to": "Riaño",
+      "name": "CL-626, N-621",
+      "variant": "default",
+      "km": 77.92460000000001,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.6295,42.8028;-5.0036,42.9777?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-34",
+      "from": "León",
+      "to": "Astorga",
+      "name": "LE-30, AP-71, N-6",
+      "variant": "default",
+      "km": 50.8895,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.5671,42.5987;-6.0566,42.4558?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-34-reverse",
+      "from": "Astorga",
+      "to": "León",
+      "name": "N-120a, N-120A, LE-420, AP-71, LE-20",
+      "variant": "default",
+      "km": 52.0514,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.0566,42.4558;-5.5671,42.5987?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-35",
+      "from": "Astorga",
+      "to": "Ponferrada",
+      "name": "LE-133, LE-6425, A-6, N-6",
+      "variant": "default",
+      "km": 64.6996,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.0566,42.4558;-6.5962,42.5463?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-35-reverse",
+      "from": "Ponferrada",
+      "to": "Astorga",
+      "name": "N-6, A-6",
+      "variant": "default",
+      "km": 61.6289,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.5962,42.5463;-6.0566,42.4558?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-36",
+      "from": "Ponferrada",
+      "to": "Bembibre",
+      "name": "N-6, A-6, LE-5312",
+      "variant": "default",
+      "km": 19.8425,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.5962,42.5463;-6.4163,42.6158?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-36-reverse",
+      "from": "Bembibre",
+      "to": "Ponferrada",
+      "name": "LE-5312, N-6, A-6",
+      "variant": "default",
+      "km": 20.5924,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.4163,42.6158;-6.5962,42.5463?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-37",
+      "from": "Bembibre",
+      "to": "Villablino",
+      "name": "LE-5312, N-6, LE-463, CL-631, LE-3308",
+      "variant": "default",
+      "km": 55.4003,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.4163,42.6158;-6.3196,42.9385?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-37-reverse",
+      "from": "Villablino",
+      "to": "Bembibre",
+      "name": "LE-3308, CL-631, LE-463, N-6, LE-5312",
+      "variant": "default",
+      "km": 56.1929,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.3196,42.9385;-6.4163,42.6158?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-38",
+      "from": "Villablino",
+      "to": "La Robla",
+      "name": "CL-626, AP-66",
+      "variant": "default",
+      "km": 79.0423,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.3196,42.9385;-5.6295,42.8028?steps=true&overview=false&alternatives=false",
+      "corridors": [
+        "AP-66"
+      ]
+    },
+    {
+      "id": "road-38-reverse",
+      "from": "La Robla",
+      "to": "Villablino",
+      "name": "N-630, CL-626, AP-66",
+      "variant": "default",
+      "km": 77.9859,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.6295,42.8028;-6.3196,42.9385?steps=true&overview=false&alternatives=false",
+      "corridors": [
+        "AP-66"
+      ]
+    },
+    {
+      "id": "road-39",
+      "from": "Villablino",
+      "to": "Ponferrada",
+      "name": "LE-3308, CL-631",
+      "variant": "default",
+      "km": 63.107099999999996,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.3196,42.9385;-6.5962,42.5463?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-39-reverse",
+      "from": "Ponferrada",
+      "to": "Villablino",
+      "name": "CL-631, LE-3308",
+      "variant": "default",
+      "km": 62.409,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.5962,42.5463;-6.3196,42.9385?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-40",
+      "from": "Oviedo",
+      "to": "Infiesto",
+      "name": "N-630, O-11, A-66, O-14, A-64, AS-119, N-634R, N-634a",
+      "variant": "default",
+      "km": 46.4039,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.8494,43.3614;-5.3647,43.3486?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-40-reverse",
+      "from": "Infiesto",
+      "to": "Oviedo",
+      "name": "N-634a, N-634, A-64, A-66, A-63, O-12, N-630",
+      "variant": "default",
+      "km": 48.481,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.3647,43.3486;-5.8494,43.3614?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-41",
+      "from": "León",
+      "to": "Benavente",
+      "name": "LE-20, LE-11, A-231, A-66, A-6, N-630",
+      "variant": "default",
+      "km": 74.1713,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.5671,42.5987;-5.678,42.0023?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-41-reverse",
+      "from": "Benavente",
+      "to": "León",
+      "name": "N-VIa, N-6, A-6, A-66, A-231, LE-11, LE-20",
+      "variant": "default",
+      "km": 74.1639,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.678,42.0023;-5.5671,42.5987?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-42",
+      "from": "Benavente",
+      "to": "Zamora",
+      "name": "N-VIa, N-6, A-6, A-66, N-630, ZA-11, ZA-20",
+      "variant": "default",
+      "km": 68.6599,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.678,42.0023;-5.7446,41.5033?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-42-reverse",
+      "from": "Zamora",
+      "to": "Benavente",
+      "name": "ZA-20, ZA-11, A-11, A-66, A-6, N-VIa",
+      "variant": "default",
+      "km": 71.1643,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.7446,41.5033;-5.678,42.0023?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-43",
+      "from": "Zamora",
+      "to": "Salamanca",
+      "name": "ZA-20, CL-605, A-66, SA-11, N-620",
+      "variant": "default",
+      "km": 67.292,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.7446,41.5033;-5.664,40.965?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-43-reverse",
+      "from": "Salamanca",
+      "to": "Zamora",
+      "name": "SA-11, A-66, CL-605, ZA-20",
+      "variant": "default",
+      "km": 66.1779,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.664,40.965;-5.7446,41.5033?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-44",
+      "from": "León",
+      "to": "Palencia",
+      "name": "LE-20, LE-30, A-60, A-231, CL-615",
+      "variant": "default",
+      "km": 133.4236,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.5671,42.5987;-4.5286,42.0095?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-44-reverse",
+      "from": "Palencia",
+      "to": "León",
+      "name": "CL-615, A-231, A-60, LE-30, LE-20",
+      "variant": "default",
+      "km": 132.49460000000002,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-4.5286,42.0095;-5.5671,42.5987?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-45",
+      "from": "Palencia",
+      "to": "Valladolid",
+      "name": "P-11, A-67, A-62, VA-20",
+      "variant": "default",
+      "km": 48.758199999999995,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-4.5286,42.0095;-4.7286,41.6523?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-45-reverse",
+      "from": "Valladolid",
+      "to": "Palencia",
+      "name": "VA-20, A-62, A-67, P-11",
+      "variant": "default",
+      "km": 48.1458,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-4.7286,41.6523;-4.5286,42.0095?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-46",
+      "from": "Palencia",
+      "to": "Burgos",
+      "name": "A-610, A-62, BU-30, BU-11",
+      "variant": "default",
+      "km": 91.3386,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-4.5286,42.0095;-3.6969,42.3439?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-46-reverse",
+      "from": "Burgos",
+      "to": "Palencia",
+      "name": "BU-11, BU-30, A-62, A-610",
+      "variant": "default",
+      "km": 90.1786,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-3.6969,42.3439;-4.5286,42.0095?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-47",
+      "from": "Burgos",
+      "to": "Bilbao",
+      "name": "BU-11, BU-805, A-1, AP-1, AP-68, A-8, BI-10",
+      "variant": "default",
+      "km": 159.4449,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-3.6969,42.3439;-2.935,43.263?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-47-reverse",
+      "from": "Bilbao",
+      "to": "Burgos",
+      "name": "BI-10, A-8, AP-68, AP-1, BU-805, BU-11",
+      "variant": "default",
+      "km": 158.5695,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-2.935,43.263;-3.6969,42.3439?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-48",
+      "from": "Bilbao",
+      "to": "Santander",
+      "name": "BI-10, A-8, S-10",
+      "variant": "default",
+      "km": 99.54480000000001,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-2.935,43.263;-3.8099,43.4623?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-48-reverse",
+      "from": "Santander",
+      "to": "Bilbao",
+      "name": "S-21, S-10, A-8",
+      "variant": "default",
+      "km": 100.13239999999999,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-3.8099,43.4623;-2.935,43.263?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-49",
+      "from": "Santander",
+      "to": "Llanes",
+      "name": "S-20, A-67, A-67a, A-8, AS-379",
+      "variant": "default",
+      "km": 91.2495,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-3.8099,43.4623;-4.755,43.421?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-49-reverse",
+      "from": "Llanes",
+      "to": "Santander",
+      "name": "LLN-7, AS-379, A-8, A-67, S-10",
+      "variant": "default",
+      "km": 92.01469999999999,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-4.755,43.421;-3.8099,43.4623?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-50",
+      "from": "Ponferrada",
+      "to": "Lugo",
+      "name": "CL-631, A-6, LU-11",
+      "variant": "default",
+      "km": 113.6255,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.5962,42.5463;-7.556,43.0097?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-50-reverse",
+      "from": "Lugo",
+      "to": "Ponferrada",
+      "name": "LU-530, A-6, CL-631",
+      "variant": "default",
+      "km": 116.4052,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-7.556,43.0097;-6.5962,42.5463?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-51",
+      "from": "Lugo",
+      "to": "A Coruña",
+      "name": "N-640, A-6, AP-9M, AP-9, AC-11",
+      "variant": "default",
+      "km": 97.2446,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-7.556,43.0097;-8.405,43.3623?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-51-reverse",
+      "from": "A Coruña",
+      "to": "Lugo",
+      "name": "AC-11, AP-9, AP-9M, A-6, LU-530, LU-P-2925",
+      "variant": "default",
+      "km": 100.3457,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-8.405,43.3623;-7.556,43.0097?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-52",
+      "from": "A Coruña",
+      "to": "Santiago de Compostela",
+      "name": "AC-11, AP-9, SC-20",
+      "variant": "default",
+      "km": 74.5907,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-8.405,43.3623;-8.5448,42.8782?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-52-reverse",
+      "from": "Santiago de Compostela",
+      "to": "A Coruña",
+      "name": "SC-20, AP-9, AC-11",
+      "variant": "default",
+      "km": 73.68730000000001,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-8.5448,42.8782;-8.405,43.3623?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-53",
+      "from": "Santiago de Compostela",
+      "to": "Ourense",
+      "name": "SC-20, SC-11, AP-53, AG-53, A-52, OU-11, N-120",
+      "variant": "default",
+      "km": 104.211,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-8.5448,42.8782;-7.8639,42.3358?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-53-reverse",
+      "from": "Ourense",
+      "to": "Santiago de Compostela",
+      "name": "N-120, OU-11, A-52, AG-53, AP-53, SC-11, SC-20",
+      "variant": "default",
+      "km": 103.75139999999999,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-7.8639,42.3358;-8.5448,42.8782?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-54",
+      "from": "Ourense",
+      "to": "Ponferrada",
+      "name": "N-525, N-540, A-54, A-6, CL-631",
+      "variant": "default",
+      "km": 200.30929999999998,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-7.8639,42.3358;-6.5962,42.5463?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-54-reverse",
+      "from": "Ponferrada",
+      "to": "Ourense",
+      "name": "CL-631, A-6, A-54, N-540, N-525",
+      "variant": "default",
+      "km": 200.643,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.5962,42.5463;-7.8639,42.3358?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-55",
+      "from": "Valladolid",
+      "to": "Madrid",
+      "name": "N-601, AP-6, A-6",
+      "variant": "default",
+      "km": 190.241,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-4.7286,41.6523;-3.7038,40.4168?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-55-reverse",
+      "from": "Madrid",
+      "to": "Valladolid",
+      "name": "A-6, AP-6, N-601",
+      "variant": "default",
+      "km": 189.14870000000002,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-3.7038,40.4168;-4.7286,41.6523?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-56",
+      "from": "Benavente",
+      "to": "Valladolid",
+      "name": "N-VIa, N-6, A-6, A-62",
+      "variant": "default",
+      "km": 112.5422,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.678,42.0023;-4.7286,41.6523?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-56-reverse",
+      "from": "Valladolid",
+      "to": "Benavente",
+      "name": "A-62, A-6, N-VIa",
+      "variant": "default",
+      "km": 112.43539999999999,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-4.7286,41.6523;-5.678,42.0023?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-57",
+      "from": "Astorga",
+      "to": "Benavente",
+      "name": "LE-133, LE-6425, A-6, N-630",
+      "variant": "default",
+      "km": 67.1314,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-6.0566,42.4558;-5.678,42.0023?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-57-reverse",
+      "from": "Benavente",
+      "to": "Astorga",
+      "name": "N-VIa, N-6, A-6, LE-6425, LE-133",
+      "variant": "default",
+      "km": 67.4436,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.678,42.0023;-6.0566,42.4558?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-58",
+      "from": "Zamora",
+      "to": "Valladolid",
+      "name": "ZA-12, A-11, A-62, A-6",
+      "variant": "default",
+      "km": 100.6203,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.7446,41.5033;-4.7286,41.6523?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-58-reverse",
+      "from": "Valladolid",
+      "to": "Zamora",
+      "name": "A-62, A-6, A-11, ZA-12",
+      "variant": "default",
+      "km": 100.096,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-4.7286,41.6523;-5.7446,41.5033?steps=true&overview=false&alternatives=false",
+      "corridors": []
+    },
+    {
+      "id": "road-59",
+      "from": "Oviedo",
+      "to": "León",
+      "name": "O-12, A-66, AP-66, N-120",
+      "variant": "default",
+      "km": 122.7623,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.8494,43.3614;-5.5671,42.5987?steps=true&overview=false&alternatives=false",
+      "corridors": [
+        "AP-66"
+      ]
+    },
+    {
+      "id": "road-59-reverse",
+      "from": "León",
+      "to": "Oviedo",
+      "name": "LE-30, AP-66, A-66, O-12",
+      "variant": "default",
+      "km": 124.50319999999999,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.5671,42.5987;-5.8494,43.3614?steps=true&overview=false&alternatives=false",
+      "corridors": [
+        "AP-66"
+      ]
+    },
+    {
+      "id": "pajares-south",
+      "from": "Oviedo",
+      "to": "León",
+      "name": "O-12, A-66, N-630, N-630A",
+      "variant": "via Pajares",
+      "km": 114.9165,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.8494,43.3614;-5.7726416,43.0179491;-5.5671,42.5987?steps=true&overview=false&alternatives=false",
+      "corridors": [
+        "N-630-Pajares"
+      ]
+    },
+    {
+      "id": "pajares-north",
+      "from": "León",
+      "to": "Oviedo",
+      "name": "N-630, A-66, O-12",
+      "variant": "via Pajares",
+      "km": 115.451,
+      "sourceUrl": "https://router.project-osrm.org/route/v1/driving/-5.5671,42.5987;-5.7726416,43.0179491;-5.8494,43.3614?steps=true&overview=false&alternatives=false",
+      "corridors": [
+        "N-630-Pajares"
+      ]
+    }
+  ],
+  "corridorClassification": "AP-66: exact road reference. N-630-Pajares: an N-630 step geometry point within longitude [-5.79,-5.74], latitude [42.99,43.005], near Puerto de Pajares; used only to group this teaching snapshot for incidents."
+}

@@ -22,14 +22,14 @@ def main():
         shutil.copytree(ROOT / "Topic06/Demo01WeightedGraph", project,
                         ignore=shutil.ignore_patterns("bin", "*.class"))
         runner = project / "run.cmd"
-        original = project / "data/asturias-leon.json"
+        original = project / "data/northern-spain.json"
         network = project / "data/localidades de León.json"
         shutil.copyfile(original, network)
         result = invoke(runner, "run", str(network), "Cudillero", "Cangas de Onís",
                         cwd=temporary)
         assert result.returncode == 0, result.stderr
         assert "Cangas de Onís]" in result.stdout, result.stdout
-        assert "Both algorithms give the same distances." in result.stdout
+        assert "Both algorithms give the same distances for every scenario." in result.stdout
         invalid_mode = invoke(runner, "unknown", cwd=temporary)
         assert invalid_mode.returncode == 2, invalid_mode
         invalid_source = invoke(runner, "run", str(network), "Unknown", "León",
@@ -39,7 +39,7 @@ def main():
         (project / "src/app/Main.java").write_text("this is not Java\n", encoding="utf-8")
         failed_compile = invoke(runner, cwd=temporary)
         assert failed_compile.returncode != 0, failed_compile
-        assert "Road network:" not in failed_compile.stdout
+        assert "Network:" not in failed_compile.stdout
 
         for topic in sorted(ROOT.glob("Topic[0-9][0-9]")):
             names = (topic / "demos.txt").read_text(encoding="utf-8").splitlines()
