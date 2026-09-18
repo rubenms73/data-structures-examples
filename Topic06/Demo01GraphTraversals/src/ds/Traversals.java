@@ -4,7 +4,6 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.HashMap;
 import java.util.Deque;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -93,31 +92,32 @@ public final class Traversals
     private static <V> void dfs(Graph<V> graph, V source, Set<V> marked,
             List<V> order, Map<V, V> parent)
     {
-        Deque<V> pending = new ArrayDeque<>();
-        Map<V, V> candidateParent = new HashMap<>();
-        pending.push(source);
-        while (!pending.isEmpty())
+        Deque<V> path = new ArrayDeque<>();
+        marked.add(source);
+        order.add(source);
+        path.push(source);
+        while (!path.isEmpty())
         {
-            V vertex = pending.pop();
-            // A vertex can have several pending entries. Visit only the first popped.
-            if (marked.contains(vertex))
-                continue;
-            marked.add(vertex);
-            order.add(vertex);
-            if (candidateParent.containsKey(vertex))
-                parent.put(vertex, candidateParent.get(vertex));
-
-            // Reverse the neighbour order: the smallest must be on top of the stack.
-            List<V> neighbours = new ArrayList<>(graph.neighbours(vertex));
-            for (int i = neighbours.size() - 1; i >= 0; i--)
+            V vertex = path.peek();
+            V next = null;
+            // Choose just one unvisited neighbour of the current top vertex.
+            for (V neighbour : graph.neighbours(vertex))
             {
-                V neighbour = neighbours.get(i);
                 if (!marked.contains(neighbour))
                 {
-                    pending.push(neighbour);
-                    // Still tentative: a deeper branch may push this vertex again.
-                    candidateParent.put(neighbour, vertex);
+                    next = neighbour;
+                    break;
                 }
+            }
+            if (next == null)
+                path.pop();
+            else
+            {
+                // Descend one edge; keep the current vertex below it for backtracking.
+                marked.add(next);
+                order.add(next);
+                parent.put(next, vertex);
+                path.push(next);
             }
         }
     }

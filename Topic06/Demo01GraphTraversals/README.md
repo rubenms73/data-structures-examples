@@ -11,7 +11,8 @@ or forest even when the original graph is not a tree.
 Prerequisites: generic collections, maps, sets, stacks and queues.
 DFS uses an explicit LIFO stack containing vertices directly; BFS uses a FIFO
 queue. No recursion or stack entries containing neighbour iterators are used.
-DFS marks vertices when popping them; BFS marks them when enqueuing them. It needs only JDK 17, with no
+DFS marks a vertex when pushing it onto the current path; BFS marks it when
+enqueuing it. It needs only JDK 17, with no
 external libraries, downloads or other demo folders.
 
 ## Files and responsibilities
@@ -69,41 +70,44 @@ Following them backwards reconstructs a path from the source. Its number of
 arcs is minimal for a single-source BFS; this does not minimise arbitrary
 weighted costs. Use the Dijkstra example for that problem.
 
-## DFS: use a stack of vertices
+## DFS: keep the current path on a stack
 
-`Deque<V> pending = new ArrayDeque<>();` provides the stack: `push` adds a
-vertex on top and `pop` removes the top vertex. Stack entries are just vertices.
-After popping a vertex, skip it if it is already marked. Otherwise mark and
-visit it, then push its unmarked neighbours in **reverse alphabetical order**.
-Because the stack is LIFO, the smallest neighbour will be processed next.
+`Deque<V> path = new ArrayDeque<>();` provides the stack. `push` adds a vertex,
+`peek` reads the top without removing it, and `pop` removes it. Entries are
+vertices only. The stack represents the path currently being explored.
 
-The trace below lists the stack **bottom to top**, with the top on the right:
+1. Mark and visit the source, then push it.
+2. Look at the top vertex with `peek`.
+3. Find its first unvisited neighbour in alphabetical order. If one exists,
+   mark and visit it, record its parent, and push **only that neighbour**.
+4. If no unvisited neighbour remains, pop the top to backtrack.
+5. Repeat until the stack is empty.
+
+The trace lists the stack **bottom to top**, with the top on the right:
 
 | Action | Stack afterwards | Visit order so far |
 | --- | --- | --- |
-| Push A | [A] | [] |
-| Pop A; push E, D, B | [E, D, B] | [A] |
-| Pop B; push D, C | [E, D, D, C] | [A, B] |
-| Pop C; A is already marked | [E, D, D] | [A, B, C] |
-| Pop D; no outgoing arcs | [E, D] | [A, B, C, D] |
-| Pop the older D; skip it | [E] | [A, B, C, D] |
-| Pop E; B and D are marked | [] | [A, B, C, D, E] |
+| Mark, visit and push A | [A] | [A] |
+| Peek A; discover and push B | [A, B] | [A, B] |
+| Peek B; discover and push C | [A, B, C] | [A, B, C] |
+| Peek C; A is marked, so pop C | [A, B] | [A, B, C] |
+| Peek B; C is marked, discover and push D | [A, B, D] | [A, B, C, D] |
+| Peek D; no neighbours, so pop D | [A, B] | [A, B, C, D] |
+| Peek B; all neighbours marked, so pop B | [A] | [A, B, C, D] |
+| Peek A; B and D marked, discover and push E | [A, E] | [A, B, C, D, E] |
+| Peek E; B and D marked, so pop E | [A] | [A, B, C, D, E] |
+| Peek A; all neighbours marked, so pop A | [] | [A, B, C, D, E] |
 
-A vertex may appear in the stack more than once before it is visited. This is
-intentional: marking all neighbours immediately when pushing them would prevent
-B from discovering D in this example and would change the DFS parent tree.
-
-`candidateParent` remembers who most recently pushed each unvisited vertex.
-D first has candidate A, then candidate B when exploring B. When D is popped
-and visited, B becomes its final parent in the result. A later stale stack entry
-is ignored and cannot change that parent. The separate result map records final
-parents in visit order, keeping the printed output easy to compare with theory.
+Each vertex is pushed once and its parent is recorded once. The stack has no
+repeated vertices and there are no provisional parents. Neighbours are examined
+in their normal alphabetical order; no reversal is needed because only one
+neighbour is pushed at a time. `null` means no unvisited neighbour was found;
+the graph's non-null vertex contract makes that sentinel unambiguous.
 
 The order is **A, B, C, D, E**. D has parent B, although A also has a direct arc
-to D. DFS does not guarantee a shortest path. This vertex-stack implementation
-produces the same visit order and parent forest as the presentation's recursive
-pseudocode when both use the same neighbour order. The code here follows the
-explicit-stack approach used in class.
+to D. DFS does not guarantee a shortest path. This is the explicit-stack approach
+used in class; it reproduces the same discovery order and parent forest as
+recursive DFS with the same neighbour order.
 
 ## One source versus a complete forest
 
@@ -162,20 +166,28 @@ Let V be the number of vertices and E the number of directed arcs. The graph
 stores O(V + E) entries. Insertion and adjacency lookup use sorted collections,
 so lookups take O(log V), assuming constant-time comparisons.
 
-A complete traversal takes **O(V log(V + 1) + E)** expected time with this
-representation, assuming expected O(1) hash-based marking. With indexed
-adjacency lists and constant-time marks, the familiar bound is O(V + E).
-A single-source traversal scans only reachable vertices and their outgoing arcs,
-but its map lookups still depend on the size of the whole graph.
+BFS takes **O(V log(V + 1) + E)** expected time with this representation,
+assuming expected O(1) hash-based marking. With indexed adjacency lists and
+constant-time marks, its familiar bound is O(V + E).
 
-The marks, order, parent maps and result copies need O(V) space. BFS also uses
-an O(V) queue. This DFS variant can keep duplicate pending vertices, so its stack
-can require O(E + 1) space and its total auxiliary space is **O(V + E)**.
-Each arc causes at most one push; stale entries are skipped without scanning
-neighbours again, preserving the traversal time bound above.
-DFS does not consume the Java call stack and therefore avoids recursive stack
-overflow on long paths. Copying neighbours into reverse processing order takes
-O(out-degree) time and temporary space for each newly visited vertex.
+This deliberately simple DFS searches the top vertex's neighbours **from the
+beginning** each time it returns to that vertex. It does not remember an iterator
+or a neighbour index. Thus its time is not necessarily O(V + E): if d(v) is a
+vertex's out-degree, a bound is **O(V log(V + 1) + sum_v d(v)(d(v) + 1))** expected
+time, and hence O(V log(V + 1) + VE) for a simple graph. A vertex is reconsidered
+once per child in the DFS tree and once more before being popped. Each such
+search may scan its whole neighbour set. There are O(V) such searches overall,
+so the sorted-map lookups contribute O(V log(V + 1)).
+
+This choice keeps the code close to the classroom explanation. Remembering the
+position reached in each neighbour list would avoid rescanning, but is not used
+in this example. A single-source traversal performs this work only for reachable
+vertices; map lookups still depend on the size of the whole graph.
+
+Both traversals use **O(V) auxiliary space**, including marks, results and pending
+work. The DFS stack contains only the current path, with each vertex appearing
+at most once. It does not consume Java's recursive call stack, so long paths do
+not cause recursive stack overflow. Copying the result collections takes O(V).
 
 ## Run and check
 
@@ -235,8 +247,8 @@ BFS minimises the number of arcs from one source, not weighted cost.
 1. Why is D discovered by different parents in BFS and DFS?
    Why do both forests have roots A and F despite the graph being weakly connected?
 2. What would happen at C -> A if there were no marked set?
-3. Why does BFS mark on enqueue, while this DFS marks on pop?
-   What happens to D's parent if DFS marks all of A's neighbours on push?
+3. Why does DFS push only one unvisited neighbour before examining the new top?
+   What would change if it marked all of A's neighbours at once?
 4. Add E -> F. Which vertices become reachable from A, and how many forest roots remain?
 5. Reverse the comparator. Which results change, and which reachability facts remain?
 6. In this graph, does the DFS parent chain to D have minimum length?
