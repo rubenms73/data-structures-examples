@@ -84,3 +84,21 @@ Occurrences of for: 1
 ## Changes from the old PA-1 material
 
 `BagImmu`, `BagMut` and `BagSorted` become `ImmutableBag`, `MutableBag` and `SortedMutableBag`. The iterator cursor and reference-retention bugs are corrected, failed sorted insertions no longer modify the bag, equality and hashing respect multiplicities, and all sources use UTF-8 and Java 17. The default program demonstrates both styles of object explicitly and gives 2 for the nested-bag count.
+
+## Windows
+
+Open a terminal in this folder (PowerShell, Command Prompt or the VS Code
+terminal). Install a JDK 17 or newer and put its `bin` directory on `PATH`;
+`java -version` and `javac -version` should both work. No Bash, WSL or Git Bash
+is required.
+
+```powershell
+.\run.cmd
+.\run.cmd test
+```
+
+The first command runs the demonstration; the second compiles and runs its checks.
+The launcher handles its own working directory, paths with spaces and any
+bundled JAR libraries. It uses the included Windows PowerShell 5.1;
+`run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
+remain available when the individual example folder is open.

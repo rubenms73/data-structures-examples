@@ -26,7 +26,7 @@ def is_block_prefix(prefix):
 def check_allman_style():
     violations = []
     for path in sorted(ROOT.rglob("*.java")):
-        for number, line in enumerate(path.read_text().splitlines(), 1):
+        for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
             stripped = line.rstrip()
             if stripped.endswith("{"):
                 prefix = stripped[:stripped.rfind("{")]
@@ -39,23 +39,28 @@ def check_allman_style():
 
 def check_topic():
     check_allman_style()
-    names = (ROOT / "demos.txt").read_text().splitlines()
+    names = (ROOT / "demos.txt").read_text(encoding="utf-8").splitlines()
     combined = dict(re.findall(
         r"## (Demo\w+)\n\n```text\n(.*?)```",
-        (ROOT / "ExpectedOutput.md").read_text(), re.S))
+        (ROOT / "ExpectedOutput.md").read_text(encoding="utf-8"), re.S))
     total = 0
     env = dict(os.environ, CLASSPATH="")
     for name in names:
         source = ROOT / name
-        expected = re.search(r"```text\n(.*?)```", (source / "README.md").read_text(), re.S)[1]
+        expected = re.search(r"```text\n(.*?)```", (source / "README.md").read_text(encoding="utf-8"), re.S)[1]
         assert expected == combined[name], f"Output documentation differs: {name}"
         with tempfile.TemporaryDirectory(prefix="standalone example ") as temporary:
             project = Path(temporary) / name
             shutil.copytree(source, project, ignore=shutil.ignore_patterns("bin", "*.class"))
-            script = str(project / "run.sh")
-            output = subprocess.check_output(["bash", script], cwd=temporary, env=env, text=True)
+            if os.name == "nt":
+                command = [str(project / "run.cmd")]
+            else:
+                command = ["bash", str(project / "run.sh")]
+            output = subprocess.check_output(command, cwd=temporary, env=env,
+                                             text=True, encoding="utf-8")
             assert output == expected, f"Unexpected output: {name}\n{output}"
-            checks = subprocess.check_output(["bash", script, "test"], cwd=temporary, env=env, text=True)
+            checks = subprocess.check_output(command + ["test"], cwd=temporary, env=env,
+                                              text=True, encoding="utf-8")
             count = int(re.fullmatch(r"All (\d+) checks passed\.\n", checks)[1])
             total += count
             print(f"{name}: isolated run and {count} checks passed")

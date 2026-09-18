@@ -75,3 +75,22 @@ Intentional compilation errors are commented out. Uncomment one at a time, inspe
 - [Java API: Comparable](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Comparable.html), [Comparator](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Comparator.html), [functional interfaces](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/package-summary.html).
 - [Java API: Iterator](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Iterator.html), [AbstractCollection](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/AbstractCollection.html), [ArrayList](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/ArrayList.html), [LinkedList](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/LinkedList.html).
 - [GeeksforGeeks: Comparable vs Comparator](https://www.geeksforgeeks.org/java/comparable-vs-comparator-in-java/) supplied the suggested movie scenario. The code here was written for this project, with explicit tie-breaking and consistent equality.
+
+## Windows
+
+Open a terminal in this folder (PowerShell, Command Prompt or the VS Code
+terminal). Install a JDK 17 or newer and put its `bin` directory on `PATH`;
+`java -version` and `javac -version` should both work. No Bash, WSL or Git Bash
+is required.
+
+```powershell
+.\run.cmd list
+.\run.cmd all
+.\run.cmd test
+```
+
+Select a demo by passing its name from `list`, for example `.\run.cmd Demo01Rational`.
+The launcher handles its own working directory, paths with spaces and any
+bundled JAR libraries. It uses the included Windows PowerShell 5.1;
+`run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
+remain available when the individual example folder is open.

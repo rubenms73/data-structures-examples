@@ -258,3 +258,27 @@ Heap path:        [Gijón, Oviedo, Mieres, Pola de Lena, Campomanes, Pajares, Vi
 Total distance: 170 km
 Both algorithms give the same distances.
 ```
+
+## Windows
+
+Open a terminal in this folder (PowerShell, Command Prompt or the VS Code
+terminal). Install a JDK 17 or newer and put its `bin` directory on `PATH`;
+`java -version` and `javac -version` should both work. No Bash, WSL or Git Bash
+is required.
+
+```powershell
+.\run.cmd
+.\run.cmd test
+```
+
+The first command runs the demonstration; the second compiles and runs its checks.
+The launcher handles its own working directory, paths with spaces and any
+bundled JAR libraries. It uses the included Windows PowerShell 5.1;
+`run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
+remain available when the individual example folder is open.
+
+For another route, pass the JSON file, source and target after `run`:
+
+```powershell
+.\run.cmd run data/asturias-leon.json "Cudillero" "Cangas de Onís"
+```

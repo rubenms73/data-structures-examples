@@ -14,7 +14,8 @@ stack comparison in Topic 2. Start with [Topic 1](Topic01/README.md): thirteen d
 - [Topic 5 — Hashing with separate chaining](Topic05/README.md).
 - [Topic 6 — Weighted graphs and shortest paths](Topic06/README.md): Asturias and León network loaded from JSON, with linear and heap Dijkstra.
 
-Run `python3 tools/check_examples.py` with JDK 17 on PATH to compile, execute
+Run `python3 tools/check_examples.py` (Windows: `py -3 tools/check_examples.py`)
+with JDK 17 on PATH to compile, execute
 and check every Java example in isolation against its documented output.
 The [multilanguage stack demo](Topic02/Demo07StacksAcrossLanguages/README.md)
 provides separate C++, C# and Python run/test commands.
@@ -33,6 +34,22 @@ comparison, recursive removal and an inner in-order iterator using a stack.
 4. Open `src/app/Main.java` and select **Run** above `main`.
 
 Each example contains its own `ds` classes and its `app.Main` test program. You can copy any one example folder and run it independently. You can also set a breakpoint and select **Debug** to follow its execution.
+
+On Windows, open PowerShell, Command Prompt or the VS Code terminal. Install
+a JDK 17 or newer and put its `bin` directory on `PATH`. Verify `java -version`
+and `javac -version`. Inside any individual example folder:
+
+```powershell
+.\run.cmd
+.\run.cmd test
+```
+
+From a topic folder, use `.\run.cmd list`, `.\run.cmd all`,
+`.\run.cmd test`, or select one demo, for example `.\run.cmd Demo05Movies`
+in Topic01. No Bash or WSL is required. Each `run.cmd` starts the accompanying
+PowerShell script for that invocation; it does not change the machine's stored
+execution policy. Quoted paths with spaces are supported. Scripts compile with
+Java 17 and propagate compiler/test failures as nonzero exit codes.
 
 On macOS or Linux, from the `Topic01` folder:
 

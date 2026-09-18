@@ -269,3 +269,38 @@ validation uses Mono rather than .NET 8.
    to the same Java, C# or Python object.
 5. Ask a Python static analyzer to check a deliberately incorrect push, then
    distinguish that diagnostic from what the unannotated runtime permits.
+
+## Windows
+
+Open a terminal in this folder (PowerShell, Command Prompt or the VS Code
+terminal). Install a JDK 17 or newer and put its `bin` directory on `PATH`;
+`java -version` and `javac -version` should both work. No Bash, WSL or Git Bash
+is required.
+
+```powershell
+.\run.cmd
+.\run.cmd test
+```
+
+The first command runs the demonstration; the second compiles and runs its checks.
+The launcher handles its own working directory, paths with spaces and any
+bundled JAR libraries. It uses the included Windows PowerShell 5.1;
+`run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
+remain available when the individual example folder is open.
+
+The optional versions also have Windows launchers:
+
+```powershell
+.\cpp\run.cmd
+.\cpp\run.cmd test
+.\csharp\run.cmd
+.\csharp\run.cmd test
+.\python\run.cmd
+.\python\run.cmd test
+```
+
+C++ requires a C++17 compiler: use a Visual Studio Developer terminal with
+`cl`, or install GCC and put `g++` on `PATH`. `CXX` can select another compiler
+executable, such as `clang++`. C# requires the .NET 8 SDK. Python requires
+Python 3.10 or newer; the launcher chooses `py -3`, then `python`. These tools
+are only needed for their optional language version.

@@ -52,3 +52,21 @@ First: {0=1.0, 2=3.0}
 Sum: {0=1.0, 1=2.0}
 Sum at 2: 5.0
 ```
+
+## Windows
+
+Open a terminal in this folder (PowerShell, Command Prompt or the VS Code
+terminal). Install a JDK 17 or newer and put its `bin` directory on `PATH`;
+`java -version` and `javac -version` should both work. No Bash, WSL or Git Bash
+is required.
+
+```powershell
+.\run.cmd
+.\run.cmd test
+```
+
+The first command runs the demonstration; the second compiles and runs its checks.
+The launcher handles its own working directory, paths with spaces and any
+bundled JAR libraries. It uses the included Windows PowerShell 5.1;
+`run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
+remain available when the individual example folder is open.
