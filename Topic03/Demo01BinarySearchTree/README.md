@@ -4,7 +4,7 @@
 
 Implement an unbalanced generic binary search tree supporting insertion, search,
 removal, clearing and in-order iteration. Use an optional `Comparator<? super E>`
-or the elements' natural order. Reject comparison-equivalent duplicates.
+or the elements' natural order. Retain comparison-equivalent duplicates as separate nodes, as in Topic 3.
 
 Prerequisites: generic types, Comparable/Comparator, abstract classes, binary
 trees, recursion, inner iterators and stacks. ArrayDeque implements the stack
@@ -13,8 +13,8 @@ used by the iterator; push and pop operate on the same end.
 ## Representation and contracts
 
 Each private inner Node holds a value and references to its left and right
-children. All values on the left compare smaller, and all values on the right
-compare larger. These words refer to the selected ordering, including reverse
+children. All values on the left compare smaller or equal, and all values on the right
+compare strictly larger. These words refer to the selected ordering, including reverse
 order. `root == null` represents the empty tree; size counts stored nodes.
 
 The default constructor uses natural order. The comparator constructor accepts
@@ -28,7 +28,11 @@ NullPointerException. A null source is also rejected. Without a comparator,
 elements must be mutually comparable; incompatible comparisons may throw
 ClassCastException. The first insertion checks comparison before creating a node.
 
-Two elements are duplicates when comparison returns zero, even if equals returns
+Each successful add returns true and increases size, including duplicates.
+Remove deletes one occurrence and decreases size once. Iteration includes every
+occurrence in non-decreasing comparator order.
+
+Two elements are comparison-equivalent when comparison returns zero, even if equals returns
 false. For example, comparing strings only by length treats cat and dog as
 equivalent. Choose an ordering consistent with equals when the ordinary
 Collection equality-based contract is required; a different ordering deliberately
@@ -43,8 +47,9 @@ alter their ordering.
    then decrease size exactly once. The preliminary search simplifies recursion.
 4. In recursive remove, a node with no left child is replaced by its right child;
    a node with no right child is replaced by its left child. This includes leaves.
-5. For two children, copy the minimum value of the right subtree and remove that
-   successor there. Always reconnect the returned subtree root.
+5. For two children, copy the maximum value of the left subtree and detach that
+   predecessor node, reconnecting its possible left child. A successor could
+   leave another equal value in the right subtree, violating its strict bound.
 6. Follow pushLeft and next: the stack stores pending visits. After visiting a
    node, push the leftmost path of its right subtree.
 7. Run Main: each deletion starts from the same tree so cases can be compared.
@@ -58,7 +63,7 @@ toString displays traversal order, not the tree's shape.
 Search, insertion and removal cost O(h), where h is the tree height. Searching
 before removal repeats a path but does not change this complexity. The tree is
 not balanced: inserting 1, 2, 3, 4, 5 produces a chain of right children with
-four edges. Draw it and compare with insertion order 3, 1, 5, 2, 4. Identical
+height five (five nodes and four edges), following the presentation. Draw it and compare with insertion order 3, 1, 5, 2, 4. Identical
 sorted output does not imply identical shape or search cost.
 
 A complete traversal costs O(n), with O(h) auxiliary stack space. One next call
@@ -77,9 +82,11 @@ operations, not a replacement for TreeSet. Balancing is a later subject.
 ## What to observe and try
 
 Remove the only element, then insert again. Remove a root with one left child
-and one with one right child. Try 2, 1, 3, 4 and remove 2: the successor is the
-immediate right child and itself has a right child. Check size after each step.
-Try a comparator by string length and explain which object is retained.
+and one with one right child. Try 4, 3, 2, 5 and remove 4: the predecessor is the
+immediate left child and itself has a left child. Then try duplicate keys and
+check that each removal deletes exactly one occurrence.
+Try a comparator by string length: both cat and dog are retained, and either can
+match a search for fox under that deliberately non-equality-consistent ordering.
 
 ## Open and run
 
@@ -92,7 +99,9 @@ bash run.sh test
 ```
 
 Sources use packages ds and app. Automated checks in tests cover boundary cases
-and compare 20,000 mixed operations with TreeSet in natural and reverse order.
+and compare 20,000 mixed operations with a sorted list retaining duplicates in
+natural and reverse order. Test-only representation checks verify the strict
+right-subtree bound, which sorted output alone cannot establish.
 The project has no dependencies beyond the Java standard library.
 
 ## Expected output
@@ -101,7 +110,10 @@ The project has no dependencies beyond the Java standard library.
 In order: [1, 3, 4, 6, 7, 8, 10, 13, 14]
 Size: 9
 Contains 6: true
-Add duplicate 6: false
+Add duplicate 6: true
+With the duplicate: [1, 3, 4, 6, 6, 7, 8, 10, 13, 14], size: 10
+Remove one 6: true
+One 6 remains: true
 Remove leaf 1: true -> [3, 4, 6, 7, 8, 10, 13, 14]
 Remove node 14 with one child: true -> [1, 3, 4, 6, 7, 8, 10, 13]
 Remove node 3 with two children: true -> [1, 4, 6, 7, 8, 10, 13, 14]

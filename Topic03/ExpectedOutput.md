@@ -4,7 +4,10 @@
 In order: [1, 3, 4, 6, 7, 8, 10, 13, 14]
 Size: 9
 Contains 6: true
-Add duplicate 6: false
+Add duplicate 6: true
+With the duplicate: [1, 3, 4, 6, 6, 7, 8, 10, 13, 14], size: 10
+Remove one 6: true
+One 6 remains: true
 Remove leaf 1: true -> [3, 4, 6, 7, 8, 10, 13, 14]
 Remove node 14 with one child: true -> [1, 3, 4, 6, 7, 8, 10, 13]
 Remove node 3 with two children: true -> [1, 4, 6, 7, 8, 10, 13, 14]
@@ -23,5 +26,5 @@ Company
 Team
 Developer
 Support
-Nodes: 4; height: 2
+Nodes: 4; height: 3
 ```

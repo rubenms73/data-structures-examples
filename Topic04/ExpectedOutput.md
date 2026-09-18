@@ -21,3 +21,14 @@ Length: 1000000; stored: 1
 Entry: 12
 Stored rows after clearing entry: 0
 ```
+
+## Demo04Collections
+
+```text
+List: pear fig pear
+Set: pear fig
+Bag after clearing its source: pear fig pear
+Inherited contains(fig): true
+Inherited isEmpty(): false
+Adding to the bag: UnsupportedOperationException
+```

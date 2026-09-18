@@ -43,16 +43,18 @@ public final class ExampleChecks
     public static void main(String[] args)
     {
         ListTree<String> child = new ListTree<>("child");
+        equal(1, child.height());
         child.addChild(new ListTree<String>("leaf"));
         ListTree<String> root = new ListTree<>("root");
         root.addChild(child);
         child.setLabel("changed");
         equal(Arrays.asList("root", "child", "leaf"), collect(root));
         equal(3, root.size());
-        equal(2, root.height());
+        equal(3, root.height());
         ListTree<String> copy = new ListTree<>((Tree<String>) root);
         copy.removeChild(0);
         equal(1, copy.size());
+        equal(1, copy.height());
         equal(3, root.size());
         rejects(IndexOutOfBoundsException.class, () -> root.removeChild(1));
         rejects(NullPointerException.class, () -> root.addChild(null));

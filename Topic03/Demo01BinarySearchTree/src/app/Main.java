@@ -28,6 +28,9 @@ public final class Main
         System.out.println("Size: " + tree.size());
         System.out.println("Contains 6: " + tree.contains(6));
         System.out.println("Add duplicate 6: " + tree.add(6));
+        System.out.println("With the duplicate: " + tree + ", size: " + tree.size());
+        System.out.println("Remove one 6: " + tree.remove(6));
+        System.out.println("One 6 remains: " + tree.contains(6));
         showRemoval("Remove leaf 1", 1);
         showRemoval("Remove node 14 with one child", 14);
         showRemoval("Remove node 3 with two children", 3);

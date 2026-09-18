@@ -1,7 +1,6 @@
 package tests;
 
 import java.util.*;
-import java.math.BigInteger;
 import ds.*;
 
 public final class ExampleChecks
@@ -15,6 +14,7 @@ public final class ExampleChecks
 
     private static void bags()
     {
+        throwsType(NullPointerException.class, () -> new ArrayBag<String>(null));
         List<String> source = new ArrayList<>(Arrays.asList("pear", null, "pear"));
         ArrayBag<String> bag = new ArrayBag<>(source);
         source.clear();

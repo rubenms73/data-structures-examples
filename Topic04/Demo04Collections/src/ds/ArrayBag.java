@@ -11,11 +11,20 @@ import java.util.NoSuchElementException;
  */
 public final class ArrayBag<E> extends AbstractCollection<E>
 {
-    private final Object[] data;
+    private final E[] data;
 
+    /** Copy the element references into independent array storage. */
+    @SuppressWarnings("unchecked")
     public ArrayBag(Collection<? extends E> source)
     {
-        data = source.toArray();
+        if (source == null)
+            throw new NullPointerException("Source must not be null");
+        data = (E[]) new Object[source.size()];
+        int index = 0;
+        for (E element : source)
+        {
+            data[index++] = element;
+        }
     }
 
     @Override
@@ -23,6 +32,7 @@ public final class ArrayBag<E> extends AbstractCollection<E>
     {
         return data.length;
     }
+
     @Override
     public Iterator<E> iterator()
     {
@@ -40,13 +50,11 @@ public final class ArrayBag<E> extends AbstractCollection<E>
         }
 
         @Override
-        @SuppressWarnings("unchecked")
         public E next()
         {
             if (!hasNext())
                 throw new NoSuchElementException();
-            // All entries came from Collection<? extends E>; data never changes.
-            return (E) data[index++];
+            return data[index++];
         }
     }
 }

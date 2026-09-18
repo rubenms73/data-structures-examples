@@ -34,7 +34,7 @@ Do not combine all `src` folders into one Java project: names such as `app.Main`
 
 ## Demonstrations
 
-Examples 01–12 use ordinary arrays and the local `MyArray` interface rather than Java collection implementations. The earlier list/set `Collections` demo remains [reserved for later](../DeferredExamples/README.md). Example 13 is a closing exercise using `Collection` and `AbstractCollection`, after those interfaces and iterator operations have been explained. The examples are numbered consecutively from 01 to 13. Start with the basic interface and array examples, then comparison and iteration. The functional-interface and wildcard examples correspond to the appendix and should follow their theory explanations.
+Examples 01–12 use ordinary arrays and the local `MyArray` interface rather than Java collection implementations. The list/set `Collections` demo is now [Topic 4, Demo04Collections](../Topic04/Demo04Collections/README.md), after its collection prerequisites. Example 13 is a closing exercise using `Collection` and `AbstractCollection`, after those interfaces and iterator operations have been explained. The examples are numbered consecutively from 01 to 13. Start with the basic interface and array examples, then comparison and iteration. The functional-interface and wildcard examples correspond to the appendix and should follow their theory explanations.
 
 For a step-by-step test of `Predicate`, `Supplier`, `Consumer` and `Function`, see [Demo10FunctionalOperations](Demo10FunctionalOperations/README.md). Its README includes the problem statement, each interface's operation and the expected output.
 

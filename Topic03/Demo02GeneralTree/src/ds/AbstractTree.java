@@ -14,11 +14,11 @@ public abstract class AbstractTree<E> implements Tree<E>
         return result;
     }
 
-    /** Height counts edges: a leaf has height zero. */
+    /** Height counts nodes on a longest root-to-leaf path: a leaf has height one. */
     @Override
     public int height()
     {
-        int result = 0;
+        int result = 1;
         for (Tree<E> child : children())
         {
             int candidate = 1 + child.height();

@@ -9,7 +9,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * An unbalanced binary search tree. Comparison defines duplicate elements.
+ * An unbalanced binary search tree retaining every occurrence.
+ * Left descendants compare <= their root; right descendants compare > it.
  * Null elements are rejected. Do not modify the tree during iteration.
  * Iterator removal and inherited operations that require it are unsupported.
  */
@@ -71,6 +72,7 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
         return size;
     }
 
+    /** Insert one occurrence, including comparison-equivalent values. */
     @Override
     public boolean add(E value)
     {
@@ -88,9 +90,8 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
         while (true)
         {
             int result = compare(value, current.value);
-            if (result == 0)
-                return false;
-            if (result < 0)
+            // Equal values go left, as in the Topic 3 presentation.
+            if (result <= 0)
             {
                 if (current.left == null)
                 {
@@ -134,6 +135,7 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
         return false;
     }
 
+    /** Remove one occurrence identified by the comparison relation. */
     @Override
     @SuppressWarnings("unchecked")
     public boolean remove(Object value)
@@ -160,14 +162,21 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
                 return node.right;
             if (node.right == null)
                 return node.left;
-            // Two children: replace the value with its in-order successor.
-            Node successor = node.right;
-            while (successor.left != null)
+            // With duplicates on the left, use the greatest value on the left.
+            // A successor could leave an equal value in the strictly greater
+            // right subtree. Detach the actual predecessor node, not any match.
+            Node parent = node;
+            Node predecessor = node.left;
+            while (predecessor.right != null)
             {
-                successor = successor.left;
+                parent = predecessor;
+                predecessor = predecessor.right;
             }
-            node.value = successor.value;
-            node.right = remove(node.right, successor.value);
+            node.value = predecessor.value;
+            if (parent == node)
+                parent.left = predecessor.left;
+            else
+                parent.right = predecessor.left;
         }
         return node;
     }

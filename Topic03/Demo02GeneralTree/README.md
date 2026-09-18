@@ -15,7 +15,9 @@ Null labels and null subtrees are rejected with explicit conditionals.
    cannot alter links. Child objects remain mutable and are not deep-copied there.
 4. Copying on insertion prevents this representation from introducing cycles.
 5. Preorder visits the root, then children in order. Push children in reverse order.
-6. Height counts edges; every leaf has height zero.
+6. Height counts nodes on a longest root-to-leaf path, as in the presentation;
+   every leaf has height one. This interface represents only nonempty trees.
+   The presentation assigns height zero to an empty binary tree.
 
 ## Costs and contracts
 
@@ -53,5 +55,5 @@ Company
 Team
 Developer
 Support
-Nodes: 4; height: 2
+Nodes: 4; height: 3
 ```
