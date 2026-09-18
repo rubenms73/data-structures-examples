@@ -45,7 +45,7 @@ public final class Main
         }
         List<Route> snapshots = new ArrayList<>();
         Route baseline = network.route(from, to);
-        show(snapshots, "1. Original route", baseline);
+        show(snapshots, "1. No incident (original weights)", baseline);
         if (!baseline.reachable() || baseline.legs.isEmpty())
         {
             writeMap(file, snapshots, List.of());
@@ -94,7 +94,7 @@ public final class Main
         }
         try
         {
-            show(snapshots, "2. Affected connections removed", network.route(from, to));
+            show(snapshots, "2. Road closed (affected connections removed)", network.route(from, to));
         }
         finally
         {
@@ -103,7 +103,7 @@ public final class Main
                 network.addRoad(road);
             }
         }
-        show(snapshots, "3. Connections restored", network.route(from, to));
+        show(snapshots, "3. Road reopened (original weights restored)", network.route(from, to));
         // The JSON loader starts every road with zero penalty.
         for (Road road : affected)
         {
@@ -111,7 +111,7 @@ public final class Main
         }
         try
         {
-            show(snapshots, "4. Temporary penalty of 1000 per affected connection", network.route(from, to));
+            show(snapshots, "4. Heavy traffic (+1000 cost units per affected connection; roads remain usable)", network.route(from, to));
         }
         finally
         {
@@ -120,7 +120,7 @@ public final class Main
                 road.setPenalty(0);
             }
         }
-        show(snapshots, "5. Penalty removed", network.route(from, to));
+        show(snapshots, "5. Traffic cleared (penalties removed)", network.route(from, to));
         System.out.println("Both algorithms give the same distances for every scenario.");
         writeMap(file, snapshots, affected);
     }

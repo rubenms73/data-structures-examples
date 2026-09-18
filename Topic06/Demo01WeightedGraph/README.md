@@ -65,8 +65,9 @@ On Linux, use `xdg-open bin/navigation-map.html` or open it from the file manage
 The `Topic06/run.sh` script selects demos; these route arguments belong to
 `Demo01WeightedGraph/run.sh`.
 
-The viewer initially compares the original route (blue) with the route after
-removing the affected connections (orange). Red dashed lines show the **whole
+The viewer opens at **step 1: No incident**. Follow buttons 1–5 in order: these
+are successive moments of the same journey, not five independent route options.
+Blue always shows the original route; orange shows the route for the selected step. Red dashed lines show the **whole
 affected graph connections**, not an exact incident point. Select any of the five
 scenario buttons to see its saved route, physical distance, routing cost and
 per-connection details. Coincident blue/orange strokes mean the routes share a
@@ -172,6 +173,22 @@ These tags describe this teaching snapshot, not precise real-time incident limit
 For a localised incident, split corridors at the incident/junction and use separate
 edge IDs. Supplying a road ID explicitly changes only that one directed edge;
 it does not close all other corridors that might share physical road segments.
+
+### What the five buttons mean
+
+| Step | Change to the graph | Meaning |
+| --- | --- | --- |
+| 1. No incident | Original weights | Calculate the baseline route. |
+| 2. Road closed | Remove affected connections | These roads cannot be used, even if no alternative exists. |
+| 3. Road reopened | Add them back | Recover the original minimum cost. |
+| 4. Heavy traffic (+1000) | Keep the roads and increase their weights | A penalised road remains usable if it is still the best or only option. |
+| 5. Traffic cleared | Reset penalties to zero | Recover the original minimum cost again. |
+
+For the bundled Oviedo → León trip, steps **1, 3 and 5** use Pajares, while
+steps **2 and 4** use AP-66. The repeated results demonstrate restoration.
+Other trips may behave differently; closure and a large penalty are not equivalent.
+The penalty represents a classroom traffic simulation, not measured minutes.
+When blue and orange overlap, the original and selected routes share the same road.
 
 ## Distance, cost and alternatives
 
@@ -282,7 +299,7 @@ Parallel alternatives from Oviedo to León:
   road-59 | O-12, A-66, AP-66, N-120 | 122.762 km
   pajares-south | O-12, A-66, N-630, N-630A | 114.917 km
 
-1. Original route
+1. No incident (original weights)
 [Gijón, Oviedo, León, Palencia, Valladolid, Madrid]
   Gijón -> Oviedo | road-02 | GJ-81, A-8, A-66R, A-63, O-12, N-630 | 33.768 km | penalty 0.000
   Oviedo -> León | pajares-south | O-12, A-66, N-630, N-630A | 114.917 km | penalty 0.000
@@ -293,7 +310,7 @@ Physical distance: 521.107 km; routing cost: 521.107
 
 Incident: N-630-Pajares in both directions (4 represented connections)
 
-2. Affected connections removed
+2. Road closed (affected connections removed)
 [Gijón, Oviedo, León, Palencia, Valladolid, Madrid]
   Gijón -> Oviedo | road-02 | GJ-81, A-8, A-66R, A-63, O-12, N-630 | 33.768 km | penalty 0.000
   Oviedo -> León | road-59 | O-12, A-66, AP-66, N-120 | 122.762 km | penalty 0.000
@@ -302,7 +319,7 @@ Incident: N-630-Pajares in both directions (4 represented connections)
   Valladolid -> Madrid | road-55 | N-601, AP-6, A-6 | 190.241 km | penalty 0.000
 Physical distance: 528.953 km; routing cost: 528.953
 
-3. Connections restored
+3. Road reopened (original weights restored)
 [Gijón, Oviedo, León, Palencia, Valladolid, Madrid]
   Gijón -> Oviedo | road-02 | GJ-81, A-8, A-66R, A-63, O-12, N-630 | 33.768 km | penalty 0.000
   Oviedo -> León | pajares-south | O-12, A-66, N-630, N-630A | 114.917 km | penalty 0.000
@@ -311,7 +328,7 @@ Physical distance: 528.953 km; routing cost: 528.953
   Valladolid -> Madrid | road-55 | N-601, AP-6, A-6 | 190.241 km | penalty 0.000
 Physical distance: 521.107 km; routing cost: 521.107
 
-4. Temporary penalty of 1000 per affected connection
+4. Heavy traffic (+1000 cost units per affected connection; roads remain usable)
 [Gijón, Oviedo, León, Palencia, Valladolid, Madrid]
   Gijón -> Oviedo | road-02 | GJ-81, A-8, A-66R, A-63, O-12, N-630 | 33.768 km | penalty 0.000
   Oviedo -> León | road-59 | O-12, A-66, AP-66, N-120 | 122.762 km | penalty 0.000
@@ -320,7 +337,7 @@ Physical distance: 521.107 km; routing cost: 521.107
   Valladolid -> Madrid | road-55 | N-601, AP-6, A-6 | 190.241 km | penalty 0.000
 Physical distance: 528.953 km; routing cost: 528.953
 
-5. Penalty removed
+5. Traffic cleared (penalties removed)
 [Gijón, Oviedo, León, Palencia, Valladolid, Madrid]
   Gijón -> Oviedo | road-02 | GJ-81, A-8, A-66R, A-63, O-12, N-630 | 33.768 km | penalty 0.000
   Oviedo -> León | pajares-south | O-12, A-66, N-630, N-630A | 114.917 km | penalty 0.000
