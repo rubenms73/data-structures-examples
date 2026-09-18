@@ -11,6 +11,10 @@ Each example is self-contained and targets Java 17.
   a small directed graph with a cycle, parent trees, disconnected vertices and
   complete traversal forests, following the theory pseudocode.
 
+- [Minimum spanning tree for a campus network](Demo03NetworkSpanningTree/README.md):
+  connect six buildings with minimum total cable cost, using Prim; remove a link
+  and compute an alternative. Includes diagrams and comparison with shortest paths.
+
 For teaching, start with Demo02 to study traversal, then use Demo01 for weighted
 shortest paths and the navigation application. Existing demo names are retained.
 

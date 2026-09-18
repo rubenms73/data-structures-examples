@@ -89,3 +89,53 @@ Parents: {B=A, C=B, D=B, E=A, G=F}
 Parent entries mean child=parent; roots have no entry.
 BFS minimises the number of arcs from one source, not weighted cost.
 ```
+
+## Demo03NetworkSpanningTree
+
+```text
+Campus network: fictional installation costs in hundreds of euros.
+Available undirected links (fictional installation cost units):
+  Server -- Library : 4
+  Server -- Lab : 3
+  Library -- Lab : 1
+  Library -- Office : 2
+  Lab -- Office : 4
+  Lab -- Classroom : 5
+  Office -- Classroom : 2
+  Office -- Workshop : 6
+  Classroom -- Workshop : 3
+Installing every link: 30
+
+Minimum spanning tree:
+  Server -- Lab : 3
+  Lab -- Library : 1
+  Library -- Office : 2
+  Office -- Classroom : 2
+  Classroom -- Workshop : 3
+Selected links: 5 for 6 nodes
+Total cost: 11
+
+Incident: Library -- Lab is unavailable.
+
+Recomputed minimum spanning tree:
+  Server -- Lab : 3
+  Server -- Library : 4
+  Library -- Office : 2
+  Office -- Classroom : 2
+  Classroom -- Workshop : 3
+Selected links: 5 for 6 nodes
+Total cost: 14
+
+Link restored:
+  Server -- Lab : 3
+  Lab -- Library : 1
+  Library -- Office : 2
+  Office -- Classroom : 2
+  Classroom -- Workshop : 3
+Selected links: 5 for 6 nodes
+Total cost: 11
+
+A tree has no redundant route: one selected link failure disconnects it.
+Recomputation assumes the other candidate links are available.
+Minimum total installation cost is not minimum latency from the server.
+```
