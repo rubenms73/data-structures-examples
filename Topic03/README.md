@@ -3,7 +3,17 @@
 Each example is self-contained and targets Java 17. Open an individual demo folder.
 
 - [01 — Binary search tree](Demo01BinarySearchTree/README.md).
-- [General rooted tree and preorder traversal](Demo02GeneralTree/README.md).
+- [02 — General rooted tree and preorder traversal](Demo02GeneralTree/README.md).
+- [03 — AVL trees and logarithmic height](Demo03AVLTree/README.md).
+- [04 — Red-black trees and their use in Java](Demo04RedBlackTree/README.md).
+
+The two balanced-tree demos include full insertion and deletion algorithms.
+Their classroom focus is the purpose of balancing and its effect on costs;
+rotation/recolouring implementation is optional study, not required for the exam.
+Both use height in nodes (empty = 0, leaf = 1), following the presentation.
+Demo04 briefly previews `TreeMap` and `TreeSet`; the full collection API belongs
+to Topic 4. These new demos store one element per comparison key, whereas Demo01
+retains repeated occurrences; their READMEs explain why this matters for rotations.
 
 Run `bash run.sh list`, `bash run.sh all`, `bash run.sh test`, or select a listed demo.
 

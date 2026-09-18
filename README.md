@@ -9,7 +9,7 @@ stack comparison in Topic 2. Start with [Topic 1](Topic01/README.md): thirteen d
 
 - [Topic 1 — Abstraction and generic programming](Topic01/README.md).
 - [Topic 2 — Lists, stacks, queue policies and iterators](Topic02/README.md).
-- [Topic 3 — Binary search trees and general rooted trees](Topic03/README.md).
+- [Topic 3 — Search trees, general trees, AVL and red-black trees](Topic03/README.md).
 - [Topic 4 — Sets, maps, polynomials and sparse storage](Topic04/README.md).
 - [Topic 5 — Hashing with separate chaining](Topic05/README.md).
 - [Topic 6 — Weighted graphs and shortest paths](Topic06/README.md): northern Spain road network with sourced distances, parallel alternatives and incident rerouting.
@@ -26,7 +26,9 @@ provides separate C++, C# and Python run/test commands.
 inner ListIterator and reuse through AbstractSequentialList.
 
 [Topic 3](Topic03/README.md) contains the binary search tree example with
-comparison, recursive removal and an inner in-order iterator using a stack.
+comparison, recursive removal and an inner in-order iterator using a stack. It also
+includes full AVL and red-black implementations, with the balancing algorithms
+clearly marked as optional implementation study rather than exam requirements.
 
 1. Download this repository using **Code → Download ZIP**, or clone it with Git.
 2. In VS Code, open an **individual example folder**, such as **Topic01/Demo05Movies**.

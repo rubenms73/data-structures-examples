@@ -28,3 +28,47 @@ Developer
 Support
 Nodes: 4; height: 3
 ```
+
+## Demo03AVLTree
+
+```text
+Inserted 1 through 15 in ascending order.
+Ordered contents: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+Balanced tree height (nodes): 4
+A plain BST with this insertion order would have height 15.
+Search for 15: true; comparisons: 4
+Adding duplicate 8: false
+Removing 8: true
+Removing 1: true
+Removing 15: true
+After removals: [2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14]
+Height after removals: 4
+First / last: 2 / 14
+All invariants hold: true
+After clear: size=0, height=0
+Focus: purpose and logarithmic costs. Repair code is not required for the exam.
+```
+
+## Demo04RedBlackTree
+
+```text
+Inserted 1 through 15 in ascending order.
+Ordered contents: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+Balanced tree height (nodes): 4
+A plain BST with this insertion order would have height 15.
+Search for 15: true; comparisons: 4
+Adding duplicate 8: false
+Removing 8: true
+Removing 1: true
+Removing 15: true
+After removals: [2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14]
+Height after removals: 5
+First / last: 2 / 14
+All invariants hold: true
+TreeSet ordered contents: [10, 20, 30]
+TreeMap ordered keys and values: {10=item-10, 20=item-20, 30=item-30}
+Java 17: TreeMap uses a red-black tree; TreeSet is based on TreeMap.
+Our LLRB implementation is not a copy of TreeMap's internal algorithm.
+After clear: size=0, height=0
+Focus: purpose and logarithmic costs. Repair code is not required for the exam.
+```
