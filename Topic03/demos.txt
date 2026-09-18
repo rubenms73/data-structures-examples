@@ -2,3 +2,4 @@ Demo01BinarySearchTree
 Demo02GeneralTree
 Demo03AVLTree
 Demo04RedBlackTree
+Demo05TreeTraversals

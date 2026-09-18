@@ -485,3 +485,39 @@ After clear: size=0, height=0
 
 Focus: purpose and logarithmic costs. Repair code is not required for the exam.
 ```
+
+## Demo05TreeTraversals
+
+```text
+Same tree, four traversal orders (right subtree above):
+
+        /-- 14
+        |       |
+        |       \-- 13
+        |
+/-- 10
+|
++-- 8 [ROOT]
+|
+|               /-- 7
+|               |
+|       /-- 6
+|       |       |
+|       |       \-- 4
+|       |
+\-- 3
+        |
+        \-- 1
+
+Preorder (root, left, right): 8 -> 3 -> 1 -> 6 -> 4 -> 7 -> 10 -> 14 -> 13
+Inorder (left, root, right): 1 -> 3 -> 4 -> 6 -> 7 -> 8 -> 10 -> 13 -> 14
+Postorder (left, right, root): 1 -> 4 -> 7 -> 6 -> 3 -> 13 -> 14 -> 10 -> 8
+Level order (breadth first): 8 -> 3 -> 10 -> 1 -> 6 -> 14 -> 4 -> 7 -> 13
+The default iterator is inorder: [1, 3, 4, 6, 7, 8, 10, 13, 14]
+
+Independent iterators, advanced alternately:
+preorder=8, level order=8
+preorder=3, level order=3
+preorder=1, level order=10
+Iterator creation does not materialise the complete traversal.
+```

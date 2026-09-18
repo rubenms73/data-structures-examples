@@ -6,6 +6,7 @@ Each example is self-contained and targets Java 17. Open an individual demo fold
 - [02 — General rooted tree and preorder traversal](Demo02GeneralTree/README.md).
 - [03 — AVL trees and logarithmic height](Demo03AVLTree/README.md).
 - [04 — Red-black trees and their use in Java](Demo04RedBlackTree/README.md).
+- [05 — Preorder, inorder, postorder and level-order iterators](Demo05TreeTraversals/README.md).
 
 The two balanced-tree demos include full insertion and deletion algorithms.
 Their classroom focus is the purpose of balancing and its effect on costs;
@@ -36,6 +37,6 @@ bundled JAR libraries. It uses the included Windows PowerShell 5.1;
 `run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
 remain available when the individual example folder is open.
 
-All four demos print the actual tree structure with ASCII branches connecting nodes. Binary trees are shown sideways;
+All five demos print the actual tree structure with ASCII branches connecting nodes. Binary trees are shown sideways;
 AVL nodes include height and balance factor, and red-black nodes include colour.
 The general tree uses an indented root-first hierarchy. See each README for the legend.
