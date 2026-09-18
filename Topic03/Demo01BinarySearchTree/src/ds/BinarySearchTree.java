@@ -234,8 +234,8 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
     /**
      * Returns a sideways text view without changing the tree or its iterator.
      * The right subtree is above its parent; the left subtree is below it.
-     * ROOT marks the root, and R/L identify child links, including single children.
-     * Each depth adds four spaces. Empty children are omitted; an empty tree is
+     * ASCII branches connect parents and children; [ROOT] identifies the root.
+     * Vertical bars continue ancestor branches. Empty children are omitted; an empty tree is
      * shown explicitly. Newlines in element text are escaped to keep one node
      * per line. Uses O(height) recursion and time proportional to output length.
      */
@@ -244,23 +244,38 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
         if (root == null)
             return "(empty)\n";
         StringBuilder result = new StringBuilder();
-        appendTree(root, 0, "ROOT", result);
+        appendTree(root, "", "ROOT", result);
         return result.toString();
     }
 
-    private void appendTree(Node node, int depth, String link, StringBuilder result)
+    private void appendTree(Node node, String prefix, String link, StringBuilder result)
     {
         if (node == null)
             return;
-        appendTree(node.right, depth + 1, "R", result);
-        for (int i = 0; i < depth; i++)
+        boolean isRoot = link.equals("ROOT");
+        boolean isLeft = link.equals("L");
+        String above = prefix;
+        String below = prefix;
+        if (!isRoot)
         {
-            result.append("    ");
+            // Keep the vertical connector while crossing the parent's level.
+            above += isLeft ? "|   " : "    ";
+            below += isLeft ? "    " : "|   ";
         }
+        appendTree(node.right, above, "R", result);
+        result.append(prefix);
+        if (isRoot)
+            result.append("+-- ");
+        else if (isLeft)
+            result.append("\\-- ");
+        else
+            result.append("/-- ");
         String label = String.valueOf(node.value).replace("\r", "\\r").replace("\n", "\\n")
                 .replace("\t", "\\t");
-        result.append(link).append(": ").append(label);
+        result.append(label);
+        if (isRoot)
+            result.append(" [ROOT]");
         result.append('\n');
-        appendTree(node.left, depth + 1, "L", result);
+        appendTree(node.left, below, "L", result);
     }
 }

@@ -1,5 +1,7 @@
 package ds;
 
+import java.util.Iterator;
+
 /** Recursive algorithms depend only on the interface, not the representation. */
 public abstract class AbstractTree<E> implements Tree<E>
 {
@@ -30,7 +32,7 @@ public abstract class AbstractTree<E> implements Tree<E>
 
     /**
      * Returns the ordered hierarchy with the root first, one node per line.
-     * Four spaces per depth show parent-child relationships. This general tree
+     * ASCII branches show parent-child relationships. This general tree
      * has no binary left/right links. The method only uses the Tree interface.
      * Recursion follows tree height and preserves child order; children() may
      * allocate additional snapshots according to the concrete representation.
@@ -38,25 +40,33 @@ public abstract class AbstractTree<E> implements Tree<E>
     public String toTreeString()
     {
         StringBuilder result = new StringBuilder();
-        appendTree(this, 0, result);
+        appendTree(this, "", true, true, result);
         return result.toString();
     }
 
-    private void appendTree(Tree<E> node, int depth, StringBuilder result)
+    private void appendTree(Tree<E> node, String prefix, boolean last, boolean root,
+            StringBuilder result)
     {
-        for (int i = 0; i < depth; i++)
-        {
-            result.append("    ");
-        }
-        if (depth == 0)
-            result.append("ROOT: ");
+        result.append(prefix);
+        if (root)
+            result.append("+-- ");
+        else if (last)
+            result.append("\\-- ");
         else
-            result.append("- ");
+            result.append("+-- ");
         result.append(String.valueOf(node.label()).replace("\r", "\\r")
-                .replace("\n", "\\n").replace("\t", "\\t")).append('\n');
-        for (Tree<E> child : node.children())
+                .replace("\n", "\\n").replace("\t", "\\t"));
+        if (root)
+            result.append(" [ROOT]");
+        result.append('\n');
+        String childPrefix = prefix;
+        if (!root)
+            childPrefix += last ? "    " : "|   ";
+        Iterator<? extends Tree<E>> children = node.children().iterator();
+        while (children.hasNext())
         {
-            appendTree(child, depth + 1, result);
+            Tree<E> child = children.next();
+            appendTree(child, childPrefix, !children.hasNext(), false, result);
         }
     }
 }

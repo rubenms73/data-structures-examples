@@ -52,19 +52,19 @@ leaves the structure unchanged. Compare the representation with its public contr
 
 ```text
 Company hierarchy:
-ROOT: Company
-    - Team
-        - Developer
-    - Support
++-- Company [ROOT]
++-- Team
+|   \-- Developer
+\-- Support
 Company
 Team
 Developer
 Support
 Nodes: 4; height: 3
 After removing Support:
-ROOT: Company
-    - Team
-        - Developer
++-- Company [ROOT]
+\-- Team
+    \-- Developer
 ```
 
 ## Windows
@@ -87,7 +87,7 @@ remain available when the individual example folder is open.
 
 ## Reading the text tree
 
-The general tree prints its root first, followed by its ordered children. Each depth adds four spaces; it has no binary left/right distinction. 
+The general tree prints its root first, followed by its ordered children. `+--`, `\--` and vertical `|` lines connect children to their parent; `\--` identifies the last child. It has no binary left/right distinction. Read it with a monospaced font. 
 
 `toTreeString()` returns text; `Main` prints it with `System.out.print`. It does not
 change the tree. The existing ordered traversal remains available. Labels with
