@@ -50,3 +50,14 @@ Peek: A; next: A
 Peek: null; next: null
 Peek: B; next: B
 ```
+
+## Demo06StacksAcrossLanguages
+
+```text
+Size: 3
+Top: 3
+Pop: 3
+Pop: 2
+Pop: 1
+Size: 0
+```

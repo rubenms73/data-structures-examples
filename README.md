@@ -2,19 +2,22 @@
 
 University of Oviedo · Rubén Muñiz Sánchez
 
-Runnable Java examples accompanying the course. Start with [Topic 1](Topic01/README.md): thirteen demonstrations of data abstraction, generic programming, comparison, iteration and functional interfaces.
+Runnable Java examples accompanying the course, with an optional Java/C++/C#
+stack comparison in Topic 2. Start with [Topic 1](Topic01/README.md): thirteen demonstrations of data abstraction, generic programming, comparison, iteration and functional interfaces.
 
 ## Topics
 
 - [Topic 1 — Abstraction and generic programming](Topic01/README.md).
-- [Topic 2 — Lists, queue policies and iterators](Topic02/README.md).
+- [Topic 2 — Lists, stacks, queue policies and iterators](Topic02/README.md).
 - [Topic 3 — Binary search trees and general rooted trees](Topic03/README.md).
 - [Topic 4 — Sets, maps, polynomials and sparse storage](Topic04/README.md).
 - [Topic 5 — Hashing with separate chaining](Topic05/README.md).
 - [Topic 6 — Weighted graphs and shortest paths](Topic06/README.md).
 
 Run `python3 tools/check_examples.py` with JDK 17 on PATH to compile, execute
-and check every example in isolation against its documented output.
+and check every Java example in isolation against its documented output.
+The [multilanguage stack demo](Topic02/Demo06StacksAcrossLanguages/README.md)
+provides separate C++ and C# run/test commands.
 
 ## Run an example
 
