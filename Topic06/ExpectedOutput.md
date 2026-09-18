@@ -1,4 +1,4 @@
-# Topic 6: expected navigation output
+# Topic 6: expected output
 
 Run `bash run.sh` or `.\run.cmd` inside `Demo01WeightedGraph`.
 
@@ -60,4 +60,32 @@ Physical distance: 528.953 km; routing cost: 528.953
 Physical distance: 521.107 km; routing cost: 521.107
 Both algorithms give the same distances for every scenario.
 Offline map: bin/navigation-map.html
+```
+
+## Demo02GraphTraversals
+
+```text
+Directed graph (outgoing neighbours):
+A -> [B, D, E]
+B -> [C, D]
+C -> [A]
+D -> []
+E -> []
+F -> [G]
+G -> []
+H -> []
+
+BFS from A: [A, B, D, E, C]
+Parents: {B=A, D=A, E=A, C=B}
+
+DFS from A: [A, B, C, D, E]
+Parents: {B=A, C=B, D=B, E=A}
+
+BFS forest: [A, B, D, E, C, F, G, H]
+Parents: {B=A, D=A, E=A, C=B, G=F}
+
+DFS forest: [A, B, C, D, E, F, G, H]
+Parents: {B=A, C=B, D=B, E=A, G=F}
+Parent entries mean child=parent; roots have no entry.
+BFS minimises the number of arcs from one source, not weighted cost.
 ```
