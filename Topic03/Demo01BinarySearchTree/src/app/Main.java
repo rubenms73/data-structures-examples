@@ -19,16 +19,20 @@ public final class Main
     {
         BinarySearchTree<Integer> tree = example();
         System.out.println(description + ": " + tree.remove(value) + " -> " + tree);
+        System.out.print(tree.toTreeString());
     }
 
     public static void main(String[] args)
     {
         BinarySearchTree<Integer> tree = example();
+        System.out.println("Initial tree (right above, left below):");
+        System.out.print(tree.toTreeString());
         System.out.println("In order: " + tree);
         System.out.println("Size: " + tree.size());
         System.out.println("Contains 6: " + tree.contains(6));
         System.out.println("Add duplicate 6: " + tree.add(6));
         System.out.println("With the duplicate: " + tree + ", size: " + tree.size());
+        System.out.print(tree.toTreeString());
         System.out.println("Remove one 6: " + tree.remove(6));
         System.out.println("One 6 remains: " + tree.contains(6));
         showRemoval("Remove leaf 1", 1);
@@ -50,7 +54,9 @@ public final class Main
             chain.add(value);
         }
         System.out.println("Ordered insertion: " + chain);
+        System.out.print(chain.toTreeString());
         tree.clear();
         System.out.println("After clear: " + tree + ", size: " + tree.size());
+        System.out.print(tree.toTreeString());
     }
 }

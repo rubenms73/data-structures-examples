@@ -406,4 +406,38 @@ public final class RedBlackTree<E> implements Iterable<E>
             return left;
         return left + 1;
     }
+
+    /**
+     * Returns a sideways text view without changing the tree or its iterator.
+     * The right subtree is above its parent; the left subtree is below it.
+     * ROOT marks the root, and R/L identify child links, including single children.
+     * Each depth adds four spaces. Empty children are omitted; an empty tree is
+     * shown explicitly. Newlines in element text are escaped to keep one node
+     * per line. Uses O(height) recursion and time proportional to output length.
+     */
+    public String toTreeString()
+    {
+        if (root == null)
+            return "(empty)\n";
+        StringBuilder result = new StringBuilder();
+        appendTree(root, 0, "ROOT", result);
+        return result.toString();
+    }
+
+    private void appendTree(Node node, int depth, String link, StringBuilder result)
+    {
+        if (node == null)
+            return;
+        appendTree(node.right, depth + 1, "R", result);
+        for (int i = 0; i < depth; i++)
+        {
+            result.append("    ");
+        }
+        String label = String.valueOf(node.value).replace("\r", "\\r").replace("\n", "\\n")
+                .replace("\t", "\\t");
+        result.append(link).append(": ").append(label);
+        result.append(node.red ? " [R]" : " [B]");
+        result.append('\n');
+        appendTree(node.left, depth + 1, "L", result);
+    }
 }

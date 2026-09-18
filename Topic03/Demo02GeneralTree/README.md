@@ -51,11 +51,20 @@ leaves the structure unchanged. Compare the representation with its public contr
 ## Expected output
 
 ```text
+Company hierarchy:
+ROOT: Company
+    - Team
+        - Developer
+    - Support
 Company
 Team
 Developer
 Support
 Nodes: 4; height: 3
+After removing Support:
+ROOT: Company
+    - Team
+        - Developer
 ```
 
 ## Windows
@@ -75,3 +84,14 @@ The launcher handles its own working directory, paths with spaces and any
 bundled JAR libraries. It uses the included Windows PowerShell 5.1;
 `run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
 remain available when the individual example folder is open.
+
+## Reading the text tree
+
+The general tree prints its root first, followed by its ordered children. Each depth adds four spaces; it has no binary left/right distinction. 
+
+`toTreeString()` returns text; `Main` prints it with `System.out.print`. It does not
+change the tree. The existing ordered traversal remains available. Labels with
+line breaks or tabs are escaped so each node occupies one line. These are views
+of the actual links, not reconstructions from sorted values. They show completed
+operations, not intermediate rotation states. Intended for small classroom trees;
+indentation can make output quadratic in the height of a long chain.

@@ -185,14 +185,69 @@ References for the library claims:
 
 ```text
 Inserted 1 through 15 in ascending order.
+Tree structure (right above, left below):
+            R: 15 [B]
+        R: 14 [B]
+            L: 13 [B]
+    R: 12 [B]
+            R: 11 [B]
+        L: 10 [B]
+            L: 9 [B]
+ROOT: 8 [B]
+            R: 7 [B]
+        R: 6 [B]
+            L: 5 [B]
+    L: 4 [B]
+            R: 3 [B]
+        L: 2 [B]
+            L: 1 [B]
 Ordered contents: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 Balanced tree height (nodes): 4
 A plain BST with this insertion order would have height 15.
 Search for 15: true; comparisons: 4
 Adding duplicate 8: false
 Removing 8: true
+        R: 15 [B]
+    R: 14 [B]
+            R: 13 [B]
+        L: 12 [R]
+            L: 11 [B]
+                L: 10 [R]
+ROOT: 9 [B]
+            R: 7 [B]
+        R: 6 [B]
+            L: 5 [B]
+    L: 4 [R]
+            R: 3 [B]
+        L: 2 [B]
+            L: 1 [B]
 Removing 1: true
+        R: 15 [B]
+    R: 14 [B]
+            R: 13 [B]
+        L: 12 [R]
+            L: 11 [B]
+                L: 10 [R]
+ROOT: 9 [B]
+        R: 7 [B]
+    L: 6 [B]
+            R: 5 [B]
+        L: 4 [R]
+            L: 3 [B]
+                L: 2 [R]
 Removing 15: true
+        R: 14 [B]
+            L: 13 [R]
+    R: 12 [B]
+        L: 11 [B]
+            L: 10 [R]
+ROOT: 9 [B]
+        R: 7 [B]
+    L: 6 [B]
+            R: 5 [B]
+        L: 4 [R]
+            L: 3 [B]
+                L: 2 [R]
 After removals: [2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14]
 Height after removals: 5
 First / last: 2 / 14
@@ -202,5 +257,17 @@ TreeMap ordered keys and values: {10=item-10, 20=item-20, 30=item-30}
 Java 17: TreeMap uses a red-black tree; TreeSet is based on TreeMap.
 Our LLRB implementation is not a copy of TreeMap's internal algorithm.
 After clear: size=0, height=0
+(empty)
 Focus: purpose and logarithmic costs. Repair code is not required for the exam.
 ```
+
+## Reading the text tree
+
+The binary tree is printed sideways: the right subtree is above its parent and the left subtree below it. `ROOT` marks the root; `R` and `L` identify each child link. Each depth adds four spaces. Empty child links are omitted and an empty tree is shown as `(empty)`. Red-black labels include `[R]` for red and `[B]` for black. Missing children are implicit black NIL leaves.
+
+`toTreeString()` returns text; `Main` prints it with `System.out.print`. It does not
+change the tree. The existing ordered traversal remains available. Labels with
+line breaks or tabs are escaped so each node occupies one line. These are views
+of the actual links, not reconstructions from sorted values. They show completed
+operations, not intermediate rotation states. Intended for small classroom trees;
+indentation can make output quadratic in the height of a long chain.

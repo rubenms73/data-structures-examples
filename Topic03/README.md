@@ -35,3 +35,7 @@ The launcher handles its own working directory, paths with spaces and any
 bundled JAR libraries. It uses the included Windows PowerShell 5.1;
 `run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
 remain available when the individual example folder is open.
+
+All four demos print the actual tree structure. Binary trees are shown sideways;
+AVL nodes include height and balance factor, and red-black nodes include colour.
+The general tree uses an indented root-first hierarchy. See each README for the legend.

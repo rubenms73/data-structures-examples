@@ -170,18 +170,85 @@ public `AVLTree` collection class in `java.util`.
 
 ```text
 Inserted 1 through 15 in ascending order.
+Tree structure (right above, left below):
+            R: 15 [h=1, bf=0]
+        R: 14 [h=2, bf=0]
+            L: 13 [h=1, bf=0]
+    R: 12 [h=3, bf=0]
+            R: 11 [h=1, bf=0]
+        L: 10 [h=2, bf=0]
+            L: 9 [h=1, bf=0]
+ROOT: 8 [h=4, bf=0]
+            R: 7 [h=1, bf=0]
+        R: 6 [h=2, bf=0]
+            L: 5 [h=1, bf=0]
+    L: 4 [h=3, bf=0]
+            R: 3 [h=1, bf=0]
+        L: 2 [h=2, bf=0]
+            L: 1 [h=1, bf=0]
 Ordered contents: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 Balanced tree height (nodes): 4
 A plain BST with this insertion order would have height 15.
 Search for 15: true; comparisons: 4
 Adding duplicate 8: false
 Removing 8: true
+            R: 15 [h=1, bf=0]
+        R: 14 [h=2, bf=0]
+            L: 13 [h=1, bf=0]
+    R: 12 [h=3, bf=0]
+            R: 11 [h=1, bf=0]
+        L: 10 [h=2, bf=-1]
+ROOT: 9 [h=4, bf=0]
+            R: 7 [h=1, bf=0]
+        R: 6 [h=2, bf=0]
+            L: 5 [h=1, bf=0]
+    L: 4 [h=3, bf=0]
+            R: 3 [h=1, bf=0]
+        L: 2 [h=2, bf=0]
+            L: 1 [h=1, bf=0]
 Removing 1: true
+            R: 15 [h=1, bf=0]
+        R: 14 [h=2, bf=0]
+            L: 13 [h=1, bf=0]
+    R: 12 [h=3, bf=0]
+            R: 11 [h=1, bf=0]
+        L: 10 [h=2, bf=-1]
+ROOT: 9 [h=4, bf=0]
+            R: 7 [h=1, bf=0]
+        R: 6 [h=2, bf=0]
+            L: 5 [h=1, bf=0]
+    L: 4 [h=3, bf=0]
+            R: 3 [h=1, bf=0]
+        L: 2 [h=2, bf=-1]
 Removing 15: true
+        R: 14 [h=2, bf=1]
+            L: 13 [h=1, bf=0]
+    R: 12 [h=3, bf=0]
+            R: 11 [h=1, bf=0]
+        L: 10 [h=2, bf=-1]
+ROOT: 9 [h=4, bf=0]
+            R: 7 [h=1, bf=0]
+        R: 6 [h=2, bf=0]
+            L: 5 [h=1, bf=0]
+    L: 4 [h=3, bf=0]
+            R: 3 [h=1, bf=0]
+        L: 2 [h=2, bf=-1]
 After removals: [2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14]
 Height after removals: 4
 First / last: 2 / 14
 All invariants hold: true
 After clear: size=0, height=0
+(empty)
 Focus: purpose and logarithmic costs. Repair code is not required for the exam.
 ```
+
+## Reading the text tree
+
+The binary tree is printed sideways: the right subtree is above its parent and the left subtree below it. `ROOT` marks the root; `R` and `L` identify each child link. Each depth adds four spaces. Empty child links are omitted and an empty tree is shown as `(empty)`. AVL labels include `h` (stored node height) and `bf` (left height minus right height).
+
+`toTreeString()` returns text; `Main` prints it with `System.out.print`. It does not
+change the tree. The existing ordered traversal remains available. Labels with
+line breaks or tabs are escaped so each node occupies one line. These are views
+of the actual links, not reconstructions from sorted values. They show completed
+operations, not intermediate rotation states. Intended for small classroom trees;
+indentation can make output quadratic in the height of a long chain.

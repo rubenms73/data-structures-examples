@@ -31,6 +31,8 @@ public final class Main
             tree.add(value);
         }
         System.out.println("Inserted 1 through 15 in ascending order.");
+        System.out.println("Tree structure (right above, left below):");
+        System.out.print(tree.toTreeString());
         System.out.println("Ordered contents: " + tree);
         System.out.println("Balanced tree height (nodes): " + tree.height());
         System.out.println("A plain BST with this insertion order would have height 15.");
@@ -39,8 +41,11 @@ public final class Main
         System.out.println("Search for 15: " + found + "; comparisons: " + order.comparisons);
         System.out.println("Adding duplicate 8: " + tree.add(8));
         System.out.println("Removing 8: " + tree.remove(8));
+        System.out.print(tree.toTreeString());
         System.out.println("Removing 1: " + tree.remove(1));
+        System.out.print(tree.toTreeString());
         System.out.println("Removing 15: " + tree.remove(15));
+        System.out.print(tree.toTreeString());
         System.out.println("After removals: " + tree);
         System.out.println("Height after removals: " + tree.height());
         System.out.println("First / last: " + tree.first() + " / " + tree.last());
@@ -48,6 +53,7 @@ public final class Main
 
         tree.clear();
         System.out.println("After clear: size=" + tree.size() + ", height=" + tree.height());
+        System.out.print(tree.toTreeString());
         System.out.println("Focus: purpose and logarithmic costs. Repair code is not required for the exam.");
     }
 }
