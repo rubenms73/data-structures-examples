@@ -34,7 +34,16 @@ public class ExampleChecks
         expect(IllegalArgumentException.class, () -> new ArrayStack<Integer>(-1));
         ArrayStack<Integer> zero = new ArrayStack<>(0);
         check(zero.isEmpty());
-        expect(IllegalStateException.class, () -> zero.push(1));
+        for (int value = 0; value < 100; value++)
+        {
+            zero.push(value);
+        }
+        check(zero.size() == 100);
+        for (int value = 99; value >= 0; value--)
+        {
+            check(zero.pop() == value);
+        }
+        check(zero.isEmpty());
         ArrayStack<Integer> stack = new ArrayStack<>(3);
         expect(NoSuchElementException.class, stack::pop);
         expect(NoSuchElementException.class, stack::peek);
@@ -43,7 +52,8 @@ public class ExampleChecks
         stack.push(null);
         stack.push(3);
         check(stack.size() == 3 && stack.peek() == 3);
-        expect(IllegalStateException.class, () -> stack.push(4));
+        stack.push(4);
+        check(stack.size() == 4 && stack.pop() == 4);
         check(stack.size() == 3 && stack.peek() == 3);
         Iterator<Integer> iterator = stack.iterator();
         check(iterator.next() == 3);

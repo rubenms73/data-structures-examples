@@ -14,6 +14,12 @@ public class Main
         }
         System.out.println("Size: " + stack.size());
         System.out.println("Top: " + stack.peek());
+        System.out.print("Traversal:");
+        for (int value : stack)
+        {
+            System.out.print(" " + value);
+        }
+        System.out.println();
         while (!stack.isEmpty())
         {
             System.out.println("Pop: " + stack.pop());

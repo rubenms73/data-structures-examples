@@ -12,6 +12,15 @@ int main()
     }
     std::cout << "Size: " << stack.size() << '\n';
     std::cout << "Top: " << stack.peek() << '\n';
+    std::cout << "Traversal:";
+    std::unique_ptr<Iterator<int>> iterator = stack.iterator();
+    while (iterator->hasNext())
+    {
+        std::cout << " " << iterator->next();
+    }
+    std::cout << '\n';
+    // End the traversal before modifying the stack.
+    iterator.reset();
     while (!stack.isEmpty())
     {
         std::cout << "Pop: " << stack.pop() << '\n';

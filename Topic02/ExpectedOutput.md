@@ -56,6 +56,7 @@ Peek: B; next: B
 ```text
 Size: 3
 Top: 3
+Traversal: 3 2 1
 Pop: 3
 Pop: 2
 Pop: 1

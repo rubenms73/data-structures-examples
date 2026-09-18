@@ -2,7 +2,7 @@
 
 University of Oviedo · Rubén Muñiz Sánchez
 
-Runnable Java examples accompanying the course, with an optional Java/C++/C#
+Runnable Java examples accompanying the course, with an optional Java/C++/C#/Python
 stack comparison in Topic 2. Start with [Topic 1](Topic01/README.md): thirteen demonstrations of data abstraction, generic programming, comparison, iteration and functional interfaces.
 
 ## Topics
@@ -17,7 +17,7 @@ stack comparison in Topic 2. Start with [Topic 1](Topic01/README.md): thirteen d
 Run `python3 tools/check_examples.py` with JDK 17 on PATH to compile, execute
 and check every Java example in isolation against its documented output.
 The [multilanguage stack demo](Topic02/Demo06StacksAcrossLanguages/README.md)
-provides separate C++ and C# run/test commands.
+provides separate C++, C# and Python run/test commands.
 
 ## Run an example
 

@@ -18,6 +18,12 @@ namespace StackExample
             }
             Console.WriteLine("Size: " + stack.Size());
             Console.WriteLine("Top: " + stack.Peek());
+            Console.Write("Traversal:");
+            foreach (int value in stack)
+            {
+                Console.Write(" " + value);
+            }
+            Console.WriteLine();
             while (!stack.IsEmpty())
             {
                 Console.WriteLine("Pop: " + stack.Pop());

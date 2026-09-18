@@ -1,12 +1,13 @@
 package ds;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-/** A fixed-capacity stack. Null elements are allowed. */
+/** A growing array stack. Null elements are allowed. */
 public class ArrayStack<E> implements Stack<E>
 {
-    private final E[] data;
+    private E[] data;
     private int size;
 
     public ArrayStack()
@@ -14,7 +15,7 @@ public class ArrayStack<E> implements Stack<E>
         this(10);
     }
 
-    /** Zero capacity is valid: such a stack cannot accept any element. */
+    /** The initial capacity may be zero: the first insertion grows it to one. */
     @SuppressWarnings("unchecked")
     public ArrayStack(int capacity)
     {
@@ -27,7 +28,13 @@ public class ArrayStack<E> implements Stack<E>
     public void push(E item)
     {
         if (size == data.length)
-            throw new IllegalStateException("Stack is full");
+        {
+            if (data.length > Integer.MAX_VALUE / 2)
+                throw new IllegalStateException("Capacity limit reached");
+            int capacity = data.length == 0 ? 1 : data.length * 2;
+            // Copy references into a larger array before replacing the old one.
+            data = Arrays.copyOf(data, capacity);
+        }
         data[size++] = item;
     }
 
