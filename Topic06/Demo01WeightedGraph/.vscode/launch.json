@@ -1,17 +1,19 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "type": "java",
-      "name": "Run example",
-      "request": "launch",
-      "mainClass": "app.Main"
-    },
-    {
-      "type": "java",
-      "name": "Run checks",
-      "request": "launch",
-      "mainClass": "tests.ExampleChecks"
-    }
-  ]
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Run example",
+            "request": "launch",
+            "mainClass": "app.Main",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "java",
+            "name": "Run checks",
+            "request": "launch",
+            "mainClass": "tests.ExampleChecks",
+            "cwd": "${workspaceFolder}"
+        }
+    ]
 }

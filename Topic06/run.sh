@@ -13,3 +13,4 @@ case "$choice" in
     if grep -Fxq -- "$choice" demos.txt; then bash "$choice/run.sh";
     else printf 'Use: bash run.sh [list|all|test|Demo01|another listed example]\n' >&2; exit 2; fi ;;
 esac
+

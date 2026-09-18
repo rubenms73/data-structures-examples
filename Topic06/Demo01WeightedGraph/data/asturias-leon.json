@@ -1,0 +1,237 @@
+{
+  "description": "Illustrative teaching network. Real locality names; invented, rounded kilometre weights, not measured road distances. Not a navigation dataset.",
+  "directed": false,
+  "vertices": [
+    "Arriondas",
+    "Astorga",
+    "Avilés",
+    "Bembibre",
+    "Campomanes",
+    "Cangas de Onís",
+    "Cangas del Narcea",
+    "Cistierna",
+    "Cudillero",
+    "Gijón",
+    "Grado",
+    "Infiesto",
+    "La Robla",
+    "Langreo",
+    "León",
+    "Llanes",
+    "Mieres",
+    "Oviedo",
+    "Pajares",
+    "Pola de Lena",
+    "Ponferrada",
+    "Pravia",
+    "Riaño",
+    "Ribadesella",
+    "Salas",
+    "Tineo",
+    "Villablino",
+    "Villamanín",
+    "Villaviciosa"
+  ],
+  "roads": [
+    {
+      "from": "Gijón",
+      "to": "Avilés",
+      "km": 28
+    },
+    {
+      "from": "Gijón",
+      "to": "Oviedo",
+      "km": 30
+    },
+    {
+      "from": "Gijón",
+      "to": "Villaviciosa",
+      "km": 27
+    },
+    {
+      "from": "Gijón",
+      "to": "Langreo",
+      "km": 33
+    },
+    {
+      "from": "Avilés",
+      "to": "Oviedo",
+      "km": 30
+    },
+    {
+      "from": "Avilés",
+      "to": "Cudillero",
+      "km": 28
+    },
+    {
+      "from": "Cudillero",
+      "to": "Pravia",
+      "km": 15
+    },
+    {
+      "from": "Pravia",
+      "to": "Grado",
+      "km": 29
+    },
+    {
+      "from": "Grado",
+      "to": "Oviedo",
+      "km": 26
+    },
+    {
+      "from": "Grado",
+      "to": "Salas",
+      "km": 23
+    },
+    {
+      "from": "Salas",
+      "to": "Tineo",
+      "km": 23
+    },
+    {
+      "from": "Tineo",
+      "to": "Cangas del Narcea",
+      "km": 31
+    },
+    {
+      "from": "Cangas del Narcea",
+      "to": "Villablino",
+      "km": 63
+    },
+    {
+      "from": "Oviedo",
+      "to": "Mieres",
+      "km": 20
+    },
+    {
+      "from": "Oviedo",
+      "to": "Langreo",
+      "km": 26
+    },
+    {
+      "from": "Langreo",
+      "to": "Mieres",
+      "km": 20
+    },
+    {
+      "from": "Mieres",
+      "to": "Pola de Lena",
+      "km": 15
+    },
+    {
+      "from": "Pola de Lena",
+      "to": "Campomanes",
+      "km": 8
+    },
+    {
+      "from": "Campomanes",
+      "to": "Pajares",
+      "km": 25
+    },
+    {
+      "from": "Pajares",
+      "to": "Villamanín",
+      "km": 21
+    },
+    {
+      "from": "Villamanín",
+      "to": "La Robla",
+      "km": 25
+    },
+    {
+      "from": "La Robla",
+      "to": "León",
+      "km": 26
+    },
+    {
+      "from": "Campomanes",
+      "to": "La Robla",
+      "km": 72
+    },
+    {
+      "from": "Villaviciosa",
+      "to": "Infiesto",
+      "km": 30
+    },
+    {
+      "from": "Infiesto",
+      "to": "Arriondas",
+      "km": 20
+    },
+    {
+      "from": "Villaviciosa",
+      "to": "Ribadesella",
+      "km": 46
+    },
+    {
+      "from": "Arriondas",
+      "to": "Ribadesella",
+      "km": 19
+    },
+    {
+      "from": "Arriondas",
+      "to": "Cangas de Onís",
+      "km": 8
+    },
+    {
+      "from": "Cangas de Onís",
+      "to": "Riaño",
+      "km": 68
+    },
+    {
+      "from": "Ribadesella",
+      "to": "Llanes",
+      "km": 29
+    },
+    {
+      "from": "Riaño",
+      "to": "Cistierna",
+      "km": 35
+    },
+    {
+      "from": "Cistierna",
+      "to": "León",
+      "km": 60
+    },
+    {
+      "from": "Riaño",
+      "to": "La Robla",
+      "km": 80
+    },
+    {
+      "from": "León",
+      "to": "Astorga",
+      "km": 52
+    },
+    {
+      "from": "Astorga",
+      "to": "Ponferrada",
+      "km": 62
+    },
+    {
+      "from": "Ponferrada",
+      "to": "Bembibre",
+      "km": 22
+    },
+    {
+      "from": "Bembibre",
+      "to": "Villablino",
+      "km": 61
+    },
+    {
+      "from": "Villablino",
+      "to": "La Robla",
+      "km": 72
+    },
+    {
+      "from": "Villablino",
+      "to": "Ponferrada",
+      "km": 65
+    },
+    {
+      "from": "Oviedo",
+      "to": "Infiesto",
+      "km": 46
+    }
+  ]
+}

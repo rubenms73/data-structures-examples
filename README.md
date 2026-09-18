@@ -12,7 +12,7 @@ stack comparison in Topic 2. Start with [Topic 1](Topic01/README.md): thirteen d
 - [Topic 3 — Binary search trees and general rooted trees](Topic03/README.md).
 - [Topic 4 — Sets, maps, polynomials and sparse storage](Topic04/README.md).
 - [Topic 5 — Hashing with separate chaining](Topic05/README.md).
-- [Topic 6 — Weighted graphs and shortest paths](Topic06/README.md).
+- [Topic 6 — Weighted graphs and shortest paths](Topic06/README.md): Asturias and León network loaded from JSON, with linear and heap Dijkstra.
 
 Run `python3 tools/check_examples.py` with JDK 17 on PATH to compile, execute
 and check every Java example in isolation against its documented output.
