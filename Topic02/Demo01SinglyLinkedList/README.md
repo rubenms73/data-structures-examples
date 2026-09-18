@@ -1,11 +1,11 @@
-# Singly linked list and forward iterator
+# 01 — Singly linked list and forward iterator
 
 ## Problem statement and prerequisites
 
 Build a list from singly linked nodes with head, tail and size. Support append,
 indexed insertion and access, and an inner forward iterator with removal.
 Prerequisites: references, generic classes, loops and Iterator. Read this example
-before Demo01LinkedList, whose bidirectional cursor is a later extension.
+before Demo02LinkedList, whose bidirectional cursor is a later extension.
 Null elements are valid. Invalid indices are rejected before changing links.
 
 ## Guided walkthrough

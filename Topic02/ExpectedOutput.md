@@ -1,4 +1,13 @@
-## Demo01LinkedList
+## Demo01SinglyLinkedList
+
+```text
+A
+B
+C
+Last after removal and append: D
+```
+
+## Demo02LinkedList
 
 ```text
 Initial: [1, 2, 3]
@@ -13,16 +22,22 @@ Original: [2, 3]
 Inherited clear: []
 ```
 
-## Demo02SinglyLinkedList
+## Demo03DoublyLinkedList
 
 ```text
-A
-B
-C
-Last after removal and append: D
+Initial: [1, 2, 3]
+Insert at start: [0, 1, 2, 3]
+Next: 1
+Remove after next: [0, 2, 3]
+Previous: 0
+Set after previous: [10, 2, 3]
+Remove after previous: [2, 3]
+Independent copy: [2.5, 3]
+Original: [2, 3]
+Inherited clear: []
 ```
 
-## Demo03QueuePolicies
+## Demo04QueuePolicies
 
 ```text
 FIFO iteration: [1, 2, 3]
@@ -33,7 +48,7 @@ FIFO/LIFO: 3/1
 Empty poll: null
 ```
 
-## Demo04SortedPriorityQueue
+## Demo05SortedPriorityQueue
 
 ```text
 Sorted: [2, 2, 5, 7]
@@ -43,7 +58,7 @@ Extract: 5
 Extract: 7
 ```
 
-## Demo05PeekingIterator
+## Demo06PeekingIterator
 
 ```text
 Peek: A; next: A
@@ -51,7 +66,7 @@ Peek: null; next: null
 Peek: B; next: B
 ```
 
-## Demo06StacksAcrossLanguages
+## Demo07StacksAcrossLanguages
 
 ```text
 Size: 3

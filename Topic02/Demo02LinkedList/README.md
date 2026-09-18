@@ -1,4 +1,4 @@
-# 01 — A singly linked list with ListIterator
+# 02 — A singly linked list with ListIterator
 
 ## Problem statement and prerequisites
 

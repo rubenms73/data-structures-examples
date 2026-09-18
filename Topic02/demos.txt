@@ -1,6 +1,7 @@
-Demo01LinkedList
-Demo02SinglyLinkedList
-Demo03QueuePolicies
-Demo04SortedPriorityQueue
-Demo05PeekingIterator
-Demo06StacksAcrossLanguages
+Demo01SinglyLinkedList
+Demo02LinkedList
+Demo03DoublyLinkedList
+Demo04QueuePolicies
+Demo05SortedPriorityQueue
+Demo06PeekingIterator
+Demo07StacksAcrossLanguages
