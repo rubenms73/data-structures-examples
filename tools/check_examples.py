@@ -7,7 +7,8 @@ import shutil
 import subprocess
 import tempfile
 
-ROOT = Path(__file__).resolve().parents[1] / "Topic01"
+REPOSITORY = Path(__file__).resolve().parents[1]
+ROOT = REPOSITORY / "Topic01"
 
 
 def is_block_prefix(prefix):
@@ -36,7 +37,7 @@ def check_allman_style():
     assert not violations, "Allman style violations:\n" + "\n".join(violations)
 
 
-def main():
+def check_topic():
     check_allman_style()
     names = (ROOT / "demos.txt").read_text().splitlines()
     combined = dict(re.findall(
@@ -59,6 +60,17 @@ def main():
             total += count
             print(f"{name}: isolated run and {count} checks passed")
     print(f"All {len(names)} isolated examples passed; {total} behaviour checks.")
+    return len(names), total
+
+
+def main():
+    global ROOT
+    demos = checks = 0
+    for ROOT in sorted(REPOSITORY.glob("Topic[0-9][0-9]")):
+        count, passed = check_topic()
+        demos += count
+        checks += passed
+    print(f"Repository total: {demos} examples; {checks} behaviour checks.")
 
 
 if __name__ == "__main__":

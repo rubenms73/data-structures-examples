@@ -4,6 +4,18 @@ University of Oviedo · Rubén Muñiz Sánchez
 
 Runnable Java examples accompanying the course. Start with [Topic 1](Topic01/README.md): thirteen demonstrations of data abstraction, generic programming, comparison, iteration and functional interfaces.
 
+## Topics
+
+- [Topic 1 — Abstraction and generic programming](Topic01/README.md).
+- [Topic 2 — Lists, queue policies and iterators](Topic02/README.md).
+- [Topic 3 — Binary search trees and general rooted trees](Topic03/README.md).
+- [Topic 4 — Sets, maps, polynomials and sparse storage](Topic04/README.md).
+- [Topic 5 — Hashing with separate chaining](Topic05/README.md).
+- [Topic 6 — Weighted graphs and shortest paths](Topic06/README.md).
+
+Run `python3 tools/check_examples.py` with JDK 17 on PATH to compile, execute
+and check every example in isolation against its documented output.
+
 ## Run an example
 
 [Topic 2](Topic02/README.md) contains the linked-list example with a complete
@@ -43,6 +55,11 @@ Comments identify small experiments that intentionally produce compilation error
 ## Source style
 
 Keep teaching code simple and direct. Use straightforward expressions and explicit conditions; avoid redundant checks, unused parameters and helper methods that merely wrap one array access. Retain checks that enforce the example's contract and prevent incorrect behaviour. Introduce abstractions only when they support the concept being taught.
+
+Review capacities, indices, null references and all other preconditions before
+publishing. Express validation with a simple `if` and the specified exception;
+do not hide it behind `Objects.requireNonNull` or similar validation utilities.
+State any unsupported operations and copy semantics in the example's README.
 
 When a method accepts a comparator to compare elements of type `T`, use `Comparator<? super T>` from the outset. Apply the same rule to concrete element types and stored comparator fields. Comparator implementations still declare their actual supported type, such as `implements Comparator<Movie>`.
 

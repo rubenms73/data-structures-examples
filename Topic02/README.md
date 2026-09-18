@@ -1,10 +1,15 @@
-# Topic 2 — Linear data structures
+# Linear data structures
 
-- [Demo01LinkedList: a singly linked list and a full ListIterator](Demo01LinkedList/README.md).
+Each example is self-contained and targets Java 17. Open an individual demo folder.
 
-This example belongs after the introduction to linked nodes and simple forward
-iterators. It studies reuse through an abstract class and bidirectional cursor
-operations; it is not the first introduction to a linked list.
+Suggested reading order: Demo02 (forward list), Demo03 (queue policies), Demo04
+(sorted priority), Demo05 (lookahead), then Demo01 (full ListIterator). Demo01
+keeps its previously published path.
 
-Open the individual example folder. Each project contains its own source code,
-program, tests and Java 17 run script.
+- [01 — A singly linked list with ListIterator](Demo01LinkedList/README.md).
+- [Singly linked list and forward iterator](Demo02SinglyLinkedList/README.md).
+- [FIFO and LIFO through AbstractQueue](Demo03QueuePolicies/README.md).
+- [Priority queue backed by a sorted list](Demo04SortedPriorityQueue/README.md).
+- [An iterator with one-element lookahead](Demo05PeekingIterator/README.md).
+
+Run `bash run.sh list`, `bash run.sh all`, `bash run.sh test`, or select a listed demo.
