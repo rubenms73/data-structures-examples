@@ -14,14 +14,20 @@ public final class Main
         company.addChild(new ListTree<String>("Support"));
         team.setLabel("Changed outside");
         System.out.println("Company hierarchy:");
+        System.out.println();
         System.out.print(company.toTreeString());
+        System.out.println();
         for (String label : company)
         {
             System.out.println(label);
         }
         System.out.println("Nodes: " + company.size() + "; height: " + company.height());
         company.removeChild(1);
+        System.out.println();
+        System.out.println("============================================================");
         System.out.println("After removing Support:");
+        System.out.println();
         System.out.print(company.toTreeString());
+        System.out.println();
     }
 }

@@ -259,10 +259,12 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
         if (!isRoot)
         {
             // Keep the vertical connector while crossing the parent's level.
-            above += isLeft ? "|   " : "    ";
-            below += isLeft ? "    " : "|   ";
+            above += isLeft ? "|       " : "        ";
+            below += isLeft ? "        " : "|       ";
         }
         appendTree(node.right, above, "R", result);
+        if (node.right != null)
+            result.append(above).append("|\n");
         result.append(prefix);
         if (isRoot)
             result.append("+-- ");
@@ -276,6 +278,8 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
         if (isRoot)
             result.append(" [ROOT]");
         result.append('\n');
+        if (node.left != null)
+            result.append(below).append("|\n");
         appendTree(node.left, below, "L", result);
     }
 }

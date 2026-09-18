@@ -186,68 +186,132 @@ References for the library claims:
 ```text
 Inserted 1 through 15 in ascending order.
 Tree structure (right above, left below):
-        /-- 15 [B]
-    /-- 14 [B]
-    |   \-- 13 [B]
+
+                /-- 15 [B]
+                |
+        /-- 14 [B]
+        |       |
+        |       \-- 13 [B]
+        |
 /-- 12 [B]
-|   |   /-- 11 [B]
-|   \-- 10 [B]
-|       \-- 9 [B]
+|       |
+|       |       /-- 11 [B]
+|       |       |
+|       \-- 10 [B]
+|               |
+|               \-- 9 [B]
+|
 +-- 8 [ROOT] [B]
-|       /-- 7 [B]
-|   /-- 6 [B]
-|   |   \-- 5 [B]
+|
+|               /-- 7 [B]
+|               |
+|       /-- 6 [B]
+|       |       |
+|       |       \-- 5 [B]
+|       |
 \-- 4 [B]
-    |   /-- 3 [B]
-    \-- 2 [B]
-        \-- 1 [B]
+        |
+        |       /-- 3 [B]
+        |       |
+        \-- 2 [B]
+                |
+                \-- 1 [B]
+
 Ordered contents: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 Balanced tree height (nodes): 4
 A plain BST with this insertion order would have height 15.
 Search for 15: true; comparisons: 4
 Adding duplicate 8: false
+
+============================================================
 Removing 8: true
-    /-- 15 [B]
+
+        /-- 15 [B]
+        |
 /-- 14 [B]
-|   |   /-- 13 [B]
-|   \-- 12 [R]
-|       \-- 11 [B]
-|           \-- 10 [R]
+|       |
+|       |       /-- 13 [B]
+|       |       |
+|       \-- 12 [R]
+|               |
+|               \-- 11 [B]
+|                       |
+|                       \-- 10 [R]
+|
 +-- 9 [ROOT] [B]
-|       /-- 7 [B]
-|   /-- 6 [B]
-|   |   \-- 5 [B]
+|
+|               /-- 7 [B]
+|               |
+|       /-- 6 [B]
+|       |       |
+|       |       \-- 5 [B]
+|       |
 \-- 4 [R]
-    |   /-- 3 [B]
-    \-- 2 [B]
-        \-- 1 [B]
+        |
+        |       /-- 3 [B]
+        |       |
+        \-- 2 [B]
+                |
+                \-- 1 [B]
+
+
+============================================================
 Removing 1: true
-    /-- 15 [B]
+
+        /-- 15 [B]
+        |
 /-- 14 [B]
-|   |   /-- 13 [B]
-|   \-- 12 [R]
-|       \-- 11 [B]
-|           \-- 10 [R]
+|       |
+|       |       /-- 13 [B]
+|       |       |
+|       \-- 12 [R]
+|               |
+|               \-- 11 [B]
+|                       |
+|                       \-- 10 [R]
+|
 +-- 9 [ROOT] [B]
-|   /-- 7 [B]
+|
+|       /-- 7 [B]
+|       |
 \-- 6 [B]
-    |   /-- 5 [B]
-    \-- 4 [R]
-        \-- 3 [B]
-            \-- 2 [R]
+        |
+        |       /-- 5 [B]
+        |       |
+        \-- 4 [R]
+                |
+                \-- 3 [B]
+                        |
+                        \-- 2 [R]
+
+
+============================================================
 Removing 15: true
-    /-- 14 [B]
-    |   \-- 13 [R]
+
+        /-- 14 [B]
+        |       |
+        |       \-- 13 [R]
+        |
 /-- 12 [B]
-|   \-- 11 [B]
-|       \-- 10 [R]
+|       |
+|       \-- 11 [B]
+|               |
+|               \-- 10 [R]
+|
 +-- 9 [ROOT] [B]
-|   /-- 7 [B]
+|
+|       /-- 7 [B]
+|       |
 \-- 6 [B]
-    |   /-- 5 [B]
-    \-- 4 [R]
-        \-- 3 [B]
-            \-- 2 [R]
+        |
+        |       /-- 5 [B]
+        |       |
+        \-- 4 [R]
+                |
+                \-- 3 [B]
+                        |
+                        \-- 2 [R]
+
 After removals: [2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14]
 Height after removals: 5
 First / last: 2 / 14
@@ -257,7 +321,9 @@ TreeMap ordered keys and values: {10=item-10, 20=item-20, 30=item-30}
 Java 17: TreeMap uses a red-black tree; TreeSet is based on TreeMap.
 Our LLRB implementation is not a copy of TreeMap's internal algorithm.
 After clear: size=0, height=0
+
 (empty)
+
 Focus: purpose and logarithmic costs. Repair code is not required for the exam.
 ```
 
@@ -271,3 +337,7 @@ line breaks or tabs are escaped so each node occupies one line. These are views
 of the actual links, not reconstructions from sorted values. They show completed
 operations, not intermediate rotation states. Intended for small classroom trees;
 indentation can make output quadratic in the height of a long chain.
+
+Each diagram is separated from its heading and following output by blank lines.
+Removal scenarios have a horizontal separator. Binary diagrams use wider level
+spacing and connector-only lines between parent and child levels.

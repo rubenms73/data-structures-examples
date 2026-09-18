@@ -18,21 +18,29 @@ public final class Main
     private static void showRemoval(String description, int value)
     {
         BinarySearchTree<Integer> tree = example();
+        System.out.println();
+        System.out.println("============================================================");
         System.out.println(description + ": " + tree.remove(value) + " -> " + tree);
+        System.out.println();
         System.out.print(tree.toTreeString());
+        System.out.println();
     }
 
     public static void main(String[] args)
     {
         BinarySearchTree<Integer> tree = example();
         System.out.println("Initial tree (right above, left below):");
+        System.out.println();
         System.out.print(tree.toTreeString());
+        System.out.println();
         System.out.println("In order: " + tree);
         System.out.println("Size: " + tree.size());
         System.out.println("Contains 6: " + tree.contains(6));
         System.out.println("Add duplicate 6: " + tree.add(6));
         System.out.println("With the duplicate: " + tree + ", size: " + tree.size());
+        System.out.println();
         System.out.print(tree.toTreeString());
+        System.out.println();
         System.out.println("Remove one 6: " + tree.remove(6));
         System.out.println("One 6 remains: " + tree.contains(6));
         showRemoval("Remove leaf 1", 1);
@@ -54,9 +62,13 @@ public final class Main
             chain.add(value);
         }
         System.out.println("Ordered insertion: " + chain);
+        System.out.println();
         System.out.print(chain.toTreeString());
+        System.out.println();
         tree.clear();
         System.out.println("After clear: " + tree + ", size: " + tree.size());
+        System.out.println();
         System.out.print(tree.toTreeString());
+        System.out.println();
     }
 }

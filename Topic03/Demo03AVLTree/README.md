@@ -171,74 +171,140 @@ public `AVLTree` collection class in `java.util`.
 ```text
 Inserted 1 through 15 in ascending order.
 Tree structure (right above, left below):
-        /-- 15 [h=1, bf=0]
-    /-- 14 [h=2, bf=0]
-    |   \-- 13 [h=1, bf=0]
+
+                /-- 15 [h=1, bf=0]
+                |
+        /-- 14 [h=2, bf=0]
+        |       |
+        |       \-- 13 [h=1, bf=0]
+        |
 /-- 12 [h=3, bf=0]
-|   |   /-- 11 [h=1, bf=0]
-|   \-- 10 [h=2, bf=0]
-|       \-- 9 [h=1, bf=0]
+|       |
+|       |       /-- 11 [h=1, bf=0]
+|       |       |
+|       \-- 10 [h=2, bf=0]
+|               |
+|               \-- 9 [h=1, bf=0]
+|
 +-- 8 [ROOT] [h=4, bf=0]
-|       /-- 7 [h=1, bf=0]
-|   /-- 6 [h=2, bf=0]
-|   |   \-- 5 [h=1, bf=0]
+|
+|               /-- 7 [h=1, bf=0]
+|               |
+|       /-- 6 [h=2, bf=0]
+|       |       |
+|       |       \-- 5 [h=1, bf=0]
+|       |
 \-- 4 [h=3, bf=0]
-    |   /-- 3 [h=1, bf=0]
-    \-- 2 [h=2, bf=0]
-        \-- 1 [h=1, bf=0]
+        |
+        |       /-- 3 [h=1, bf=0]
+        |       |
+        \-- 2 [h=2, bf=0]
+                |
+                \-- 1 [h=1, bf=0]
+
 Ordered contents: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 Balanced tree height (nodes): 4
 A plain BST with this insertion order would have height 15.
 Search for 15: true; comparisons: 4
 Adding duplicate 8: false
+
+============================================================
 Removing 8: true
-        /-- 15 [h=1, bf=0]
-    /-- 14 [h=2, bf=0]
-    |   \-- 13 [h=1, bf=0]
+
+                /-- 15 [h=1, bf=0]
+                |
+        /-- 14 [h=2, bf=0]
+        |       |
+        |       \-- 13 [h=1, bf=0]
+        |
 /-- 12 [h=3, bf=0]
-|   |   /-- 11 [h=1, bf=0]
-|   \-- 10 [h=2, bf=-1]
+|       |
+|       |       /-- 11 [h=1, bf=0]
+|       |       |
+|       \-- 10 [h=2, bf=-1]
+|
 +-- 9 [ROOT] [h=4, bf=0]
-|       /-- 7 [h=1, bf=0]
-|   /-- 6 [h=2, bf=0]
-|   |   \-- 5 [h=1, bf=0]
+|
+|               /-- 7 [h=1, bf=0]
+|               |
+|       /-- 6 [h=2, bf=0]
+|       |       |
+|       |       \-- 5 [h=1, bf=0]
+|       |
 \-- 4 [h=3, bf=0]
-    |   /-- 3 [h=1, bf=0]
-    \-- 2 [h=2, bf=0]
-        \-- 1 [h=1, bf=0]
+        |
+        |       /-- 3 [h=1, bf=0]
+        |       |
+        \-- 2 [h=2, bf=0]
+                |
+                \-- 1 [h=1, bf=0]
+
+
+============================================================
 Removing 1: true
-        /-- 15 [h=1, bf=0]
-    /-- 14 [h=2, bf=0]
-    |   \-- 13 [h=1, bf=0]
+
+                /-- 15 [h=1, bf=0]
+                |
+        /-- 14 [h=2, bf=0]
+        |       |
+        |       \-- 13 [h=1, bf=0]
+        |
 /-- 12 [h=3, bf=0]
-|   |   /-- 11 [h=1, bf=0]
-|   \-- 10 [h=2, bf=-1]
+|       |
+|       |       /-- 11 [h=1, bf=0]
+|       |       |
+|       \-- 10 [h=2, bf=-1]
+|
 +-- 9 [ROOT] [h=4, bf=0]
-|       /-- 7 [h=1, bf=0]
-|   /-- 6 [h=2, bf=0]
-|   |   \-- 5 [h=1, bf=0]
+|
+|               /-- 7 [h=1, bf=0]
+|               |
+|       /-- 6 [h=2, bf=0]
+|       |       |
+|       |       \-- 5 [h=1, bf=0]
+|       |
 \-- 4 [h=3, bf=0]
-    |   /-- 3 [h=1, bf=0]
-    \-- 2 [h=2, bf=-1]
+        |
+        |       /-- 3 [h=1, bf=0]
+        |       |
+        \-- 2 [h=2, bf=-1]
+
+
+============================================================
 Removing 15: true
-    /-- 14 [h=2, bf=1]
-    |   \-- 13 [h=1, bf=0]
+
+        /-- 14 [h=2, bf=1]
+        |       |
+        |       \-- 13 [h=1, bf=0]
+        |
 /-- 12 [h=3, bf=0]
-|   |   /-- 11 [h=1, bf=0]
-|   \-- 10 [h=2, bf=-1]
+|       |
+|       |       /-- 11 [h=1, bf=0]
+|       |       |
+|       \-- 10 [h=2, bf=-1]
+|
 +-- 9 [ROOT] [h=4, bf=0]
-|       /-- 7 [h=1, bf=0]
-|   /-- 6 [h=2, bf=0]
-|   |   \-- 5 [h=1, bf=0]
+|
+|               /-- 7 [h=1, bf=0]
+|               |
+|       /-- 6 [h=2, bf=0]
+|       |       |
+|       |       \-- 5 [h=1, bf=0]
+|       |
 \-- 4 [h=3, bf=0]
-    |   /-- 3 [h=1, bf=0]
-    \-- 2 [h=2, bf=-1]
+        |
+        |       /-- 3 [h=1, bf=0]
+        |       |
+        \-- 2 [h=2, bf=-1]
+
 After removals: [2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14]
 Height after removals: 4
 First / last: 2 / 14
 All invariants hold: true
 After clear: size=0, height=0
+
 (empty)
+
 Focus: purpose and logarithmic costs. Repair code is not required for the exam.
 ```
 
@@ -252,3 +318,7 @@ line breaks or tabs are escaped so each node occupies one line. These are views
 of the actual links, not reconstructions from sorted values. They show completed
 operations, not intermediate rotation states. Intended for small classroom trees;
 indentation can make output quadratic in the height of a long chain.
+
+Each diagram is separated from its heading and following output by blank lines.
+Removal scenarios have a horizontal separator. Binary diagrams use wider level
+spacing and connector-only lines between parent and child levels.

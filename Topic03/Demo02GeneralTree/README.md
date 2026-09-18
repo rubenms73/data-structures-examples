@@ -52,19 +52,25 @@ leaves the structure unchanged. Compare the representation with its public contr
 
 ```text
 Company hierarchy:
+
 +-- Company [ROOT]
 +-- Team
 |   \-- Developer
 \-- Support
+
 Company
 Team
 Developer
 Support
 Nodes: 4; height: 3
+
+============================================================
 After removing Support:
+
 +-- Company [ROOT]
 \-- Team
     \-- Developer
+
 ```
 
 ## Windows
@@ -95,3 +101,7 @@ line breaks or tabs are escaped so each node occupies one line. These are views
 of the actual links, not reconstructions from sorted values. They show completed
 operations, not intermediate rotation states. Intended for small classroom trees;
 indentation can make output quadratic in the height of a long chain.
+
+Each diagram is separated from its heading and following output by blank lines.
+Removal scenarios have a horizontal separator. Binary diagrams use wider level
+spacing and connector-only lines between parent and child levels.
