@@ -20,7 +20,7 @@ The example includes its own copies of these files; it does not import another p
 
 ## Constructors
 
-`FixedMyArray(int capacity)` creates an empty vector with the requested number of slots, as in Demo03. It allocates `data = (E[]) new Object[capacity]`, because Java does not allow `new E[capacity]`. The unchecked cast is confined to this constructor, and the backing field remains a private `E[]`. Zero capacity is valid; negative capacity produces `NegativeArraySizeException`.
+`FixedMyArray(int capacity)` creates an empty vector with the requested number of slots, as in Demo03. It allocates `data = (E[]) new Object[capacity]`, because Java does not allow `new E[capacity]`. The unchecked cast is confined to this constructor, and the backing field remains a private `E[]`. Zero capacity is valid; negative capacity is explicitly rejected with `IllegalArgumentException` before allocating the array.
 
 `FixedMyArray(MyArray<? extends E> source)` is a conversion constructor. It delegates with `this(source.size())`, then uses an enhanced `for` loop to add the source elements in order. This loop demonstrates a practical use of the source's iterator. The new vector starts with all copied elements and capacity equal to their number, so it is already full. The wildcard allows, for example, copying a `MyArray<Integer>` into a `FixedMyArray<Number>`.
 

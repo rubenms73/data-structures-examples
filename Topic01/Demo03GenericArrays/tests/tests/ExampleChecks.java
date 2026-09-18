@@ -44,7 +44,7 @@ public final class ExampleChecks
         bounded.add("only");
         throwsType(IllegalStateException.class, () -> bounded.add("overflow"));
         equal("only", bounded.get(0));
-        throwsType(NegativeArraySizeException.class, () -> new FixedMyArray<String>(-1));
+        throwsType(IllegalArgumentException.class, () -> new FixedMyArray<String>(-1));
         MyArray<String> empty = new FixedMyArray<>(0);
         equal(0, empty.size());
         throwsType(IllegalStateException.class, () -> empty.add("overflow"));

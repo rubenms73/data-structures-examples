@@ -24,7 +24,7 @@ Generalize an array interface so one implementation works with strings and integ
 
 Try adding an integer to `names` and assigning it to `MyArray<Object>`; restore each comment before continuing. Then test an empty vector, the last valid index and a full vector. Null elements are permitted and consume a slot.
 
-Try capacities zero and one: a zero-capacity vector is already full, and a one-capacity vector accepts one element. A negative capacity produces `NegativeArraySizeException` when the array is allocated. When using the typed-array constructor, supply an array whose component type matches the chosen element type. The example uses fixed capacity and does not implement iteration yet. Demo07 extends the vector design with an inner iterator class.
+Try capacities zero and one: a zero-capacity vector is already full, and a one-capacity vector accepts one element. A negative capacity is explicitly rejected with `IllegalArgumentException` before allocating the array. When using the typed-array constructor, supply an array whose component type matches the chosen element type. The example uses fixed capacity and does not implement iteration yet. Demo07 extends the vector design with an inner iterator class.
 
 ## Open and run
 

@@ -13,6 +13,8 @@ public final class FixedMyArray<E> implements MyArray<E>
     @SuppressWarnings("unchecked")
     public FixedMyArray(int capacity)
     {
+        if (capacity < 0)
+            throw new IllegalArgumentException("Capacity must not be negative");
         data = (E[]) new Object[capacity];
     }
 

@@ -71,7 +71,7 @@ public final class ExampleChecks
         equal(false, emptyCopy.iterator().hasNext());
         throwsType(IllegalStateException.class, () -> zero.add("overflow"));
         throwsType(IllegalStateException.class, () -> emptyCopy.add("overflow"));
-        throwsType(NegativeArraySizeException.class, () -> new FixedMyArray<String>(-1));
+        throwsType(IllegalArgumentException.class, () -> new FixedMyArray<String>(-1));
         System.out.println("All " + checks + " checks passed.");
     }
 
