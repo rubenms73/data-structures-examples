@@ -9,6 +9,9 @@ Runnable Java examples accompanying the course. Start with [Topic 1](Topic01/REA
 [Topic 2](Topic02/README.md) contains the linked-list example with a complete
 inner ListIterator and reuse through AbstractSequentialList.
 
+[Topic 3](Topic03/README.md) contains the binary search tree example with
+comparison, recursive removal and an inner in-order iterator using a stack.
+
 1. Download this repository using **Code → Download ZIP**, or clone it with Git.
 2. In VS Code, open an **individual example folder**, such as **Topic01/Demo05Movies**.
 3. Use an installed JDK 17 or newer and the **Extension Pack for Java**.
