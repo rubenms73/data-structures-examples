@@ -4,13 +4,15 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Deque;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-/** DFS and BFS using the discovery rules from Topic 6. */
+/** DFS with a stack of vertices and BFS with a queue of vertices. */
 public final class Traversals
 {
     private Traversals()
@@ -39,7 +41,7 @@ public final class Traversals
         return new Result<>(order, parent);
     }
 
-    /** Visits only vertices reachable from source, using recursive DFS. */
+    /** Visits only vertices reachable from source, using an explicit LIFO stack of vertices. */
     public static <V> Result<V> depthFirst(Graph<V> graph, V source)
     {
         checkSource(graph, source);
@@ -88,17 +90,34 @@ public final class Traversals
         graph.neighbours(source);
     }
 
-    private static <V> void dfs(Graph<V> graph, V vertex, Set<V> marked,
+    private static <V> void dfs(Graph<V> graph, V source, Set<V> marked,
             List<V> order, Map<V, V> parent)
     {
-        marked.add(vertex);
-        order.add(vertex);
-        for (V neighbour : graph.neighbours(vertex))
+        Deque<V> pending = new ArrayDeque<>();
+        Map<V, V> candidateParent = new HashMap<>();
+        pending.push(source);
+        while (!pending.isEmpty())
         {
-            if (!marked.contains(neighbour))
+            V vertex = pending.pop();
+            // A vertex can have several pending entries. Visit only the first popped.
+            if (marked.contains(vertex))
+                continue;
+            marked.add(vertex);
+            order.add(vertex);
+            if (candidateParent.containsKey(vertex))
+                parent.put(vertex, candidateParent.get(vertex));
+
+            // Reverse the neighbour order: the smallest must be on top of the stack.
+            List<V> neighbours = new ArrayList<>(graph.neighbours(vertex));
+            for (int i = neighbours.size() - 1; i >= 0; i--)
             {
-                parent.put(neighbour, vertex);
-                dfs(graph, neighbour, marked, order, parent);
+                V neighbour = neighbours.get(i);
+                if (!marked.contains(neighbour))
+                {
+                    pending.push(neighbour);
+                    // Still tentative: a deeper branch may push this vertex again.
+                    candidateParent.put(neighbour, vertex);
+                }
             }
         }
     }

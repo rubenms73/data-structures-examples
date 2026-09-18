@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 import app.ExampleGraph;
 import java.util.Map;
+import java.util.LinkedHashMap;
 import java.util.Set;
 import ds.Graph;
 import ds.Traversals;
@@ -120,6 +121,11 @@ public final class ExampleChecks
                 check(new HashSet<>(bfs.order()).equals(new HashSet<>(dfs.order())));
                 verifyParents(graph, bfs);
                 verifyParents(graph, dfs);
+                List<Integer> referenceOrder = new ArrayList<>();
+                Map<Integer, Integer> referenceParent = new LinkedHashMap<>();
+                referenceDfs(graph, source, new HashSet<>(), referenceOrder, referenceParent);
+                check(dfs.order().equals(referenceOrder));
+                check(dfs.parent().equals(referenceParent));
                 int previous = -1;
                 for (int vertex : bfs.order())
                 {
@@ -147,7 +153,29 @@ public final class ExampleChecks
             check(forest.order().size() == n);
             verifyParents(graph, forest);
         }
+        Graph<Integer> chain = new Graph<>(Comparator.naturalOrder());
+        for (int i = 0; i < 20000; i++)
+        {
+            chain.addEdge(i, i + 1);
+        }
+        check(Traversals.depthFirst(chain, 0).order().size() == 20001);
         System.out.println("All " + checks + " checks passed.");
+    }
+
+    // Independent recursive oracle, used only for the small random test graphs.
+    private static void referenceDfs(Graph<Integer> graph, int vertex, Set<Integer> marked,
+            List<Integer> order, Map<Integer, Integer> parent)
+    {
+        marked.add(vertex);
+        order.add(vertex);
+        for (int neighbour : graph.neighbours(vertex))
+        {
+            if (!marked.contains(neighbour))
+            {
+                parent.put(neighbour, vertex);
+                referenceDfs(graph, neighbour, marked, order, parent);
+            }
+        }
     }
 
     private static void checkTheoryGraph()

@@ -8,9 +8,10 @@ that are unreachable from A, although the underlying undirected graph is connect
 (BFS)** and **depth-first search (DFS)**, and see how discovery creates a tree
 or forest even when the original graph is not a tree.
 
-Prerequisites: generic collections, maps, sets, queues and recursion. This example
-follows Topic 6's traversal pseudocode: DFS uses the call stack; BFS uses a FIFO
-queue and marks vertices when enqueuing them. It needs only JDK 17, with no
+Prerequisites: generic collections, maps, sets, stacks and queues.
+DFS uses an explicit LIFO stack containing vertices directly; BFS uses a FIFO
+queue. No recursion or stack entries containing neighbour iterators are used.
+DFS marks vertices when popping them; BFS marks them when enqueuing them. It needs only JDK 17, with no
 external libraries, downloads or other demo folders.
 
 ## Files and responsibilities
@@ -68,16 +69,41 @@ Following them backwards reconstructs a path from the source. Its number of
 arcs is minimal for a single-source BFS; this does not minimise arbitrary
 weighted costs. Use the Dijkstra example for that problem.
 
-## DFS: use recursion
+## DFS: use a stack of vertices
 
-DFS marks and visits A, then recursively explores B. B discovers C, whose
-arc to A is ignored because A is marked. After C returns, B discovers D.
-Finally control returns to A, which discovers E. E's arcs to B and D find
-already marked vertices.
+`Deque<V> pending = new ArrayDeque<>();` provides the stack: `push` adds a
+vertex on top and `pop` removes the top vertex. Stack entries are just vertices.
+After popping a vertex, skip it if it is already marked. Otherwise mark and
+visit it, then push its unmarked neighbours in **reverse alphabetical order**.
+Because the stack is LIFO, the smallest neighbour will be processed next.
 
-The order is **A, B, C, D, E**. D now has parent B, although A also has a direct
-arc to D. DFS does not guarantee a shortest path. Each recursive call remembers
-which neighbours remain to be examined; returning resumes that work.
+The trace below lists the stack **bottom to top**, with the top on the right:
+
+| Action | Stack afterwards | Visit order so far |
+| --- | --- | --- |
+| Push A | [A] | [] |
+| Pop A; push E, D, B | [E, D, B] | [A] |
+| Pop B; push D, C | [E, D, D, C] | [A, B] |
+| Pop C; A is already marked | [E, D, D] | [A, B, C] |
+| Pop D; no outgoing arcs | [E, D] | [A, B, C, D] |
+| Pop the older D; skip it | [E] | [A, B, C, D] |
+| Pop E; B and D are marked | [] | [A, B, C, D, E] |
+
+A vertex may appear in the stack more than once before it is visited. This is
+intentional: marking all neighbours immediately when pushing them would prevent
+B from discovering D in this example and would change the DFS parent tree.
+
+`candidateParent` remembers who most recently pushed each unvisited vertex.
+D first has candidate A, then candidate B when exploring B. When D is popped
+and visited, B becomes its final parent in the result. A later stale stack entry
+is ignored and cannot change that parent. The separate result map records final
+parents in visit order, keeping the printed output easy to compare with theory.
+
+The order is **A, B, C, D, E**. D has parent B, although A also has a direct arc
+to D. DFS does not guarantee a shortest path. This vertex-stack implementation
+produces the same visit order and parent forest as the presentation's recursive
+pseudocode when both use the same neighbour order. The code here follows the
+explicit-stack approach used in class.
 
 ## One source versus a complete forest
 
@@ -142,10 +168,14 @@ adjacency lists and constant-time marks, the familiar bound is O(V + E).
 A single-source traversal scans only reachable vertices and their outgoing arcs,
 but its map lookups still depend on the size of the whole graph.
 
-The marked set, order, parent map and pending work require O(V) extra space;
-copying the result is O(V). BFS uses a queue; DFS uses up to O(V) recursive calls.
-A very long path can overflow Java's call stack. The recursive form is intentional
-here because it matches the theory and keeps the small example easy to follow.
+The marks, order, parent maps and result copies need O(V) space. BFS also uses
+an O(V) queue. This DFS variant can keep duplicate pending vertices, so its stack
+can require O(E + 1) space and its total auxiliary space is **O(V + E)**.
+Each arc causes at most one push; stale entries are skipped without scanning
+neighbours again, preserving the traversal time bound above.
+DFS does not consume the Java call stack and therefore avoids recursive stack
+overflow on long paths. Copying neighbours into reverse processing order takes
+O(out-degree) time and temporary space for each newly visited vertex.
 
 ## Run and check
 
@@ -205,7 +235,8 @@ BFS minimises the number of arcs from one source, not weighted cost.
 1. Why is D discovered by different parents in BFS and DFS?
    Why do both forests have roots A and F despite the graph being weakly connected?
 2. What would happen at C -> A if there were no marked set?
-3. Why must BFS mark a vertex when enqueuing it?
+3. Why does BFS mark on enqueue, while this DFS marks on pop?
+   What happens to D's parent if DFS marks all of A's neighbours on push?
 4. Add E -> F. Which vertices become reachable from A, and how many forest roots remain?
 5. Reverse the comparator. Which results change, and which reachability facts remain?
 6. In this graph, does the DFS parent chain to D have minimum length?
