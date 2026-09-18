@@ -3,8 +3,8 @@
 Each example is self-contained and targets Java 17. Read them in this order:
 
 1. [Breadth-first and depth-first traversals](Demo01GraphTraversals/README.md):
-   a small directed graph with a cycle, parent trees, disconnected vertices and
-   complete traversal forests, following the theory pseudocode.
+   the exact graph from the theory presentation, with parent trees and complete
+   traversal forests matching its alphabetical DFS and BFS traces.
 2. [Minimum spanning tree for a campus network](Demo02NetworkSpanningTree/README.md):
    illustrates the minimum spanning tree concept with six buildings and cable costs.
    **Only the concept is mentioned in class. Prim's algorithm is not taught and is

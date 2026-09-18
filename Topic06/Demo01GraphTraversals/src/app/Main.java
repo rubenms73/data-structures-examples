@@ -1,10 +1,9 @@
 package app;
 
-import java.util.Comparator;
 import ds.Graph;
 import ds.Traversals;
 
-/** Small directed graph with a cycle and a separate component. */
+/** Runs BFS and DFS on the exact directed graph used in the theory presentation. */
 public final class Main
 {
     private Main()
@@ -13,15 +12,7 @@ public final class Main
 
     public static void main(String[] args)
     {
-        Graph<String> graph = new Graph<>(Comparator.naturalOrder());
-        graph.addEdge("A", "B");
-        graph.addEdge("A", "D");
-        graph.addEdge("A", "E");
-        graph.addEdge("B", "C");
-        graph.addEdge("B", "D");
-        graph.addEdge("C", "A");
-        graph.addEdge("F", "G");
-        graph.addVertex("H");
+        Graph<String> graph = ExampleGraph.create();
         System.out.println("Directed graph (outgoing neighbours):");
         for (String vertex : graph.vertices())
         {

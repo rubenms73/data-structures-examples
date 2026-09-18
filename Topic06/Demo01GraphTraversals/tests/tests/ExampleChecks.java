@@ -5,6 +5,9 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import app.ExampleGraph;
+import java.util.Map;
+import java.util.Set;
 import ds.Graph;
 import ds.Traversals;
 
@@ -38,6 +41,7 @@ public final class ExampleChecks
 
     public static void main(String[] args)
     {
+        checkTheoryGraph();
         Graph<Integer> empty = new Graph<>(Comparator.naturalOrder());
         check(Traversals.breadthFirstForest(empty).order().isEmpty());
         check(Traversals.depthFirstForest(empty).order().isEmpty());
@@ -144,6 +148,34 @@ public final class ExampleChecks
             verifyParents(graph, forest);
         }
         System.out.println("All " + checks + " checks passed.");
+    }
+
+    private static void checkTheoryGraph()
+    {
+        Graph<String> graph = ExampleGraph.create();
+        check(graph.vertices().equals(Set.of("A", "B", "C", "D", "E", "F", "G", "H", "I", "J")));
+        check(graph.neighbours("A").equals(Set.of("B", "D", "E")));
+        check(graph.neighbours("B").equals(Set.of("C", "D")));
+        check(graph.neighbours("C").equals(Set.of("A")));
+        check(graph.neighbours("D").equals(Set.of()));
+        check(graph.neighbours("E").equals(Set.of("B", "D")));
+        check(graph.neighbours("F").equals(Set.of("G", "I", "J")));
+        check(graph.neighbours("G").equals(Set.of("E", "H")));
+        check(graph.neighbours("H").equals(Set.of("C", "D")));
+        check(graph.neighbours("I").equals(Set.of("D", "H")));
+        check(graph.neighbours("J").equals(Set.of("G", "I")));
+        Traversals.Result<String> dfs = Traversals.depthFirstForest(graph);
+        Traversals.Result<String> bfs = Traversals.breadthFirstForest(graph);
+        check(dfs.order().equals(List.of("A", "B", "C", "D", "E", "F", "G", "H", "I", "J")));
+        check(bfs.order().equals(List.of("A", "B", "D", "E", "C", "F", "G", "I", "J", "H")));
+        check(dfs.parent().equals(Map.of("B", "A", "C", "B", "D", "B", "E", "A",
+                "G", "F", "H", "G", "I", "F", "J", "F")));
+        check(bfs.parent().equals(Map.of("B", "A", "D", "A", "E", "A", "C", "B",
+                "G", "F", "I", "F", "J", "F", "H", "G")));
+        check(Traversals.depthFirst(graph, "A").order().equals(List.of("A", "B", "C", "D", "E")));
+        check(Traversals.breadthFirst(graph, "A").order().equals(List.of("A", "B", "D", "E", "C")));
+        check(Traversals.depthFirst(graph, "F").order().size() == 10);
+        check(Traversals.breadthFirst(graph, "F").order().size() == 10);
     }
 
     private static void verifyParents(Graph<Integer> graph, Traversals.Result<Integer> result)

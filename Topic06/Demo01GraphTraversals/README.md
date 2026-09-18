@@ -2,8 +2,9 @@
 
 ## Purpose and prerequisites
 
-Explore a small graph containing a cycle, multiple paths to the same vertex,
-a separate component and an isolated vertex. Compare **breadth-first search
+Explore the exact ten-vertex, nineteen-arc directed graph from Topic 6's
+**"Example graph for DFS and BFS"** slide. It contains cycles and vertices
+that are unreachable from A, although the underlying undirected graph is connected. Compare **breadth-first search
 (BFS)** and **depth-first search (DFS)**, and see how discovery creates a tree
 or forest even when the original graph is not a tree.
 
@@ -18,35 +19,48 @@ external libraries, downloads or other demo folders.
   map of sorted neighbour sets.
 - `src/ds/Traversals.java`: single-source searches and whole-graph forests;
   results contain discovery order and parent associations.
-- `src/app/Main.java`: constructs the graph and compares four results.
+- `src/app/ExampleGraph.java`: constructs the exact graph from the theory slide.
+- `src/app/Main.java`: compares four traversal results.
+- `docs/theory-traversal-graph.svg`: the same topology and node arrangement as the slide.
 - `tests/tests/ExampleChecks.java`: checks contracts, cycles, reachability,
   parent edges, shortest hop counts, and result independence.
 
 ## The graph
 
-```mermaid
-flowchart TD
-    A --> B
-    A --> D
-    A --> E
-    B --> C
-    B --> D
-    C --> A
-    F --> G
-    H
-```
+![The directed graph used in the theory presentation](docs/theory-traversal-graph.svg)
 
-An arrow is one directed arc. `C -> A` closes a cycle, and D can be reached
-from A directly or via B. F and G form a separate component; H is isolated.
-Vertices and outgoing neighbours are processed alphabetically because Main
-supplies `Comparator.naturalOrder()`.
+The diagram preserves the slide's node arrangement and arc directions. A is
+highlighted in green and F in blue: these are the two forest roots when starting
+vertices and neighbours are considered alphabetically. Crossings are not vertices.
+
+| Vertex | Outgoing neighbours, alphabetically |
+| --- | --- |
+| A | B, D, E |
+| B | C, D |
+| C | A |
+| D | None |
+| E | B, D |
+| F | G, I, J |
+| G | E, H |
+| H | C, D |
+| I | D, H |
+| J | G, I |
+
+An arrow is one directed arc. For example, C -> A closes a cycle, and D is
+reachable from A directly or via B. G -> E, H -> C, H -> D and I -> D connect
+the two regions in the direction shown. They do not make F reachable from A.
+No extra vertices or arcs have been added to the slide's graph.
+
+Vertices and outgoing neighbours are processed alphabetically because
+`ExampleGraph.create()` supplies `Comparator.naturalOrder()`.
 
 ## BFS: use a queue
 
 1. Mark A and enqueue it.
 2. Dequeue A, visit it, and enqueue its previously unmarked neighbours B, D, E.
 3. Dequeue B and enqueue C. D is already marked, so it is not enqueued again.
-4. Process D, E and C. C's arc back to A finds an already marked vertex.
+4. Process D, E and C. E's neighbours B and D are already marked;
+   C's arc back to A also finds an already marked vertex.
 
 The order is **A, B, D, E, C**. Marking on enqueue prevents duplicate work when
 two arcs reach the same vertex. The parent entries are B=A, D=A, E=A, C=B.
@@ -58,7 +72,8 @@ weighted costs. Use the Dijkstra example for that problem.
 
 DFS marks and visits A, then recursively explores B. B discovers C, whose
 arc to A is ignored because A is marked. After C returns, B discovers D.
-Finally control returns to A, which discovers E.
+Finally control returns to A, which discovers E. E's arcs to B and D find
+already marked vertices.
 
 The order is **A, B, C, D, E**. D now has parent B, although A also has a direct
 arc to D. DFS does not guarantee a shortest path. Each recursive call remembers
@@ -67,19 +82,28 @@ which neighbours remain to be examined; returning resumes that work.
 ## One source versus a complete forest
 
 `breadthFirst(graph, source)` and `depthFirst(graph, source)` visit only vertices
-reachable from that source. Starting at A does not visit F, G or H.
+reachable from that source. From A they visit A, B, C, D and E.
 
 `breadthFirstForest(graph)` and `depthFirstForest(graph)` iterate through all
 vertices and start a new search at each unmarked one, reusing the marked set.
-The example therefore has roots A, F and H. A root has **no parent entry**.
-All other discovered vertices have exactly one parent. Parent maps print
-`child=parent`; the corresponding tree arc points from parent to child.
+After the first search finishes, the next unmarked vertex is F. Arcs from the
+second region into the first encounter already marked vertices.
 
-In a directed graph, forest roots do not generally identify weakly or strongly
-connected components. For example, with the single arc B -> A and alphabetical
-root order, the forest has two roots even though the underlying undirected
-graph is connected. Nor does a full BFS forest give distances from one common
-source: each search starts at its own root.
+| Traversal | Complete discovery order | Roots |
+| --- | --- | --- |
+| DFS forest | A, B, C, D, E, F, G, H, I, J | A, F |
+| BFS forest | A, B, D, E, C, F, G, I, J, H | A, F |
+
+These are the orders in the theory presentation. In both forests G, I and J
+have parent F, and H has parent G. The first region has the parents explained
+above; in particular D has parent B in DFS and A in BFS.
+
+A root has **no parent entry**. Every other discovered vertex has exactly one.
+Parent maps print `child=parent`; the corresponding tree arc points from parent
+to child. Roots A and F do **not** mean two disconnected components: ignoring
+arc directions makes the whole example connected. A full BFS forest does not
+give distances from a common source; it continues with an existing marked set.
+A new single-source search from F, with fresh marks, can reach all ten vertices.
 
 ## Contracts and design choices
 
@@ -154,10 +178,12 @@ A -> [B, D, E]
 B -> [C, D]
 C -> [A]
 D -> []
-E -> []
-F -> [G]
-G -> []
-H -> []
+E -> [B, D]
+F -> [G, I, J]
+G -> [E, H]
+H -> [C, D]
+I -> [D, H]
+J -> [G, I]
 
 BFS from A: [A, B, D, E, C]
 Parents: {B=A, D=A, E=A, C=B}
@@ -165,11 +191,11 @@ Parents: {B=A, D=A, E=A, C=B}
 DFS from A: [A, B, C, D, E]
 Parents: {B=A, C=B, D=B, E=A}
 
-BFS forest: [A, B, D, E, C, F, G, H]
-Parents: {B=A, D=A, E=A, C=B, G=F}
+BFS forest: [A, B, D, E, C, F, G, I, J, H]
+Parents: {B=A, D=A, E=A, C=B, G=F, I=F, J=F, H=G}
 
-DFS forest: [A, B, C, D, E, F, G, H]
-Parents: {B=A, C=B, D=B, E=A, G=F}
+DFS forest: [A, B, C, D, E, F, G, H, I, J]
+Parents: {B=A, C=B, D=B, E=A, G=F, H=G, I=F, J=F}
 Parent entries mean child=parent; roots have no entry.
 BFS minimises the number of arcs from one source, not weighted cost.
 ```
@@ -177,9 +203,10 @@ BFS minimises the number of arcs from one source, not weighted cost.
 ## Suggested classroom questions
 
 1. Why is D discovered by different parents in BFS and DFS?
+   Why do both forests have roots A and F despite the graph being weakly connected?
 2. What would happen at C -> A if there were no marked set?
 3. Why must BFS mark a vertex when enqueuing it?
-4. Add E -> F. Which vertices now become reachable from A? What happens to H?
+4. Add E -> F. Which vertices become reachable from A, and how many forest roots remain?
 5. Reverse the comparator. Which results change, and which reachability facts remain?
 6. In this graph, does the DFS parent chain to D have minimum length?
 
