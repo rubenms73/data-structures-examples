@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/** Prim's minimum spanning tree algorithm using a matrix and linear scans. */
+/**
+ * Optional supplementary implementation using a matrix and linear scans.
+ * Only the minimum spanning tree concept is mentioned in class.
+ * Prim's algorithm is not taught and is not required for the exam.
+ */
 public final class Prim
 {
     private Prim()

@@ -144,7 +144,7 @@ bash run.sh test
 ```
 
 From the enclosing Topic06 folder, select the example with
-`bash run.sh Demo02GraphTraversals` or `.\run.cmd Demo02GraphTraversals`.
+`bash run.sh Demo01GraphTraversals` or `.\run.cmd Demo01GraphTraversals`.
 
 ## Expected output
 

@@ -406,7 +406,7 @@ On Windows, after the same run with `.\run.cmd`, use
 `Start-Process .\bin\navigation-map.html` in PowerShell.
 On Linux, use `xdg-open bin/navigation-map.html` or open it from the file manager.
 The `Topic06/run.sh` script selects demos; these route arguments belong to
-`Demo01WeightedGraph/run.sh`.
+`Demo03WeightedGraph/run.sh`.
 
 The viewer opens at **step 1: No incident**. Follow buttons 1–5 in order: these
 are successive moments of the same journey, not five independent route options.

@@ -6,11 +6,22 @@ Six campus buildings need a cable network. Nine candidate connections have known
 installation costs. Choose connections so that every building can communicate
 with every other, with **minimum total installation cost**.
 
-Costs are fictional and expressed in hundreds of euros. This small example uses
-Prim's algorithm and the definition of a spanning tree from Topic 6. It requires
-arrays, loops, lists and weighted undirected graphs. The algorithm is a complete
-worked application; its implementation goes beyond the introductory definition
-of a spanning tree in the presentation.
+## Teaching scope
+
+**In class, only the concept of a minimum spanning tree is mentioned.
+Prim's algorithm is not taught. Its steps, correctness argument, implementation
+and complexity are not required for the exam.**
+
+The campus network simply illustrates what it means to connect all vertices
+with minimum total edge weight. There is no additional algorithmic content
+to study for this topic from this example.
+
+The complete Prim implementation is provided as **optional supplementary material**
+for anyone curious about how such a tree can be computed. Running the program
+does not imply that students must learn that algorithm.
+
+Costs are fictional and expressed in hundreds of euros. Reading the optional
+code requires arrays, loops, lists and weighted undirected graphs.
 
 The demo is self-contained: JDK 17 is sufficient, with no libraries or downloads.
 
@@ -49,7 +60,7 @@ Their total is **11 units (1,100 euros)**. The starting building determines the
 trace, but the objective is to connect all buildings, not to find routes from
 one special source.
 
-## How Prim makes the choice
+## Optional extension: how Prim makes the choice
 
 Keep a set of selected vertices. For each unselected vertex, remember the
 cheapest single edge from any selected vertex and the endpoint providing it.
@@ -134,7 +145,7 @@ though the matrix stores it twice.
 - Do not modify a network while Prim is running. Result records carry data;
   calling their constructors directly does not certify a valid minimum tree.
 
-## Complexity
+## Optional extension: implementation complexity
 
 For V buildings, the matrix occupies **O(V²)** space. Looking up, inserting or
 removing a link takes O(1); listing links scans the matrix in O(V²).
@@ -164,8 +175,8 @@ bash run.sh test
 
 The scripts compile with Java 17, all warnings enabled and warnings treated as
 errors. Alternatively open this folder in VS Code and run `app.Main`.
-From Topic06, use `bash run.sh Demo03NetworkSpanningTree` or
-`.\run.cmd Demo03NetworkSpanningTree`.
+From Topic06, use `bash run.sh Demo02NetworkSpanningTree` or
+`.\run.cmd Demo02NetworkSpanningTree`.
 
 ## Expected output
 
@@ -217,7 +228,7 @@ Recomputation assumes the other candidate links are available.
 Minimum total installation cost is not minimum latency from the server.
 ```
 
-## Questions to discuss
+## Optional exploration questions (not exam requirements)
 
 1. Why are five edges enough, and why would four be insufficient?
 2. Why is the cost-1 edge selected after the cost-3 edge?

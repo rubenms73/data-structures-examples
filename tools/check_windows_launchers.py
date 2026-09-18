@@ -19,7 +19,7 @@ def main():
         raise SystemExit("Run this check on Windows.")
     with tempfile.TemporaryDirectory(prefix="Windows runner checks ") as temporary:
         project = Path(temporary) / "example with spaces and áccents"
-        shutil.copytree(ROOT / "Topic06/Demo01WeightedGraph", project,
+        shutil.copytree(ROOT / "Topic06/Demo03WeightedGraph", project,
                         ignore=shutil.ignore_patterns("bin", "*.class"))
         runner = project / "run.cmd"
         original = project / "data/northern-spain.json"

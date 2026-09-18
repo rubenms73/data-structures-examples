@@ -1,8 +1,86 @@
 # Topic 6: expected output
 
-Run `bash run.sh` or `.\run.cmd` inside `Demo01WeightedGraph`.
+Run `bash run.sh` or `.\run.cmd` inside the corresponding demo folder.
 
-## Demo01WeightedGraph
+## Demo01GraphTraversals
+
+```text
+Directed graph (outgoing neighbours):
+A -> [B, D, E]
+B -> [C, D]
+C -> [A]
+D -> []
+E -> []
+F -> [G]
+G -> []
+H -> []
+
+BFS from A: [A, B, D, E, C]
+Parents: {B=A, D=A, E=A, C=B}
+
+DFS from A: [A, B, C, D, E]
+Parents: {B=A, C=B, D=B, E=A}
+
+BFS forest: [A, B, D, E, C, F, G, H]
+Parents: {B=A, D=A, E=A, C=B, G=F}
+
+DFS forest: [A, B, C, D, E, F, G, H]
+Parents: {B=A, C=B, D=B, E=A, G=F}
+Parent entries mean child=parent; roots have no entry.
+BFS minimises the number of arcs from one source, not weighted cost.
+```
+
+## Demo02NetworkSpanningTree
+
+```text
+Campus network: fictional installation costs in hundreds of euros.
+Available undirected links (fictional installation cost units):
+  Server -- Library : 4
+  Server -- Lab : 3
+  Library -- Lab : 1
+  Library -- Office : 2
+  Lab -- Office : 4
+  Lab -- Classroom : 5
+  Office -- Classroom : 2
+  Office -- Workshop : 6
+  Classroom -- Workshop : 3
+Installing every link: 30
+
+Minimum spanning tree:
+  Server -- Lab : 3
+  Lab -- Library : 1
+  Library -- Office : 2
+  Office -- Classroom : 2
+  Classroom -- Workshop : 3
+Selected links: 5 for 6 nodes
+Total cost: 11
+
+Incident: Library -- Lab is unavailable.
+
+Recomputed minimum spanning tree:
+  Server -- Lab : 3
+  Server -- Library : 4
+  Library -- Office : 2
+  Office -- Classroom : 2
+  Classroom -- Workshop : 3
+Selected links: 5 for 6 nodes
+Total cost: 14
+
+Link restored:
+  Server -- Lab : 3
+  Lab -- Library : 1
+  Library -- Office : 2
+  Office -- Classroom : 2
+  Classroom -- Workshop : 3
+Selected links: 5 for 6 nodes
+Total cost: 11
+
+A tree has no redundant route: one selected link failure disconnects it.
+Recomputation assumes the other candidate links are available.
+Minimum total installation cost is not minimum latency from the server.
+```
+
+## Demo03WeightedGraph
 
 ```text
 Network: 42 localities, 120 directed road alternatives
@@ -60,82 +138,4 @@ Physical distance: 528.953 km; routing cost: 528.953
 Physical distance: 521.107 km; routing cost: 521.107
 Both algorithms give the same distances for every scenario.
 Offline map: bin/navigation-map.html
-```
-
-## Demo02GraphTraversals
-
-```text
-Directed graph (outgoing neighbours):
-A -> [B, D, E]
-B -> [C, D]
-C -> [A]
-D -> []
-E -> []
-F -> [G]
-G -> []
-H -> []
-
-BFS from A: [A, B, D, E, C]
-Parents: {B=A, D=A, E=A, C=B}
-
-DFS from A: [A, B, C, D, E]
-Parents: {B=A, C=B, D=B, E=A}
-
-BFS forest: [A, B, D, E, C, F, G, H]
-Parents: {B=A, D=A, E=A, C=B, G=F}
-
-DFS forest: [A, B, C, D, E, F, G, H]
-Parents: {B=A, C=B, D=B, E=A, G=F}
-Parent entries mean child=parent; roots have no entry.
-BFS minimises the number of arcs from one source, not weighted cost.
-```
-
-## Demo03NetworkSpanningTree
-
-```text
-Campus network: fictional installation costs in hundreds of euros.
-Available undirected links (fictional installation cost units):
-  Server -- Library : 4
-  Server -- Lab : 3
-  Library -- Lab : 1
-  Library -- Office : 2
-  Lab -- Office : 4
-  Lab -- Classroom : 5
-  Office -- Classroom : 2
-  Office -- Workshop : 6
-  Classroom -- Workshop : 3
-Installing every link: 30
-
-Minimum spanning tree:
-  Server -- Lab : 3
-  Lab -- Library : 1
-  Library -- Office : 2
-  Office -- Classroom : 2
-  Classroom -- Workshop : 3
-Selected links: 5 for 6 nodes
-Total cost: 11
-
-Incident: Library -- Lab is unavailable.
-
-Recomputed minimum spanning tree:
-  Server -- Lab : 3
-  Server -- Library : 4
-  Library -- Office : 2
-  Office -- Classroom : 2
-  Classroom -- Workshop : 3
-Selected links: 5 for 6 nodes
-Total cost: 14
-
-Link restored:
-  Server -- Lab : 3
-  Lab -- Library : 1
-  Library -- Office : 2
-  Office -- Classroom : 2
-  Classroom -- Workshop : 3
-Selected links: 5 for 6 nodes
-Total cost: 11
-
-A tree has no redundant route: one selected link failure disconnects it.
-Recomputation assumes the other candidate links are available.
-Minimum total installation cost is not minimum latency from the server.
 ```
