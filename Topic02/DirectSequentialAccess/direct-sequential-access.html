@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Music CD and cassette tape: access patterns</title><style>
+:root{--background:#fff;--foreground:#23373b;--muted:#edf2f3;--border:#b5c2c5;--muted-foreground:#56666b;--viz-series-1:#00858a}
+*{box-sizing:border-box}body{margin:0;padding:32px;font:20px/1.45 Arial,sans-serif;color:var(--foreground);background:white}#access-demo{max-width:1040px;margin:auto}h2{font-size:32px;margin:0 0 20px}h3{font-size:25px;margin:0 0 10px}.viz-row{display:flex;gap:10px;margin-top:10px}.btn{font:inherit;padding:8px 20px;border:1px solid var(--border);background:white;cursor:pointer;border-radius:4px}.btn[aria-pressed=true]{background:var(--viz-series-1);color:white}.btn:focus-visible{outline:3px solid #e5872b;outline-offset:3px}.text-small{font-size:18px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+</style></head><body><div id="access-demo">
+  <h2>Direct and sequential access</h2>
+  <div class="viz-controls"><span>Select a track. Try 6, then 2.</span><div class="viz-row" id="access-tracks"></div></div>
+  <div class="access-panels">
+    <section><h3>Music CD</h3><svg id="access-cd" role="img" aria-label="CD with six schematic track bands and a reading position" viewBox="0 0 320 240"><circle cx="160" cy="112" r="102" class="surface"/><g id="access-rings"></g><circle cx="160" cy="112" r="23" class="hub"/><circle cx="160" cy="112" r="9" class="surface"/><path d="M160 112 L268 112" class="guide"/><circle id="access-laser" cx="195" cy="112" r="6" class="active"/></svg><div class="access-state" id="access-cd-state">At track 1</div><div class="text-small">Direct (random) access: select a track without playing earlier tracks.</div></section>
+    <section><h3>Music cassette tape</h3><svg id="access-tape" role="img" aria-label="Cassette reels and moving tape passing a fixed reading head" viewBox="0 0 320 240"><defs><clipPath id="access-window"><rect x="16" y="177" width="288" height="42" rx="3"/></clipPath></defs><rect x="16" y="24" width="288" height="138" rx="14" class="surface"/><rect x="36" y="46" width="248" height="84" rx="12" class="hub"/><circle id="access-left-roll" cx="91" cy="88" r="35" class="roll"/><circle id="access-right-roll" cx="229" cy="88" r="21" class="roll"/><g id="access-left-reel" class="reel"><circle cx="91" cy="88" r="15"/><path d="M76 88H106 M91 73V103"/></g><g id="access-right-reel" class="reel"><circle cx="229" cy="88" r="15"/><path d="M214 88H244 M229 73V103"/></g><path d="M65 117L65 141H255L255 108" class="guide"/><path d="M118 161L128 139H192L202 161" class="guide"/><g clip-path="url(#access-window)"><rect x="16" y="177" width="288" height="42" class="hub"/><g id="access-strip"></g></g><path d="M160 172L154 164H166Z" class="active"/><path d="M160 177V219" class="head"/></svg><div class="access-state" id="access-tape-state">At track 1</div><div class="text-small">Sequential access: wind through the intervening tape to reach a track.</div></section>
+  </div>
+  <div class="text-small access-note">Schematic analogy. The numbered bands represent songs, not separate physical grooves. Animation times are illustrative.</div>
+  <div class="sr-only" aria-live="polite" id="access-announcement"></div>
+</div>
+<style>
+#access-demo .access-panels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:22px}
+#access-demo section{min-width:0}
+#access-demo svg{display:block;width:100%;max-width:360px;margin:auto;overflow:visible}
+#access-demo .surface{fill:var(--muted);stroke:var(--border);stroke-width:1.5}
+#access-demo .hub{fill:var(--background);stroke:var(--border);stroke-width:1}
+#access-demo .guide{fill:none;stroke:var(--muted-foreground);stroke-width:1.5}
+#access-demo .active{fill:var(--viz-series-1)}
+#access-demo .roll{fill:var(--muted-foreground);opacity:.35}
+#access-demo .reel{fill:var(--background);stroke:var(--foreground);stroke-width:2}
+#access-demo .head{stroke:var(--viz-series-1);stroke-width:3}
+#access-demo svg text{fill:var(--foreground);font-size:12px;text-anchor:middle;dominant-baseline:middle}
+#access-demo .access-state{font-weight:500;margin:10px 0 6px}
+#access-demo .access-note{margin-top:22px;color:var(--muted-foreground)}
+@media(max-width:560px){#access-demo .access-panels{grid-template-columns:1fr;gap:24px}}
+</style>
+<script>
+(()=>{
+const root=document.getElementById('access-demo');
+const get=id=>root.querySelector('#access-'+id);
+const ns='http://www.w3.org/2000/svg';
+function svg(tag,attrs,parent){const e=document.createElementNS(ns,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);parent.appendChild(e);return e;}
+let cd=1,tape=1,target=1,request=0;
+const rings=[],segments=[],buttons=[];
+for(let i=1;i<=6;i++){
+ const r=35+(i-1)*12;
+ rings.push(svg('circle',{cx:160,cy:112,r,fill:'none',stroke:'var(--border)','stroke-width':10},get('rings')));
+ svg('text',{x:160,y:112-r},get('rings')).textContent=i;
+ segments.push(svg('rect',{x:(i-1)*64,y:179,width:60,height:38,rx:3,fill:'var(--muted)'},get('strip')));
+ svg('text',{x:(i-1)*64+30,y:198},get('strip')).textContent=i;
+ const b=document.createElement('button');b.type='button';b.className='btn';b.textContent=i;b.setAttribute('aria-label','Select track '+i);b.setAttribute('aria-pressed',String(i===1));b.onclick=()=>select(i);get('tracks').appendChild(b);buttons.push(b);
+}
+function draw(){
+ get('laser').setAttribute('cx',195+(cd-1)*12);
+ rings.forEach((e,i)=>e.setAttribute('stroke',Math.abs(cd-i-1)<.08?'var(--viz-series-1)':'var(--border)'));
+ get('strip').setAttribute('transform','translate('+(130-(tape-1)*64)+',0)');
+ segments.forEach((e,i)=>e.setAttribute('fill',i+1===target?'var(--viz-series-1)':'var(--muted)'));
+ get('left-roll').setAttribute('r',Math.sqrt(35*35-(tape-1)*160));
+ get('right-roll').setAttribute('r',Math.sqrt(21*21+(tape-1)*160));
+ get('left-reel').setAttribute('transform','rotate('+((tape-1)*220)+' 91 88)');
+ get('right-reel').setAttribute('transform','rotate('+((tape-1)*220)+' 229 88)');
+}
+function select(n){
+ cancelAnimationFrame(request);target=n;buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i+1===n)));
+ const fromCd=cd,fromTape=tape,start=performance.now(),duration=Math.max(500,Math.abs(n-tape)*720),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ get('announcement').textContent='Selected track '+n;
+ function tick(now){
+  const elapsed=reduce?duration:now-start;
+  const p=Math.min(1,elapsed/duration),q=Math.min(1,elapsed/420);
+  cd=fromCd+(n-fromCd)*(1-Math.pow(1-q,3));tape=fromTape+(n-fromTape)*p;
+  get('cd-state').textContent=q===1?'At track '+n:'Seeking track '+n;
+  get('tape-state').textContent=p===1?'At track '+n:(n>fromTape?'Winding forwards':'Rewinding')+' · track '+Math.max(1,Math.min(6,Math.round(tape)));
+  draw();if(p<1)request=requestAnimationFrame(tick);else get('announcement').textContent='Both are at track '+n;
+ }
+ request=requestAnimationFrame(tick);
+}
+draw();
+})();
+</script>
+</body></html>
