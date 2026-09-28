@@ -57,8 +57,8 @@ public final class ExampleChecks
             q.clear();
             equal(0, q.size());
         }
-        FifoQueue<Integer> fifo = new FifoQueue<>(Arrays.asList(1, 2, 3));
-        LifoQueue<Integer> lifo = new LifoQueue<>(Arrays.asList(1, 2, 3));
+        Queue<Integer> fifo = new FifoQueue<>(Arrays.asList(1, 2, 3));
+        Queue<Integer> lifo = new LifoQueue<>(Arrays.asList(1, 2, 3));
         equal(Arrays.asList(3, 2, 1), collect(lifo));
         for (int i = 1; i <= 3; i++)
         {
@@ -67,6 +67,73 @@ public final class ExampleChecks
         }
         rejects(NullPointerException.class, () -> new FifoQueue<Integer>(null));
         rejects(NullPointerException.class, () -> new LifoQueue<Integer>(null));
+        fifoBoundaries();
         System.out.println("All " + checks + " checks passed.");
+    }
+
+    private static void fifoBoundaries()
+    {
+        Queue<Integer> fifo = new FifoQueue<>();
+        rejects(NoSuchElementException.class, fifo::element);
+        rejects(NoSuchElementException.class, () -> fifo.iterator().next());
+        equal(true, fifo.offer(1));
+        equal(1, fifo.peek());
+        rejects(NullPointerException.class, () -> fifo.offer(null));
+        equal(Collections.singletonList(1), collect(fifo));
+        equal(1, fifo.poll());
+        equal(0, fifo.size());
+        equal(null, fifo.peek());
+        equal(true, fifo.offer(2));
+        equal(2, fifo.poll());
+
+        // Iterator removal of the only node must also release the tail.
+        fifo.add(3);
+        Iterator<Integer> it = fifo.iterator();
+        equal(3, it.next());
+        it.remove();
+        equal(true, fifo.isEmpty());
+        equal(null, fifo.poll());
+        rejects(IllegalStateException.class, it::remove);
+        rejects(NoSuchElementException.class, it::next);
+
+        fifo.addAll(Arrays.asList(1, 2, 3, 4));
+        it = fifo.iterator();
+        equal(1, it.next());
+        it.remove();
+        equal(2, fifo.peek());
+        equal(2, it.next());
+        equal(3, it.next());
+        it.remove();
+        equal(4, it.next());
+        it.remove();
+        equal(false, it.hasNext());
+        equal(Collections.singletonList(2), collect(fifo));
+        equal(1, fifo.size());
+        fifo.offer(5);
+        equal(Arrays.asList(2, 5), collect(fifo));
+        equal(2, fifo.poll());
+        equal(5, fifo.poll());
+        equal(null, fifo.poll());
+
+        // Inherited bulk operations use the iterator; clear uses poll.
+        fifo.addAll(Arrays.asList(1, 2, 1, 3));
+        equal(true, fifo.remove(1));
+        equal(Arrays.asList(2, 1, 3), collect(fifo));
+        equal(true, fifo.removeAll(Arrays.asList(1, 3)));
+        equal(Collections.singletonList(2), collect(fifo));
+        equal(1, fifo.size());
+        fifo.add(4);
+        equal(Arrays.asList(2, 4), collect(fifo));
+        equal(true, fifo.retainAll(Collections.emptyList()));
+        equal(true, fifo.isEmpty());
+        fifo.addAll(Arrays.asList(5, 6));
+        fifo.clear();
+        fifo.clear();
+        equal(null, fifo.peek());
+        equal(0, fifo.size());
+        fifo.add(7);
+        equal(Collections.singletonList(7), collect(fifo));
+        equal(7, fifo.remove());
+        equal(true, fifo.isEmpty());
     }
 }

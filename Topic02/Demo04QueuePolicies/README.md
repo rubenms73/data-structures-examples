@@ -7,6 +7,11 @@ Prerequisites: collections, abstract classes, linked lists, array lists and iter
 Nulls are rejected explicitly because poll and peek use null to report emptiness.
 Collection constructors copy element references in source iteration order.
 
+FIFO owns singly linked nodes with head, tail and size. LIFO stores its elements
+through a `List<E>` reference initialized with an `ArrayList<E>`.
+Both classes implement only `offer`, `poll`, `peek`, `size` and `iterator`;
+their iterators support removal. Clients use `Queue<E>` references.
+
 ## Guided walkthrough
 
 1. Compare offer, peek and poll: FIFO works at opposite ends, LIFO at the same end.
@@ -14,16 +19,20 @@ Collection constructors copy element references in source iteration order.
    throw NoSuchElementException on an empty queue, whereas poll/peek return null.
 3. Compare extraction order with iteration: this example's LIFO iterator walks
    the backing array list backwards, using a private inner adapter.
-4. Iterator remove delegates to the backing iterator, preserving its state rules.
-5. Compare inherited clear and remove(Object), which depend on iterator removal.
+4. FIFO iterator removal reconnects nodes and updates head or tail when necessary;
+   LIFO iterator removal delegates to the backing list iterator.
+5. Inherited clear repeatedly calls poll. Inherited remove(Object), removeAll
+   and retainAll use iterator removal. Trace these two paths to modifying a queue.
 
 ## Costs and contracts
 
 FIFO insertion/extraction is O(1). LIFO insertion is amortized O(1), with O(1)
 peek/poll. Traversal is O(n). Removing arbitrary elements may cost O(n).
-These classes demonstrate policies, not custom node implementations. The old
-self-recursive size and iterator implementations are replaced by backing-store
-access. The optional wrapper variant is consolidated into one LIFO class.
+FIFO retains the predecessor during iteration, making iterator removal O(1).
+Removing through the LIFO iterator may shift array elements and cost O(n).
+Only modify a queue through the active iterator during traversal. The teaching
+FIFO iterator does not detect external changes. Removing the last FIFO node,
+whether through poll or the iterator, must leave both head and tail null.
 
 ## Open and run
 
