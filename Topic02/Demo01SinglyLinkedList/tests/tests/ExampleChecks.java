@@ -68,6 +68,63 @@ public final class ExampleChecks
         list.add(5);
         equal(Arrays.asList(null, 5), collect(list));
         equal(2, list.size());
+        inheritedCollectionOperations();
         System.out.println("All " + checks + " checks passed.");
+    }
+
+    private static void inheritedCollectionOperations()
+    {
+        Collection<Integer> values = new SinglyLinkedList<>();
+        equal(true, values.isEmpty());
+        equal(false, values.addAll(Collections.emptyList()));
+        equal(true, values.add(1));
+        equal(true, values.add(1));
+        equal(true, values.addAll(Arrays.asList(null, 2, 3)));
+        equal(5, values.size());
+        equal(true, values.contains(null));
+        equal(true, values.containsAll(Arrays.asList(1, 2)));
+        equal(false, values.contains(9));
+        equal(Arrays.asList(1, 1, null, 2, 3), Arrays.asList(values.toArray()));
+        equal(Arrays.asList(1, 1, null, 2, 3),
+                Arrays.asList(values.toArray(new Integer[0])));
+
+        // Remove the head, a null in the middle, and the tail by value.
+        equal(true, values.remove(1));
+        equal(Arrays.asList(1, null, 2, 3), collect(values));
+        equal(true, values.remove(null));
+        equal(true, values.remove(3));
+        equal(false, values.remove(9));
+        equal(true, values.add(4));
+        equal(Arrays.asList(1, 2, 4), collect(values));
+        equal(3, values.size());
+
+        // Bulk removal must preserve the tail and count, including an empty result.
+        equal(true, values.addAll(Arrays.asList(2, null, 4)));
+        equal(true, values.removeAll(Arrays.asList(2, 4)));
+        equal(Arrays.asList(1, null), collect(values));
+        equal(2, values.size());
+        equal(false, values.removeAll(Collections.singleton(9)));
+        equal(true, values.add(5));
+        equal(Arrays.asList(1, null, 5), collect(values));
+        equal(true, values.retainAll(Collections.singleton(null)));
+        equal(Collections.singletonList(null), collect(values));
+        equal(1, values.size());
+        equal(false, values.retainAll(Collections.singleton(null)));
+        equal(true, values.remove(null));
+        equal(true, values.isEmpty());
+        equal(true, values.add(6));
+        equal(Collections.singletonList(6), collect(values));
+
+        values.addAll(Arrays.asList(null, 7));
+        values.clear();
+        equal(0, values.size());
+        equal(false, values.iterator().hasNext());
+        values.clear();
+        equal(true, values.add(8));
+        equal(Collections.singletonList(8), collect(values));
+        equal(true, values.retainAll(Collections.emptyList()));
+        equal(true, values.isEmpty());
+        equal(true, values.add(9));
+        equal(Collections.singletonList(9), collect(values));
     }
 }

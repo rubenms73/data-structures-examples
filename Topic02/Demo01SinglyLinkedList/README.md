@@ -2,9 +2,12 @@
 
 ## Problem statement and prerequisites
 
-Build a list from singly linked nodes with head, tail and size. Support append,
-indexed insertion and access, and an inner forward iterator with removal.
-Prerequisites: references, generic classes, loops and Iterator. Read this example
+Build a collection from singly linked nodes with head, tail and size by extending
+`AbstractCollection<E>`. Support append, indexed insertion and access, and an
+inner forward iterator with removal. Supply `size()` and `iterator()`, and
+override `boolean add(E)` to append an element and return true.
+Prerequisites: references, generic classes, inheritance, abstract classes, loops,
+Collection and Iterator. Read this example
 before Demo02LinkedList, whose bidirectional cursor is a later extension.
 Null elements are valid. Invalid indices are rejected before changing links.
 
@@ -18,6 +21,9 @@ Null elements are valid. Invalid indices are rejected before changing links.
 5. Remove the last node, then append again: tail must refer to the surviving last node.
 6. Repeated removal without next throws IllegalStateException. Exhaustion throws
    NoSuchElementException. Removing an element whose value is null is valid.
+7. Use the object through `Collection<E>`: `addAll`, `contains`, `toArray`,
+   `remove(Object)`, `removeAll`, `retainAll` and `clear` are inherited.
+   The modifying operations reuse `add` or iterator removal; `isEmpty` uses size.
 
 ## Costs and contracts
 
@@ -26,6 +32,10 @@ insertion cost O(n) in the worst case. Full traversal is O(n); storage is O(n).
 Modify only through the active iterator during traversal. External modifications
 are not detected. Equality is not overridden: this class does not claim List
 value equality. The old membership-based equals and faulty tail update are not retained.
+
+`AbstractCollection` reuses the forward iterator without requiring a ListIterator.
+The indexed helpers `get` and `insert` do not make this class a `List`.
+Demo02 introduces that fuller contract through `AbstractSequentialList`.
 
 ## Open and run
 

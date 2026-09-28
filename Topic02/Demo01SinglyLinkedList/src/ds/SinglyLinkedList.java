@@ -1,5 +1,6 @@
 package ds;
 
+import java.util.AbstractCollection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -7,7 +8,7 @@ import java.util.NoSuchElementException;
  * A forward-only list: each node owns one link. Null elements are allowed.
  * Modify the list through the active iterator only while traversing it.
  */
-public class SinglyLinkedList<E> implements Iterable<E>
+public class SinglyLinkedList<E> extends AbstractCollection<E>
 {
     private class Node
     {
@@ -25,13 +26,15 @@ public class SinglyLinkedList<E> implements Iterable<E>
     private Node tail;
     private int size;
 
+    @Override
     public int size()
     {
         return size;
     }
 
     /** Append in constant time by retaining the last node. */
-    public void add(E value)
+    @Override
+    public boolean add(E value)
     {
         Node node = new Node(value, null);
         if (tail == null)
@@ -40,6 +43,7 @@ public class SinglyLinkedList<E> implements Iterable<E>
             tail.next = node;
         tail = node;
         size++;
+        return true;
     }
 
     public void insert(int index, E value)
