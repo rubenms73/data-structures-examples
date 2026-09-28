@@ -3,36 +3,40 @@
 ## Problem statement and prerequisites
 
 Implement FIFO and LIFO extraction policies using the same Queue interface.
-Prerequisites: collections, abstract classes, linked lists, array lists and iterators.
+Prerequisites: collections, abstract classes, linked lists and iterators.
 Nulls are rejected explicitly because poll and peek use null to report emptiness.
 Collection constructors copy element references in source iteration order.
 
-FIFO owns singly linked nodes with head, tail and size. LIFO stores its elements
-through a `List<E>` reference initialized with an `ArrayList<E>`.
+Both queues reuse `DoublyLinkedList<E>` from
+[Demo03](../Demo03DoublyLinkedList/README.md), storing it through a `List<E>`
+reference. This folder includes the unchanged `src/ds/DoublyLinkedList.java`
+from that demo so it remains self-contained; keep the two copies identical.
 Both classes implement only `offer`, `poll`, `peek`, `size` and `iterator`;
 their iterators support removal. Clients use `Queue<E>` references.
 
 ## Guided walkthrough
 
-1. Compare offer, peek and poll: FIFO works at opposite ends, LIFO at the same end.
+1. Compare offer: FIFO appends with `data.add(value)`; LIFO inserts at the front
+   with `data.add(0, value)`. Both extract and observe index zero.
 2. Follow AbstractQueue's inherited add/remove/element operations. The latter two
    throw NoSuchElementException on an empty queue, whereas poll/peek return null.
-3. Compare extraction order with iteration: this example's LIFO iterator walks
-   the backing array list backwards, using a private inner adapter.
-4. FIFO iterator removal reconnects nodes and updates head or tail when necessary;
-   LIFO iterator removal delegates to the backing list iterator.
+3. Both queues return `data.iterator()`: the list already stores their elements
+   in extraction order. Node management and iterator removal belong to Demo03's
+   list implementation and require no new queue-specific iterator.
+4. The queue adds its null policy and FIFO/LIFO insertion policy to the List
+   contract. All stored collection references use interfaces: List internally,
+   Queue in the client.
 5. Inherited clear repeatedly calls poll. Inherited remove(Object), removeAll
    and retainAll use iterator removal. Trace these two paths to modifying a queue.
 
 ## Costs and contracts
 
-FIFO insertion/extraction is O(1). LIFO insertion is amortized O(1), with O(1)
-peek/poll. Traversal is O(n). Removing arbitrary elements may cost O(n).
-FIFO retains the predecessor during iteration, making iterator removal O(1).
-Removing through the LIFO iterator may shift array elements and cost O(n).
-Only modify a queue through the active iterator during traversal. The teaching
-FIFO iterator does not detect external changes. Removing the last FIFO node,
-whether through poll or the iterator, must leave both head and tail null.
+With this DoublyLinkedList, offer, poll, peek and size take O(1) for both policies:
+its list iterator reaches either end in O(1). Iterator removal also takes O(1).
+Traversal and inherited clear take O(n); removing by value may require an O(n)
+search. These costs depend on the chosen list implementation, not just List.
+Only modify a queue through the active iterator during traversal. The reused
+teaching list does not detect external changes.
 
 ## Open and run
 

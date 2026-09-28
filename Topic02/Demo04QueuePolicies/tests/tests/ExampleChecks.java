@@ -68,6 +68,7 @@ public final class ExampleChecks
         rejects(NullPointerException.class, () -> new FifoQueue<Integer>(null));
         rejects(NullPointerException.class, () -> new LifoQueue<Integer>(null));
         fifoBoundaries();
+        lifoBoundaries();
         System.out.println("All " + checks + " checks passed.");
     }
 
@@ -86,7 +87,7 @@ public final class ExampleChecks
         equal(true, fifo.offer(2));
         equal(2, fifo.poll());
 
-        // Iterator removal of the only node must also release the tail.
+        // Removing the only element through the iterator must allow reuse.
         fifo.add(3);
         Iterator<Integer> it = fifo.iterator();
         equal(3, it.next());
@@ -135,5 +136,48 @@ public final class ExampleChecks
         equal(Collections.singletonList(7), collect(fifo));
         equal(7, fifo.remove());
         equal(true, fifo.isEmpty());
+    }
+
+    private static void lifoBoundaries()
+    {
+        Queue<Integer> lifo = new LifoQueue<>(Arrays.asList(1, 2, 1, 3));
+        equal(Arrays.asList(3, 1, 2, 1), collect(lifo));
+        equal(3, lifo.peek());
+        Iterator<Integer> it = lifo.iterator();
+        equal(3, it.next());
+        it.remove();
+        equal(1, lifo.peek());
+        equal(1, it.next());
+        equal(2, it.next());
+        it.remove();
+        equal(1, it.next());
+        it.remove();
+        equal(false, it.hasNext());
+        rejects(IllegalStateException.class, it::remove);
+        rejects(NoSuchElementException.class, it::next);
+        equal(Collections.singletonList(1), collect(lifo));
+        equal(1, lifo.size());
+        lifo.offer(4);
+        equal(Arrays.asList(4, 1), collect(lifo));
+        equal(4, lifo.poll());
+        equal(1, lifo.poll());
+        equal(null, lifo.peek());
+        lifo.addAll(Arrays.asList(1, 2, 1, 3));
+        equal(true, lifo.remove(1));
+        equal(Arrays.asList(3, 2, 1), collect(lifo));
+        equal(true, lifo.removeAll(Arrays.asList(1, 3)));
+        equal(Collections.singletonList(2), collect(lifo));
+        equal(true, lifo.retainAll(Collections.emptyList()));
+        equal(true, lifo.isEmpty());
+        lifo.offer(5);
+        it = lifo.iterator();
+        equal(5, it.next());
+        it.remove();
+        equal(0, lifo.size());
+        lifo.addAll(Arrays.asList(6, 7));
+        lifo.clear();
+        lifo.offer(8);
+        equal(8, lifo.remove());
+        equal(true, lifo.isEmpty());
     }
 }

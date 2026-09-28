@@ -4,12 +4,11 @@ import java.util.AbstractQueue;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ArrayList;
 
-/** LIFO policy represented as a Queue. Iteration follows extraction order. */
+/** LIFO policy: insert and extract at the beginning. */
 public class LifoQueue<E> extends AbstractQueue<E>
 {
-    private final List<E> data = new ArrayList<>();
+    private final List<E> data = new DoublyLinkedList<>();
 
     public LifoQueue()
     {
@@ -27,7 +26,7 @@ public class LifoQueue<E> extends AbstractQueue<E>
     {
         if (value == null)
             throw new NullPointerException("Null elements are not supported");
-        data.add(value);
+        data.add(0, value);
         return true;
     }
 
@@ -36,7 +35,7 @@ public class LifoQueue<E> extends AbstractQueue<E>
     {
         if (data.isEmpty())
             return null;
-        return data.remove(data.size() - 1);
+        return data.remove(0);
     }
 
     @Override
@@ -44,7 +43,7 @@ public class LifoQueue<E> extends AbstractQueue<E>
     {
         if (data.isEmpty())
             return null;
-        return data.get(data.size() - 1);
+        return data.get(0);
     }
 
     @Override
@@ -53,32 +52,10 @@ public class LifoQueue<E> extends AbstractQueue<E>
         return data.size();
     }
 
+    /** During traversal, modify the queue only through this iterator. */
     @Override
     public Iterator<E> iterator()
     {
-        return new StackIterator();
-    }
-
-    private class StackIterator implements Iterator<E>
-    {
-        private final java.util.ListIterator<E> cursor = data.listIterator(data.size());
-
-        @Override
-        public boolean hasNext()
-        {
-            return cursor.hasPrevious();
-        }
-
-        @Override
-        public E next()
-        {
-            return cursor.previous();
-        }
-
-        @Override
-        public void remove()
-        {
-            cursor.remove();
-        }
+        return data.iterator();
     }
 }
