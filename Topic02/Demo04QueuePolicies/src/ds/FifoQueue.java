@@ -2,13 +2,14 @@ package ds;
 
 import java.util.AbstractQueue;
 import java.util.Collection;
+import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 /** FIFO policy: insert at the end and extract at the beginning. */
 public class FifoQueue<E> extends AbstractQueue<E>
 {
-    private final LinkedList<E> data = new LinkedList<>();
+    private final Deque<E> data = new LinkedList<>();
 
     public FifoQueue()
     {

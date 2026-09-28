@@ -3,12 +3,13 @@ package ds;
 import java.util.AbstractQueue;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ArrayList;
 
 /** LIFO policy represented as a Queue. Iteration follows extraction order. */
 public class LifoQueue<E> extends AbstractQueue<E>
 {
-    private final ArrayList<E> data = new ArrayList<>();
+    private final List<E> data = new ArrayList<>();
 
     public LifoQueue()
     {
