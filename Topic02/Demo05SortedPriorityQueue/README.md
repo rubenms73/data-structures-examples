@@ -7,10 +7,18 @@ Prerequisites: Queue, ListIterator, Comparable and Comparator. A null comparator
 means natural order. Null elements are prohibited. Equal priorities are allowed
 and retain arrival order. The comparator must define a consistent ordering.
 
+The backing `List<E>` is our `DoublyLinkedList<E>` from
+[Demo03](../Demo03DoublyLinkedList/README.md), also reused in Demo04.
+This folder includes an unchanged copy of `src/ds/DoublyLinkedList.java` to
+remain self-contained; keep it identical to Demo03. Clients use `Queue<E>`.
+The queue implements only `offer`, `poll`, `peek`, `size` and `iterator`;
+node management and iterator removal are supplied by the list.
+
 ## Guided walkthrough
 
 1. Follow offer until the first strictly larger value. Step back and insert there.
-2. Equal priorities are passed, giving stable insertion among ties.
+2. Equal priorities are passed, giving stable insertion among ties. If no larger
+   value is found, insert with the same list iterator, already at the end.
 3. Validate comparison before changing the list; do not catch and ignore comparison failures.
 4. The conversion constructor initializes the comparator before adding elements.
 5. Inherited queue operations reuse offer, poll and peek. Compare with FIFO/LIFO.
@@ -21,6 +29,9 @@ Insertion is O(n); peek and poll are O(1). Building n entries by repeated offer
 may cost O(n²). This is the list-based alternative to a heap, introduced later.
 Do not mutate fields used for ordering while an object is in the queue. Iteration
 is sorted, unlike the unspecified iterator ordering of Java's PriorityQueue.
+Only modify the queue through the active iterator during traversal. The reused
+teaching list does not detect external changes. Iterator removal takes O(1);
+inherited remove(Object) may first search O(n) elements.
 
 ## Open and run
 

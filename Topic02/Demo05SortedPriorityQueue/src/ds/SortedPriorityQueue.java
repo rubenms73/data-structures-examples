@@ -4,13 +4,13 @@ import java.util.AbstractQueue;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 
 /** A priority queue backed by a sorted list; smallest elements leave first. */
 public class SortedPriorityQueue<E> extends AbstractQueue<E>
 {
-    private final LinkedList<E> data = new LinkedList<>();
+    private final List<E> data = new DoublyLinkedList<>();
     private final Comparator<? super E> order;
 
     public SortedPriorityQueue()
@@ -59,7 +59,7 @@ public class SortedPriorityQueue<E> extends AbstractQueue<E>
             }
         }
         // Equal priorities retain arrival order.
-        data.addLast(value);
+        it.add(value);
         return true;
     }
 
@@ -68,7 +68,7 @@ public class SortedPriorityQueue<E> extends AbstractQueue<E>
     {
         if (data.isEmpty())
             return null;
-        return data.removeFirst();
+        return data.remove(0);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class SortedPriorityQueue<E> extends AbstractQueue<E>
     {
         if (data.isEmpty())
             return null;
-        return data.getFirst();
+        return data.get(0);
     }
 
     @Override
