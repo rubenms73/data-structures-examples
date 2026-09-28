@@ -42,12 +42,12 @@ public final class ExampleChecks
 
     public static void main(String[] args)
     {
-        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
-        rejects(IndexOutOfBoundsException.class, () -> list.get(0));
-        rejects(IndexOutOfBoundsException.class, () -> list.insert(-1, 0));
+        Collection<Integer> list = new SinglyLinkedList<>();
+        rejects(NoSuchElementException.class, () -> list.iterator().next());
+        rejects(IllegalStateException.class, () -> list.iterator().remove());
         list.add(1);
+        list.add(2);
         list.add(3);
-        list.insert(1, 2);
         equal(Arrays.asList(1, 2, 3), collect(list));
         Iterator<Integer> it = list.iterator();
         rejects(IllegalStateException.class, it::remove);

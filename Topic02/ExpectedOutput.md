@@ -4,7 +4,10 @@
 A
 B
 C
-Last after removal and append: D
+After iterator removal and append: [A, B, D]
+Contains B: true
+After inherited remove: [A, D]
+Empty after inherited clear: true
 ```
 
 ## Demo02LinkedList

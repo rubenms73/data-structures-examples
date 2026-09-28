@@ -5,8 +5,9 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * A forward-only list: each node owns one link. Null elements are allowed.
- * Modify the list through the active iterator only while traversing it.
+ * A collection backed by singly linked nodes, built on AbstractCollection.
+ * The name describes its storage; this class does not implement List.
+ * Null elements are allowed. During traversal, modify only through the iterator.
  */
 public class SinglyLinkedList<E> extends AbstractCollection<E>
 {
@@ -44,41 +45,6 @@ public class SinglyLinkedList<E> extends AbstractCollection<E>
         tail = node;
         size++;
         return true;
-    }
-
-    public void insert(int index, E value)
-    {
-        if (index < 0 || index > size)
-            throw new IndexOutOfBoundsException("Invalid index: " + index);
-        if (index == size)
-        {
-            add(value);
-            return;
-        }
-        if (index == 0)
-            head = new Node(value, head);
-        else
-        {
-            Node previous = head;
-            for (int i = 1; i < index; i++)
-            {
-                previous = previous.next;
-            }
-            previous.next = new Node(value, previous.next);
-        }
-        size++;
-    }
-
-    public E get(int index)
-    {
-        if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException("Invalid index: " + index);
-        Node current = head;
-        for (int i = 0; i < index; i++)
-        {
-            current = current.next;
-        }
-        return current.value;
     }
 
     @Override

@@ -7,21 +7,24 @@ public final class Main
 {
     public static void main(String[] args)
     {
-        SinglyLinkedList<String> list = new SinglyLinkedList<>();
-        list.add("A");
-        list.add("C");
-        list.insert(1, "B");
-        for (String value : list)
+        Collection<String> values = new SinglyLinkedList<>();
+        values.addAll(List.of("A", "B", "C"));
+        for (String value : values)
         {
             System.out.println(value);
         }
-        Iterator<String> it = list.iterator();
+        Iterator<String> it = values.iterator();
         while (it.hasNext())
         {
             if (it.next().equals("C"))
                 it.remove();
         }
-        list.add("D");
-        System.out.println("Last after removal and append: " + list.get(2));
+        values.add("D");
+        System.out.println("After iterator removal and append: " + values);
+        System.out.println("Contains B: " + values.contains("B"));
+        values.remove("B");
+        System.out.println("After inherited remove: " + values);
+        values.clear();
+        System.out.println("Empty after inherited clear: " + values.isEmpty());
     }
 }

@@ -1,4 +1,4 @@
-# Demo 06 — A stack in Java, C++, C# and Python
+# Demo 07 — A stack in Java, C++, C# and Python
 
 ## Problem statement
 

@@ -1,41 +1,41 @@
-# 01 — Singly linked list and forward iterator
+# 01 — A collection backed by singly linked nodes
 
 ## Problem statement and prerequisites
 
 Build a collection from singly linked nodes with head, tail and size by extending
-`AbstractCollection<E>`. Support append, indexed insertion and access, and an
-inner forward iterator with removal. Supply `size()` and `iterator()`, and
-override `boolean add(E)` to append an element and return true.
+`AbstractCollection<E>`. Implement only `size()`, `iterator()` and `boolean add(E)`,
+which appends an element and returns true. The inner forward iterator supplies
+`hasNext()`, `next()` and `remove()` to support traversal and inherited removal.
 Prerequisites: references, generic classes, inheritance, abstract classes, loops,
-Collection and Iterator. Read this example
-before Demo02LinkedList, whose bidirectional cursor is a later extension.
-Null elements are valid. Invalid indices are rejected before changing links.
+Collection and Iterator. Read this example before Demo02LinkedList, which
+introduces the List contract and its bidirectional cursor.
+Null elements and duplicates are valid.
 
 ## Guided walkthrough
 
 1. Draw head, tail and the next link in each node. Empty lists have both ends null.
 2. Follow append into an empty and a nonempty list; tail avoids a complete scan.
-3. Follow insertion at the head, middle and end. Valid insertion indices include size.
-4. Trace the four iterator node references. beforeLast saves the predecessor so
+3. Trace the four iterator node references. beforeLast saves the predecessor so
    removal does not need to search from the head.
-5. Remove the last node, then append again: tail must refer to the surviving last node.
-6. Repeated removal without next throws IllegalStateException. Exhaustion throws
+4. Remove the last node, then append again: tail must refer to the surviving last node.
+5. Repeated removal without next throws IllegalStateException. Exhaustion throws
    NoSuchElementException. Removing an element whose value is null is valid.
-7. Use the object through `Collection<E>`: `addAll`, `contains`, `toArray`,
+6. Use the object through `Collection<E>`: `addAll`, `contains`, `toArray`,
    `remove(Object)`, `removeAll`, `retainAll` and `clear` are inherited.
    The modifying operations reuse `add` or iterator removal; `isEmpty` uses size.
 
 ## Costs and contracts
 
-Append, size, iterator next and iterator remove cost O(1). Indexed access and
-insertion cost O(n) in the worst case. Full traversal is O(n); storage is O(n).
+Append, size, iterator next and iterator remove cost O(1).
+Full traversal, inherited contains, remove(Object) and clear take O(n) in the
+worst case; storage is O(n).
 Modify only through the active iterator during traversal. External modifications
-are not detected. Equality is not overridden: this class does not claim List
-value equality. The old membership-based equals and faulty tail update are not retained.
+are not detected. Equality is not overridden: this class retains identity equality.
 
 `AbstractCollection` reuses the forward iterator without requiring a ListIterator.
-The indexed helpers `get` and `insert` do not make this class a `List`.
-Demo02 introduces that fuller contract through `AbstractSequentialList`.
+`SinglyLinkedList` names the internal representation. Its public contract is
+`Collection`, with no indexed access or insertion methods. Demo02 introduces
+the fuller `List` contract through `AbstractSequentialList`.
 
 ## Open and run
 
@@ -63,7 +63,10 @@ leaves the structure unchanged. Compare the representation with its public contr
 A
 B
 C
-Last after removal and append: D
+After iterator removal and append: [A, B, D]
+Contains B: true
+After inherited remove: [A, D]
+Empty after inherited clear: true
 ```
 
 ## Windows
