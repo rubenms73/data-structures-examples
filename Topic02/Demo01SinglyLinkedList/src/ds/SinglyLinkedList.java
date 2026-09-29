@@ -16,6 +16,12 @@ public class SinglyLinkedList<E> extends AbstractCollection<E>
         E value;
         Node next;
 
+        Node(E value)
+        {
+            this.value = value;
+            this.next = null;
+        }
+
         Node(E value, Node next)
         {
             this.value = value;
@@ -37,7 +43,7 @@ public class SinglyLinkedList<E> extends AbstractCollection<E>
     @Override
     public boolean add(E value)
     {
-        Node node = new Node(value, null);
+        Node node = new Node(value);
         if (tail == null)
             head = node;
         else

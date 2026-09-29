@@ -19,6 +19,13 @@ public class DoublyLinkedList<E> extends AbstractSequentialList<E>
         Node next;
         Node previous;
 
+        Node(E info)
+        {
+            this.info = info;
+            this.previous = null;
+            this.next = null;
+        }
+
         Node(E info, Node previous, Node next)
         {
             this.info = info;

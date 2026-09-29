@@ -18,6 +18,12 @@ public class MyLinkedList<E> extends AbstractSequentialList<E>
         E info;
         Node next;
 
+        Node(E info)
+        {
+            this.info = info;
+            this.next = null;
+        }
+
         Node(E info, Node next)
         {
             this.info = info;
