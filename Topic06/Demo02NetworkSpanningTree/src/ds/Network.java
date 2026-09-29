@@ -7,6 +7,7 @@ import java.util.List;
 /** Small undirected network with nonnegative integer installation costs. */
 public class Network
 {
+    // Device labels indexed by the integer vertex identifiers.
     private final String[] names;
     // -1 means no cable. Zero is a valid installation cost.
     private final int[][] cost;

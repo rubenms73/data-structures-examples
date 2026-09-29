@@ -3,7 +3,9 @@ package ds;
 /** Fixed-capacity storage using an ordinary array. */
 public final class FixedMyArray<E> implements MyArray<E>
 {
+    // Fixed-capacity storage; only positions below size belong to the collection.
     private final E[] data;
+    // Number of stored elements, independently of the array capacity.
     private int size;
 
     /** The supplied array determines the capacity; a private copy is used. */

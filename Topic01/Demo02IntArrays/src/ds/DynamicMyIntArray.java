@@ -5,7 +5,9 @@ import java.util.Arrays;
 /** An integer sequence with growing backing storage. */
 public final class DynamicMyIntArray extends AbstractMyIntArray
 {
+    // Resizable storage; the first size positions contain the logical elements.
     private int[] data;
+    // Number of elements; data.length is the current capacity.
     private int size;
 
     /** @throws IllegalArgumentException if initialCapacity is negative */

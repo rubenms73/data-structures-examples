@@ -18,8 +18,11 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
 {
     private class Node
     {
+        // Element used as the comparison key at this node.
         E value;
+        // Root of the left subtree, or null if absent.
         Node left;
+        // Root of the right subtree, or null if absent.
         Node right;
 
         Node(E value)
@@ -28,8 +31,11 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
         }
     }
 
+    // Root of the whole tree, or null for an empty tree.
     private Node root;
+    // Number of nodes, including repeated comparison keys.
     private int size;
+    // Search ordering; null selects natural ordering.
     private final Comparator<? super E> order;
 
     public BinarySearchTree()

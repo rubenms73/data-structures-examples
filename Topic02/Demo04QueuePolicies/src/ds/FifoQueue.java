@@ -8,6 +8,7 @@ import java.util.List;
 /** FIFO policy: insert at the end and extract at the beginning. */
 public class FifoQueue<E> extends AbstractQueue<E>
 {
+    // Queue contents in arrival order: remove at index 0, append at the end.
     private final List<E> data = new DoublyLinkedList<>();
 
     public FifoQueue()

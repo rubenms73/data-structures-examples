@@ -7,6 +7,7 @@ import java.util.Iterator;
 /** An equality-based set backed by a list. Null is supported. */
 public class ListSet<E> extends AbstractSet<E>
 {
+    // Distinct elements in insertion order; add prevents equality duplicates.
     private final ArrayList<E> data = new ArrayList<>();
 
     @Override

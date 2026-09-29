@@ -15,7 +15,9 @@ public class MyLinkedList<E> extends AbstractSequentialList<E>
 {
     private class Node
     {
+        // Element stored in this node; it may be null.
         E info;
+        // Successor in the list; null marks the end.
         Node next;
 
         Node(E info)
@@ -31,7 +33,9 @@ public class MyLinkedList<E> extends AbstractSequentialList<E>
         }
     }
 
+    // First node, or null when the list is empty.
     private Node head;
+    // Number of linked nodes; maintained during insertion and removal.
     private int count;
 
     public MyLinkedList()
@@ -83,17 +87,25 @@ public class MyLinkedList<E> extends AbstractSequentialList<E>
     private class MyListIterator implements ListIterator<E>
     {
         // The cursor lies between previousNode and nextNode.
+        // Node to the right of the cursor; null at position size().
         private Node nextNode;
+        // Node to the left of the cursor; null at position 0.
         private Node previousNode;
+        // Node returned by the last successful next() or previous().
         // Null means that neither set nor remove is currently permitted.
         private Node lastReturned;
+        // Index of nextNode, or count at the end; also the cursor position.
         private int nextIndex;
+        // Records which side of the cursor contains lastReturned.
+        // Only meaningful after next() or previous() has succeeded.
         private boolean lastMoveWasNext;
 
         MyListIterator(int index)
         {
             nextNode = head;
             previousNode = null;
+            // Insertion or removal consumes the right to set/remove.
+            // A later next() or previous() establishes a new lastReturned.
             lastReturned = null;
             nextIndex = 0;
             while (nextIndex < index)
@@ -109,6 +121,8 @@ public class MyLinkedList<E> extends AbstractSequentialList<E>
         {
             if (node == head)
                 return null;
+            // A singly linked node cannot reach its predecessor directly.
+            // Walk from head until the next link reaches the target node.
             Node current = head;
             while (current != null && current.next != node)
             {
@@ -176,18 +190,27 @@ public class MyLinkedList<E> extends AbstractSequentialList<E>
             // After previous(), it lies after the cursor.
             if (lastMoveWasNext)
             {
+                // After next(), lastReturned is on the left of the cursor.
+                // Find its predecessor before reconnecting the list.
                 previousNode = predecessor(lastReturned);
                 nextIndex--;
             }
             else
             {
+                // After previous(), lastReturned is on the right of the cursor.
+                // Move the next reference past it; the cursor index does not change.
                 nextNode = lastReturned.next;
             }
+            // Reconnect the predecessor to the successor, or move head
+            // when the removed node has no predecessor.
             if (previousNode == null)
                 head = nextNode;
             else
                 previousNode.next = nextNode;
+            // One node has been detached. The cursor still refers to the same gap.
             count--;
+            // Insertion or removal consumes the right to set/remove.
+            // A later next() or previous() establishes a new lastReturned.
             lastReturned = null;
         }
 
@@ -208,9 +231,13 @@ public class MyLinkedList<E> extends AbstractSequentialList<E>
                 head = newNode;
             else
                 previousNode.next = newNode;
+            // The cursor ends after the inserted element: previous() returns it,
+            // while next() still returns the original successor.
             previousNode = newNode;
             nextIndex++;
             count++;
+            // Insertion or removal consumes the right to set/remove.
+            // A later next() or previous() establishes a new lastReturned.
             lastReturned = null;
         }
     }

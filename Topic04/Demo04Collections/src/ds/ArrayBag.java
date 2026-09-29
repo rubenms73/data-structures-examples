@@ -11,6 +11,7 @@ import java.util.NoSuchElementException;
  */
 public final class ArrayBag<E> extends AbstractCollection<E>
 {
+    // Snapshot storage with no spare positions; its length is the bag size.
     private final E[] data;
 
     /** Copy the element references into independent array storage. */
@@ -41,6 +42,7 @@ public final class ArrayBag<E> extends AbstractCollection<E>
 
     private final class BagIterator implements Iterator<E>
     {
+        // Index of the next element, independent for each iterator.
         private int index;
 
         @Override

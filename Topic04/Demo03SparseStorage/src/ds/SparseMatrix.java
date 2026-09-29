@@ -6,8 +6,11 @@ import java.util.Map;
 /** Sparse rows are created on demand and removed when their last entry vanishes. */
 public class SparseMatrix
 {
+    // Logical row count, including rows with no stored entries.
     private final int rows;
+    // Logical length of every row.
     private final int columns;
+    // Row index to sparse row; rows containing only zeros are omitted.
     private final Map<Integer, SparseVector> data = new HashMap<>();
 
     public SparseMatrix(int rows, int columns)
@@ -45,6 +48,7 @@ public class SparseMatrix
             data.put(row, vector);
         }
         vector.set(column, value);
+        // Dropping an empty row keeps storage proportional to nonzero data.
         if (vector.storedEntries() == 0)
             data.remove(row);
     }

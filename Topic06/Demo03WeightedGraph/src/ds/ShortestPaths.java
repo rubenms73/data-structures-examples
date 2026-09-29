@@ -13,7 +13,9 @@ import java.util.Map;
  */
 public final class ShortestPaths<V>
 {
+    // Final source-to-vertex costs from one search; infinity means unreachable.
     private final Map<V, Double> distances;
+    // Previous vertex on each route; the source has no predecessor.
     private final Map<V, V> predecessors;
 
     // Only the graph constructs results, after completing a successful search.
@@ -58,6 +60,8 @@ public final class ShortestPaths<V>
         V current = target;
         while (current != null)
         {
+            // Follow predecessor links backwards, inserting at the front
+            // so the returned list runs from source to target.
             path.addFirst(current);
             current = predecessors.get(current);
         }

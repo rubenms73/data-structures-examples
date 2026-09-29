@@ -6,6 +6,7 @@ import java.util.Comparator;
 /** Mutable bag kept in comparator order, or natural order when none is supplied. */
 public final class SortedMutableBag<E> extends MutableBag<E>
 {
+    // Ordering used on insertion; null selects the elements' natural ordering.
     private final Comparator<? super E> comparator;
 
     public SortedMutableBag()
@@ -62,6 +63,8 @@ public final class SortedMutableBag<E> extends MutableBag<E>
         {
             position++;
         }
+        // Let the base class grow the array and update its size/version.
+        // Then move the appended item to the sorted insertion position.
         super.add(item);
         System.arraycopy(data, position, data, position + 1, numItems - position - 1);
         data[position] = item;

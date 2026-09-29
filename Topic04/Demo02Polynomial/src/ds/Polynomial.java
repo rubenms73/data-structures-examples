@@ -6,6 +6,7 @@ import java.util.TreeMap;
 /** Sparse polynomial: only nonzero finite coefficients are stored. */
 public class Polynomial
 {
+    // Exponent-to-coefficient mapping; absent exponents have coefficient zero.
     private final TreeMap<Integer, Double> terms = new TreeMap<>();
 
     public Polynomial()
@@ -31,6 +32,7 @@ public class Polynomial
         double result = previous + coefficient;
         if (result == Double.POSITIVE_INFINITY || result == Double.NEGATIVE_INFINITY)
             throw new ArithmeticException("Coefficient overflow");
+        // Cancellation removes the entry, keeping the representation sparse.
         if (result == 0)
             terms.remove(exponent);
         else

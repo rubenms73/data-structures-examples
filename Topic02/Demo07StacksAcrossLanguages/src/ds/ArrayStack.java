@@ -7,7 +7,9 @@ import java.util.NoSuchElementException;
 /** A growing array stack. Null elements are allowed. */
 public class ArrayStack<E> implements Stack<E>
 {
+    // Storage for the stack, with spare capacity after its occupied prefix.
     private E[] data;
+    // Number of elements; the top is at size - 1 when nonempty.
     private int size;
 
     public ArrayStack()
@@ -78,6 +80,7 @@ public class ArrayStack<E> implements Stack<E>
 
     private class StackIterator implements Iterator<E>
     {
+        // Next position to visit, moving downwards from the top of the stack.
         private int position = size - 1;
 
         @Override

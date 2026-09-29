@@ -20,8 +20,11 @@ import java.util.TreeMap;
  */
 public class WeightedGraph<V>
 {
+    // Ordering shared by vertex maps and adjacency maps.
     private final Comparator<? super V> order;
+    // Origin vertex to destination-to-weight map; empty maps retain isolated vertices.
     private final SortedMap<V, SortedMap<V, Double>> edges;
+    // Number of directed arcs across all adjacency maps.
     private int edgeCount;
 
     /** Creates an empty graph using the same ordering for all adjacency maps. */
@@ -136,6 +139,8 @@ public class WeightedGraph<V>
         Map<V, Double> removed = edges.remove(vertex);
         if (removed == null)
             return false;
+        // Removing the outer entry removes outgoing arcs.
+        // Incoming arcs must also be removed from every remaining adjacency map.
         edgeCount -= removed.size();
         for (Map<V, Double> adjacency : edges.values())
         {
@@ -203,7 +208,9 @@ public class WeightedGraph<V>
     // Mutable working state belongs to one search, never to the graph itself.
     private class Search
     {
+        // Best source-to-vertex costs found so far; infinity means not yet reached.
         private final SortedMap<V, Double> distances = new TreeMap<>(order);
+        // Predecessor on each current best path, updated when a shorter path is found.
         private final Map<V, V> previous = new TreeMap<>(order);
 
         private Search(V start)
@@ -255,7 +262,9 @@ public class WeightedGraph<V>
     // Queue priorities are immutable snapshots, not references to mutable distances.
     private class QueueEntry implements Comparable<QueueEntry>
     {
+        // Vertex scheduled for processing by the priority queue.
         private final V vertex;
+        // Cost at insertion time; later improvements create another queue entry.
         private final double distance;
 
         private QueueEntry(V vertex, double distance)
@@ -312,6 +321,7 @@ public class WeightedGraph<V>
         if (candidate >= result.distances.get(edge.getKey()))
             return false;
         result.distances.put(edge.getKey(), candidate);
+        // Remember the improved route, not just its cost, for path reconstruction.
         result.previous.put(edge.getKey(), from);
         return true;
     }

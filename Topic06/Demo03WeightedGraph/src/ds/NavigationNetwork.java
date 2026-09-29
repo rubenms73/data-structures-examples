@@ -17,7 +17,9 @@ import java.util.Set;
  */
 public final class NavigationNetwork
 {
+    // Known localities, including those with no currently usable road.
     private final Set<String> localities = new LinkedHashSet<>();
+    // Road alternatives indexed by unique identifiers, including closed roads.
     private final Map<String, Road> roads = new LinkedHashMap<>();
 
     /** Adds a locality; duplicate names return false. */

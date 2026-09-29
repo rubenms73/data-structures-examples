@@ -6,7 +6,9 @@ import java.util.NoSuchElementException;
 /** Fixed-capacity storage using an ordinary array. */
 public final class FixedMyArray<E> implements MyArray<E>
 {
+    // Fixed-capacity storage; only positions below size belong to the collection.
     private final E[] data;
+    // Number of stored elements, independently of the array capacity.
     private int size;
 
     /** Creates an empty vector with the requested capacity. */
@@ -73,6 +75,7 @@ public final class FixedMyArray<E> implements MyArray<E>
 
     private final class ArrayIterator implements Iterator<E>
     {
+        // Index of the next element returned by this iterator.
         private int current;
 
         @Override

@@ -10,6 +10,7 @@ import java.util.Set;
 /** A small map implemented through its entrySet view. Null keys/values are allowed. */
 public class ListMap<K, V> extends AbstractMap<K, V>
 {
+    // One mutable entry per key. The entrySet view shares this storage.
     private final ArrayList<Map.Entry<K, V>> entries = new ArrayList<>();
 
     @Override
@@ -32,6 +33,8 @@ public class ListMap<K, V> extends AbstractMap<K, V>
     @Override
     public Set<Map.Entry<K, V>> entrySet()
     {
+        // This is a live view, not a copy: iterator removal changes the map.
+        // AbstractMap implements other operations through this view.
         return new EntrySet();
     }
 

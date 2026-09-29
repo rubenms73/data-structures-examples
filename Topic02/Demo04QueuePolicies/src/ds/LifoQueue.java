@@ -8,6 +8,7 @@ import java.util.List;
 /** LIFO policy: insert and extract at the beginning. */
 public class LifoQueue<E> extends AbstractQueue<E>
 {
+    // Stack contents with the newest element at index 0, where removal occurs.
     private final List<E> data = new DoublyLinkedList<>();
 
     public LifoQueue()

@@ -9,8 +9,11 @@ import java.util.NoSuchElementException;
 /** Separate chaining with equality-based buckets; no Comparable requirement. */
 public class ChainedHashSet<E> extends AbstractSet<E>
 {
+    // Each position holds a chain of elements assigned the same bucket index.
     private ArrayList<LinkedList<E>> buckets;
+    // Total element count across all buckets, not the number of buckets.
     private int size;
+    // Maximum average elements per bucket before growing the table.
     private final double loadLimit;
 
     public ChainedHashSet()
@@ -82,6 +85,7 @@ public class ChainedHashSet<E> extends AbstractSet<E>
         {
             for (E value : bucket)
             {
+                // A different capacity changes bucket indices: rehash every element.
                 larger.get(index(value, larger.size())).add(value);
             }
         }
@@ -105,8 +109,11 @@ public class ChainedHashSet<E> extends AbstractSet<E>
 
     private class TableIterator implements Iterator<E>
     {
+        // Index of the bucket currently being traversed.
         private int bucketIndex;
+        // Iterator for the current bucket; hasNext() may replace it.
         private Iterator<E> current = buckets.get(0).iterator();
+        // Bucket iterator that returned the last element, even if current has moved.
         private Iterator<E> lastUsed;
 
         @Override

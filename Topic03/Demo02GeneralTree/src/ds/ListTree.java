@@ -9,7 +9,9 @@ import java.util.NoSuchElementException;
 /** Child subtrees are copied on insertion, so sharing cannot introduce cycles. */
 public class ListTree<E> extends AbstractTree<E> implements Iterable<E>
 {
+    // Element at the root of this subtree.
     private E label;
+    // Ordered child subtrees, each with its own independently copied links.
     private final ArrayList<ListTree<E>> children = new ArrayList<>();
 
     public ListTree(E label)
@@ -70,6 +72,7 @@ public class ListTree<E> extends AbstractTree<E> implements Iterable<E>
 
     private class PreOrderIterator implements Iterator<E>
     {
+        // Stack of subtree roots still to visit; the top is visited next.
         private final Deque<ListTree<E>> pending = new ArrayDeque<>();
 
         PreOrderIterator()

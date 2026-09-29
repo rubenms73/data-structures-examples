@@ -9,9 +9,13 @@ import java.util.NoSuchElementException;
 /** An unordered bag with mutable, array-backed storage. Nulls are rejected. */
 public class MutableBag<E> extends AbstractBag<E>
 {
+    // Smallest allocated array, including for a requested capacity of zero.
     private static final int MIN_CAPACITY = 10;
+    // Storage for the occupied prefix data[0..numItems-1] and spare capacity.
     protected E[] data;
+    // Number of elements in the occupied prefix.
     protected int numItems;
+    // Counts structural changes so iterators can detect changes made elsewhere.
     private int modificationCount;
 
     public MutableBag()
@@ -84,8 +88,12 @@ public class MutableBag<E> extends AbstractBag<E>
 
     private final class BagIterator implements Iterator<E>
     {
+        // Index of the next element to return.
         private int current;
+        // Index eligible for removal; -1 means that next() must be called first.
         private int lastReturned = -1;
+        // Counts structural changes so iterators can detect changes made elsewhere.
+        // Version accepted by this iterator, updated after its own removal.
         private int expectedModificationCount = modificationCount;
 
         private void checkForModification()
@@ -117,12 +125,15 @@ public class MutableBag<E> extends AbstractBag<E>
             checkForModification();
             if (lastReturned < 0)
                 throw new IllegalStateException("Call next before remove");
+            // Close the gap while preserving the order of the remaining elements.
             System.arraycopy(data, lastReturned + 1, data, lastReturned,
                     numItems - lastReturned - 1);
             data[--numItems] = null;
+            // The next unvisited element now occupies the removed position.
             current = lastReturned;
             lastReturned = -1;
             modificationCount++;
+            // Accept this iterator's own change; changes made elsewhere still invalidate it.
             expectedModificationCount = modificationCount;
         }
     }

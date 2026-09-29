@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 /** Structurally immutable snapshot. Element objects themselves are not deep-copied. */
 public final class ImmutableBag<E> extends AbstractBag<E>
 {
+    // Private array containing exactly the stored element references.
     private final Object[] data;
 
     public ImmutableBag()
@@ -66,6 +67,7 @@ public final class ImmutableBag<E> extends AbstractBag<E>
 
     private final class BagIterator implements Iterator<E>
     {
+        // Index of the next element to return from this iterator.
         private int current;
 
         @Override

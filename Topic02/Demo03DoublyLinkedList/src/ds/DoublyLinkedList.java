@@ -15,8 +15,11 @@ public class DoublyLinkedList<E> extends AbstractSequentialList<E>
 {
     private class Node
     {
+        // Element stored in this node; it may be null.
         E info;
+        // Successor in the list; null marks the end.
         Node next;
+        // Predecessor in the list; null marks the beginning.
         Node previous;
 
         Node(E info)
@@ -34,8 +37,11 @@ public class DoublyLinkedList<E> extends AbstractSequentialList<E>
         }
     }
 
+    // First node, or null when the list is empty.
     private Node head;
+    // Last node, or null when empty. Keeping it makes append constant-time.
     private Node tail;
+    // Number of linked nodes; maintained during insertion and removal.
     private int count;
 
     public DoublyLinkedList()
@@ -88,11 +94,17 @@ public class DoublyLinkedList<E> extends AbstractSequentialList<E>
     private class MyListIterator implements ListIterator<E>
     {
         // The cursor lies between previousNode and nextNode.
+        // Node to the right of the cursor; null at position size().
         private Node nextNode;
+        // Node to the left of the cursor; null at position 0.
         private Node previousNode;
+        // Node returned by the last successful next() or previous().
         // Null means that neither set nor remove is currently permitted.
         private Node lastReturned;
+        // Index of nextNode, or count at the end; also the cursor position.
         private int nextIndex;
+        // Records which side of the cursor contains lastReturned.
+        // Only meaningful after next() or previous() has succeeded.
         private boolean lastMoveWasNext;
 
         MyListIterator(int index)
@@ -181,13 +193,19 @@ public class DoublyLinkedList<E> extends AbstractSequentialList<E>
             // After previous(), it lies after the cursor.
             if (lastMoveWasNext)
             {
+                // The removed node was before the cursor; one fewer element
+                // will remain before it, so the cursor index decreases.
                 previousNode = lastReturned.previous;
                 nextIndex--;
             }
             else
             {
+                // The removed node was after the cursor. Change the next node
+                // without changing how many elements precede the cursor.
                 nextNode = lastReturned.next;
             }
+            // Reconnect the predecessor to the successor, or move head
+            // when the removed node has no predecessor.
             if (previousNode == null)
                 head = nextNode;
             else
@@ -197,7 +215,10 @@ public class DoublyLinkedList<E> extends AbstractSequentialList<E>
                 tail = previousNode;
             else
                 nextNode.previous = previousNode;
+            // One node has been detached. The cursor still refers to the same gap.
             count--;
+            // Insertion or removal consumes the right to set/remove.
+            // A later next() or previous() establishes a new lastReturned.
             lastReturned = null;
         }
 
@@ -222,9 +243,13 @@ public class DoublyLinkedList<E> extends AbstractSequentialList<E>
                 tail = newNode;
             else
                 nextNode.previous = newNode;
+            // The cursor ends after the inserted element: previous() returns it,
+            // while next() still returns the original successor.
             previousNode = newNode;
             nextIndex++;
             count++;
+            // Insertion or removal consumes the right to set/remove.
+            // A later next() or previous() establishes a new lastReturned.
             lastReturned = null;
         }
     }

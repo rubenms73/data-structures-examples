@@ -10,7 +10,9 @@ import java.util.TreeSet;
 /** Simple directed graph. The comparator must be consistent with equals. */
 public class Graph<V>
 {
+    // Ordering that makes vertex and neighbour traversal deterministic.
     private final Comparator<? super V> order;
+    // For each vertex, the set of vertices reached by its outgoing arcs.
     private final SortedMap<V, Set<V>> adjacency;
 
     /** Creates an empty graph with deterministic vertex and neighbour order. */

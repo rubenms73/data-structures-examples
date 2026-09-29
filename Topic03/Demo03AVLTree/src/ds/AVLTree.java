@@ -19,9 +19,13 @@ public final class AVLTree<E> implements Iterable<E>
     /** Nodes and links are private: clients cannot break the tree invariants. */
     private final class Node
     {
+        // Element used as the comparison key at this node.
         E value;
+        // Root of the left subtree, or null if absent.
         Node left;
+        // Root of the right subtree, or null if absent.
         Node right;
+        // Cached subtree height in nodes; a newly created leaf has height one.
         int height = 1;
 
         Node(E value)
@@ -30,9 +34,13 @@ public final class AVLTree<E> implements Iterable<E>
         }
     }
 
+    // Ordering used for searching and for detecting equivalent keys.
     private final Comparator<? super E> order;
+    // Root after the latest update or rotation; null means empty.
     private Node root;
+    // Number of distinct comparison keys.
     private int size;
+    // Structural version used to invalidate iterators after updates.
     private int modifications;
 
     /** Creates an empty tree using the supplied total ordering. */
@@ -197,7 +205,10 @@ public final class AVLTree<E> implements Iterable<E>
 
     private final class TreeIterator implements Iterator<E>
     {
+        // Ancestors whose inorder visit is still pending; the next node is on top.
         private final Deque<Node> pending = new ArrayDeque<>();
+        // Structural version used to invalidate iterators after updates.
+        // Structural version captured when this iterator was created.
         private final int expectedModifications = modifications;
 
         TreeIterator()

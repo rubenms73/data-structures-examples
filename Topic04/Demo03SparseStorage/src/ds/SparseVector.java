@@ -6,7 +6,9 @@ import java.util.Map;
 /** Fixed logical length; only nonzero integer entries occupy map positions. */
 public class SparseVector
 {
+    // Logical vector length, including positions whose value is zero.
     private final int length;
+    // Index-to-value mapping containing only nonzero entries.
     private final Map<Integer, Integer> values = new HashMap<>();
 
     public SparseVector(int length)

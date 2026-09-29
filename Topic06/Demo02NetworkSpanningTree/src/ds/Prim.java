@@ -37,8 +37,11 @@ public final class Prim
         if (network == null)
             throw new IllegalArgumentException("Null network");
         int n = network.size();
+        // Whether each vertex already belongs to the growing spanning tree.
         boolean[] selected = new boolean[n];
+        // Cheapest single edge connecting each unselected vertex to the tree.
         long[] cheapest = new long[n];
+        // Tree endpoint of that cheapest edge; -1 means no connection yet.
         int[] parent = new int[n];
         for (int i = 0; i < n; i++)
         {

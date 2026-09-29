@@ -10,7 +10,9 @@ import java.util.ListIterator;
 /** A priority queue backed by a sorted list; smallest elements leave first. */
 public class SortedPriorityQueue<E> extends AbstractQueue<E>
 {
+    // Elements in priority order; index 0 is the next element to leave.
     private final List<E> data = new DoublyLinkedList<>();
+    // Comparison rule; null uses natural ordering. Smaller values leave first.
     private final Comparator<? super E> order;
 
     public SortedPriorityQueue()
@@ -53,6 +55,8 @@ public class SortedPriorityQueue<E> extends AbstractQueue<E>
         {
             if (compare(value, it.next()) < 0)
             {
+                // next() crossed the first larger element. Step back so add()
+                // inserts before it, preserving the sorted order.
                 it.previous();
                 it.add(value);
                 return true;
