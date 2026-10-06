@@ -60,8 +60,12 @@ Each example owns its sources and compiled output. Open examples as separate pro
 
 ```text
 First ten terms: 0 1 1 2 3 5 8 13 21 34
+A fresh iterator starts again; traversal does not consume the sequence.
 Iterator a: 0, 1
 Iterator b starts at: 0
+Independent positions: a.next() = 1; b.next() = 1
+A zero-term sequence hasNext(): false
+Request 94 terms, exceeding the safe long range:
 Rejected: Expected 0 to 93 terms
 ```
 
@@ -84,3 +88,4 @@ The launcher handles its own working directory, paths with spaces and any
 bundled JAR libraries. It uses the included Windows PowerShell 5.1;
 `run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
 remain available when the individual example folder is open.
+

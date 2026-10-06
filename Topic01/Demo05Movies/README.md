@@ -61,17 +61,26 @@ Each example owns its sources and compiled output. Open examples as separate pro
 ## Expected output
 
 ```text
-Natural order: year, then title, then rating
+
+Original arrival order (4 movies):
+  The Last Train (2022, 7.4)
+  Blue Planet (2018, 8.6)
+  A Quiet Harbour (2020, 8.6)
+  Winter Lights (2018, 7.9)
+
+Natural order: year, then title, then rating (4 movies):
   Blue Planet (2018, 8.6)
   Winter Lights (2018, 7.9)
   A Quiet Harbour (2020, 8.6)
   The Last Train (2022, 7.4)
-Rating: highest first
+
+Rating: highest first (4 movies):
   Blue Planet (2018, 8.6)
   A Quiet Harbour (2020, 8.6)
   Winter Lights (2018, 7.9)
   The Last Train (2022, 7.4)
-Title order
+
+Title order (4 movies):
   A Quiet Harbour (2020, 8.6)
   Blue Planet (2018, 8.6)
   The Last Train (2022, 7.4)
@@ -97,3 +106,4 @@ The launcher handles its own working directory, paths with spaces and any
 bundled JAR libraries. It uses the included Windows PowerShell 5.1;
 `run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
 remain available when the individual example folder is open.
+

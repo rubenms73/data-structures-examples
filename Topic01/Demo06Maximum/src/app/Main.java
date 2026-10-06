@@ -12,9 +12,12 @@ public final class Main
         Comparator<String> alphabetical = (a, b) -> a.compareTo(b);
         Comparator<String> byLength =
                 (a, b) -> Integer.compare(a.length(), b.length());
+        System.out.println("Input: " + Arrays.toString(words));
+        System.out.println("The comparator determines what maximum means:");
         System.out.println("Alphabetical maximum: " + Maximum.max(words, alphabetical));
         System.out.println("Longest word: " + Maximum.max(words, byLength));
         System.out.println("Original array: " + Arrays.toString(words));
+        System.out.println("Request maximum of an empty array:");
         try
         {
             Maximum.max(new String[0], byLength);
@@ -25,3 +28,4 @@ public final class Main
         }
     }
 }
+

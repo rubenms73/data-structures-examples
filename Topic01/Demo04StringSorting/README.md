@@ -59,8 +59,11 @@ Each example owns its sources and compiled output. Open examples as separate pro
 
 ```text
 pear.compareTo(banana): 14
+A positive comparison places pear after banana alphabetically.
 Original: [pear, banana, fig]
 Natural order: [banana, fig, pear]
+LengthComparator.compare(pear, banana): -1
+A negative comparison places the shorter word first.
 Length order: [fig, pear, banana]
 ```
 
@@ -83,3 +86,4 @@ The launcher handles its own working directory, paths with spaces and any
 bundled JAR libraries. It uses the included Windows PowerShell 5.1;
 `run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
 remain available when the individual example folder is open.
+

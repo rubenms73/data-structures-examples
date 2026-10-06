@@ -75,6 +75,8 @@ Each example owns its sources and compiled output. Open examples as separate pro
 ## Expected output
 
 ```text
+Source vector: [Ana, Ruben]; size = 2
+Two iterators over the same source keep independent positions:
 hasNext(): true
 hasNext() again: true
 first.next(): Ana
@@ -83,7 +85,9 @@ second.next(): Ana
 first.hasNext(): false
 Next after the end: NoSuchElementException
 A fresh enhanced for loop: Ana Ruben
+Copy of scores: [8, 10]
 Integer vector sum: 18
+After copy.set(0, 99): copy[0] = 99; source[0] = 8
 ```
 
 Commented compilation errors are intentional exercises. Restore each comment before continuing.
@@ -105,3 +109,4 @@ The launcher handles its own working directory, paths with spaces and any
 bundled JAR libraries. It uses the included Windows PowerShell 5.1;
 `run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
 remain available when the individual example folder is open.
+

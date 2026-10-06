@@ -14,10 +14,14 @@ public final class Main
             System.out.print(" " + value);
         }
         System.out.println();
+        System.out.println("A fresh iterator starts again; traversal does not consume the sequence.");
         Iterator<Long> a = sequence.iterator();
         Iterator<Long> b = sequence.iterator();
         System.out.println("Iterator a: " + a.next() + ", " + a.next());
         System.out.println("Iterator b starts at: " + b.next());
+        System.out.println("Independent positions: a.next() = " + a.next() + "; b.next() = " + b.next());
+        System.out.println("A zero-term sequence hasNext(): " + new Fibonacci(0).iterator().hasNext());
+        System.out.println("Request 94 terms, exceeding the safe long range:");
         try
         {
             new Fibonacci(94);
@@ -28,3 +32,4 @@ public final class Main
         }
     }
 }
+

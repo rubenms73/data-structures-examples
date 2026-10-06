@@ -61,13 +61,22 @@ Each example owns its sources and compiled output. Open examples as separate pro
 ## Expected output
 
 ```text
-Fixed: [4, 8, 12]; sum = 24
-Dynamic: [4, 8, 12]; sum = 24
+Both arrays start with capacity 3 and size 0.
+Fill the fixed array:
+  add(4): [4]; size = 1
+  add(8): [4, 8]; size = 2
+  add(12): [4, 8, 12]; size = 3
+Fill the dynamic array:
+  add(4): [4]; size = 1
+  add(8): [4, 8]; size = 2
+  add(12): [4, 8, 12]; size = 3
+Fixed: [4, 8, 12]; size = 3; sum = 24
+Dynamic: [4, 8, 12]; size = 3; sum = 24
 After set(1, 10): [4, 10, 12]
 size = 3, contains(10) = true
 Fixed add(16): IllegalStateException
 Fixed still contains: [4, 10, 12]
-Dynamic after add(16): [4, 8, 12, 16]; sum = 40
+Dynamic after add(16): [4, 8, 12, 16]; size = 4; sum = 40
 ```
 
 Commented compilation errors are intentional exercises. Restore each comment before continuing.
@@ -89,3 +98,4 @@ The launcher handles its own working directory, paths with spaces and any
 bundled JAR libraries. It uses the included Windows PowerShell 5.1;
 `run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
 remain available when the individual example folder is open.
+

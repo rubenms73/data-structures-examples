@@ -58,8 +58,18 @@ Each example owns its sources and compiled output. Open examples as separate pro
 ## Expected output
 
 ```text
+Three implementations of Comparator<String>, all ordering by length:
+
+Named class input: [pear, banana, fig]
+compare(pear, banana): -1
 Named class: [fig, pear, banana]
+
+Anonymous class input: [pear, banana, fig]
+compare(pear, banana): -1
 Anonymous class: [fig, pear, banana]
+
+Lambda input: [pear, banana, fig]
+compare(pear, banana): -1
 Lambda: [fig, pear, banana]
 ```
 
@@ -82,3 +92,4 @@ The launcher handles its own working directory, paths with spaces and any
 bundled JAR libraries. It uses the included Windows PowerShell 5.1;
 `run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
 remain available when the individual example folder is open.
+

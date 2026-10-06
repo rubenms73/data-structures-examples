@@ -22,6 +22,7 @@ public final class Main
         Comparator<String> lambda =
                 (a, b) -> Integer.compare(a.length(), b.length());
 
+        System.out.println("Three implementations of Comparator<String>, all ordering by length:");
         show("Named class", named);
         show("Anonymous class", anonymous);
         show("Lambda", lambda);
@@ -30,7 +31,10 @@ public final class Main
     private static void show(String label, Comparator<? super String> order)
     {
         String[] words = {"pear", "banana", "fig"};
+        System.out.println("\n" + label + " input: " + Arrays.toString(words));
+        System.out.println("compare(pear, banana): " + order.compare("pear", "banana"));
         Arrays.sort(words, order);
         System.out.println(label + ": " + Arrays.toString(words));
     }
 }
+

@@ -14,6 +14,9 @@ public final class Main
         names.add("Ana");
         names.add("Ruben");
 
+        System.out.println("Source vector: [" + names.get(0) + ", " + names.get(1)
+                + "]; size = " + names.size());
+        System.out.println("Two iterators over the same source keep independent positions:");
         Iterator<String> first = names.iterator();
         Iterator<String> second = names.iterator();
         System.out.println("hasNext(): " + first.hasNext());
@@ -43,11 +46,16 @@ public final class Main
         scores.add(10);
         // Copy through the MyArray interface, using its iterator.
         MyArray<Integer> copy = new FixedMyArray<>(scores);
+        System.out.println("Copy of scores: [" + copy.get(0) + ", " + copy.get(1) + "]");
         int sum = 0;
         for (int score : copy)
         {
             sum += score;
         }
         System.out.println("Integer vector sum: " + sum);
+        copy.set(0, 99);
+        System.out.println("After copy.set(0, 99): copy[0] = " + copy.get(0)
+                + "; source[0] = " + scores.get(0));
     }
 }
+

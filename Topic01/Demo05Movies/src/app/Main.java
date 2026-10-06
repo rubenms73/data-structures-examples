@@ -16,6 +16,7 @@ public final class Main
             new Movie("A Quiet Harbour", 2020, 8.6),
             new Movie("Winter Lights", 2018, 7.9)
         };
+        print("Original arrival order", movies);
         Arrays.sort(movies);
         print("Natural order: year, then title, then rating", movies);
 
@@ -29,10 +30,11 @@ public final class Main
 
     private static void print(String heading, Movie[] movies)
     {
-        System.out.println(heading);
+        System.out.println("\n" + heading + " (" + movies.length + " movies):");
         for (Movie movie : movies)
         {
             System.out.println("  " + movie);
         }
     }
 }
+

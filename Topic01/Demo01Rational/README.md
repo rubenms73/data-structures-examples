@@ -59,11 +59,16 @@ Each example owns its sources and compiled output. Open examples as separate pro
 ## Expected output
 
 ```text
-3/4 = 0.75
-3/4 = 0.75
+Same Rational interface, two representations:
+RationalImp1 (two fields): 3/4 = 0.75
+RationalImp2 (array): 3/4 = 0.75
+
+Reference identity versus numeric value:
 r and a refer to the same object: true
 a and b refer to the same object: false
 a and b return the same value: true
+
+Constructing 3/0 violates the denominator invariant:
 Rejected: Zero denominator
 ```
 
@@ -86,3 +91,4 @@ The launcher handles its own working directory, paths with spaces and any
 bundled JAR libraries. It uses the included Windows PowerShell 5.1;
 `run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
 remain available when the individual example folder is open.
+

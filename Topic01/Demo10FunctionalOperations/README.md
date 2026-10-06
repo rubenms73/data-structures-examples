@@ -76,6 +76,9 @@ Predicate.test(5): false
 Supplier.get(): 4
 Function.apply(4): Number 4
 Consumer.accept: Number 4
+
+Input array: [1, 2, 3, 4, 5, 6]
+process(): test each value, transform accepted values, then consume them.
 Even values from an array:
 Consumer.accept: Number 2
 Consumer.accept: Number 4
@@ -83,6 +86,7 @@ Consumer.accept: Number 6
 Values greater than 4, squared:
 Consumer.accept: Square 25
 Consumer.accept: Square 36
+Input after both traversals: [1, 2, 3, 4, 5, 6]
 ```
 
 Commented compilation errors are intentional exercises. Restore each comment before continuing.
@@ -104,3 +108,4 @@ The launcher handles its own working directory, paths with spaces and any
 bundled JAR libraries. It uses the included Windows PowerShell 5.1;
 `run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
 remain available when the individual example folder is open.
+

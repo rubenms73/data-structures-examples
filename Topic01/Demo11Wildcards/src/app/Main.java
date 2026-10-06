@@ -17,11 +17,14 @@ public final class Main
         MyArray<Rectangle> rectangles = new FixedMyArray<>(new Rectangle[2]);
         rectangles.add(new Rectangle(2, 3));
         rectangles.add(new Rectangle(1, 10));
+        System.out.println("Rectangles: areas " + rectangles.get(0).area() + ", " + rectangles.get(1).area());
+        System.out.println("Unbounded wildcard: inspect size without knowing the element type.");
         printCount(rectangles); // MyArray<?> accepts any element type.
         MyArray<String> words = new FixedMyArray<>(new String[2]);
         words.add("pear");
         words.add("fig");
         printCount(words);
+        System.out.println("\n? extends Shape: read shapes from a rectangle array.");
         MyArray<? extends Shape> view = rectangles;
         Shape firstShape = view.get(0);
         System.out.println("Read through ? extends Shape: " + firstShape.area());
@@ -32,6 +35,7 @@ public final class Main
         squares.add(new Square(3));
         System.out.println("Total square area: " + ShapeAlgorithms.totalArea(squares));
 
+        System.out.println("\n? super Rectangle: reuse a comparator that accepts any Shape.");
         Comparator<Shape> byArea = (a, b) -> Double.compare(a.area(), b.area());
         Comparator<? super Rectangle> comparator = byArea;
         System.out.println("Rectangle comparison: " + comparator.compare(rectangles.get(0), rectangles.get(1)));
@@ -44,6 +48,7 @@ public final class Main
         Comparator<? super Rectangle> direct = (a, b) -> Double.compare(a.area(), b.area());
         System.out.println("Direct wildcard lambda: " + direct.compare(rectangles.get(0), rectangles.get(1)));
 
+        System.out.println("\n? super Rectangle: add rectangles and squares to Shape/Object destinations.");
         MyArray<Shape> shapes = new FixedMyArray<>(new Shape[2]);
         addRectangle(shapes);
         MyArray<Object> objects = new FixedMyArray<>(new Object[3]);
@@ -51,6 +56,10 @@ public final class Main
         addRectangle(objects);
         System.out.println("Destination sizes: " + shapes.size() + ", " + objects.size());
         System.out.println("First Object destination element: " + objects.get(0));
+        System.out.println("Added Shape destination areas: " + shapes.get(0).area() + ", " + shapes.get(1).area());
+        System.out.println("Object destination element types: " + objects.get(0).getClass().getSimpleName()
+                + ", " + objects.get(1).getClass().getSimpleName()
+                + ", " + objects.get(2).getClass().getSimpleName());
 
         // Uncomment one line at a time:
         // MyArray<Shape> invalid = rectangles;
@@ -73,3 +82,4 @@ public final class Main
         // destination.add(new Circle(1)); // A circle is not a rectangle.
     }
 }
+

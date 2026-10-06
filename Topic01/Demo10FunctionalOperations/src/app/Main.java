@@ -29,6 +29,8 @@ public final class Main
         print.accept(label.apply(value));
 
         Integer[] numbers = {1, 2, 3, 4, 5, 6};
+        System.out.println("\nInput array: " + java.util.Arrays.toString(numbers));
+        System.out.println("process(): test each value, transform accepted values, then consume them.");
         System.out.println("Even values from an array:");
         FunctionalOperations.process(numbers, even, label, print);
 
@@ -36,5 +38,7 @@ public final class Main
         System.out.println("Values greater than 4, squared:");
         FunctionalOperations.process(numbers, x -> x > 4,
                 x -> "Square " + x * x, print);
+        System.out.println("Input after both traversals: " + java.util.Arrays.toString(numbers));
     }
 }
+

@@ -12,7 +12,10 @@ public final class Main
     {
         MyIntArray fixed = new FixedMyIntArray(3);
         MyIntArray dynamic = new DynamicMyIntArray(3);
+        System.out.println("Both arrays start with capacity 3 and size 0.");
+        System.out.println("Fill the fixed array:");
         fill(fixed);
+        System.out.println("Fill the dynamic array:");
         fill(dynamic);
         show("Fixed", fixed);
         show("Dynamic", dynamic);
@@ -40,14 +43,18 @@ public final class Main
 
     private static void fill(MyIntArray values)
     {
-        values.add(4);
-        values.add(8);
-        values.add(12);
+        for (int value : new int[] {4, 8, 12})
+        {
+            values.add(value);
+            System.out.println("  add(" + value + "): " + ArrayAlgorithms.contents(values)
+                    + "; size = " + values.size());
+        }
     }
 
     private static void show(String label, MyIntArray values)
     {
         System.out.println(label + ": " + ArrayAlgorithms.contents(values)
-                + "; sum = " + ArrayAlgorithms.sum(values));
+                + "; size = " + values.size() + "; sum = " + ArrayAlgorithms.sum(values));
     }
 }
+

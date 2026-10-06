@@ -72,10 +72,22 @@ A word is a maximal sequence of Unicode letters. Punctuation, digits, hyphens an
 Immutable original: [2, -3, 2, 18]
 New immutable bag: [2, -3, 2, 18, 7]
 Without one 2: [-3, 2, 18]
+Original after both immutable operations: [2, -3, 2, 18]; occurrences(2) = 2
+
+Mutable copy before operations: [2, -3, 2, 18]
+add(7): true; contents = [2, -3, 2, 18, 7]
+remove(2): true; contents = [-3, 2, 18, 7]
 Mutable after add and remove: [-3, 2, 18, 7]
+
+Candidate bags: [[100, 2], [2, -3, 2, 18], [18, 2, 2, -3], [-1, 0, 10], [18, 2, -3]]
 Equal bags (same multiplicities): 2
 Sorted: [-3, 2, 2, 18]
 Same bag despite order: true
+Sorting changes iteration order, but preserves multiplicities.
+
+Read words from: text.txt
+Normalisation: lowercase Unicode words; punctuation separates words.
+First 12 words in sorted iteration: a a a a a a a a a abilities accompanied acquiring
 Words: 322
 Occurrences of the: 15
 Occurrences of for: 1
@@ -102,3 +114,4 @@ The launcher handles its own working directory, paths with spaces and any
 bundled JAR libraries. It uses the included Windows PowerShell 5.1;
 `run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
 remain available when the individual example folder is open.
+

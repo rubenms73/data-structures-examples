@@ -67,17 +67,27 @@ Each example owns its sources and compiled output. Open examples as separate pro
 ## Expected output
 
 ```text
+Rectangles: areas 6.0, 10.0
+Unbounded wildcard: inspect size without knowing the element type.
 Count: 2
 Count: 2
+
+? extends Shape: read shapes from a rectangle array.
 Read through ? extends Shape: 6.0
 Total rectangle area: 16.0
 Total square area: 13.0
+
+? super Rectangle: reuse a comparator that accepts any Shape.
 Rectangle comparison: -1
 Largest rectangle area: 10.0
 Largest shape area: 10.0
 Direct wildcard lambda: -1
+
+? super Rectangle: add rectangles and squares to Shape/Object destinations.
 Destination sizes: 2, 3
 First Object destination element: Existing text
+Added Shape destination areas: 6.0, 4.0
+Object destination element types: String, Rectangle, Square
 ```
 
 Commented compilation errors are intentional exercises. Restore each comment before continuing.
@@ -99,3 +109,4 @@ The launcher handles its own working directory, paths with spaces and any
 bundled JAR libraries. It uses the included Windows PowerShell 5.1;
 `run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
 remain available when the individual example folder is open.
+

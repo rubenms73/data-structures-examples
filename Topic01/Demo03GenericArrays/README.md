@@ -61,8 +61,13 @@ Each example owns its sources and compiled output. Open examples as separate pro
 ## Expected output
 
 ```text
+MyArray<String>: Ana, Ruben; size = 2
+MyArray<Integer>: 8, 10; size = 2
+The same generic first() method preserves each element type:
 First name: Ana
 First score: 8
+Object[] contents: [Ana, 8]
+Attempt to cast the Integer at index 1 to String:
 Object[] accepts mixed values; the wrong cast fails at run time.
 ```
 
@@ -85,3 +90,4 @@ The launcher handles its own working directory, paths with spaces and any
 bundled JAR libraries. It uses the included Windows PowerShell 5.1;
 `run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
 remain available when the individual example folder is open.
+

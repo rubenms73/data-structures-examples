@@ -37,10 +37,13 @@ public final class Main
         System.out.println("Immutable original: " + original);
         System.out.println("New immutable bag: " + extended);
         System.out.println("Without one 2: " + original.withoutOne(2));
+        System.out.println("Original after both immutable operations: " + original
+                + "; occurrences(2) = " + original.occurrences(2));
 
         MutableBag<Integer> mutable = new MutableBag<>(original);
-        mutable.add(7);
-        mutable.remove(2);
+        System.out.println("\nMutable copy before operations: " + mutable);
+        System.out.println("add(7): " + mutable.add(7) + "; contents = " + mutable);
+        System.out.println("remove(2): " + mutable.remove(2) + "; contents = " + mutable);
         System.out.println("Mutable after add and remove: " + mutable);
 
         ImmutableBag<Collection<Integer>> bags = new ImmutableBag<>(
@@ -49,16 +52,30 @@ public final class Main
                 new ImmutableBag<>(18, 2, 2, -3),
                 new ImmutableBag<>(-1, 0, 10),
                 new ImmutableBag<>(18, 2, -3));
+        System.out.println("\nCandidate bags: " + bags);
         System.out.println("Equal bags (same multiplicities): " + bags.occurrences(original));
 
         SortedMutableBag<Integer> sorted = new SortedMutableBag<>(original);
         System.out.println("Sorted: " + sorted);
         System.out.println("Same bag despite order: " + original.equals(sorted));
 
+        System.out.println("Sorting changes iteration order, but preserves multiplicities.");
         Path input = Path.of(args.length == 0 ? "text.txt" : args[0]);
         try
         {
             SortedMutableBag<String> words = new SortedMutableBag<>(getWords(input));
+            System.out.println("\nRead words from: " + input);
+            System.out.println("Normalisation: lowercase Unicode words; punctuation separates words.");
+            System.out.print("First 12 words in sorted iteration:");
+            int shown = 0;
+            for (String word : words)
+            {
+                if (shown == 12)
+                    break;
+                System.out.print(" " + word);
+                shown++;
+            }
+            System.out.println();
             System.out.println("Words: " + words.size());
             System.out.println("Occurrences of the: " + words.occurrences("the"));
             System.out.println("Occurrences of for: " + words.occurrences("for"));
@@ -70,3 +87,4 @@ public final class Main
         }
     }
 }
+

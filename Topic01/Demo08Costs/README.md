@@ -58,9 +58,13 @@ Each example owns its sources and compiled output. Open examples as separate pro
 ## Expected output
 
 ```text
+Sum arrays filled with ones; count additions rather than elapsed time:
 n = 4: sum = 4, additions = 4
 n = 8: sum = 8, additions = 8
 n = 16: sum = 16, additions = 16
+Doubling n doubles the additions: linear work, O(n).
+Input for direct access: [A, B, C, D, E]
+Middle index: 2
 Array middle: C
 Array middle: direct access, O(1).
 ```
@@ -84,3 +88,4 @@ The launcher handles its own working directory, paths with spaces and any
 bundled JAR libraries. It uses the included Windows PowerShell 5.1;
 `run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
 remain available when the individual example folder is open.
+
