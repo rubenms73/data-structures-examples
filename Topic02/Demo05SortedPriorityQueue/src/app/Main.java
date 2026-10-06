@@ -10,6 +10,7 @@ public final class Main
     public static void main(String[] args)
     {
         demonstrate("Natural order: smallest value leaves first", new SortedPriorityQueue<>());
+        System.out.println();
         demonstrate("Reverse comparator: largest value leaves first",
                 new SortedPriorityQueue<>(Comparator.reverseOrder()));
     }
@@ -31,6 +32,5 @@ public final class Main
                     + "; size = " + queue.size());
         }
         System.out.println("Empty peek(): " + queue.peek() + "; empty poll(): " + queue.poll());
-        System.out.println();
     }
 }
