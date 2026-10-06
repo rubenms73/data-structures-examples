@@ -64,6 +64,14 @@ public class ExampleChecks
         check(stack.pop() == 3);
         check(stack.pop() == null);
         check(stack.pop() == 1 && stack.isEmpty());
+        stack.push(2);
+        stack.push(2);
+        Iterator<Integer> first = stack.iterator();
+        Iterator<Integer> second = stack.iterator();
+        check(first.next() == 2 && first.next() == 2);
+        check(!first.hasNext() && second.next() == 2 && second.hasNext());
+        expect(NoSuchElementException.class, first::next);
+        check(stack.size() == 2 && stack.pop() == 2 && stack.pop() == 2);
         for (int cycle = 0; cycle < 100; cycle++)
         {
             for (int value = 0; value < 3; value++)

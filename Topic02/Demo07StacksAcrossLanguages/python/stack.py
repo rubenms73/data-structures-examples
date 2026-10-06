@@ -73,7 +73,6 @@ class ArrayStack(Stack[T]):
         return len(self._data) == 0
 
     def __iter__(self) -> Iterator[T]:
-        # Like C# yield return, yield suspends this loop after each element.
-        # Each call creates its own generator and therefore its own index.
-        for index in range(len(self._data) - 1, -1, -1):
-            yield self._data[index]
+        # The built-in reverse iterator starts at the list's last element (the top).
+        # It does not copy or consume the list; each call has independent state.
+        return reversed(self._data)

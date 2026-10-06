@@ -64,7 +64,8 @@ namespace StackExample
             return size == 0;
         }
 
-        // The compiler creates the enumerator state machine from yield return.
+        // IEnumerable<T> is C#'s native foreach protocol. yield return lets the
+        // compiler generate the IEnumerator<T> state machine for this traversal.
         // Do not modify the stack while traversing it.
         public IEnumerator<T> GetEnumerator()
         {

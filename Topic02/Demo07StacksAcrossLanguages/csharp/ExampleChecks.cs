@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace StackExample
 {
@@ -49,6 +50,20 @@ namespace StackExample
                 Check(value == expected--);
             }
             Check(expected == -1);
+            // Native enumerators maintain independent positions and are disposable.
+            using (IEnumerator<int> first = stack.GetEnumerator())
+            using (IEnumerator<int> second = stack.GetEnumerator())
+            {
+                Check(first.MoveNext() && first.Current == 99);
+                Check(first.MoveNext() && first.Current == 98);
+                Check(second.MoveNext() && second.Current == 99);
+                int remaining = 97;
+                while (first.MoveNext())
+                {
+                    Check(first.Current == remaining--);
+                }
+                Check(remaining == -1 && !first.MoveNext() && stack.Size() == 100);
+            }
             for (int value = 99; value >= 0; value--)
             {
                 Check(stack.Pop() == value);
@@ -56,6 +71,15 @@ namespace StackExample
             Check(stack.IsEmpty());
             stack.Push(7);
             Check(stack.Pop() == 7);
+            stack.Push(2);
+            stack.Push(2);
+            int duplicates = 0;
+            foreach (int value in stack)
+            {
+                Check(value == 2);
+                duplicates++;
+            }
+            Check(duplicates == 2 && stack.Pop() == 2 && stack.Pop() == 2);
             ArrayStack<string> words = new ArrayStack<string>();
             words.Push("first");
             words.Push(null);

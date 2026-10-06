@@ -13,14 +13,13 @@ int main()
     std::cout << "Size: " << stack.size() << '\n';
     std::cout << "Top: " << stack.peek() << '\n';
     std::cout << "Traversal:";
-    std::unique_ptr<Iterator<int>> iterator = stack.iterator();
-    while (iterator->hasNext())
+    // Range-based for uses begin/end, dereferencing and incrementing STL iterators.
+    // The concrete storage supplies traversal; Stack<int>& supplies ADT operations.
+    for (const auto& value : storage)
     {
-        std::cout << " " << iterator->next();
+        std::cout << " " << value;
     }
     std::cout << '\n';
-    // End the traversal before modifying the stack.
-    iterator.reset();
     while (!stack.isEmpty())
     {
         std::cout << "Pop: " << stack.pop() << '\n';

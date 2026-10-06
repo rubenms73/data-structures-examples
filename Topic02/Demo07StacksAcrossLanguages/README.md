@@ -18,8 +18,8 @@ Topic 2's stack contract. Read “Stacks: last in, first out” and “Choosing 
 of a stack” in the presentation before running this example.
 
 The optional C++ version uses templates, references, pure virtual functions,
-a nested class and automatic resource management. The C# and Python versions
-introduce generator-based iteration. Their details are explained below.
+STL iterators and automatic resource management. C# uses compiler-generated
+enumerators; Python uses its built-in reverse iterator. Their details are explained below.
 
 ## Common behaviour
 
@@ -43,7 +43,7 @@ changing membership. Each traversal has its own state. Insertion can grow storag
 | Empty pop / peek | `NoSuchElementException` | `std::underflow_error` | `InvalidOperationException` | `IndexError` |
 | Capacity parameter | Default 10; nonnegative initial capacity | Managed by list | Default 10; nonnegative initial capacity | Managed by list |
 | Growth | Double the array, or grow zero to one | Allocate another node | Double the array, or grow zero to one | List manages its capacity |
-| Traversal implementation | Private inner iterator | Private nested iterator; also standard range iteration | `yield return` | `yield` |
+| Traversal implementation | `Iterable<E>` / `Iterator<E>` and enhanced for | STL `const_iterator`, `begin/end` and range-based for | `IEnumerable<T>`, `IEnumerator<T>` and `yield return` | `__iter__` delegates to `reversed(list)` |
 | Type checking | Static, with erased generic parameters | Static, with template instantiation | Static, with runtime generic type information | Dynamic; annotations support separate static analysis |
 
 Capacity policy is now aligned: Java's historical fixed-capacity implementation
@@ -72,12 +72,12 @@ stays private, and element access needs no further cast.
 one element and decreases that position. Exhaustion throws
 `NoSuchElementException`. The default iterator `remove` is unsupported.
 
-## C++: nested iterator and value semantics
+## C++: STL iteration and value semantics
 
-`Stack<T>` declares pure virtual operations and a virtual destructor.
+`Stack<T>` declares pure virtual stack operations and a virtual destructor.
 `ListStack<T>` uses the front of `std::list<T>` as the top. The client creates
-an automatic local object and refers to it through `Stack<int>&` to demonstrate
-virtual dispatch. The list manages its nodes without explicit new/delete.
+an automatic local object and refers to it through `Stack<int>&` for ADT operations.
+The list manages its nodes without explicit new/delete.
 
 `push(const T&)` avoids a parameter copy but storing the element still copies
 it into a node. `peek() const` returns `const T&`, avoiding a copy and preventing
@@ -85,20 +85,11 @@ assignment through that reference. `pop` copies the value before destroying its
 node. This teaching version requires copyable element types; it does not cover
 move-only values or strong exception guarantees for throwing element copies.
 
-The new `Iterator<T>` course interface declares `hasNext` and `next`, mirroring
-the Java protocol. `Stack<T>::iterator()` returns a
-`std::unique_ptr<Iterator<T>>`. This owning pointer destroys the traversal object
-automatically and allows clients to traverse through the abstract stack type.
-It owns the iterator, not the stack or its elements.
-
-The private nested `StackIterator` holds two `std::list<T>::const_iterator`
-positions: the next element and the end. `hasNext` compares the positions.
-`next` checks exhaustion, dereferences the position, advances it and returns a
-constant reference. Exhaustion throws `std::out_of_range`. The `typename`
-keyword identifies a nested type whose meaning depends on template parameter T.
-
-This course iterator is not an STL iterator. For idiomatic C++ traversal, the
-concrete `ListStack<T>` also exposes const `begin()` and `end()`:
+Traversal uses the STL protocol directly. `ListStack<T>::const_iterator` is an
+alias for `std::list<T>::const_iterator`; `typename` identifies a nested type
+whose meaning depends on template parameter T. `begin()` refers to the top,
+and `end()` is the position past the bottom. The const iterator permits reading
+values without modifying them. `cbegin()` and `cend()` expose the same read-only pair.
 
 ```cpp
 for (const auto& value : storage)
@@ -107,9 +98,23 @@ for (const auto& value : storage)
 }
 ```
 
-Both forms traverse top to bottom. The simple mutation rule is the same as in
-the other versions: do not change the stack during traversal. The C++ stack
-must also outlive its iterators and any references returned by peek/next.
+The range-based loop uses `begin/end`, compares positions, dereferences with `*`
+and advances with `++`. Standard algorithms work with the same pair:
+
+```cpp
+int total = std::accumulate(storage.begin(), storage.end(), 0);
+```
+
+Include `<numeric>` for `std::accumulate`. There is no separate `hasNext/next`
+interface or heap-allocated traversal object. Reaching `end()` indicates
+exhaustion; dereferencing `end()` is invalid, not an operation that throws an
+exhaustion exception. Each copied iterator has an independent traversal position.
+
+Traversal belongs to the concrete iterable container; the abstract `Stack<T>`
+keeps only the ADT operations. This permits standard iterator types without
+coupling every stack implementation to a particular STL storage type.
+Do not change the stack during traversal. The stack must outlive its iterators
+and references returned by `peek()` or iterator dereferencing.
 
 Copying a C++ stack copies its list nodes and values according to T's copy
 semantics. Its container storage is independent. If T is a pointer, copying it
@@ -157,12 +162,13 @@ allocation to it. `append` inserts at the end, `pop` removes that end, and index
 `-1` observes it. A simple conditional rejects empty access. This keeps attention
 on the ADT rather than reproducing Python's internal memory management.
 
-`__iter__` creates a generator. `yield` returns one value and suspends the
-backward loop, much like C#'s `yield return`. `iter(stack)` obtains an iterator,
-`next(iterator)` advances it, and exhaustion raises `StopIteration`.
-Python's `for` loop handles that signal automatically. Each generator has an
-independent index. None is a valid value when the chosen annotation permits it,
-for example `ArrayStack[int | None]`; it does not mark exhaustion.
+`__iter__` returns `reversed(self._data)`, Python's built-in reverse iterator.
+It starts at the last list element, which is the top, without copying or removing
+elements. Each call creates an independent iterator. `iter(stack)` obtains it;
+`next(iterator)` advances it, and exhaustion raises `StopIteration`. Python's
+`for` loop handles that signal automatically. None is a valid value when the
+chosen annotation permits it, for example `ArrayStack[int | None]`; it does not
+mark exhaustion.
 
 ## Mutation and copying
 
@@ -248,23 +254,28 @@ Size: 0
 Traversal leaves all three elements in place; the following pops prove that it
 does not consume the stack. Tests also cover empty access, duplicates, multiple
 insertions/removals, reuse, independent traversals and exhaustion. Java and C#
-add explicit zero/negative capacity cases. C++ checks both iterator protocols
+add explicit zero/negative capacity cases. C++ checks range-based traversal, standard algorithms
 and independent container copies. Python checks None, zero and shared objects.
 
 ## Validation of this revision
 
-Compiled and executed with Java 17, GCC in C++17 mode and Mono C# 6.8. Python
-behaviour tests run with the installed Python interpreter, and all three Python
-source files pass `mypy --strict`. All four main programs
-produce the output above. The .NET project is supplied for SDK users; C# runtime
-validation uses Mono rather than .NET 8.
+Validated with Java 17, GCC in C++17 mode, Mono C# 6.8 and Python 3.12.
+All four main programs produce the output above, and all four behaviour suites
+pass. Java and C++ compile with all configured warnings treated as errors;
+C# validation uses the Mono runner rather than the .NET 8 SDK.
+
+Java and C++ checks cover independent native iterators, exhaustion and unchanged
+membership after traversal. C++ additionally exercises `std::distance`,
+`std::accumulate`, `std::find` and `std::count`. C# checks both generic and
+nongeneric enumeration, independent disposable enumerators and exhaustion.
+Python's standard-library unittest suite checks its built-in reverse traversal.
 
 ## Experiments
 
 1. Push a duplicate and verify that both occurrences appear in iteration and pops.
 2. Create two iterators and advance only one. Observe their independent positions.
-3. Compare Java's explicit index with the C#/Python suspended loops and the C++
-   nested iterator's stored list positions.
+3. Compare Java's explicit iterator index, C#'s generated enumerator, C++'s STL
+   iterator operations and Python's built-in reverse iterator.
 4. Copy a C++ stack, then pop the copy. Compare with assigning a second variable
    to the same Java, C# or Python object.
 5. Ask a Python static analyzer to check a deliberately incorrect push, then
@@ -304,3 +315,10 @@ C++ requires a C++17 compiler: use a Visual Studio Developer terminal with
 executable, such as `clang++`. C# requires the .NET 8 SDK. Python requires
 Python 3.10 or newer; the launcher chooses `py -3`, then `python`. These tools
 are only needed for their optional language version.
+
+## Native iteration references
+
+- Java Iterable: https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html
+- C++ range-based for: https://eel.is/c++draft/stmt.ranged
+- C# yield: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/yield
+- Python reversed: https://docs.python.org/3/library/functions.html#reversed

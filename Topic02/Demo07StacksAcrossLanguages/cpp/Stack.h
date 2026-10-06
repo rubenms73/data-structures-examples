@@ -2,10 +2,9 @@
 #define STACK_H
 
 #include <cstddef>
-#include <memory>
-#include "Iterator.h"
 
 // A template describes a family of stack interfaces, one for each element type.
+// Traversal uses the concrete container's STL iterators, not a Java-style API.
 template <class T>
 class Stack
 {
@@ -16,8 +15,6 @@ public:
     virtual const T& peek() const = 0;
     virtual std::size_t size() const = 0;
     virtual bool isEmpty() const = 0;
-    // The caller owns the traversal object; the stack retains its elements.
-    virtual std::unique_ptr<Iterator<T>> iterator() const = 0;
 };
 
 #endif

@@ -71,7 +71,10 @@ public class ArrayStack<E> implements Stack<E>
         return size == 0;
     }
 
-    /** Do not modify the stack while traversing it. Removal is unsupported. */
+    /**
+     * Iterable/Iterator is Java's standard enhanced-for protocol.
+     * Do not modify the stack while traversing it. Removal is unsupported.
+     */
     @Override
     public Iterator<E> iterator()
     {

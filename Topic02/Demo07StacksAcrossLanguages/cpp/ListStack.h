@@ -13,35 +13,11 @@ class ListStack : public Stack<T>
 private:
     std::list<T> data;
 
-    // A nested class keeps traversal state separate from the stack itself.
-    class StackIterator : public Iterator<T>
-    {
-    private:
-        typename std::list<T>::const_iterator current;
-        typename std::list<T>::const_iterator finish;
-
-    public:
-        explicit StackIterator(const std::list<T>& source)
-            : current(source.cbegin()), finish(source.cend())
-        {
-        }
-
-        bool hasNext() const override
-        {
-            return current != finish;
-        }
-
-        const T& next() override
-        {
-            if (!hasNext())
-                throw std::out_of_range("Iterator is exhausted");
-            const T& item = *current;
-            ++current;
-            return item;
-        }
-    };
-
 public:
+    // Reuse the STL iterator type. typename marks a type dependent on T.
+    // A const iterator permits reading elements without modifying their values.
+    using const_iterator = typename std::list<T>::const_iterator;
+
     void push(const T& item) override
     {
         data.push_front(item);
@@ -70,27 +46,32 @@ public:
         return data.size();
     }
 
-    // Do not change or destroy the stack while this iterator is in use.
-    std::unique_ptr<Iterator<T>> iterator() const override
+    bool isEmpty() const override
     {
-        return std::make_unique<StackIterator>(data);
+        return data.empty();
     }
 
-    // Standard C++ traversal is available on the concrete class as well.
-    // const_iterator prevents changing stored values through the traversal.
-    typename std::list<T>::const_iterator begin() const
+    // The standard pair supports range-based for and STL algorithms.
+    // begin denotes the top; end denotes the position past the bottom.
+    // Iterators do not own storage: keep the stack alive and unchanged in a traversal.
+    const_iterator begin() const noexcept
     {
         return data.cbegin();
     }
 
-    typename std::list<T>::const_iterator end() const
+    const_iterator end() const noexcept
     {
         return data.cend();
     }
 
-    bool isEmpty() const override
+    const_iterator cbegin() const noexcept
     {
-        return data.empty();
+        return begin();
+    }
+
+    const_iterator cend() const noexcept
+    {
+        return end();
     }
 };
 
