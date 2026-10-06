@@ -44,9 +44,24 @@ leaves the structure unchanged. Compare the representation with its public contr
 ## Expected output
 
 ```text
-Length: 1000000; stored: 1
-Entry: 12
-Stored rows after clearing entry: 0
+1. Logical length and stored entries are different
+Initial vector: length = 1000000; stored entries = 0
+Unset get(123): 0
+set(999999, 7): stored entries = 1; logical length = 1000000
+set(3, -2): stored entries = 2; logical length = 1000000
+set(999999, 9): replacing a value: stored entries = 2; logical length = 1000000
+set(999999, 0): remove its stored entry: stored entries = 1; logical length = 1000000
+get(999999) after removal: 0
+
+2. A 1000 x 1000 matrix stores only nonempty rows
+Initial stored rows: 0
+Unset get(5, 9): 0
+set(5, 9, 12): value = 12; stored rows = 1
+set(5, 10, 4): stored rows = 1
+set(8, 2, -3): stored rows = 2
+Clear (5, 9): stored rows = 2; row 5 still contains (5, 10) = 4
+Clear last entry of row 5: stored rows = 1
+Clear last entry of row 8: stored rows = 0
 ```
 
 ## Windows

@@ -48,9 +48,20 @@ leaves the structure unchanged. Compare the representation with its public contr
 ## Expected output
 
 ```text
-First: {0=1.0, 2=3.0}
-Sum: {0=1.0, 1=2.0}
-Sum at 2: 5.0
+Sparse notation: {exponent=coefficient}; absent exponents have coefficient zero.
+Initial polynomial: {}; degree = -1
+addTerm(2, 3), previous coefficient: 0.0; first = {2=3.0}
+addTerm(0, 1), previous coefficient: 0.0; first = {0=1.0, 2=3.0}
+First: {0=1.0, 2=3.0}; degree = 2
+Second: {1=2.0, 2=-3.0}; degree = 2
+
+Sum: {0=1.0, 1=2.0}; degree = 1
+Coefficient of x^2 after cancellation: 0.0
+Operands after plus(): first = {0=1.0, 2=3.0}; second = {1=2.0, 2=-3.0}
+At x = 2: first = 13.0; second = -8.0; sum = 5.0
+sum.addTerm(1, -2), previous coefficient: 2.0; sum = {0=1.0}
+sum.addTerm(0, -1), previous coefficient: 1.0; sum = {}; degree = -1
+Zero polynomial at x = 2: 0.0
 ```
 
 ## Windows

@@ -45,9 +45,27 @@ leaves the structure unchanged. Compare the representation with its public contr
 ## Expected output
 
 ```text
-Set: [A, B]
-Previous: 1
-Map after view removal: {A=2}
+1. A set stores each distinct element once
+Initial: []; size = 0
+add(A): true; set = [A]; size = 1
+add(A): false; set = [A]; size = 1
+add(B): true; set = [A, B]; size = 2
+contains(A): true; contains(X): false
+remove(A): true; set = [B]
+remove(A) again: false; set = [B]
+
+2. A map associates one value with each key
+put(A, 1), previous value: null; map = {A=1}
+put(A, 2), previous value: 1; map = {A=2}; size = 1
+put(B, 3), previous value: null; map = {A=2, B=3}
+get(A): 2; get(X): null
+
+3. Collection views are connected to the map
+Keys: [A, B]; values: [2, 3]; entries: [A=2, B=3]
+keys.remove(B): true; map = {A=2}
+put(C, 4): map = {A=2, C=4}; existing key view = [A, C]
+values().remove(2): true; map = {C=4}
+clear(): map = {}; existing key view = []
 ```
 
 ## Windows

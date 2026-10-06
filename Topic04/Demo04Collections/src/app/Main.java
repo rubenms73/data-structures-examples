@@ -14,9 +14,14 @@ public final class Main
         Collection<String> set = new LinkedHashSet<>(list);
         print("List", list);
         print("Set", set);
+        System.out.println("Same arrivals: list size = " + list.size() + "; set size = " + set.size());
+        System.out.println("list.add(pear): " + list.add("pear") + "; list = " + list);
+        System.out.println("set.add(pear): " + set.add("pear") + "; set = " + set);
 
         ArrayBag<String> bag = new ArrayBag<>(list);
+        System.out.println("Bag copied from the list: " + bag + "; size = " + bag.size());
         list.clear();
+        System.out.println("Source after clear(): " + list + "; size = " + list.size());
         print("Bag after clearing its source", bag);
         System.out.println("Inherited contains(fig): " + bag.contains("fig"));
         System.out.println("Inherited isEmpty(): " + bag.isEmpty());
@@ -27,6 +32,7 @@ public final class Main
         catch (UnsupportedOperationException e)
         {
             System.out.println("Adding to the bag: " + e.getClass().getSimpleName());
+            System.out.println("Bag after rejected add: " + bag + "; size = " + bag.size());
         }
     }
 
@@ -40,3 +46,4 @@ public final class Main
         System.out.println();
     }
 }
+

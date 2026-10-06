@@ -102,10 +102,16 @@ insertion/removal. They also exercise inherited conversion and membership method
 ```text
 List: pear fig pear
 Set: pear fig
-Bag after clearing its source: pear fig pear
+Same arrivals: list size = 3; set size = 2
+list.add(pear): true; list = [pear, fig, pear, pear]
+set.add(pear): false; set = [pear, fig]
+Bag copied from the list: [pear, fig, pear, pear]; size = 4
+Source after clear(): []; size = 0
+Bag after clearing its source: pear fig pear pear
 Inherited contains(fig): true
 Inherited isEmpty(): false
 Adding to the bag: UnsupportedOperationException
+Bag after rejected add: [pear, fig, pear, pear]; size = 4
 ```
 
 ## Experiments
