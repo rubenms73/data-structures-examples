@@ -242,13 +242,17 @@ other language runners are separate.
 ## Expected output in every language
 
 ```text
-Size: 3
-Top: 3
-Traversal: 3 2 1
-Pop: 3
-Pop: 2
-Pop: 1
-Size: 0
+Initial stack: size = 0; empty = true
+push(1): size = 1; top = 1
+push(2): size = 2; top = 2
+push(3): size = 3; top = 3
+Traversal from top to bottom: 3 2 1
+After traversal: size = 3; top = 3
+pop(): 3; size = 2; top = 2
+pop(): 2; size = 1; top = 1
+pop(): 1; size = 0; top = (empty)
+Reuse with push(9): size = 1; top = 9
+pop(): 9; size = 0; top = (empty)
 ```
 
 Traversal leaves all three elements in place; the following pops prove that it

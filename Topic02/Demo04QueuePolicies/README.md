@@ -61,12 +61,56 @@ leaves the structure unchanged. Compare the representation with its public contr
 ## Expected output
 
 ```text
-FIFO iteration: [1, 2, 3]
-LIFO iteration: [3, 2, 1]
-FIFO/LIFO: 1/3
-FIFO/LIFO: 2/2
-FIFO/LIFO: 3/1
-Empty poll: null
+1. Same arrivals, different insertion policies
+  FIFO: []; size = 0
+  LIFO: []; size = 0
+offer(1) to both queues:
+  FIFO: [1]; size = 1
+  LIFO: [1]; size = 1
+offer(2) to both queues:
+  FIFO: [1, 2]; size = 2
+  LIFO: [2, 1]; size = 2
+offer(3) to both queues:
+  FIFO: [1, 2, 3]; size = 3
+  LIFO: [3, 2, 1]; size = 3
+
+2. Inspect and traverse without removing
+FIFO peek(), oldest arrival: 1
+LIFO peek(), newest arrival: 3
+FIFO for-each: 1 2 3
+LIFO for-each: 3 2 1
+After inspection and traversal:
+  FIFO: [1, 2, 3]; size = 3
+  LIFO: [3, 2, 1]; size = 3
+
+3. Extract, then accept a new arrival
+FIFO remove(): 1; remaining = [2, 3]
+LIFO remove(): 3; remaining = [2, 1]
+offer(4) to both queues:
+  FIFO: [2, 3, 4]; size = 3
+  LIFO: [4, 2, 1]; size = 3
+FIFO remove(): 2; remaining = [3, 4]
+LIFO remove(): 4; remaining = [2, 1]
+FIFO remove(): 3; remaining = [4]
+LIFO remove(): 2; remaining = [1]
+FIFO remove(): 4; remaining = []
+LIFO remove(): 1; remaining = []
+
+4. Empty queues: special values and exceptions
+FIFO peek(): null; poll(): null
+FIFO element(): NoSuchElementException
+FIFO remove(): NoSuchElementException
+FIFO offer(null): NullPointerException; contents = []
+LIFO peek(): null; poll(): null
+LIFO element(): NoSuchElementException
+LIFO remove(): NoSuchElementException
+LIFO offer(null): NullPointerException; contents = []
+add(9): both queues can be reused
+  FIFO: [9]; size = 1
+  LIFO: [9]; size = 1
+clear():
+  FIFO: []; size = 0
+  LIFO: []; size = 0
 ```
 
 ## Windows

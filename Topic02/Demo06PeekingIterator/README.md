@@ -44,9 +44,24 @@ leaves the structure unchanged. Compare the representation with its public contr
 ## Expected output
 
 ```text
-Peek: A; next: A
-Peek: null; next: null
-Peek: B; next: B
+Source: [A, null, B]
+Repeated peek() keeps the same cached element:
+hasNext(): true
+  First peek(): A
+  Second peek(): A
+  next(), consuming that element: A
+hasNext(): true
+  First peek(): null
+  Second peek(): null
+  next(), consuming that element: null
+hasNext(): true
+  First peek(): B
+  Second peek(): B
+  next(), consuming that element: B
+After traversal, hasNext(): false
+Exhausted peek(): NoSuchElementException
+Exhausted next(): NoSuchElementException
+Source after traversal: [A, null, B]
 ```
 
 ## Windows

@@ -60,13 +60,29 @@ leaves the structure unchanged. Compare the representation with its public contr
 ## Expected output
 
 ```text
-A
-B
-C
-After iterator removal and append: [A, B, D]
-Contains B: true
-After inherited remove: [A, D]
-Empty after inherited clear: true
+Initial collection: []; size = 0
+add(A): [A]; size = 1
+add(B): [A, B]; size = 2
+add(C): [A, B, C]; size = 3
+
+Traversal with for-each:
+Visit: A
+Visit: B
+Visit: C
+After traversal: [A, B, C]
+
+Remove C through the iterator:
+next(): A
+next(): B
+next(): C
+iterator.remove(): [A, B]
+add(D), reusing the tail after removal: [A, B, D]
+
+Inherited Collection operations:
+contains(B): true
+remove(B): true; contents = [A, D]
+remove(X): false; contents = [A, D]
+clear(): []; size = 0; empty = true
 ```
 
 ## Windows

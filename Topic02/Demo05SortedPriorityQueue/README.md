@@ -56,11 +56,31 @@ leaves the structure unchanged. Compare the representation with its public contr
 ## Expected output
 
 ```text
-Sorted: [2, 2, 5, 7]
-Extract: 2
-Extract: 2
-Extract: 5
-Extract: 7
+Natural order: smallest value leaves first
+Initial: []; size = 0
+offer(7): [7]; size = 1
+offer(2): [2, 7]; size = 2
+offer(5): [2, 5, 7]; size = 3
+offer(2): [2, 2, 5, 7]; size = 4
+peek(): 2; contents unchanged = [2, 2, 5, 7]
+remove(): 2; remaining = [2, 5, 7]; size = 3
+remove(): 2; remaining = [5, 7]; size = 2
+remove(): 5; remaining = [7]; size = 1
+remove(): 7; remaining = []; size = 0
+Empty peek(): null; empty poll(): null
+
+Reverse comparator: largest value leaves first
+Initial: []; size = 0
+offer(7): [7]; size = 1
+offer(2): [7, 2]; size = 2
+offer(5): [7, 5, 2]; size = 3
+offer(2): [7, 5, 2, 2]; size = 4
+peek(): 7; contents unchanged = [7, 5, 2, 2]
+remove(): 7; remaining = [5, 2, 2]; size = 3
+remove(): 5; remaining = [2, 2]; size = 2
+remove(): 2; remaining = [2]; size = 1
+remove(): 2; remaining = []; size = 0
+Empty peek(): null; empty poll(): null
 ```
 
 ## Windows

@@ -86,16 +86,31 @@ LinkedList, including return values, exceptions, contents and cursor positions.
 ## Expected output
 
 ```text
-Initial: [1, 2, 3]
-Insert at start: [0, 1, 2, 3]
-Next: 1
-Remove after next: [0, 2, 3]
-Previous: 0
-Set after previous: [10, 2, 3]
-Remove after previous: [2, 3]
-Independent copy: [2.5, 3]
-Original: [2, 3]
-Inherited clear: []
+Initial list and cursor: [1, 2, 3]; size = 3
+  Cursor: previousIndex = -1, nextIndex = 0, hasPrevious = false, hasNext = true
+iterator.add(0): insert before the cursor: [0, 1, 2, 3]; size = 4
+  Cursor: previousIndex = 0, nextIndex = 1, hasPrevious = true, hasNext = true
+next(): 1
+After moving forwards: [0, 1, 2, 3]; size = 4
+  Cursor: previousIndex = 1, nextIndex = 2, hasPrevious = true, hasNext = true
+remove(): delete the element returned by next(): [0, 2, 3]; size = 3
+  Cursor: previousIndex = 0, nextIndex = 1, hasPrevious = true, hasNext = true
+previous(): 0
+After moving backwards: [0, 2, 3]; size = 3
+  Cursor: previousIndex = -1, nextIndex = 0, hasPrevious = false, hasNext = true
+set(10): replace the element returned by previous(): [10, 2, 3]; size = 3
+  Cursor: previousIndex = -1, nextIndex = 0, hasPrevious = false, hasNext = true
+remove(): delete that element without skipping its successor: [2, 3]; size = 2
+  Cursor: previousIndex = -1, nextIndex = 0, hasPrevious = false, hasNext = true
+
+Indexed operations inherited from AbstractSequentialList:
+get(1): 3
+Copy before modification: [2, 3]
+copy.set(0, 2.5) replaced: 2
+Copy after modification: [2.5, 3]
+Original remains: [2, 3]
+Original after clear(): []; size = 0
+Copy after clearing original: [2.5, 3]
 ```
 
 ## Windows

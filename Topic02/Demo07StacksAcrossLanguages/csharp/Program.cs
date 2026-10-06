@@ -12,23 +12,28 @@ namespace StackExample
                 return;
             }
             IStack<int> stack = new ArrayStack<int>(3);
+            Console.WriteLine("Initial stack: size = " + stack.Size() + "; empty = " + stack.IsEmpty().ToString().ToLowerInvariant());
             for (int value = 1; value <= 3; value++)
             {
                 stack.Push(value);
+                Console.WriteLine("push(" + value + "): size = " + stack.Size() + "; top = " + stack.Peek());
             }
-            Console.WriteLine("Size: " + stack.Size());
-            Console.WriteLine("Top: " + stack.Peek());
-            Console.Write("Traversal:");
+            Console.Write("Traversal from top to bottom:");
             foreach (int value in stack)
             {
                 Console.Write(" " + value);
             }
             Console.WriteLine();
+            Console.WriteLine("After traversal: size = " + stack.Size() + "; top = " + stack.Peek());
             while (!stack.IsEmpty())
             {
-                Console.WriteLine("Pop: " + stack.Pop());
+                int value = stack.Pop();
+                string top = stack.IsEmpty() ? "(empty)" : stack.Peek().ToString();
+                Console.WriteLine("pop(): " + value + "; size = " + stack.Size() + "; top = " + top);
             }
-            Console.WriteLine("Size: " + stack.Size());
+            stack.Push(9);
+            Console.WriteLine("Reuse with push(9): size = " + stack.Size() + "; top = " + stack.Peek());
+            Console.WriteLine("pop(): " + stack.Pop() + "; size = " + stack.Size() + "; top = (empty)");
         }
     }
 }
