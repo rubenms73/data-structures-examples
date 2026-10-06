@@ -45,7 +45,8 @@ try {
     $classPath = $classPathEntries -join [System.IO.Path]::PathSeparator
     $release = '17'
     if ($env:JAVA_RELEASE) { $release = $env:JAVA_RELEASE }
-    $compilerArguments = @('-J-Dfile.encoding=UTF-8', '--release', $release,
+    $compilerArguments = @('-J-Dfile.encoding=UTF-8',
+        '-J-Dstdout.encoding=UTF-8', '-J-Dstderr.encoding=UTF-8', '--release', $release,
         '-encoding', 'UTF-8', '-Xlint:all', '-Werror', '-cp', $classPath,
         '-d', 'bin', '@bin/sources.txt')
     & javac @compilerArguments
@@ -55,7 +56,8 @@ try {
     else {
         $mainClass = 'app.Main'
         if ($mode -eq 'test') { $mainClass = 'tests.ExampleChecks' }
-        & java '-Dfile.encoding=UTF-8' -cp $classPath $mainClass @programArguments
+        # Modern JDKs configure console streams separately from file.encoding.
+        & java '-Dfile.encoding=UTF-8' '-Dstdout.encoding=UTF-8' '-Dstderr.encoding=UTF-8' -cp $classPath $mainClass @programArguments
         $exitCode = $LASTEXITCODE
     }
 }
