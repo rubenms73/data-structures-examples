@@ -31,5 +31,14 @@ public final class Main
         System.out.println();
         System.out.println(title + ": " + result.order());
         System.out.println("Parents: " + result.parent());
+        System.out.println("Visited vertices: " + result.order().size());
+        System.out.print("Traversal roots:");
+        for (String vertex : result.order())
+        {
+            if (!result.parent().containsKey(vertex))
+                System.out.print(" " + vertex);
+        }
+        System.out.println();
     }
 }
+

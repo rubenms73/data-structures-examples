@@ -353,15 +353,23 @@ J -> [G, I]
 
 BFS from A: [A, B, D, E, C]
 Parents: {B=A, D=A, E=A, C=B}
+Visited vertices: 5
+Traversal roots: A
 
 DFS from A: [A, B, C, D, E]
 Parents: {B=A, C=B, D=B, E=A}
+Visited vertices: 5
+Traversal roots: A
 
 BFS forest: [A, B, D, E, C, F, G, I, J, H]
 Parents: {B=A, D=A, E=A, C=B, G=F, I=F, J=F, H=G}
+Visited vertices: 10
+Traversal roots: A F
 
 DFS forest: [A, B, C, D, E, F, G, H, I, J]
 Parents: {B=A, C=B, D=B, E=A, G=F, H=G, I=F, J=F}
+Visited vertices: 10
+Traversal roots: A F
 Parent entries mean child=parent; roots have no entry.
 BFS minimises the number of arcs from one source, not weighted cost.
 ```

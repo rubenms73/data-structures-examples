@@ -202,6 +202,7 @@ Minimum spanning tree:
   Classroom -- Workshop : 3
 Selected links: 5 for 6 nodes
 Total cost: 11
+All currently available links: 30; saving with this tree: 19
 
 Incident: Library -- Lab is unavailable.
 
@@ -213,6 +214,7 @@ Recomputed minimum spanning tree:
   Classroom -- Workshop : 3
 Selected links: 5 for 6 nodes
 Total cost: 14
+All currently available links: 29; saving with this tree: 15
 
 Link restored:
   Server -- Lab : 3
@@ -222,6 +224,7 @@ Link restored:
   Classroom -- Workshop : 3
 Selected links: 5 for 6 nodes
 Total cost: 11
+All currently available links: 30; saving with this tree: 19
 
 A tree has no redundant route: one selected link failure disconnects it.
 Recomputation assumes the other candidate links are available.

@@ -19,15 +19,23 @@ J -> [G, I]
 
 BFS from A: [A, B, D, E, C]
 Parents: {B=A, D=A, E=A, C=B}
+Visited vertices: 5
+Traversal roots: A
 
 DFS from A: [A, B, C, D, E]
 Parents: {B=A, C=B, D=B, E=A}
+Visited vertices: 5
+Traversal roots: A
 
 BFS forest: [A, B, D, E, C, F, G, I, J, H]
 Parents: {B=A, D=A, E=A, C=B, G=F, I=F, J=F, H=G}
+Visited vertices: 10
+Traversal roots: A F
 
 DFS forest: [A, B, C, D, E, F, G, H, I, J]
 Parents: {B=A, C=B, D=B, E=A, G=F, H=G, I=F, J=F}
+Visited vertices: 10
+Traversal roots: A F
 Parent entries mean child=parent; roots have no entry.
 BFS minimises the number of arcs from one source, not weighted cost.
 ```
@@ -56,6 +64,7 @@ Minimum spanning tree:
   Classroom -- Workshop : 3
 Selected links: 5 for 6 nodes
 Total cost: 11
+All currently available links: 30; saving with this tree: 19
 
 Incident: Library -- Lab is unavailable.
 
@@ -67,6 +76,7 @@ Recomputed minimum spanning tree:
   Classroom -- Workshop : 3
 Selected links: 5 for 6 nodes
 Total cost: 14
+All currently available links: 29; saving with this tree: 15
 
 Link restored:
   Server -- Lab : 3
@@ -76,6 +86,7 @@ Link restored:
   Classroom -- Workshop : 3
 Selected links: 5 for 6 nodes
 Total cost: 11
+All currently available links: 30; saving with this tree: 19
 
 A tree has no redundant route: one selected link failure disconnects it.
 Recomputation assumes the other candidate links are available.
@@ -93,7 +104,9 @@ Parallel alternatives from Oviedo to León:
   pajares-south | O-12, A-66, N-630, N-630A | 114.917 km
 
 1. No incident (original weights)
-[Gijón, Oviedo, León, Palencia, Valladolid, Madrid]
+Route request: Gijón -> Madrid
+Localities: [Gijón, Oviedo, León, Palencia, Valladolid, Madrid]
+Selected directed road connections: 5
   Gijón -> Oviedo | road-02 | GJ-81, A-8, A-66R, A-63, O-12, N-630 | 33.768 km | penalty 0.000
   Oviedo -> León | pajares-south | O-12, A-66, N-630, N-630A | 114.917 km | penalty 0.000
   León -> Palencia | road-44 | LE-20, LE-30, A-60, A-231, CL-615 | 133.424 km | penalty 0.000
@@ -104,7 +117,9 @@ Physical distance: 521.107 km; routing cost: 521.107
 Incident: N-630-Pajares in both directions (4 represented connections)
 
 2. Road closed (affected connections removed)
-[Gijón, Oviedo, León, Palencia, Valladolid, Madrid]
+Route request: Gijón -> Madrid
+Localities: [Gijón, Oviedo, León, Palencia, Valladolid, Madrid]
+Selected directed road connections: 5
   Gijón -> Oviedo | road-02 | GJ-81, A-8, A-66R, A-63, O-12, N-630 | 33.768 km | penalty 0.000
   Oviedo -> León | road-59 | O-12, A-66, AP-66, N-120 | 122.762 km | penalty 0.000
   León -> Palencia | road-44 | LE-20, LE-30, A-60, A-231, CL-615 | 133.424 km | penalty 0.000
@@ -113,7 +128,9 @@ Incident: N-630-Pajares in both directions (4 represented connections)
 Physical distance: 528.953 km; routing cost: 528.953
 
 3. Road reopened (original weights restored)
-[Gijón, Oviedo, León, Palencia, Valladolid, Madrid]
+Route request: Gijón -> Madrid
+Localities: [Gijón, Oviedo, León, Palencia, Valladolid, Madrid]
+Selected directed road connections: 5
   Gijón -> Oviedo | road-02 | GJ-81, A-8, A-66R, A-63, O-12, N-630 | 33.768 km | penalty 0.000
   Oviedo -> León | pajares-south | O-12, A-66, N-630, N-630A | 114.917 km | penalty 0.000
   León -> Palencia | road-44 | LE-20, LE-30, A-60, A-231, CL-615 | 133.424 km | penalty 0.000
@@ -122,7 +139,9 @@ Physical distance: 528.953 km; routing cost: 528.953
 Physical distance: 521.107 km; routing cost: 521.107
 
 4. Heavy traffic (+1000 cost units per affected connection; roads remain usable)
-[Gijón, Oviedo, León, Palencia, Valladolid, Madrid]
+Route request: Gijón -> Madrid
+Localities: [Gijón, Oviedo, León, Palencia, Valladolid, Madrid]
+Selected directed road connections: 5
   Gijón -> Oviedo | road-02 | GJ-81, A-8, A-66R, A-63, O-12, N-630 | 33.768 km | penalty 0.000
   Oviedo -> León | road-59 | O-12, A-66, AP-66, N-120 | 122.762 km | penalty 0.000
   León -> Palencia | road-44 | LE-20, LE-30, A-60, A-231, CL-615 | 133.424 km | penalty 0.000
@@ -131,7 +150,9 @@ Physical distance: 521.107 km; routing cost: 521.107
 Physical distance: 528.953 km; routing cost: 528.953
 
 5. Traffic cleared (penalties removed)
-[Gijón, Oviedo, León, Palencia, Valladolid, Madrid]
+Route request: Gijón -> Madrid
+Localities: [Gijón, Oviedo, León, Palencia, Valladolid, Madrid]
+Selected directed road connections: 5
   Gijón -> Oviedo | road-02 | GJ-81, A-8, A-66R, A-63, O-12, N-630 | 33.768 km | penalty 0.000
   Oviedo -> León | pajares-south | O-12, A-66, N-630, N-630A | 114.917 km | penalty 0.000
   León -> Palencia | road-44 | LE-20, LE-30, A-60, A-231, CL-615 | 133.424 km | penalty 0.000

@@ -136,12 +136,14 @@ public final class Main
     {
         snapshots.add(route);
         System.out.println("\n" + title);
+        System.out.println("Route request: " + route.from + " -> " + route.to);
         if (!route.reachable())
         {
             System.out.println("No route from " + route.from + " to " + route.to);
             return;
         }
-        System.out.println(route.localities);
+        System.out.println("Localities: " + route.localities);
+        System.out.println("Selected directed road connections: " + route.legs.size());
         for (Route.Leg leg : route.legs)
         {
             System.out.printf(Locale.ROOT, "  %s -> %s | %s | %s | %.3f km | penalty %.3f%n",
@@ -151,3 +153,4 @@ public final class Main
                 route.kilometres(), route.cost);
     }
 }
+

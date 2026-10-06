@@ -44,6 +44,13 @@ public final class Main
         System.out.println("Selected links: " + result.links().size()
                 + " for " + network.size() + " nodes");
         System.out.println("Total cost: " + result.totalCost());
+        long availableCost = 0;
+        for (Network.Link link : network.links())
+        {
+            availableCost += link.cost();
+        }
+        System.out.println("All currently available links: " + availableCost
+                + "; saving with this tree: " + (availableCost - result.totalCost()));
     }
 
     private static void showLink(Network network, Network.Link link)
@@ -52,3 +59,4 @@ public final class Main
                 + network.name(link.to()) + " : " + link.cost());
     }
 }
+
