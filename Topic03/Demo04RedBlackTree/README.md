@@ -221,10 +221,13 @@ Ordered contents: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 Balanced tree height (nodes): 4
 A plain BST with this insertion order would have height 15.
 Search for 15: true; comparisons: 4
+Before duplicate: size = 15
 Adding duplicate 8: false
+After duplicate: size = 15; invariants hold = true
 
 ============================================================
 Removing 8: true
+State: size = 14; height = 5; contains(8) = false; invariants hold = true
 
         /-- 15 [B]
         |
@@ -257,6 +260,7 @@ Removing 8: true
 
 ============================================================
 Removing 1: true
+State: size = 13; height = 5; contains(1) = false; invariants hold = true
 
         /-- 15 [B]
         |
@@ -287,6 +291,7 @@ Removing 1: true
 
 ============================================================
 Removing 15: true
+State: size = 12; height = 5; contains(15) = false; invariants hold = true
 
         /-- 14 [B]
         |       |

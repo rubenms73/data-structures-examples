@@ -20,7 +20,9 @@ public final class Main
         BinarySearchTree<Integer> tree = example();
         System.out.println();
         System.out.println("============================================================");
+        System.out.println("Fresh copy of the same initial example: " + tree + "; size = " + tree.size());
         System.out.println(description + ": " + tree.remove(value) + " -> " + tree);
+        System.out.println("Size after removal: " + tree.size() + "; contains(" + value + ") = " + tree.contains(value));
         System.out.println();
         System.out.print(tree.toTreeString());
         System.out.println();
@@ -29,6 +31,7 @@ public final class Main
     public static void main(String[] args)
     {
         BinarySearchTree<Integer> tree = example();
+        System.out.println("Insertion order: [8, 3, 10, 1, 6, 14, 4, 7, 13]");
         System.out.println("Initial tree (right above, left below):");
         System.out.println();
         System.out.print(tree.toTreeString());
@@ -43,6 +46,7 @@ public final class Main
         System.out.println();
         System.out.println("Remove one 6: " + tree.remove(6));
         System.out.println("One 6 remains: " + tree.contains(6));
+        System.out.println("After removing one duplicate: " + tree + "; size = " + tree.size());
         showRemoval("Remove leaf 1", 1);
         showRemoval("Remove node 14 with one child", 14);
         showRemoval("Remove node 3 with two children", 3);
@@ -52,7 +56,7 @@ public final class Main
         Comparator<Integer> descending = (first, second) -> second.compareTo(first);
         BinarySearchTree<Integer> reversed = new BinarySearchTree<>(tree, descending);
         System.out.println("Reverse order: " + reversed);
-        reversed.remove(8);
+        System.out.println("reversed.remove(8): " + reversed.remove(8) + "; copy = " + reversed);
         System.out.println("Original still contains 8: " + tree.contains(8));
 
         // Ordered insertion creates a chain of right children, not a balanced tree.
@@ -72,3 +76,4 @@ public final class Main
         System.out.println();
     }
 }
+

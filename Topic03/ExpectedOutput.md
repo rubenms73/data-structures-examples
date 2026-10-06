@@ -3,6 +3,7 @@
 ## Demo01BinarySearchTree
 
 ```text
+Insertion order: [8, 3, 10, 1, 6, 14, 4, 7, 13]
 Initial tree (right above, left below):
 
         /-- 14
@@ -51,9 +52,12 @@ With the duplicate: [1, 3, 4, 6, 6, 7, 8, 10, 13, 14], size: 10
 
 Remove one 6: true
 One 6 remains: true
+After removing one duplicate: [1, 3, 4, 6, 7, 8, 10, 13, 14]; size = 9
 
 ============================================================
+Fresh copy of the same initial example: [1, 3, 4, 6, 7, 8, 10, 13, 14]; size = 9
 Remove leaf 1: true -> [3, 4, 6, 7, 8, 10, 13, 14]
+Size after removal: 8; contains(1) = false
 
         /-- 14
         |       |
@@ -73,7 +77,9 @@ Remove leaf 1: true -> [3, 4, 6, 7, 8, 10, 13, 14]
 
 
 ============================================================
+Fresh copy of the same initial example: [1, 3, 4, 6, 7, 8, 10, 13, 14]; size = 9
 Remove node 14 with one child: true -> [1, 3, 4, 6, 7, 8, 10, 13]
+Size after removal: 8; contains(14) = false
 
         /-- 13
         |
@@ -93,7 +99,9 @@ Remove node 14 with one child: true -> [1, 3, 4, 6, 7, 8, 10, 13]
 
 
 ============================================================
+Fresh copy of the same initial example: [1, 3, 4, 6, 7, 8, 10, 13, 14]; size = 9
 Remove node 3 with two children: true -> [1, 4, 6, 7, 8, 10, 13, 14]
+Size after removal: 8; contains(3) = false
 
         /-- 14
         |       |
@@ -113,7 +121,9 @@ Remove node 3 with two children: true -> [1, 4, 6, 7, 8, 10, 13, 14]
 
 
 ============================================================
+Fresh copy of the same initial example: [1, 3, 4, 6, 7, 8, 10, 13, 14]; size = 9
 Remove root 8: true -> [1, 3, 4, 6, 7, 10, 13, 14]
+Size after removal: 8; contains(8) = false
 
         /-- 14
         |       |
@@ -133,7 +143,9 @@ Remove root 8: true -> [1, 3, 4, 6, 7, 10, 13, 14]
 
 
 ============================================================
+Fresh copy of the same initial example: [1, 3, 4, 6, 7, 8, 10, 13, 14]; size = 9
 Remove absent 99: false -> [1, 3, 4, 6, 7, 8, 10, 13, 14]
+Size after removal: 9; contains(99) = false
 
         /-- 14
         |       |
@@ -154,6 +166,7 @@ Remove absent 99: false -> [1, 3, 4, 6, 7, 8, 10, 13, 14]
         \-- 1
 
 Reverse order: [14, 13, 10, 8, 7, 6, 4, 3, 1]
+reversed.remove(8): true; copy = [14, 13, 10, 7, 6, 4, 3, 1]
 Original still contains 8: true
 Ordered insertion: [1, 2, 3, 4, 5]
 
@@ -176,6 +189,10 @@ After clear: [], size: 0
 ## Demo02GeneralTree
 
 ```text
+addChild(team) copies the subtree into Company.
+Original team label before change: Team
+Original team label after change: Changed outside
+The Company copy retains the Team label:
 Company hierarchy:
 
 +-- Company [ROOT]
@@ -183,14 +200,16 @@ Company hierarchy:
 |   \-- Developer
 \-- Support
 
-Company
-Team
-Developer
-Support
+Preorder traversal: parent before its children.
+Visit: Company
+Visit: Team
+Visit: Developer
+Visit: Support
 Nodes: 4; height: 3
+removeChild(1) returns: Support
 
 ============================================================
-After removing Support:
+After removing Support: nodes = 3; height = 3
 
 +-- Company [ROOT]
 \-- Team
@@ -238,10 +257,13 @@ Ordered contents: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 Balanced tree height (nodes): 4
 A plain BST with this insertion order would have height 15.
 Search for 15: true; comparisons: 4
+Before duplicate: size = 15
 Adding duplicate 8: false
+After duplicate: size = 15; invariants hold = true
 
 ============================================================
 Removing 8: true
+State: size = 14; height = 4; contains(8) = false; invariants hold = true
 
                 /-- 15 [h=1, bf=0]
                 |
@@ -274,6 +296,7 @@ Removing 8: true
 
 ============================================================
 Removing 1: true
+State: size = 13; height = 4; contains(1) = false; invariants hold = true
 
                 /-- 15 [h=1, bf=0]
                 |
@@ -304,6 +327,7 @@ Removing 1: true
 
 ============================================================
 Removing 15: true
+State: size = 12; height = 4; contains(15) = false; invariants hold = true
 
         /-- 14 [h=2, bf=1]
         |       |
@@ -380,10 +404,13 @@ Ordered contents: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 Balanced tree height (nodes): 4
 A plain BST with this insertion order would have height 15.
 Search for 15: true; comparisons: 4
+Before duplicate: size = 15
 Adding duplicate 8: false
+After duplicate: size = 15; invariants hold = true
 
 ============================================================
 Removing 8: true
+State: size = 14; height = 5; contains(8) = false; invariants hold = true
 
         /-- 15 [B]
         |
@@ -416,6 +443,7 @@ Removing 8: true
 
 ============================================================
 Removing 1: true
+State: size = 13; height = 5; contains(1) = false; invariants hold = true
 
         /-- 15 [B]
         |
@@ -446,6 +474,7 @@ Removing 1: true
 
 ============================================================
 Removing 15: true
+State: size = 12; height = 5; contains(15) = false; invariants hold = true
 
         /-- 14 [B]
         |       |
@@ -489,6 +518,7 @@ Focus: purpose and logarithmic costs. Repair code is not required for the exam.
 ## Demo05TreeTraversals
 
 ```text
+Insertion order: [8, 3, 10, 1, 6, 14, 4, 7, 13]
 Same tree, four traversal orders (right subtree above):
 
         /-- 14
@@ -520,4 +550,5 @@ preorder=8, level order=8
 preorder=3, level order=3
 preorder=1, level order=10
 Iterator creation does not materialise the complete traversal.
+After all traversals: [1, 3, 4, 6, 7, 8, 10, 13, 14]; size = 9
 ```

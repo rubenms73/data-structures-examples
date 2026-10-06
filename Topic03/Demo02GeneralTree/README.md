@@ -51,6 +51,10 @@ leaves the structure unchanged. Compare the representation with its public contr
 ## Expected output
 
 ```text
+addChild(team) copies the subtree into Company.
+Original team label before change: Team
+Original team label after change: Changed outside
+The Company copy retains the Team label:
 Company hierarchy:
 
 +-- Company [ROOT]
@@ -58,14 +62,16 @@ Company hierarchy:
 |   \-- Developer
 \-- Support
 
-Company
-Team
-Developer
-Support
+Preorder traversal: parent before its children.
+Visit: Company
+Visit: Team
+Visit: Developer
+Visit: Support
 Nodes: 4; height: 3
+removeChild(1) returns: Support
 
 ============================================================
-After removing Support:
+After removing Support: nodes = 3; height = 3
 
 +-- Company [ROOT]
 \-- Team

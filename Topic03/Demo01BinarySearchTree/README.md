@@ -107,6 +107,7 @@ The project has no dependencies beyond the Java standard library.
 ## Expected output
 
 ```text
+Insertion order: [8, 3, 10, 1, 6, 14, 4, 7, 13]
 Initial tree (right above, left below):
 
         /-- 14
@@ -155,9 +156,12 @@ With the duplicate: [1, 3, 4, 6, 6, 7, 8, 10, 13, 14], size: 10
 
 Remove one 6: true
 One 6 remains: true
+After removing one duplicate: [1, 3, 4, 6, 7, 8, 10, 13, 14]; size = 9
 
 ============================================================
+Fresh copy of the same initial example: [1, 3, 4, 6, 7, 8, 10, 13, 14]; size = 9
 Remove leaf 1: true -> [3, 4, 6, 7, 8, 10, 13, 14]
+Size after removal: 8; contains(1) = false
 
         /-- 14
         |       |
@@ -177,7 +181,9 @@ Remove leaf 1: true -> [3, 4, 6, 7, 8, 10, 13, 14]
 
 
 ============================================================
+Fresh copy of the same initial example: [1, 3, 4, 6, 7, 8, 10, 13, 14]; size = 9
 Remove node 14 with one child: true -> [1, 3, 4, 6, 7, 8, 10, 13]
+Size after removal: 8; contains(14) = false
 
         /-- 13
         |
@@ -197,7 +203,9 @@ Remove node 14 with one child: true -> [1, 3, 4, 6, 7, 8, 10, 13]
 
 
 ============================================================
+Fresh copy of the same initial example: [1, 3, 4, 6, 7, 8, 10, 13, 14]; size = 9
 Remove node 3 with two children: true -> [1, 4, 6, 7, 8, 10, 13, 14]
+Size after removal: 8; contains(3) = false
 
         /-- 14
         |       |
@@ -217,7 +225,9 @@ Remove node 3 with two children: true -> [1, 4, 6, 7, 8, 10, 13, 14]
 
 
 ============================================================
+Fresh copy of the same initial example: [1, 3, 4, 6, 7, 8, 10, 13, 14]; size = 9
 Remove root 8: true -> [1, 3, 4, 6, 7, 10, 13, 14]
+Size after removal: 8; contains(8) = false
 
         /-- 14
         |       |
@@ -237,7 +247,9 @@ Remove root 8: true -> [1, 3, 4, 6, 7, 10, 13, 14]
 
 
 ============================================================
+Fresh copy of the same initial example: [1, 3, 4, 6, 7, 8, 10, 13, 14]; size = 9
 Remove absent 99: false -> [1, 3, 4, 6, 7, 8, 10, 13, 14]
+Size after removal: 9; contains(99) = false
 
         /-- 14
         |       |
@@ -258,6 +270,7 @@ Remove absent 99: false -> [1, 3, 4, 6, 7, 8, 10, 13, 14]
         \-- 1
 
 Reverse order: [14, 13, 10, 8, 7, 6, 4, 3, 1]
+reversed.remove(8): true; copy = [14, 13, 10, 7, 6, 4, 3, 1]
 Original still contains 8: true
 Ordered insertion: [1, 2, 3, 4, 5]
 

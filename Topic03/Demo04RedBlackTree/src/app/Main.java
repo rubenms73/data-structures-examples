@@ -43,22 +43,30 @@ public final class Main
         order.comparisons = 0;
         boolean found = tree.contains(15);
         System.out.println("Search for 15: " + found + "; comparisons: " + order.comparisons);
+        System.out.println("Before duplicate: size = " + tree.size());
         System.out.println("Adding duplicate 8: " + tree.add(8));
+        System.out.println("After duplicate: size = " + tree.size() + "; invariants hold = " + tree.invariantsHold());
         System.out.println();
         System.out.println("============================================================");
         System.out.println("Removing 8: " + tree.remove(8));
+        System.out.println("State: size = " + tree.size() + "; height = " + tree.height()
+                + "; contains(8) = " + tree.contains(8) + "; invariants hold = " + tree.invariantsHold());
         System.out.println();
         System.out.print(tree.toTreeString());
         System.out.println();
         System.out.println();
         System.out.println("============================================================");
         System.out.println("Removing 1: " + tree.remove(1));
+        System.out.println("State: size = " + tree.size() + "; height = " + tree.height()
+                + "; contains(1) = " + tree.contains(1) + "; invariants hold = " + tree.invariantsHold());
         System.out.println();
         System.out.print(tree.toTreeString());
         System.out.println();
         System.out.println();
         System.out.println("============================================================");
         System.out.println("Removing 15: " + tree.remove(15));
+        System.out.println("State: size = " + tree.size() + "; height = " + tree.height()
+                + "; contains(15) = " + tree.contains(15) + "; invariants hold = " + tree.invariantsHold());
         System.out.println();
         System.out.print(tree.toTreeString());
         System.out.println();
@@ -89,3 +97,4 @@ public final class Main
         System.out.println("Focus: purpose and logarithmic costs. Repair code is not required for the exam.");
     }
 }
+

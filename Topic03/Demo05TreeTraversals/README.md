@@ -154,6 +154,7 @@ trees, iterator independence, repeated `hasNext()`, exhaustion and unsupported r
 ## Expected output
 
 ```text
+Insertion order: [8, 3, 10, 1, 6, 14, 4, 7, 13]
 Same tree, four traversal orders (right subtree above):
 
         /-- 14
@@ -185,4 +186,5 @@ preorder=8, level order=8
 preorder=3, level order=3
 preorder=1, level order=10
 Iterator creation does not materialise the complete traversal.
+After all traversals: [1, 3, 4, 6, 7, 8, 10, 13, 14]; size = 9
 ```

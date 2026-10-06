@@ -31,6 +31,7 @@ public final class Main
         {
             tree.add(value);
         }
+        System.out.println("Insertion order: [8, 3, 10, 1, 6, 14, 4, 7, 13]");
         System.out.println("Same tree, four traversal orders (right subtree above):");
         System.out.println();
         System.out.print(tree.toTreeString());
@@ -49,5 +50,7 @@ public final class Main
             System.out.println("preorder=" + preorder.next() + ", level order=" + levels.next());
         }
         System.out.println("Iterator creation does not materialise the complete traversal.");
+        System.out.println("After all traversals: " + tree + "; size = " + tree.size());
     }
 }
+
