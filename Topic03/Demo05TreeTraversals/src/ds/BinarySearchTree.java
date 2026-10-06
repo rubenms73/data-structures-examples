@@ -59,7 +59,11 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
         this(order);
         if (source == null)
             throw new NullPointerException("Source must not be null");
-        addAll(source);
+        // The subclass is not initialised yet: use private insertion logic.
+        for (E value : source)
+        {
+            insert(value);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -81,6 +85,12 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
     /** Insert one occurrence, including comparison-equivalent values. */
     @Override
     public boolean add(E value)
+    {
+        return insert(value);
+    }
+
+    // Construction and add() share the same validation and node-linking logic.
+    private boolean insert(E value)
     {
         if (value == null)
             throw new NullPointerException("Null elements are not supported");

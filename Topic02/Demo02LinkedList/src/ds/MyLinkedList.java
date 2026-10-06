@@ -50,7 +50,9 @@ public class MyLinkedList<E> extends AbstractSequentialList<E>
     {
         if (items == null)
             throw new NullPointerException("Items must not be null");
-        ListIterator<E> it = listIterator();
+        // Use the private iterator directly: subclass overrides must not run
+        // before their own fields have been initialised.
+        MyListIterator it = new MyListIterator(0);
         for (E item : items)
         {
             it.add(item);
@@ -62,7 +64,9 @@ public class MyLinkedList<E> extends AbstractSequentialList<E>
     {
         if (source == null)
             throw new NullPointerException("Source must not be null");
-        ListIterator<E> it = listIterator();
+        // Use the private iterator directly: subclass overrides must not run
+        // before their own fields have been initialised.
+        MyListIterator it = new MyListIterator(0);
         for (E item : source)
         {
             it.add(item);

@@ -7,6 +7,31 @@ public final class ExampleChecks
 {
     private static int checks;
 
+    // A constructor must not dispatch to subclass code before this flag is set.
+    private static final class ConstructorProbe extends ds.MyLinkedList<Integer>
+    {
+        private boolean ready = true;
+
+        ConstructorProbe(Integer... items)
+        {
+            super(items);
+        }
+
+        ConstructorProbe(java.util.Collection<? extends Integer> source)
+        {
+            super(source);
+        }
+
+        @Override
+        public java.util.ListIterator<Integer> listIterator(int index)
+        {
+            if (!ready)
+                throw new AssertionError("Iterator override called during construction");
+            return super.listIterator(index);
+        }
+    }
+
+
     private static Object step(ListIterator<Integer> it, int op, Integer value)
     {
         try
@@ -52,6 +77,8 @@ public final class ExampleChecks
 
     public static void main(String[] args)
     {
+        equal(Arrays.asList(1, null, 3), new ConstructorProbe(1, null, 3));
+        equal(Arrays.asList(1, null, 3), new ConstructorProbe(Arrays.asList(1, null, 3)));
         MyLinkedList<Integer> list = new MyLinkedList<>(1, 2, 3);
         rejects(IndexOutOfBoundsException.class, () -> list.listIterator(-1));
         rejects(IndexOutOfBoundsException.class, () -> list.listIterator(4));

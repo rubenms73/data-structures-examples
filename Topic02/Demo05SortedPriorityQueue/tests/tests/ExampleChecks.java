@@ -7,6 +7,25 @@ public final class ExampleChecks
 {
     private static int checks;
 
+    private static final class ConstructorProbe extends ds.SortedPriorityQueue<Integer>
+    {
+        private boolean ready = true;
+
+        ConstructorProbe(java.util.Collection<? extends Integer> source)
+        {
+            super(source, null);
+        }
+
+        @Override
+        public boolean offer(Integer value)
+        {
+            if (!ready)
+                throw new AssertionError("Insertion override called during construction");
+            return super.offer(value);
+        }
+    }
+
+
     private static void equal(Object expected, Object actual)
     {
         checks++;
@@ -42,6 +61,7 @@ public final class ExampleChecks
 
     public static void main(String[] args)
     {
+        equal(Arrays.asList(1, 2, 3), new java.util.ArrayList<>(new ConstructorProbe(Arrays.asList(3, 1, 2))));
         Queue<Integer> q = new SortedPriorityQueue<>();
         Queue<Integer> ref = new PriorityQueue<>();
         Random r = new Random(17);

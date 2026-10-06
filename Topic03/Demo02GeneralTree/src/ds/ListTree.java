@@ -16,17 +16,17 @@ public class ListTree<E> extends AbstractTree<E> implements Iterable<E>
 
     public ListTree(E label)
     {
-        setLabel(label);
+        assignLabel(label);
     }
 
     public ListTree(Tree<? extends E> source)
     {
         if (source == null)
             throw new NullPointerException("Source must not be null");
-        setLabel(source.label());
+        assignLabel(source.label());
         for (Tree<? extends E> child : source.children())
         {
-            addChild(child);
+            copyChild(child);
         }
     }
 
@@ -38,12 +38,23 @@ public class ListTree<E> extends AbstractTree<E> implements Iterable<E>
 
     public void setLabel(E label)
     {
+        assignLabel(label);
+    }
+
+    // Constructors use private helpers so subclass setters cannot run too early.
+    private void assignLabel(E label)
+    {
         if (label == null)
             throw new NullPointerException("Label must not be null");
         this.label = label;
     }
 
     public void addChild(Tree<? extends E> child)
+    {
+        copyChild(child);
+    }
+
+    private void copyChild(Tree<? extends E> child)
     {
         if (child == null)
             throw new NullPointerException("Child must not be null");

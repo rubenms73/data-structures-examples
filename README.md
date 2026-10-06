@@ -15,10 +15,13 @@ stack comparison in Topic 2. Start with [Topic 1](Topic01/README.md): thirteen d
 - [Topic 6 — Weighted graphs and shortest paths](Topic06/README.md): northern Spain road network with sourced distances, parallel alternatives and incident rerouting.
 
 Run `python3 tools/check_examples.py` (Windows: `py -3 tools/check_examples.py`)
-with JDK 17 on PATH to compile, execute
+with JDK 17 or later on PATH to compile, execute
 and check every Java example in isolation against its documented output.
 The [multilanguage stack demo](Topic02/Demo07StacksAcrossLanguages/README.md)
 provides separate C++, C# and Python run/test commands.
+
+The launchers target Java 17 with `--release 17` and retain `-Xlint:all -Werror`.
+GitHub Actions checks JDK 17, 21 and 25 on Windows, macOS and Linux.
 
 ## Run an example
 
@@ -77,6 +80,10 @@ Comments identify small experiments that intentionally produce compilation error
 ## Source style
 
 Keep teaching code simple and direct. Use straightforward expressions and explicit conditions; avoid redundant checks, unused parameters and helper methods that merely wrap one array access. Retain checks that enforce the example's contract and prevent incorrect behaviour. Introduce abstractions only when they support the concept being taught.
+
+Do not call overridable operations from constructors. Use private implementation
+helpers to share initialisation logic with public operations without running
+subclass code before its fields are initialised.
 
 Review capacities, indices, null references and all other preconditions before
 publishing. Express validation with a simple `if` and the specified exception;

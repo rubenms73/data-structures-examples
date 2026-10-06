@@ -7,6 +7,25 @@ public final class ExampleChecks
 {
     private static int checks;
 
+    private static final class ConstructorProbe extends ds.BinarySearchTree<Integer>
+    {
+        private boolean ready = true;
+
+        ConstructorProbe(java.util.Collection<? extends Integer> source)
+        {
+            super(source, null);
+        }
+
+        @Override
+        public boolean add(Integer value)
+        {
+            if (!ready)
+                throw new AssertionError("Insertion override called during construction");
+            return super.add(value);
+        }
+    }
+
+
     private static void equal(Object expected, Object actual)
     {
         checks++;
@@ -70,6 +89,7 @@ public final class ExampleChecks
 
     public static void main(String[] args)
     {
+        equal(Arrays.asList(1, 2, 3), new java.util.ArrayList<>(new ConstructorProbe(Arrays.asList(3, 1, 2))));
         BinarySearchTree<Integer> tree = new BinarySearchTree<>();
         rejects(NoSuchElementException.class, () -> tree.iterator().next());
         rejects(NullPointerException.class, () -> tree.add(null));

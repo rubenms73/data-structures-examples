@@ -30,7 +30,11 @@ public class SortedPriorityQueue<E> extends AbstractQueue<E>
         this(order);
         if (source == null)
             throw new NullPointerException("Source must not be null");
-        addAll(source);
+        // Initialise through a private helper, avoiding overridable offer/add.
+        for (E value : source)
+        {
+            insert(value);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -45,6 +49,12 @@ public class SortedPriorityQueue<E> extends AbstractQueue<E>
 
     @Override
     public boolean offer(E value)
+    {
+        return insert(value);
+    }
+
+    // Shared insertion logic for the constructor and the public queue operation.
+    private boolean insert(E value)
     {
         if (value == null)
             throw new NullPointerException("Null elements are not supported");

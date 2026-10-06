@@ -7,6 +7,38 @@ public final class ExampleChecks
 {
     private static int checks;
 
+    private static final class ConstructorProbe extends ds.ListTree<String>
+    {
+        private boolean ready = true;
+
+        ConstructorProbe(String label)
+        {
+            super(label);
+        }
+
+        ConstructorProbe(ds.Tree<? extends String> source)
+        {
+            super(source);
+        }
+
+        @Override
+        public void setLabel(String label)
+        {
+            if (!ready)
+                throw new AssertionError("Label override called during construction");
+            super.setLabel(label);
+        }
+
+        @Override
+        public void addChild(ds.Tree<? extends String> child)
+        {
+            if (!ready)
+                throw new AssertionError("Child override called during construction");
+            super.addChild(child);
+        }
+    }
+
+
     private static void equal(Object expected, Object actual)
     {
         checks++;
@@ -42,6 +74,11 @@ public final class ExampleChecks
 
     public static void main(String[] args)
     {
+        ConstructorProbe initial = new ConstructorProbe("Root");
+        initial.addChild(new ListTree<>("Child"));
+        ConstructorProbe copied = new ConstructorProbe(initial);
+        equal("Root", copied.label());
+        equal(2, copied.size());
         ListTree<String> child = new ListTree<>("child");
         equal(1, child.height());
         child.addChild(new ListTree<String>("leaf"));

@@ -7,6 +7,43 @@ public final class ExampleChecks
 {
     private static int checks;
 
+    private static final class FifoQueueProbe extends ds.FifoQueue<Integer>
+    {
+        private boolean ready = true;
+
+        FifoQueueProbe(java.util.Collection<? extends Integer> source)
+        {
+            super(source);
+        }
+
+        @Override
+        public boolean offer(Integer value)
+        {
+            if (!ready)
+                throw new AssertionError("offer override called during construction");
+            return super.offer(value);
+        }
+    }
+
+    private static final class LifoQueueProbe extends ds.LifoQueue<Integer>
+    {
+        private boolean ready = true;
+
+        LifoQueueProbe(java.util.Collection<? extends Integer> source)
+        {
+            super(source);
+        }
+
+        @Override
+        public boolean offer(Integer value)
+        {
+            if (!ready)
+                throw new AssertionError("offer override called during construction");
+            return super.offer(value);
+        }
+    }
+
+
     private static void equal(Object expected, Object actual)
     {
         checks++;
@@ -42,6 +79,8 @@ public final class ExampleChecks
 
     public static void main(String[] args)
     {
+        equal(Arrays.asList(1, 2, 3), new java.util.ArrayList<>(new FifoQueueProbe(Arrays.asList(1, 2, 3))));
+        equal(Arrays.asList(3, 2, 1), new java.util.ArrayList<>(new LifoQueueProbe(Arrays.asList(1, 2, 3))));
         for (Queue<Integer> q : Arrays.<Queue<Integer>>asList(new FifoQueue<>(), new LifoQueue<>()))
         {
             equal(null, q.peek());
