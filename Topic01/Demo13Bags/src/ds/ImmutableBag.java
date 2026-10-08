@@ -3,7 +3,6 @@ package ds;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.function.Predicate;
 
 /** Structurally immutable snapshot. Element objects themselves are not deep-copied. */
 public final class ImmutableBag<E> extends AbstractBag<E>
@@ -86,45 +85,4 @@ public final class ImmutableBag<E> extends AbstractBag<E>
         }
     }
 
-    @Override
-    public boolean add(E item)
-    {
-        throw new UnsupportedOperationException("Immutable bag");
-    }
-
-    @Override
-    public boolean addAll(Collection<? extends E> source)
-    {
-        throw new UnsupportedOperationException("Immutable bag");
-    }
-
-    @Override
-    public boolean remove(Object item)
-    {
-        throw new UnsupportedOperationException("Immutable bag");
-    }
-
-    @Override
-    public boolean removeAll(Collection<?> source)
-    {
-        throw new UnsupportedOperationException("Immutable bag");
-    }
-
-    @Override
-    public boolean retainAll(Collection<?> source)
-    {
-        throw new UnsupportedOperationException("Immutable bag");
-    }
-
-    @Override
-    public boolean removeIf(Predicate<? super E> condition)
-    {
-        throw new UnsupportedOperationException("Immutable bag");
-    }
-
-    @Override
-    public void clear()
-    {
-        throw new UnsupportedOperationException("Immutable bag");
-    }
 }

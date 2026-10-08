@@ -56,7 +56,8 @@ Allocations can still fail when resources are exhausted.
 
 `data[0..size)` holds the active elements and `size - 1` is the top. `push` grows
 the array when full, then writes the new reference and increments size. The
-capacity multiplication is checked for integer overflow. `Arrays.copyOf` copies
+capacity doubles, with zero growing to one. Extreme capacities are outside this
+Java example. `Arrays.copyOf` copies
 the existing references into a larger array before the field is replaced.
 
 `pop` checks emptiness, decreases size, saves the reference and clears the unused

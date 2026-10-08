@@ -19,14 +19,27 @@ public final class Traversals
     }
 
     /** Immutable snapshots; roots have no entry in parent. */
-    public record Result<V>(List<V> order, Map<V, V> parent)
+    public static final class Result<V>
     {
-        public Result
+        private final List<V> order;
+        private final Map<V, V> parent;
+
+        public Result(List<V> order, Map<V, V> parent)
         {
             if (order == null || parent == null)
                 throw new IllegalArgumentException("Null result data");
-            order = Collections.unmodifiableList(new ArrayList<>(order));
-            parent = Collections.unmodifiableMap(new LinkedHashMap<>(parent));
+            this.order = Collections.unmodifiableList(new ArrayList<>(order));
+            this.parent = Collections.unmodifiableMap(new LinkedHashMap<>(parent));
+        }
+
+        public List<V> order()
+        {
+            return order;
+        }
+
+        public Map<V, V> parent()
+        {
+            return parent;
         }
     }
 

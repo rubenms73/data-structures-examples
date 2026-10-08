@@ -6,6 +6,9 @@ Abstract class, fixed and dynamic storage, one client algorithm.
 
 This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
 
+Extreme storage capacities are outside this teaching example; growth uses the
+simple geometric rule.
+
 ## Problem statement and prerequisites
 
 Implement one integer-array contract using fixed storage and dynamically growing storage. Reuse the same client algorithms with both. Start after interfaces, abstract classes, inheritance, arrays and indexed loops.

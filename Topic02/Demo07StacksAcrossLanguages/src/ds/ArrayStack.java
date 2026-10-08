@@ -31,8 +31,6 @@ public class ArrayStack<E> implements Stack<E>
     {
         if (size == data.length)
         {
-            if (data.length > Integer.MAX_VALUE / 2)
-                throw new IllegalStateException("Capacity limit reached");
             int capacity = data.length == 0 ? 1 : data.length * 2;
             // Copy references into a larger array before replacing the old one.
             data = Arrays.copyOf(data, capacity);

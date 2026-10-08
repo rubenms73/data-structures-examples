@@ -78,8 +78,6 @@ public class ChainedHashSet<E> extends AbstractSet<E>
 
     private void grow()
     {
-        if (buckets.size() > (Integer.MAX_VALUE - 1) / 2)
-            throw new IllegalStateException("Table cannot grow further");
         ArrayList<LinkedList<E>> larger = newBuckets(buckets.size() * 2 + 1);
         for (LinkedList<E> bucket : buckets)
         {

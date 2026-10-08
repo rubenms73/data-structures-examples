@@ -279,9 +279,9 @@ BFS has 8 tree arcs and 11 non-tree arcs. Each forest has 10 vertices and
   existing result. Parent iteration retains discovery order for reproducible output.
 - Do not change the graph while a traversal is running. This example materialises
   results; it does not expose traversal iterators.
-- `Result` is a Java 17 record: a small data carrier with `order()` and `parent()`
+- `Result` is an ordinary nested class with `order()` and `parent()`
   accessors. Its constructor makes defensive collection copies. The algorithms
-  provide the parent-forest invariant; the public record constructor does not
+  provide the parent-forest invariant; the public constructor does not
   validate an arbitrary caller-provided forest.
 
 ## Costs and limitations

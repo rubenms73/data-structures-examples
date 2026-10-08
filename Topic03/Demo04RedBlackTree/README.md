@@ -86,11 +86,10 @@ its parent, so the earlier one-sided duplicate rule cannot simply be reused.
 A frequency field per node would be one way to support repeated occurrences;
 that extension is not part of these examples.
 
-Successful insertion, removal and clearing a nonempty tree invalidate existing
-iterators. `hasNext()` and `next()` then throw `ConcurrentModificationException`.
-Adding a duplicate, removing an absent key, or clearing an already empty tree
-makes no structural change and leaves existing iterators valid. Fail-fast checking
-is a debugging aid, not a concurrency guarantee.
+Do not insert, remove or clear the tree while traversing it. Iterators have
+independent traversal stacks, but this teaching implementation does not detect
+structural changes made during a traversal. Create a new iterator after updating
+the tree. Iterator removal remains unsupported.
 
 ## Costs and height convention
 

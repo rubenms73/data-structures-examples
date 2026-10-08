@@ -1,5 +1,8 @@
 # Hash set with separate chaining
 
+Extreme storage capacities are outside this teaching example; growth uses the
+simple geometric rule.
+
 ## Problem statement and prerequisites
 
 Implement an equality-based set with linked-list buckets. Prerequisites:

@@ -75,7 +75,9 @@ public final class ExampleChecks
         check(saved.totalCost() == 11 && saved.links().size() == 5);
         expect(UnsupportedOperationException.class, () -> saved.links().clear());
         example.addLink(1, 2, 1);
-        check(Prim.minimumSpanningTree(example).equals(saved));
+        Prim.Result restored = Prim.minimumSpanningTree(example);
+        check(restored.totalCost() == saved.totalCost());
+        check(restored.links().equals(saved.links()));
         Random random = new Random(606);
         for (int trial = 0; trial < 150; trial++)
         {

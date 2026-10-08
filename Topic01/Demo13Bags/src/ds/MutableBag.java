@@ -2,7 +2,6 @@ package ds;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -15,8 +14,6 @@ public class MutableBag<E> extends AbstractBag<E>
     protected E[] data;
     // Number of elements in the occupied prefix.
     protected int numItems;
-    // Counts structural changes so iterators can detect changes made elsewhere.
-    private int modificationCount;
 
     public MutableBag()
     {
@@ -54,13 +51,10 @@ public class MutableBag<E> extends AbstractBag<E>
             throw new NullPointerException("Null elements are not supported");
         if (numItems == data.length)
         {
-            int capacity = (int) Math.min((long) data.length * 2, Integer.MAX_VALUE);
-            if (capacity <= data.length)
-                throw new OutOfMemoryError("Bag cannot grow further");
+            int capacity = data.length * 2;
             data = Arrays.copyOf(data, capacity);
         }
         data[numItems++] = item;
-        modificationCount++;
     }
 
     @Override
@@ -77,9 +71,9 @@ public class MutableBag<E> extends AbstractBag<E>
             return;
         Arrays.fill(data, 0, numItems, null);
         numItems = 0;
-        modificationCount++;
     }
 
+    /** Modify through this iterator only while traversing the bag. */
     @Override
     public Iterator<E> iterator()
     {
@@ -92,27 +86,16 @@ public class MutableBag<E> extends AbstractBag<E>
         private int current;
         // Index eligible for removal; -1 means that next() must be called first.
         private int lastReturned = -1;
-        // Counts structural changes so iterators can detect changes made elsewhere.
-        // Version accepted by this iterator, updated after its own removal.
-        private int expectedModificationCount = modificationCount;
-
-        private void checkForModification()
-        {
-            if (expectedModificationCount != modificationCount)
-                throw new ConcurrentModificationException();
-        }
 
         @Override
         public boolean hasNext()
         {
-            checkForModification();
             return current < numItems;
         }
 
         @Override
         public E next()
         {
-            checkForModification();
             if (current >= numItems)
                 throw new NoSuchElementException();
             lastReturned = current;
@@ -122,7 +105,6 @@ public class MutableBag<E> extends AbstractBag<E>
         @Override
         public void remove()
         {
-            checkForModification();
             if (lastReturned < 0)
                 throw new IllegalStateException("Call next before remove");
             // Close the gap while preserving the order of the remaining elements.
@@ -132,9 +114,6 @@ public class MutableBag<E> extends AbstractBag<E>
             // The next unvisited element now occupies the removed position.
             current = lastReturned;
             lastReturned = -1;
-            modificationCount++;
-            // Accept this iterator's own change; changes made elsewhere still invalidate it.
-            expectedModificationCount = modificationCount;
         }
     }
 }

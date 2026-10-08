@@ -142,7 +142,7 @@ though the matrix stores it twice.
   equally cheap new edge does not replace the first remembered parent.
 - The algorithm does not modify the network. Results and edge lists are
   unmodifiable snapshots; later network changes do not alter earlier results.
-- Do not modify a network while Prim is running. Result records carry data;
+- Do not modify a network while Prim is running. Result objects use an ordinary nested class with `links()` and `totalCost()` accessors;
   calling their constructors directly does not certify a valid minimum tree.
 
 ## Optional extension: implementation complexity

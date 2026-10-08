@@ -2,7 +2,6 @@ package ds;
 
 import java.util.ArrayDeque;
 import java.util.Comparator;
-import java.util.ConcurrentModificationException;
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -39,8 +38,6 @@ public final class RedBlackTree<E> implements Iterable<E>
     private Node root;
     // Number of distinct comparison keys.
     private int size;
-    // Structural version used to invalidate iterators after updates.
-    private int modifications;
 
     /** Creates an empty tree using the supplied total ordering. */
     public RedBlackTree(Comparator<? super E> order)
@@ -100,7 +97,6 @@ public final class RedBlackTree<E> implements Iterable<E>
         root = insert(root, value);
         root.red = false;
         size++;
-        modifications++;
         return true;
     }
 
@@ -119,7 +115,6 @@ public final class RedBlackTree<E> implements Iterable<E>
         if (root != null)
             root.red = false;
         size--;
-        modifications++;
         return true;
     }
 
@@ -153,14 +148,13 @@ public final class RedBlackTree<E> implements Iterable<E>
         return node;
     }
 
-    /** Releases the root reference; invalidates iterators if the tree was nonempty. */
+    /** Releases the root reference and resets the size. */
     public void clear()
     {
         if (root != null)
         {
             root = null;
             size = 0;
-            modifications++;
         }
     }
 
@@ -195,9 +189,7 @@ public final class RedBlackTree<E> implements Iterable<E>
 
     /**
      * Inorder iterator with O(height) auxiliary storage. A complete traversal
-     * takes O(n) time. Structural changes invalidate existing iterators;
-     * adding a duplicate or removing an absent key does not invalidate them.
-     * Fail-fast detection is a debugging aid, not a thread-safety guarantee.
+     * takes O(n) time. Do not modify the tree during a traversal.
      */
     @Override
     public Iterator<E> iterator()
@@ -209,9 +201,6 @@ public final class RedBlackTree<E> implements Iterable<E>
     {
         // Ancestors whose inorder visit is still pending; the next node is on top.
         private final Deque<Node> pending = new ArrayDeque<>();
-        // Structural version used to invalidate iterators after updates.
-        // Structural version captured when this iterator was created.
-        private final int expectedModifications = modifications;
 
         TreeIterator()
         {
@@ -230,8 +219,6 @@ public final class RedBlackTree<E> implements Iterable<E>
         @Override
         public boolean hasNext()
         {
-            if (expectedModifications != modifications)
-                throw new ConcurrentModificationException();
             return !pending.isEmpty();
         }
 

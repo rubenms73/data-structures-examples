@@ -55,10 +55,7 @@ public final class DynamicMyIntArray extends AbstractMyIntArray
     {
         if (size < data.length)
             return;
-        int newCapacity = data.length == 0 ? 1
-                : (int) Math.min(2L * data.length, Integer.MAX_VALUE);
-        if (newCapacity <= data.length)
-            throw new OutOfMemoryError("Array cannot grow further");
+        int newCapacity = data.length == 0 ? 1 : data.length * 2;
         data = Arrays.copyOf(data, newCapacity);
     }
 }

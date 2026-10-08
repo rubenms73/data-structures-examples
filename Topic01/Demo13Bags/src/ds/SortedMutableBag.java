@@ -63,7 +63,7 @@ public final class SortedMutableBag<E> extends MutableBag<E>
         {
             position++;
         }
-        // Let the base class grow the array and update its size/version.
+        // Let the base class grow the array and update its size.
         // Then move the appended item to the sorted insertion position.
         super.add(item);
         System.arraycopy(data, position, data, position + 1, numItems - position - 1);

@@ -43,9 +43,7 @@ public final class ExampleChecks
         {
             equal(expected++, item);
         }
-        iterator = bag.iterator();
         bag.add(100);
-        throwsType(ConcurrentModificationException.class, iterator::next);
         throwsType(NullPointerException.class, () -> bag.add(null));
         throwsType(IllegalArgumentException.class, () -> new MutableBag<Integer>(-1));
 
@@ -63,17 +61,21 @@ public final class ExampleChecks
         equal(2, immutable.occurrences(2));
         equal(immutable, immutable.withoutOne(99));
         throwsType(UnsupportedOperationException.class, () -> immutable.add(1));
-        throwsType(UnsupportedOperationException.class, () -> immutable.addAll(List.of()));
-        throwsType(UnsupportedOperationException.class, () -> immutable.remove(99));
-        throwsType(UnsupportedOperationException.class, () -> immutable.removeAll(List.of()));
+        equal(false, immutable.addAll(List.of()));
+        equal(false, immutable.remove(99));
+        throwsType(UnsupportedOperationException.class, () -> immutable.remove(2));
+        equal(false, immutable.removeAll(List.of()));
         throwsType(UnsupportedOperationException.class, () -> immutable.retainAll(List.of()));
-        throwsType(UnsupportedOperationException.class, () -> immutable.removeIf(x -> false));
+        equal(false, immutable.removeIf(x -> false));
         throwsType(UnsupportedOperationException.class, immutable::clear);
         Iterator<Integer> fixedIterator = immutable.iterator();
         fixedIterator.next();
         throwsType(UnsupportedOperationException.class, fixedIterator::remove);
         throwsType(NullPointerException.class, () -> new ImmutableBag<Integer>(1, null));
-        equal(0, new ImmutableBag<Integer>().size());
+        ImmutableBag<Integer> empty = new ImmutableBag<>();
+        equal(0, empty.size());
+        empty.clear();
+        equal(false, empty.retainAll(List.of(1)));
         throwsType(NoSuchElementException.class, new ImmutableBag<Integer>().iterator()::next);
 
         SortedMutableBag<Integer> sorted = new SortedMutableBag<>(immutable);
@@ -124,9 +126,10 @@ public final class ExampleChecks
         equal(reference, new ArrayList<>(sorted));
         Iterator<Integer> a = sorted.iterator();
         Iterator<Integer> b = sorted.iterator();
-        a.next();
+        equal(a.next(), b.next());
         a.remove();
-        throwsType(ConcurrentModificationException.class, b::next);
+        // Start a new traversal after the structural change.
+        equal(reference.subList(1, reference.size()), new ArrayList<>(sorted));
         System.out.println("All " + checks + " checks passed.");
     }
 

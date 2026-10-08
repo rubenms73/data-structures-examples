@@ -16,13 +16,27 @@ public final class Prim
     }
 
     /** Immutable result. Long total avoids overflow when adding int costs. */
-    public record Result(List<Network.Link> links, long totalCost)
+    public static final class Result
     {
-        public Result
+        private final List<Network.Link> links;
+        private final long totalCost;
+
+        public Result(List<Network.Link> links, long totalCost)
         {
             if (links == null)
                 throw new IllegalArgumentException("Null links");
-            links = Collections.unmodifiableList(new ArrayList<>(links));
+            this.links = Collections.unmodifiableList(new ArrayList<>(links));
+            this.totalCost = totalCost;
+        }
+
+        public List<Network.Link> links()
+        {
+            return links;
+        }
+
+        public long totalCost()
+        {
+            return totalCost;
         }
     }
 
