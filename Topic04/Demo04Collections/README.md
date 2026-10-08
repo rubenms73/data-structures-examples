@@ -18,7 +18,7 @@ Topic 4: the Set contract, `AbstractSet` versus `AbstractCollection`, and
 `LinkedHashSet`'s insertion-order traversal.
 
 In the current Topic 4 PDF, read “Set in Java”, “AbstractCollection and
-AbstractSet” and “Hash-based sets” first (PDF pages 5, 9 and 34). The example
+AbstractSet” and “Hash-based sets” first. The example
 uses the library set's contract; knowledge of hash-table internals from Topic 5
 is not required. It does not introduce map operations or streams.
 
