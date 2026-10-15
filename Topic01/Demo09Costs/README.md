@@ -1,4 +1,4 @@
-# 08 Costs
+# 09 Costs
 
 Counted additions in an array traversal and constant-time direct array access.
 
@@ -27,7 +27,7 @@ The printed costs concern these operations under the usual array-access model. T
 
 ## Open and run
 
-Open **this `Demo08Costs` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.
+Open **this `Demo09Costs` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.
 
 On macOS or Linux, from this folder:
 

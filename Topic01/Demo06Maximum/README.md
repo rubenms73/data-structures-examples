@@ -12,7 +12,7 @@ Write one generic algorithm that selects a maximum using a supplied comparator. 
 
 ## Guided walkthrough
 
-The signature is `public static <T> T max(T[] values, Comparator<? super T> order)`. A comparator consumes values of type `T`, so it may compare `T` or a supertype. For example, a `Comparator<Number>` can select the maximum of an `Integer[]`, while the returned value remains an `Integer`. This is the standard signature throughout these examples; Demo11 explains the wildcard in more detail.
+The signature is `public static <T> T max(T[] values, Comparator<? super T> order)`. A comparator consumes values of type `T`, so it may compare `T` or a supertype. For example, a `Comparator<Number>` can select the maximum of an `Integer[]`, while the returned value remains an `Integer`. This is the standard signature throughout these examples; Demo12 explains the wildcard in more detail.
 
 1. Read the signature and preconditions of `Maximum.max`.
 2. Trace the initial candidate and each comparison with the remaining values.

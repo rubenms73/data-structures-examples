@@ -1,4 +1,4 @@
-# 09 Functional comparators
+# 10 Functional comparators
 
 Named class, anonymous class and lambda.
 
@@ -27,7 +27,7 @@ A lambda needs a target functional-interface type. Its concise syntax does not r
 
 ## Open and run
 
-Open **this `Demo09FunctionalComparators` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.
+Open **this `Demo10FunctionalComparators` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.
 
 On macOS or Linux, from this folder:
 

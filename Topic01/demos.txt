@@ -5,9 +5,10 @@ Demo04StringSorting
 Demo05Movies
 Demo06Maximum
 Demo07Iterators
-Demo08Costs
-Demo09FunctionalComparators
-Demo10FunctionalOperations
-Demo11Wildcards
-Demo12Fibonacci
-Demo13Bags
+Demo08Factorials
+Demo09Costs
+Demo10FunctionalComparators
+Demo11FunctionalOperations
+Demo12Wildcards
+Demo13Fibonacci
+Demo14Bags

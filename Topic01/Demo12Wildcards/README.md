@@ -1,4 +1,4 @@
-# 11 Wildcards
+# 12 Wildcards
 
 This example uses the local `MyArray<E>` interface and `FixedMyArray<E>` implementation from the generic-arrays example, included here so the project remains self-contained. It demonstrates `MyArray<?>`, `MyArray<? extends Shape>` and `MyArray<? super Rectangle>` without requiring Java Collections. The same wildcard rules apply later to collection interfaces.
 
@@ -28,7 +28,7 @@ The wildcard changes what a reference permits, not the runtime object or its con
 
 ## Open and run
 
-Open **this `Demo11Wildcards` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.
+Open **this `Demo12Wildcards` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.
 
 On macOS or Linux, from this folder:
 

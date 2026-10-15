@@ -123,7 +123,15 @@ Integer vector sum: 18
 After copy.set(0, 99): copy[0] = 99; source[0] = 8
 ```
 
-## Demo08Costs
+## Demo08Factorials
+
+```text
+Recomputing factorials: [1, 1, 2, 6, 24, 120]
+Using the iterator: [1, 1, 2, 6, 24, 120]
+More values: false
+```
+
+## Demo09Costs
 
 ```text
 Sum arrays filled with ones; count additions rather than elapsed time:
@@ -137,7 +145,7 @@ Array middle: C
 Array middle: direct access, O(1).
 ```
 
-## Demo09FunctionalComparators
+## Demo10FunctionalComparators
 
 ```text
 Three implementations of Comparator<String>, all ordering by length:
@@ -155,7 +163,7 @@ compare(pear, banana): -1
 Lambda: [fig, pear, banana]
 ```
 
-## Demo10FunctionalOperations
+## Demo11FunctionalOperations
 
 ```text
 Predicate.test(4): true
@@ -176,7 +184,7 @@ Consumer.accept: Square 36
 Input after both traversals: [1, 2, 3, 4, 5, 6]
 ```
 
-## Demo11Wildcards
+## Demo12Wildcards
 
 ```text
 Rectangles: areas 6.0, 10.0
@@ -202,7 +210,7 @@ Added Shape destination areas: 6.0, 4.0
 Object destination element types: String, Rectangle, Square
 ```
 
-## Demo12Fibonacci
+## Demo13Fibonacci
 
 ```text
 First ten terms: 0 1 1 2 3 5 8 13 21 34
@@ -215,7 +223,7 @@ Request 94 terms, exceeding the safe long range:
 Rejected: Expected 0 to 93 terms
 ```
 
-## Demo13Bags
+## Demo14Bags
 
 ```text
 Immutable original: [2, -3, 2, 18]

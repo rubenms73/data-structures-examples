@@ -1,4 +1,4 @@
-# 12 Fibonacci
+# 13 Fibonacci
 
 An iterator that computes a sequence.
 
@@ -28,7 +28,7 @@ The constructor accepts 0 through 93 terms, corresponding up to F92 in a signed 
 
 ## Open and run
 
-Open **this `Demo12Fibonacci` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.
+Open **this `Demo13Fibonacci` folder** in VS Code with JDK 17 or newer and the Extension Pack for Java. Open [src/app/Main.java](src/app/Main.java) and select **Run** or **Debug** above `main`.
 
 On macOS or Linux, from this folder:
 

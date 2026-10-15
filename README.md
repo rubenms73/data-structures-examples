@@ -3,7 +3,7 @@
 University of Oviedo · Rubén Muñiz Sánchez
 
 Runnable Java examples accompanying the course, with an optional Java/C++/C#/Python
-stack comparison in Topic 2. Start with [Topic 1](Topic01/README.md): thirteen demonstrations of data abstraction, generic programming, comparison, iteration and functional interfaces.
+stack comparison in Topic 2. Start with [Topic 1](Topic01/README.md): fourteen demonstrations of data abstraction, generic programming, comparison, iteration and functional interfaces.
 
 ## Topics
 
@@ -60,19 +60,20 @@ On macOS or Linux, from the `Topic01` folder:
 
 ```sh
 bash run.sh Demo05Movies
-bash run.sh Demo09FunctionalComparators
-bash run.sh Demo11Wildcards
+bash run.sh Demo10FunctionalComparators
+bash run.sh Demo12Wildcards
 bash run.sh test
 ```
 
 ## Explore Topic 1
 
-- [All thirteen Topic 1 examples and their slide references](Topic01/README.md).
+- [All fourteen Topic 1 examples and their slide references](Topic01/README.md).
 - [Movies: Comparable and Comparator](Topic01/Demo05Movies/README.md).
-- [Named class, anonymous class and lambda](Topic01/Demo09FunctionalComparators/README.md).
-- [Predicate, Function, Consumer and Supplier](Topic01/Demo10FunctionalOperations/README.md).
-- [Wildcards with Shape and Rectangle](Topic01/Demo11Wildcards/README.md).
-- [Closing example: immutable and mutable bags](Topic01/Demo13Bags/README.md).
+- [Named class, anonymous class and lambda](Topic01/Demo10FunctionalComparators/README.md).
+- [Predicate, Function, Consumer and Supplier](Topic01/Demo11FunctionalOperations/README.md).
+- [Wildcards with Shape and Rectangle](Topic01/Demo12Wildcards/README.md).
+- [Factorials: incremental computation with an iterator](Topic01/Demo08Factorials/README.md).
+- [Closing example: immutable and mutable bags](Topic01/Demo14Bags/README.md).
 - [Expected console output](Topic01/ExpectedOutput.md).
 
 Comments identify small experiments that intentionally produce compilation errors. Uncomment one at a time, inspect the error, and restore the comment before continuing.
@@ -92,7 +93,7 @@ State any unsupported operations and copy semantics in the example's README.
 
 When a method accepts a comparator to compare elements of type `T`, use `Comparator<? super T>` from the outset. Apply the same rule to concrete element types and stored comparator fields. Comparator implementations still declare their actual supported type, such as `implements Comparator<Movie>`.
 
-Each example's README includes its problem statement, prerequisites, a guided code walkthrough, observations and experiments, execution instructions and expected output. Keep these explanations aligned with the implementation when adding or changing examples. Demo07 extends Demo03's generic vector with a private inner iterator; Demo12 uses the same inner-class pattern for a computed sequence. Demo13 is the closing example after the collection and iterator contracts have been introduced.
+Each example's README includes its problem statement, prerequisites, a guided code walkthrough, observations and experiments, execution instructions and expected output. Keep these explanations aligned with the implementation when adding or changing examples. Demo07 extends Demo03's generic vector with a private inner iterator; Demo13 uses the same inner-class pattern for a computed sequence. Demo14 is the closing example after the collection and iterator contracts have been introduced.
 
 Apply these rules to all Java sources, including tests and future examples:
 
