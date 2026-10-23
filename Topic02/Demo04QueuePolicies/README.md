@@ -2,41 +2,52 @@
 
 ## Problem statement and prerequisites
 
-Implement FIFO and LIFO extraction policies using the same Queue interface.
-Prerequisites: collections, abstract classes, linked lists and iterators.
-Nulls are rejected explicitly because poll and peek use null to report emptiness.
-Collection constructors copy element references in source iteration order.
+Implement FIFO and LIFO extraction policies behind the same `Queue` interface.
+You should already know collections, abstract classes, linked lists and
+iterators.
+
+`null` elements are rejected explicitly, because `poll` and `peek` use `null` to
+report that the queue is empty. The collection constructors copy the element
+references in the source's iteration order.
 
 Both queues reuse `DoublyLinkedList<E>` from
-[Demo03](../Demo03DoublyLinkedList/README.md), storing it through a `List<E>`
-reference. This folder includes the unchanged `src/ds/DoublyLinkedList.java`
-from that demo so it remains self-contained; keep the two copies identical.
-Both classes implement only `offer`, `poll`, `peek`, `size` and `iterator`;
+[Demo03](../Demo03DoublyLinkedList/README.md) and hold it through a `List<E>`
+reference. This folder includes an unchanged copy of
+`src/ds/DoublyLinkedList.java` from that demo so that it stays self-contained;
+keep the two copies identical.
+
+Both classes implement only `offer`, `poll`, `peek`, `size` and `iterator`, and
 their iterators support removal. Clients use `Queue<E>` references.
 
 ## Guided walkthrough
 
-1. Compare offer: FIFO appends with `data.add(value)`; LIFO inserts at the front
-   with `data.add(0, value)`. Both extract and observe index zero.
-2. Follow AbstractQueue's inherited add/remove/element operations. The latter two
-   throw NoSuchElementException on an empty queue, whereas poll/peek return null.
-3. Both queues return `data.iterator()`: the list already stores their elements
-   in extraction order. Node management and iterator removal belong to Demo03's
-   list implementation and require no new queue-specific iterator.
-4. The queue adds its null policy and FIFO/LIFO insertion policy to the List
-   contract. All stored collection references use interfaces: List internally,
-   Queue in the client.
-5. Inherited clear repeatedly calls poll. Inherited remove(Object), removeAll
-   and retainAll use iterator removal. Trace these two paths to modifying a queue.
+1. Compare the two versions of `offer`. FIFO appends with `data.add(value)`,
+   whereas LIFO inserts at the front with `data.add(0, value)`. Both extract and
+   inspect the element at index zero.
+2. Follow the `add`, `remove` and `element` operations inherited from
+   `AbstractQueue`. On an empty queue the last two throw
+   `NoSuchElementException`, whereas `poll` and `peek` return `null`.
+3. Both queues return `data.iterator()`, because the list already stores their
+   elements in extraction order. Managing the nodes and removing through the
+   iterator are handled by the list implementation from Demo03, so no new
+   iterator is needed for the queues.
+4. A queue adds two things to the `List` contract: its policy on `null` and its
+   FIFO or LIFO insertion policy. Every stored collection reference has an
+   interface type: `List` inside the queue and `Queue` in the client.
+5. The inherited `clear` calls `poll` repeatedly, while the inherited
+   `remove(Object)`, `removeAll` and `retainAll` use removal through the
+   iterator. Trace these two ways of modifying a queue.
 
 ## Costs and contracts
 
-With this DoublyLinkedList, offer, poll, peek and size take O(1) for both policies:
-its list iterator reaches either end in O(1). Iterator removal also takes O(1).
-Traversal and inherited clear take O(n); removing by value may require an O(n)
-search. These costs depend on the chosen list implementation, not just List.
-Only modify a queue through the active iterator during traversal. The reused
-teaching list does not detect external changes.
+With this `DoublyLinkedList`, `offer`, `poll`, `peek` and `size` take O(1) under
+both policies, because its list iterator reaches either end in O(1). Removal
+through the iterator also takes O(1). A traversal and the inherited `clear` take
+O(n), and removing by value may need an O(n) search. These costs depend on the
+list implementation chosen, not just on the `List` interface.
+
+During a traversal, modify a queue only through the iterator in use. The reused
+teaching list does not detect changes made by other means.
 
 ## Open and run
 
@@ -54,9 +65,10 @@ are required. Code and comments use English and Allman style.
 
 ## What to observe and try
 
-Trace Main by hand before running it. Exercise the empty case, boundaries and
-rejected operations described above. Verify that a rejected single operation
-leaves the structure unchanged. Compare the representation with its public contract.
+Trace `Main` by hand before you run it. Try the empty case, the boundary cases
+and the rejected operations described above, and check that an operation that is
+rejected leaves the structure unchanged. Compare the representation with the
+public contract it implements.
 
 ## Expected output
 
@@ -116,7 +128,7 @@ clear():
 ## Windows
 
 Open a terminal in this folder (PowerShell, Command Prompt or the VS Code
-terminal). Install a JDK 17 or newer and put its `bin` directory on `PATH`;
+terminal). Install JDK 17 or newer and put its `bin` directory on `PATH`;
 `java -version` and `javac -version` should both work. No Bash, WSL or Git Bash
 is required.
 
@@ -126,7 +138,7 @@ is required.
 ```
 
 The first command runs the demonstration; the second compiles and runs its checks.
-The launcher handles its own working directory, paths with spaces and any
-bundled JAR libraries. It uses the included Windows PowerShell 5.1;
-`run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
-remain available when the individual example folder is open.
+The launcher sets its own working directory and copes with paths containing
+spaces and with any bundled JAR libraries. It runs on Windows PowerShell 5.1,
+which comes with Windows, and `run.ps1` also works with PowerShell 7. The VS Code
+**Run** and **Debug** buttons are still available when the example folder is open.

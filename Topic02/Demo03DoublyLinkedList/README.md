@@ -2,72 +2,80 @@
 
 ## Problem statement and prerequisites
 
-Extend the singly linked implementation from Demo02 with a previous link in each
-node and a tail reference. Keep the same ListIterator contract and reuse
-AbstractSequentialList<E>. The new links make backward movement and removal
-constant-time operations. Study Demo01 and Demo02 first.
+Extend the singly linked implementation from Demo02 with a link to the previous
+node in each node and a reference to the tail. Keep the same `ListIterator`
+contract and reuse `AbstractSequentialList<E>`. The new links make moving
+backwards and removing constant-time operations. Study Demo01 and Demo02 first.
 
 ## Representation and contracts
 
-Each node stores an element, its predecessor and its successor. The first node's
-previous link and the last node's next link are null. An empty list has both
-head and tail equal to null and count equal to zero. For adjacent nodes, following
-next and then previous must return to the original node.
+Each node stores an element, its predecessor and its successor. The `previous`
+link of the first node and the `next` link of the last node are `null`. An empty
+list has both `head` and `tail` equal to `null` and `count` equal to zero. For
+any two adjacent nodes, following `next` and then `previous` must lead back to
+the original node.
 
-Null elements are allowed. Null constructor arguments and invalid cursor indices
-are rejected using explicit conditionals. The conversion constructor accepts
-Collection<? extends E>, creates new nodes in source order and shares element
-references: it is a shallow copy, not a copy of the element objects.
+`null` elements are allowed. `null` constructor arguments and invalid cursor
+indices are rejected with explicit conditionals. The conversion constructor
+accepts a `Collection<? extends E>`, creates new nodes in the order of the
+source and shares the element references: it is a shallow copy, not a copy of
+the element objects.
 
 ## Guided walkthrough
 
-1. Compare Node with Demo02: previous and tail are the additional references.
-2. Follow the iterator constructor from the nearer end. Its cursor may be at any
-   position from zero to size, inclusive; at size, nextNode is null.
-3. Trace next and previous. The cursor lies between previousNode and nextNode;
-   lastReturned identifies the node that set or remove may affect.
-4. Follow add: connect the new node to both neighbors and update head or tail
-   when inserting at a boundary. The cursor finishes after the inserted node.
-5. Follow remove after next and after previous. Only removal after next reduces
-   nextIndex. Reconnect both directions and maintain the two end references.
-6. Remove the only element, then insert again. Both empty-list boundaries must
-   remain valid. Run Main to compare the same operations with Demo02.
+1. Compare `Node` with Demo02: `previous` and `tail` are the additional
+   references.
+2. Follow the iterator constructor, which starts from the nearer end. The cursor
+   may be at any position from zero to the size, inclusive; at the size,
+   `nextNode` is `null`.
+3. Trace `next` and `previous`. The cursor lies between `previousNode` and
+   `nextNode`, and `lastReturned` identifies the node that `set` or `remove` may
+   affect.
+4. Follow `add`. It connects the new node to both neighbours and updates `head`
+   or `tail` when inserting at either end. The cursor ends up after the inserted
+   node.
+5. Follow `remove` after `next` and after `previous`. Only removal after `next`
+   reduces `nextIndex`. The links must be reconnected in both directions and
+   both end references kept up to date.
+6. Remove the only element and then insert again: both ends of the empty list
+   must stay valid. Run `Main` to compare the same operations with Demo02.
 
 ## Iterator state and limitations
 
-set and remove require a successful next or previous since the last add or
-remove; otherwise they throw IllegalStateException. Repeated set is allowed.
-Exhausted movement throws NoSuchElementException. add is permitted even before
-movement and invalidates lastReturned. A node containing null remains a valid
-lastReturned node.
+`set` and `remove` require a successful `next` or `previous` since the last
+`add` or `remove`; otherwise they throw `IllegalStateException`. Calling `set`
+repeatedly is allowed. Moving past either end throws `NoSuchElementException`.
+`add` is allowed even before any movement, and it invalidates `lastReturned`. A
+node that contains `null` is still a valid `lastReturned` node.
 
-Modify the list only through the active iterator while traversing it. This
-teaching implementation does not detect changes made through other iterators
-or list operations. Nodes are private inner objects, as in Demo02.
+While traversing the list, modify it only through the iterator in use. This
+teaching implementation does not detect changes made through other iterators or
+list operations. As in Demo02, the nodes are private inner objects.
 
 ## Costs and comparison
 
 | Operation | Demo02: singly linked | Demo03: doubly linked |
 |---|---|---|
-| next, add, set through the iterator | O(1) | O(1) |
-| previous | O(n) worst case | O(1) |
-| remove after next | O(n) worst case | O(1) |
-| remove after previous | O(1) | O(1) |
-| listIterator(index) | O(index + 1) | O(min(index, size - index) + 1) |
+| `next`, `add`, `set` through the iterator | O(1) | O(1) |
+| `previous` | O(n) worst case | O(1) |
+| `remove` after `next` | O(n) worst case | O(1) |
+| `remove` after `previous` | O(1) | O(1) |
+| `listIterator(index)` | O(index + 1) | O(min(index, size - index) + 1) |
 | Complete backward traversal | O(n²) worst case | O(n) |
 | Construction from n elements | O(n) | O(n) |
 
-size and cursor queries cost O(1). Indexed access still costs O(n) in the worst
-case: backward links do not provide array-style random access. Storage is O(n),
-with one additional link per node and one tail reference for the list. Inherited
-append now positions the iterator at the tail in O(1).
+`size` and the cursor queries cost O(1). Indexed access still costs O(n) in the
+worst case, because backward links do not give the random access of an array.
+The storage is O(n), with one extra link per node and one tail reference for the
+list. An inherited append now places the iterator at the tail in O(1).
 
 ## What to observe and try
 
-Draw both directions after inserting or removing at the head, middle and tail.
-Alternate next and previous over the same node. Try remove twice, set after add,
-and movement beyond either end. Copy a list, change one entry, and check that
-the original entry is unchanged. Compare full backward traversal with Demo02.
+Draw the links in both directions after inserting or removing at the head, in
+the middle and at the tail. Alternate `next` and `previous` over the same node.
+Try `remove` twice, `set` after `add`, and moving beyond either end. Copy a
+list, change one entry and check that the entry in the original is unchanged.
+Compare a full backward traversal with the one in Demo02.
 
 ## Open and run
 
@@ -116,7 +124,7 @@ Copy after clearing original: [2.5, 3]
 ## Windows
 
 Open a terminal in this folder (PowerShell, Command Prompt or the VS Code
-terminal). Install a JDK 17 or newer and put its `bin` directory on `PATH`;
+terminal). Install JDK 17 or newer and put its `bin` directory on `PATH`;
 `java -version` and `javac -version` should both work. No Bash, WSL or Git Bash
 is required.
 
@@ -126,7 +134,7 @@ is required.
 ```
 
 The first command runs the demonstration; the second compiles and runs its checks.
-The launcher handles its own working directory, paths with spaces and any
-bundled JAR libraries. It uses the included Windows PowerShell 5.1;
-`run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
-remain available when the individual example folder is open.
+The launcher sets its own working directory and copes with paths containing
+spaces and with any bundled JAR libraries. It runs on Windows PowerShell 5.1,
+which comes with Windows, and `run.ps1` also works with PowerShell 7. The VS Code
+**Run** and **Debug** buttons are still available when the example folder is open.

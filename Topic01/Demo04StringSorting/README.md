@@ -4,26 +4,26 @@ Natural order, external order and `Arrays.sort`.
 
 **Slides:** 32–37 (printed slide numbers).
 
-This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
+This folder is a complete Java project. You can copy it anywhere and run it without any other example or shared library; it needs only the Java standard library.
 
 ## Problem statement and prerequisites
 
-Sort the same array of strings by natural order and by length. Prerequisites are arrays, interfaces, method calls and the role of a comparison result.
+Sort the same array of strings by natural order and then by length. You should already know arrays, interfaces, method calls and what the result of a comparison means.
 
 ## Guided walkthrough
 
-1. Run the direct call to `String.compareTo`. Its sign indicates order; comparison methods need not return exactly -1 or 1.
+1. Run the direct call to `String.compareTo`. The sign of the result gives the order; comparison methods do not have to return exactly -1 or 1.
 2. Follow `Arrays.sort(words)`, which uses the strings' natural order.
 3. Read `LengthComparator.compare`, which compares integer lengths.
-4. Follow `Arrays.sort(words, byLength)`, which receives an external comparison rule.
+4. Follow `Arrays.sort(words, byLength)`, which is given an external comparison rule.
 
 ## What to observe and try
 
-The original sequence is `pear, banana, fig`. Natural order gives `banana, fig, pear`; length order gives `fig, pear, banana`. Both calls rearrange the supplied array.
+The original sequence is `pear, banana, fig`. Natural order gives `banana, fig, pear`; length order gives `fig, pear, banana`. Both calls rearrange the array they are given.
 
-Add `plum` to create a length tie. Explain why two different strings can compare as zero under a length comparator without being equal strings. Reverse the comparison arguments to sort longest first. Uncomment the comparison with `<` to see why Java does not use that operator to order strings.
+Add `plum` to create a length tie. Explain why a length comparator can return zero for two strings that are not equal. Swap the comparison arguments to sort the longest strings first. Uncomment the comparison with `<` to see why Java does not use that operator to order strings.
 
-The focus is the comparison contract and the choice of ordering, not the internal sorting algorithm. Natural string order is not a locale-sensitive dictionary ordering.
+The example is about the comparison contract and the choice of ordering, not about the sorting algorithm used internally. The natural order of strings is not a locale-sensitive dictionary order.
 
 ## Open and run
 
@@ -36,7 +36,7 @@ bash run.sh
 bash run.sh test
 ```
 
-To compile and run the example directly (also in Windows PowerShell):
+To compile and run the example by hand (this also works in Windows PowerShell):
 
 ```sh
 javac -encoding UTF-8 -d bin src/ds/*.java src/app/*.java
@@ -45,15 +45,15 @@ java -cp bin app.Main
 
 ## Files
 
-- `src/ds/`: the example's classes and interfaces, all in package `ds`.
-- `src/app/Main.java`: the test program with `public static void main`, in package `app`.
-- `tests/tests/ExampleChecks.java`: automated checks, separate from the teaching program.
+- `src/ds/`: the example's classes and interfaces, all in the `ds` package.
+- `src/app/Main.java`: the test program, with `public static void main`, in the `app` package.
+- `tests/tests/ExampleChecks.java`: automated checks, kept apart from the teaching program.
 
 The classes in `ds` are:
 
 - [LengthComparator.java](src/ds/LengthComparator.java)
 
-Each example owns its sources and compiled output. Open examples as separate projects: combining their source folders would mix repeated names such as `app.Main` and `ds.Movie`.
+Each example has its own sources and compiled output. Open each one as a separate project: combining their source folders would mix up repeated names such as `app.Main` and `ds.Movie`.
 
 ## Expected output
 
@@ -67,12 +67,12 @@ A negative comparison places the shorter word first.
 Length order: [fig, pear, banana]
 ```
 
-Commented compilation errors are intentional exercises. Restore each comment before continuing.
+The commented-out compilation errors are deliberate exercises. Restore each comment before you continue.
 
 ## Windows
 
 Open a terminal in this folder (PowerShell, Command Prompt or the VS Code
-terminal). Install a JDK 17 or newer and put its `bin` directory on `PATH`;
+terminal). Install JDK 17 or newer and put its `bin` directory on `PATH`;
 `java -version` and `javac -version` should both work. No Bash, WSL or Git Bash
 is required.
 
@@ -82,8 +82,8 @@ is required.
 ```
 
 The first command runs the demonstration; the second compiles and runs its checks.
-The launcher handles its own working directory, paths with spaces and any
-bundled JAR libraries. It uses the included Windows PowerShell 5.1;
-`run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
-remain available when the individual example folder is open.
+The launcher sets its own working directory and copes with paths containing
+spaces and with any bundled JAR libraries. It runs on Windows PowerShell 5.1,
+which comes with Windows, and `run.ps1` also works with PowerShell 7. The VS Code
+**Run** and **Debug** buttons are still available when the example folder is open.
 

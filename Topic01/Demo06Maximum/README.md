@@ -4,28 +4,28 @@ One algorithm with two comparison rules.
 
 **Slides:** 38–39 (printed slide numbers).
 
-This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
+This folder is a complete Java project. You can copy it anywhere and run it without any other example or shared library; it needs only the Java standard library.
 
 ## Problem statement and prerequisites
 
-Write one generic algorithm that selects a maximum using a supplied comparator. Use it to find the alphabetically greatest string and the longest string. Prerequisites are generic methods, arrays, loops and comparators; the client also uses simple lambdas.
+Write one generic algorithm that selects the maximum according to a comparator it receives. Use it to find the alphabetically greatest string and the longest string. You should already know generic methods, arrays, loops and comparators; the client also uses simple lambdas.
 
 ## Guided walkthrough
 
-The signature is `public static <T> T max(T[] values, Comparator<? super T> order)`. A comparator consumes values of type `T`, so it may compare `T` or a supertype. For example, a `Comparator<Number>` can select the maximum of an `Integer[]`, while the returned value remains an `Integer`. This is the standard signature throughout these examples; Demo12 explains the wildcard in more detail.
+The signature is `public static <T> T max(T[] values, Comparator<? super T> order)`. The comparator consumes values of type `T`, so it may be a comparator for `T` or for any supertype of `T`. For example, a `Comparator<Number>` can select the maximum of an `Integer[]`, while the returned value remains an `Integer`. This is the standard signature throughout these examples; Demo12 explains the wildcard in more detail.
 
 1. Read the signature and preconditions of `Maximum.max`.
-2. Trace the initial candidate and each comparison with the remaining values.
-3. Compare the two calls in `Main`. The array stays the same while the comparison rule changes.
-4. Follow the empty-array call and the exception handler.
+2. Trace the initial candidate and each comparison with the rest of the values.
+3. Compare the two calls in `Main`. The array stays the same; only the comparison rule changes.
+4. Follow the call with an empty array and the exception handler.
 
 ## What to observe and try
 
-For `pear, banana, fig`, alphabetical maximum is `pear` and longest is `banana`. The algorithm selects an element without sorting or modifying the array.
+For `pear, banana, fig`, the alphabetical maximum is `pear` and the longest string is `banana`. The algorithm selects an element without sorting or modifying the array.
 
-Try one element and two equally long strings. Check which tied value is retained by the strict comparison. Reverse the comparator and explain why the same method then selects a minimum under the original ordering.
+Try an array with one element, and then two strings of the same length. Check which of the tied values the strict comparison keeps. Reverse the comparator and explain why the same method then selects the minimum under the original order.
 
-The array, comparator and compared elements must satisfy the method's contract. An empty array has no maximum and is rejected explicitly. The traversal is linear in the number of elements when one comparator call has constant cost.
+The array, the comparator and the elements being compared must all satisfy the method's contract. An empty array has no maximum, so it is rejected explicitly. If one call to the comparator takes constant time, the traversal is linear in the number of elements.
 
 ## Open and run
 
@@ -38,7 +38,7 @@ bash run.sh
 bash run.sh test
 ```
 
-To compile and run the example directly (also in Windows PowerShell):
+To compile and run the example by hand (this also works in Windows PowerShell):
 
 ```sh
 javac -encoding UTF-8 -d bin src/ds/*.java src/app/*.java
@@ -47,15 +47,15 @@ java -cp bin app.Main
 
 ## Files
 
-- `src/ds/`: the example's classes and interfaces, all in package `ds`.
-- `src/app/Main.java`: the test program with `public static void main`, in package `app`.
-- `tests/tests/ExampleChecks.java`: automated checks, separate from the teaching program.
+- `src/ds/`: the example's classes and interfaces, all in the `ds` package.
+- `src/app/Main.java`: the test program, with `public static void main`, in the `app` package.
+- `tests/tests/ExampleChecks.java`: automated checks, kept apart from the teaching program.
 
 The classes in `ds` are:
 
 - [Maximum.java](src/ds/Maximum.java)
 
-Each example owns its sources and compiled output. Open examples as separate projects: combining their source folders would mix repeated names such as `app.Main` and `ds.Movie`.
+Each example has its own sources and compiled output. Open each one as a separate project: combining their source folders would mix up repeated names such as `app.Main` and `ds.Movie`.
 
 ## Expected output
 
@@ -69,12 +69,12 @@ Request maximum of an empty array:
 Rejected: Empty array
 ```
 
-Commented compilation errors are intentional exercises. Restore each comment before continuing.
+The commented-out compilation errors are deliberate exercises. Restore each comment before you continue.
 
 ## Windows
 
 Open a terminal in this folder (PowerShell, Command Prompt or the VS Code
-terminal). Install a JDK 17 or newer and put its `bin` directory on `PATH`;
+terminal). Install JDK 17 or newer and put its `bin` directory on `PATH`;
 `java -version` and `javac -version` should both work. No Bash, WSL or Git Bash
 is required.
 
@@ -84,8 +84,8 @@ is required.
 ```
 
 The first command runs the demonstration; the second compiles and runs its checks.
-The launcher handles its own working directory, paths with spaces and any
-bundled JAR libraries. It uses the included Windows PowerShell 5.1;
-`run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
-remain available when the individual example folder is open.
+The launcher sets its own working directory and copes with paths containing
+spaces and with any bundled JAR libraries. It runs on Windows PowerShell 5.1,
+which comes with Windows, and `run.ps1` also works with PowerShell 7. The VS Code
+**Run** and **Debug** buttons are still available when the example folder is open.
 

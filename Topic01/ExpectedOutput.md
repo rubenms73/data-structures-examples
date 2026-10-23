@@ -1,6 +1,6 @@
 # Topic 1 — Expected output
 
-Output from the unmodified examples. The demonstrations use fixed inputs.
+This is the output of the examples as supplied. Every demonstration uses fixed inputs, so the output does not change from one run to the next.
 
 ## Demo01Rational
 

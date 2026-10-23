@@ -4,27 +4,27 @@ An iterator that computes a sequence.
 
 **Slides:** A39–A41 (printed slide numbers).
 
-This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
+This folder is a complete Java project. You can copy it anywhere and run it without any other example or shared library; it needs only the Java standard library.
 
 ## Problem statement and prerequisites
 
-Expose a finite prefix of the Fibonacci sequence through `Iterable<Long>`, computing terms as requested instead of storing them in an array. Prerequisites are the vector-iterator example, inner classes and basic recurrence relations.
+Expose a finite prefix of the Fibonacci sequence through `Iterable<Long>`, computing each term when it is requested instead of storing the terms in an array. You should already know the vector-iterator example, inner classes and basic recurrence relations.
 
 ## Guided walkthrough
 
-1. Inspect `Fibonacci`: the outer object stores how many terms are requested.
+1. Look at `Fibonacci`. The outer object stores how many terms have been requested.
 2. Follow `iterator()`, which creates a private inner `FibIterator`.
-3. Inspect the iterator's remaining-count and two numeric state fields.
-4. Trace one `next` call: preserve the returned term, update the state and decrease the remaining count.
-5. Compare two iterators created from the same sequence; each starts independently at zero.
+3. Look at the iterator's fields: the count of remaining terms and the two numbers that hold its state.
+4. Trace one call to `next`. It keeps the term it is about to return, updates the state and decreases the remaining count.
+5. Compare two iterators created from the same sequence. Each one starts at zero, independently of the other.
 
 ## What to observe and try
 
-The default ten terms are `0 1 1 2 3 5 8 13 21 34`. In Demo07 the iterator reads stored values; here it computes them. Both clients use the same traversal protocol.
+The default ten terms are `0 1 1 2 3 5 8 13 21 34`. In Demo07 the iterator reads stored values, whereas here it computes them. Both clients follow the same traversal protocol.
 
-Try prefixes of lengths 0, 1 and 2, then request one more element after exhaustion. Explain why `hasNext` must not generate or consume a term. Trace the boundary guard that avoids computing an unnecessary overflowing value.
+Try prefixes of lengths 0, 1 and 2, and then ask for one more element once the iterator is exhausted. Explain why `hasNext` must not generate or consume a term. Trace the guard at the boundary that avoids computing an unnecessary value that would overflow.
 
-The constructor accepts 0 through 93 terms, corresponding up to F92 in a signed `long`. Length 94 is rejected. Each iterator stores only a constant amount of numeric state; the sequence object does not cache all terms.
+The constructor accepts from 0 to 93 terms, which reaches F92 in a signed `long`; a length of 94 is rejected. Each iterator stores only a constant amount of numeric state, and the sequence object does not cache the terms.
 
 ## Open and run
 
@@ -37,7 +37,7 @@ bash run.sh
 bash run.sh test
 ```
 
-To compile and run the example directly (also in Windows PowerShell):
+To compile and run the example by hand (this also works in Windows PowerShell):
 
 ```sh
 javac -encoding UTF-8 -d bin src/ds/*.java src/app/*.java
@@ -46,15 +46,15 @@ java -cp bin app.Main
 
 ## Files
 
-- `src/ds/`: the example's classes and interfaces, all in package `ds`.
-- `src/app/Main.java`: the test program with `public static void main`, in package `app`.
-- `tests/tests/ExampleChecks.java`: automated checks, separate from the teaching program.
+- `src/ds/`: the example's classes and interfaces, all in the `ds` package.
+- `src/app/Main.java`: the test program, with `public static void main`, in the `app` package.
+- `tests/tests/ExampleChecks.java`: automated checks, kept apart from the teaching program.
 
 The classes in `ds` are:
 
 - [Fibonacci.java](src/ds/Fibonacci.java)
 
-Each example owns its sources and compiled output. Open examples as separate projects: combining their source folders would mix repeated names such as `app.Main` and `ds.Movie`.
+Each example has its own sources and compiled output. Open each one as a separate project: combining their source folders would mix up repeated names such as `app.Main` and `ds.Movie`.
 
 ## Expected output
 
@@ -69,12 +69,12 @@ Request 94 terms, exceeding the safe long range:
 Rejected: Expected 0 to 93 terms
 ```
 
-Commented compilation errors are intentional exercises. Restore each comment before continuing.
+The commented-out compilation errors are deliberate exercises. Restore each comment before you continue.
 
 ## Windows
 
 Open a terminal in this folder (PowerShell, Command Prompt or the VS Code
-terminal). Install a JDK 17 or newer and put its `bin` directory on `PATH`;
+terminal). Install JDK 17 or newer and put its `bin` directory on `PATH`;
 `java -version` and `javac -version` should both work. No Bash, WSL or Git Bash
 is required.
 
@@ -84,8 +84,8 @@ is required.
 ```
 
 The first command runs the demonstration; the second compiles and runs its checks.
-The launcher handles its own working directory, paths with spaces and any
-bundled JAR libraries. It uses the included Windows PowerShell 5.1;
-`run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
-remain available when the individual example folder is open.
+The launcher sets its own working directory and copes with paths containing
+spaces and with any bundled JAR libraries. It runs on Windows PowerShell 5.1,
+which comes with Windows, and `run.ps1` also works with PowerShell 7. The VS Code
+**Run** and **Debug** buttons are still available when the example folder is open.
 

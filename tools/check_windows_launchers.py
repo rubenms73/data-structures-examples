@@ -41,7 +41,10 @@ def main():
         assert failed_compile.returncode != 0, failed_compile
         assert "Network:" not in failed_compile.stdout
 
+        # Only some topics have a topic-level launcher; each demo always has its own.
         for topic in sorted(ROOT.glob("Topic[0-9][0-9]")):
+            if not (topic / "run.cmd").is_file():
+                continue
             names = (topic / "demos.txt").read_text(encoding="utf-8").splitlines()
             listing = invoke(topic / "run.cmd", "list", cwd=temporary)
             assert listing.returncode == 0, listing.stderr

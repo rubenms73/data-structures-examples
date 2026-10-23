@@ -2,8 +2,8 @@
 
 University of Oviedo · Rubén Muñiz Sánchez
 
-Runnable Java examples accompanying the course, with an optional Java/C++/C#/Python
-stack comparison in Topic 2. Start with [Topic 1](Topic01/README.md): fourteen demonstrations of data abstraction, generic programming, comparison, iteration and functional interfaces.
+These are runnable Java examples that accompany the course, together with an optional
+comparison of stacks in Java, C++, C# and Python in Topic 2. Start with [Topic 1](Topic01/README.md), which has fourteen demonstrations of data abstraction, generic programming, comparison, iteration and functional interfaces.
 
 ## Topics
 
@@ -12,37 +12,37 @@ stack comparison in Topic 2. Start with [Topic 1](Topic01/README.md): fourteen d
 - [Topic 3 — Search trees, general trees, AVL and red-black trees](Topic03/README.md).
 - [Topic 4 — Sets, maps, polynomials and sparse storage](Topic04/README.md).
 - [Topic 5 — Hashing with separate chaining](Topic05/README.md).
-- [Topic 6 — Weighted graphs and shortest paths](Topic06/README.md): northern Spain road network with sourced distances, parallel alternatives and incident rerouting.
+- [Topic 6 — Weighted graphs and shortest paths](Topic06/README.md): a road network in northern Spain with sourced distances, parallel alternative roads and rerouting after incidents.
+
+[Topic 2](Topic02/README.md) contains the linked-list example, with a complete
+inner `ListIterator` and reuse through `AbstractSequentialList`.
+
+[Topic 3](Topic03/README.md) contains the binary search tree example, with
+comparison, recursive removal and an inner in-order iterator that uses a stack. It also
+includes full AVL and red-black implementations; their balancing algorithms are
+clearly marked as optional study of the implementation, not as exam requirements.
 
 Run `python3 tools/check_examples.py` (Windows: `py -3 tools/check_examples.py`)
-with JDK 17 or later on PATH to compile, execute
-and check every Java example in isolation against its documented output.
+with JDK 17 or later on `PATH` to compile and run every Java example on its own
+and check it against its documented output.
 The [multilanguage stack demo](Topic02/Demo07StacksAcrossLanguages/README.md)
-provides separate C++, C# and Python run/test commands.
+has its own commands to run and test the C++, C# and Python versions.
 
-The launchers target Java 17 with `--release 17` and retain `-Xlint:all -Werror`.
+The launchers target Java 17 with `--release 17` and keep `-Xlint:all -Werror` enabled.
 GitHub Actions checks JDK 17, 21 and 25 on Windows, macOS and Linux.
 
 ## Run an example
-
-[Topic 2](Topic02/README.md) contains the linked-list example with a complete
-inner ListIterator and reuse through AbstractSequentialList.
-
-[Topic 3](Topic03/README.md) contains the binary search tree example with
-comparison, recursive removal and an inner in-order iterator using a stack. It also
-includes full AVL and red-black implementations, with the balancing algorithms
-clearly marked as optional implementation study rather than exam requirements.
 
 1. Download this repository using **Code → Download ZIP**, or clone it with Git.
 2. In VS Code, open an **individual example folder**, such as **Topic01/Demo05Movies**.
 3. Use an installed JDK 17 or newer and the **Extension Pack for Java**.
 4. Open `src/app/Main.java` and select **Run** above `main`.
 
-Each example contains its own `ds` classes and its `app.Main` test program. You can copy any one example folder and run it independently. You can also set a breakpoint and select **Debug** to follow its execution.
+Each example contains its own `ds` classes and its own `app.Main` test program, so you can copy any example folder and run it on its own. You can also set a breakpoint and select **Debug** to follow its execution.
 
 On Windows, open PowerShell, Command Prompt or the VS Code terminal. Install
-a JDK 17 or newer and put its `bin` directory on `PATH`. Verify `java -version`
-and `javac -version`. Inside any individual example folder:
+JDK 17 or newer and put its `bin` directory on `PATH`, then check that
+`java -version` and `javac -version` both work. Inside any example folder, run:
 
 ```powershell
 .\run.cmd
@@ -51,10 +51,10 @@ and `javac -version`. Inside any individual example folder:
 
 From a topic folder, use `.\run.cmd list`, `.\run.cmd all`,
 `.\run.cmd test`, or select one demo, for example `.\run.cmd Demo05Movies`
-in Topic01. No Bash or WSL is required. Each `run.cmd` starts the accompanying
-PowerShell script for that invocation; it does not change the machine's stored
-execution policy. Quoted paths with spaces are supported. Scripts compile with
-Java 17 and propagate compiler/test failures as nonzero exit codes.
+in Topic01. You do not need Bash or WSL. Each `run.cmd` starts the PowerShell
+script next to it just for that run, without changing the execution policy stored
+on the machine. Quoted paths containing spaces are supported. The scripts compile
+with Java 17 and report compiler or test failures through a non-zero exit code.
 
 On macOS or Linux, from the `Topic01` folder:
 
@@ -76,17 +76,17 @@ bash run.sh test
 - [Closing example: immutable and mutable bags](Topic01/Demo14Bags/README.md).
 - [Expected console output](Topic01/ExpectedOutput.md).
 
-Comments identify small experiments that intentionally produce compilation errors. Uncomment one at a time, inspect the error, and restore the comment before continuing.
+Some comments mark small experiments that deliberately produce compilation errors. Uncomment one at a time, read the error, and restore the comment before you continue.
 
 ## Source style
 
-Keep teaching code simple and direct. Use straightforward expressions and explicit conditions; avoid redundant checks, unused parameters and helper methods that merely wrap one array access. Retain checks that enforce the example's contract and prevent incorrect behaviour. Introduce abstractions only when they support the concept being taught.
+Keep teaching code simple and direct. Use straightforward expressions and explicit conditions; avoid redundant checks, unused parameters and helper methods that do nothing more than wrap one array access. Keep the checks that enforce the example's contract and prevent incorrect behaviour. Introduce abstractions only when they support the concept being taught.
 
 Do not call overridable operations from constructors. Use private implementation
 helpers to share initialisation logic with public operations without running
 subclass code before its fields are initialised.
 
-Review capacities, indices, null references and all other preconditions before
+Review capacities, indices, `null` references and all other preconditions before
 publishing. Express validation with a simple `if` and the specified exception;
 do not hide it behind `Objects.requireNonNull` or similar validation utilities.
 State any unsupported operations and copy semantics in the example's README.

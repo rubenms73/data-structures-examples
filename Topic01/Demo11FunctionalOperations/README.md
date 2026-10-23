@@ -10,33 +10,33 @@ Write a program that tests the four functional interfaces introduced in the pres
 
 | Interface | Method to call | Task |
 | --- | --- | --- |
-| `Predicate<Integer>` | `test` | Determine whether an integer is even; try both 4 and 5. |
-| `Supplier<Integer>` | `get` | Produce the example value 4 without receiving arguments. |
-| `Function<Integer, String>` | `apply` | Transform a number into a label such as `Number 4`. |
-| `Consumer<String>` | `accept` | Print the supplied label; return no value. |
+| `Predicate<Integer>` | `test` | Decide whether an integer is even; try both 4 and 5. |
+| `Supplier<Integer>` | `get` | Produce the example value 4 without taking any arguments. |
+| `Function<Integer, String>` | `apply` | Turn a number into a label such as `Number 4`. |
+| `Consumer<String>` | `accept` | Print the label it receives, without returning a value. |
 
-Use lambdas to supply the implementations. With the ordinary array `{1, 2, 3, 4, 5, 6}`, pass a predicate, a transformation and an action to `FunctionalOperations.process`. The method must visit each value, test it, and invoke the transformation and action only for accepted values. First print the even numbers; then reuse the same traversal to print the squares of values greater than 4.
+Use lambdas to provide the implementations. With the ordinary array `{1, 2, 3, 4, 5, 6}`, pass a predicate, a transformation and an action to `FunctionalOperations.process`. The method must visit each value and test it, and call the transformation and the action only for the values that pass the test. First print the even numbers, then reuse the same traversal to print the squares of the values greater than 4.
 
-The supplier is tested through a direct `get()` call before the traversal. The program uses no lists, sets, streams or collection implementations. Prerequisites are interfaces, type parameters, arrays, loops and lambda expressions. Read `src/app/Main.java` first, then follow the calls into `src/ds/FunctionalOperations.java`.
+The supplier is tested with a direct call to `get()` before the traversal. The program uses no lists, sets, streams or other collection implementations. You should already know interfaces, type parameters, arrays, loops and lambda expressions. Read `src/app/Main.java` first, then follow the calls into `src/ds/FunctionalOperations.java`.
 
-`Comparable` and `Comparator`, also discussed in the presentation, are exercised in [Movies](../Demo05Movies/README.md) and [Functional comparators](../Demo10FunctionalComparators/README.md).
+`Comparable` and `Comparator`, which the presentation also discusses, are put into practice in [Movies](../Demo05Movies/README.md) and [Functional comparators](../Demo10FunctionalComparators/README.md).
 
-This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
+This folder is a complete Java project. You can copy it anywhere and run it without any other example or shared library; it needs only the Java standard library.
 
 ## Guided walkthrough
 
-1. Read the four interface variables in `Main`, identifying input and return types before evaluating the lambdas.
-2. Run each direct method call. The predicate is tested with both an even and an odd input; the supplier produces the value used by the function and consumer.
-3. Step into `FunctionalOperations.process`. For each array element, follow the predicate, then the transformation and action only when accepted.
-4. Inspect the second call: the same traversal now selects values greater than four and prints their squares.
+1. Read the four interface variables in `Main` and identify their input and return types before you evaluate the lambdas.
+2. Run each direct method call. The predicate is tested with an even input and an odd one, and the supplier produces the value that the function and the consumer then use.
+3. Step into `FunctionalOperations.process`. For each array element, follow the predicate, and then the transformation and the action if the element is accepted.
+4. Look at the second call. The same traversal now selects the values greater than four and prints their squares.
 
 ## What to observe and try
 
-The first combined traversal processes 2, 4 and 6. The second processes 5 and 6, producing squares 25 and 36. The function returns a value; the consumer performs a visible action and returns nothing. The supplier has no argument and is demonstrated separately.
+The first combined traversal processes 2, 4 and 6. The second processes 5 and 6 and produces the squares 25 and 36. The function returns a value, whereas the consumer performs a visible action and returns nothing. The supplier takes no argument, so it is demonstrated separately.
 
-Change only the predicate to accept odd numbers, then only the transformation to label cubes. Try an empty array and a predicate that is always false. Explain why rejected elements must not reach the transformation.
+Change only the predicate so that it accepts odd numbers, and then only the transformation so that it labels cubes. Try an empty array and a predicate that is always `false`. Explain why rejected elements must never reach the transformation.
 
-These examples use ordinary arrays, no streams and no list implementations. Reference-type parameters use `Integer`; the arithmetic expressions demonstrate boxing and unboxing. Avoid null array entries for the supplied arithmetic lambdas.
+These examples use ordinary arrays, with no streams and no list implementations. The type parameters are instantiated with `Integer`, so the arithmetic expressions show boxing and unboxing at work. Do not put `null` entries in the array, because the arithmetic lambdas cannot handle them.
 
 ## Open and run
 
@@ -49,7 +49,7 @@ bash run.sh
 bash run.sh test
 ```
 
-To compile and run the example directly (also in Windows PowerShell):
+To compile and run the example by hand (this also works in Windows PowerShell):
 
 ```sh
 javac -encoding UTF-8 -d bin src/ds/*.java src/app/*.java
@@ -58,15 +58,15 @@ java -cp bin app.Main
 
 ## Files
 
-- `src/ds/`: the example's classes and interfaces, all in package `ds`.
-- `src/app/Main.java`: the test program with `public static void main`, in package `app`.
-- `tests/tests/ExampleChecks.java`: automated checks, separate from the teaching program.
+- `src/ds/`: the example's classes and interfaces, all in the `ds` package.
+- `src/app/Main.java`: the test program, with `public static void main`, in the `app` package.
+- `tests/tests/ExampleChecks.java`: automated checks, kept apart from the teaching program.
 
 The classes in `ds` are:
 
 - [FunctionalOperations.java](src/ds/FunctionalOperations.java)
 
-Each example owns its sources and compiled output. Open examples as separate projects: combining their source folders would mix repeated names such as `app.Main` and `ds.FunctionalOperations`.
+Each example has its own sources and compiled output. Open each one as a separate project: combining their source folders would mix up repeated names such as `app.Main` and `ds.FunctionalOperations`.
 
 ## Expected output
 
@@ -89,12 +89,12 @@ Consumer.accept: Square 36
 Input after both traversals: [1, 2, 3, 4, 5, 6]
 ```
 
-Commented compilation errors are intentional exercises. Restore each comment before continuing.
+The commented-out compilation errors are deliberate exercises. Restore each comment before you continue.
 
 ## Windows
 
 Open a terminal in this folder (PowerShell, Command Prompt or the VS Code
-terminal). Install a JDK 17 or newer and put its `bin` directory on `PATH`;
+terminal). Install JDK 17 or newer and put its `bin` directory on `PATH`;
 `java -version` and `javac -version` should both work. No Bash, WSL or Git Bash
 is required.
 
@@ -104,8 +104,8 @@ is required.
 ```
 
 The first command runs the demonstration; the second compiles and runs its checks.
-The launcher handles its own working directory, paths with spaces and any
-bundled JAR libraries. It uses the included Windows PowerShell 5.1;
-`run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
-remain available when the individual example folder is open.
+The launcher sets its own working directory and copes with paths containing
+spaces and with any bundled JAR libraries. It runs on Windows PowerShell 5.1,
+which comes with Windows, and `run.ps1` also works with PowerShell 7. The VS Code
+**Run** and **Debug** buttons are still available when the example folder is open.
 

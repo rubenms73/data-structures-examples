@@ -2,40 +2,51 @@
 
 ## Problem statement and prerequisites
 
-Build a collection from singly linked nodes with head, tail and size by extending
-`AbstractCollection<E>`. Implement only `size()`, `iterator()` and `boolean add(E)`,
-which appends an element and returns true. The inner forward iterator supplies
-`hasNext()`, `next()` and `remove()` to support traversal and inherited removal.
-Prerequisites: references, generic classes, inheritance, abstract classes, loops,
-Collection and Iterator. Read this example before Demo02LinkedList, which
-introduces the List contract and its bidirectional cursor.
-Null elements and duplicates are valid.
+Build a collection from singly linked nodes, with a head, a tail and a size, by
+extending `AbstractCollection<E>`. Implement only `size()`, `iterator()` and
+`boolean add(E)`, which appends an element and returns `true`. The inner forward
+iterator provides `hasNext()`, `next()` and `remove()`, which support traversal
+and the inherited removal operations.
+
+You should already know references, generic classes, inheritance, abstract
+classes, loops, `Collection` and `Iterator`. Read this example before
+Demo02LinkedList, which introduces the `List` contract and its bidirectional
+cursor.
+
+`null` elements and duplicates are both valid.
 
 ## Guided walkthrough
 
-1. Draw head, tail and the next link in each node. Empty lists have both ends null.
-2. Follow append into an empty and a nonempty list; tail avoids a complete scan.
-3. Trace the four iterator node references. beforeLast saves the predecessor so
-   removal does not need to search from the head.
-4. Remove the last node, then append again: tail must refer to the surviving last node.
-5. Repeated removal without next throws IllegalStateException. Exhaustion throws
-   NoSuchElementException. Removing an element whose value is null is valid.
-6. Use the object through `Collection<E>`: `addAll`, `contains`, `toArray`,
-   `remove(Object)`, `removeAll`, `retainAll` and `clear` are inherited.
-   The modifying operations reuse `add` or iterator removal; `isEmpty` uses size.
+1. Draw `head`, `tail` and the `next` link in each node. In an empty list both
+   ends are `null`.
+2. Follow an append to an empty list and to a non-empty one. The tail reference
+   means the list does not have to be scanned from the start.
+3. Trace the four node references held by the iterator. `beforeLast` keeps the
+   predecessor, so that removal does not have to search from the head.
+4. Remove the last node and then append again: `tail` must refer to the node
+   that is now last.
+5. Calling `remove` twice without a `next` in between throws
+   `IllegalStateException`, and calling `next` on an exhausted iterator throws
+   `NoSuchElementException`. Removing an element whose value is `null` is valid.
+6. Use the object through `Collection<E>`. `addAll`, `contains`, `toArray`,
+   `remove(Object)`, `removeAll`, `retainAll` and `clear` are all inherited. The
+   modifying operations reuse `add` or removal through the iterator, and
+   `isEmpty` uses the size.
 
 ## Costs and contracts
 
-Append, size, iterator next and iterator remove cost O(1).
-Full traversal, inherited contains, remove(Object) and clear take O(n) in the
-worst case; storage is O(n).
-Modify only through the active iterator during traversal. External modifications
-are not detected. Equality is not overridden: this class retains identity equality.
+Appending, `size`, and the iterator's `next` and `remove` all cost O(1). A full
+traversal and the inherited `contains`, `remove(Object)` and `clear` take O(n)
+in the worst case, and the storage is O(n).
 
-`AbstractCollection` reuses the forward iterator without requiring a ListIterator.
-`SinglyLinkedList` names the internal representation. Its public contract is
-`Collection`, with no indexed access or insertion methods. Demo02 introduces
-the fuller `List` contract through `AbstractSequentialList`.
+During a traversal, modify the collection only through the iterator in use;
+changes made by other means are not detected. Equality is not overridden, so
+this class keeps identity equality. `AbstractCollection` reuses the forward
+iterator and does not need a `ListIterator`.
+
+The name `SinglyLinkedList` describes the internal representation. Its public
+contract is `Collection`, with no methods for indexed access or insertion.
+Demo02 introduces the fuller `List` contract through `AbstractSequentialList`.
 
 ## Open and run
 
@@ -53,9 +64,10 @@ are required. Code and comments use English and Allman style.
 
 ## What to observe and try
 
-Trace Main by hand before running it. Exercise the empty case, boundaries and
-rejected operations described above. Verify that a rejected single operation
-leaves the structure unchanged. Compare the representation with its public contract.
+Trace `Main` by hand before you run it. Try the empty case, the boundary cases
+and the rejected operations described above, and check that an operation that is
+rejected leaves the structure unchanged. Compare the representation with the
+public contract it implements.
 
 ## Expected output
 
@@ -88,7 +100,7 @@ clear(): []; size = 0; empty = true
 ## Windows
 
 Open a terminal in this folder (PowerShell, Command Prompt or the VS Code
-terminal). Install a JDK 17 or newer and put its `bin` directory on `PATH`;
+terminal). Install JDK 17 or newer and put its `bin` directory on `PATH`;
 `java -version` and `javac -version` should both work. No Bash, WSL or Git Bash
 is required.
 
@@ -98,7 +110,7 @@ is required.
 ```
 
 The first command runs the demonstration; the second compiles and runs its checks.
-The launcher handles its own working directory, paths with spaces and any
-bundled JAR libraries. It uses the included Windows PowerShell 5.1;
-`run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
-remain available when the individual example folder is open.
+The launcher sets its own working directory and copes with paths containing
+spaces and with any bundled JAR libraries. It runs on Windows PowerShell 5.1,
+which comes with Windows, and `run.ps1` also works with PowerShell 7. The VS Code
+**Run** and **Debug** buttons are still available when the example folder is open.

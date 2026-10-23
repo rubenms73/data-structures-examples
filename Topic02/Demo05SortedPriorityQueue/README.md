@@ -2,36 +2,49 @@
 
 ## Problem statement and prerequisites
 
-Keep a linked list sorted so the smallest element can be extracted immediately.
-Prerequisites: Queue, ListIterator, Comparable and Comparator. A null comparator
-means natural order. Null elements are prohibited. Equal priorities are allowed
-and retain arrival order. The comparator must define a consistent ordering.
+Keep a linked list sorted, so that the smallest element can be extracted
+straight away. You should already know `Queue`, `ListIterator`, `Comparable` and
+`Comparator`. A `null` comparator means natural order. `null` elements are not
+allowed. Equal priorities are allowed and keep their order of arrival. The
+comparator must define a consistent ordering.
 
 The backing `List<E>` is our `DoublyLinkedList<E>` from
-[Demo03](../Demo03DoublyLinkedList/README.md), also reused in Demo04.
-This folder includes an unchanged copy of `src/ds/DoublyLinkedList.java` to
-remain self-contained; keep it identical to Demo03. Clients use `Queue<E>`.
-The queue implements only `offer`, `poll`, `peek`, `size` and `iterator`;
-node management and iterator removal are supplied by the list.
+[Demo03](../Demo03DoublyLinkedList/README.md), which Demo04 also reuses. This
+folder includes an unchanged copy of `src/ds/DoublyLinkedList.java` so that it
+stays self-contained; keep it identical to the one in Demo03. Clients use
+`Queue<E>`.
+
+The queue implements only `offer`, `poll`, `peek`, `size` and `iterator`; the
+list takes care of managing the nodes and of removal through the iterator.
 
 ## Guided walkthrough
 
-1. Follow offer until the first strictly larger value. Step back and insert there.
-2. Equal priorities are passed, giving stable insertion among ties. If no larger
-   value is found, insert with the same list iterator, already at the end.
-3. Validate comparison before changing the list; do not catch and ignore comparison failures.
-4. The conversion constructor initializes the comparator before adding elements.
-5. Inherited queue operations reuse offer, poll and peek. Compare with FIFO/LIFO.
+1. Follow `offer` until it finds the first value that is strictly larger. It
+   steps back and inserts the new value there.
+2. Equal priorities are skipped over, so insertion is stable among ties. If no
+   larger value is found, the element is inserted with the same list iterator,
+   which is already at the end.
+3. The comparison is validated before the list changes; comparison failures are
+   never caught and ignored.
+4. The conversion constructor initialises the comparator before adding any
+   element.
+5. The inherited queue operations reuse `offer`, `poll` and `peek`. Compare them
+   with the FIFO and LIFO queues.
 
 ## Costs and contracts
 
-Insertion is O(n); peek and poll are O(1). Building n entries by repeated offer
-may cost O(n²). This is the list-based alternative to a heap, introduced later.
-Do not mutate fields used for ordering while an object is in the queue. Iteration
-is sorted, unlike the unspecified iterator ordering of Java's PriorityQueue.
-Only modify the queue through the active iterator during traversal. The reused
-teaching list does not detect external changes. Iterator removal takes O(1);
-inherited remove(Object) may first search O(n) elements.
+Insertion is O(n), while `peek` and `poll` are O(1). Building a queue of n
+entries by calling `offer` repeatedly may cost O(n²). This is the list-based
+alternative to a heap, which is introduced later.
+
+Do not modify the fields that determine the order of an object while it is in
+the queue. Iteration follows the sorted order, unlike Java's `PriorityQueue`,
+whose iteration order is unspecified.
+
+During a traversal, modify the queue only through the iterator in use. The
+reused teaching list does not detect changes made by other means. Removal
+through the iterator takes O(1), but the inherited `remove(Object)` may first
+have to search through O(n) elements.
 
 ## Open and run
 
@@ -49,9 +62,10 @@ are required. Code and comments use English and Allman style.
 
 ## What to observe and try
 
-Trace Main by hand before running it. Exercise the empty case, boundaries and
-rejected operations described above. Verify that a rejected single operation
-leaves the structure unchanged. Compare the representation with its public contract.
+Trace `Main` by hand before you run it. Try the empty case, the boundary cases
+and the rejected operations described above, and check that an operation that is
+rejected leaves the structure unchanged. Compare the representation with the
+public contract it implements.
 
 ## Expected output
 
@@ -86,7 +100,7 @@ Empty peek(): null; empty poll(): null
 ## Windows
 
 Open a terminal in this folder (PowerShell, Command Prompt or the VS Code
-terminal). Install a JDK 17 or newer and put its `bin` directory on `PATH`;
+terminal). Install JDK 17 or newer and put its `bin` directory on `PATH`;
 `java -version` and `javac -version` should both work. No Bash, WSL or Git Bash
 is required.
 
@@ -96,7 +110,7 @@ is required.
 ```
 
 The first command runs the demonstration; the second compiles and runs its checks.
-The launcher handles its own working directory, paths with spaces and any
-bundled JAR libraries. It uses the included Windows PowerShell 5.1;
-`run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
-remain available when the individual example folder is open.
+The launcher sets its own working directory and copes with paths containing
+spaces and with any bundled JAR libraries. It runs on Windows PowerShell 5.1,
+which comes with Windows, and `run.ps1` also works with PowerShell 7. The VS Code
+**Run** and **Debug** buttons are still available when the example folder is open.

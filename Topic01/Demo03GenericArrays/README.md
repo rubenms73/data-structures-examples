@@ -4,27 +4,27 @@ Type parameters, generic methods and compile-time checks.
 
 **Slides:** 27–31 (printed slide numbers).
 
-Storage is supplied by `FixedMyArray`, an implementation of the local `MyArray<E>` interface using an ordinary array. The constructor `FixedMyArray(int capacity)` creates the internal array and starts with size zero. For example, `new FixedMyArray<String>(4)` can hold four strings. An additional constructor accepts a typed array, copies it, and also starts with size zero. Adding to a full array throws `IllegalStateException`. This example requires no knowledge of `List` or `ArrayList`.
+The storage comes from `FixedMyArray`, which implements the local `MyArray<E>` interface with an ordinary array. The constructor `FixedMyArray(int capacity)` creates the internal array, and the vector starts with size zero. For example, `new FixedMyArray<String>(4)` can hold four strings. A second constructor takes a typed array, copies it and also starts with size zero. Adding to a full array throws `IllegalStateException`. You do not need to know `List` or `ArrayList` for this example.
 
-This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
+This folder is a complete Java project. You can copy it anywhere and run it without any other example or shared library; it needs only the Java standard library.
 
 ## Problem statement and prerequisites
 
-Generalize an array interface so one implementation works with strings and integers. Write a generic method that returns the first element with its correct static type. Prerequisites are the integer-array example, interfaces, arrays and basic type parameters.
+Generalise an array interface so that one implementation works with both strings and integers. Write a generic method that returns the first element with its correct static type. Before starting, you should know the integer-array example, interfaces, arrays and basic type parameters.
 
 ## Guided walkthrough
 
 1. Read `MyArray<E>` and identify where the element type is used.
-2. Read `FixedMyArray<E>`. The capacity constructor allocates `data = (E[]) new Object[capacity]`: Java does not allow `new E[capacity]`, so the unchecked cast is confined to this constructor with `@SuppressWarnings("unchecked")`. The field remains `E[]`, and the class keeps the array private. Capacity is the number of available slots; logical size starts at zero. The other constructor copies a supplied typed array.
+2. Read `FixedMyArray<E>`. The capacity constructor allocates `data = (E[]) new Object[capacity]`. Java does not allow `new E[capacity]`, so the unchecked cast is confined to this constructor and marked with `@SuppressWarnings("unchecked")`. The field is still declared as `E[]`, and the class keeps the array private. The capacity is the number of available slots, while the logical size starts at zero. The other constructor copies the typed array it receives.
 3. Follow the two vectors in `Main`: `names` stores strings and `scores` stores integers.
 4. Inspect `GenericAlgorithms.first`. Its type parameter connects the input's element type with its return type.
-5. Compare the commented compilation errors with the deliberately invalid cast from `Object[]`, which fails only at execution.
+5. Compare the commented-out compilation errors with the deliberately invalid cast from `Object[]`, which fails only when the program runs.
 
 ## What to observe and try
 
-Try adding an integer to `names` and assigning it to `MyArray<Object>`; restore each comment before continuing. Then test an empty vector, the last valid index and a full vector. Null elements are permitted and consume a slot.
+Try adding an integer to `names`, and try assigning `names` to a `MyArray<Object>`; restore each comment before you continue. Then test an empty vector, the last valid index and a full vector. Elements may be `null`, and each `null` takes up a slot.
 
-Try capacities zero and one: a zero-capacity vector is already full, and a one-capacity vector accepts one element. A negative capacity is explicitly rejected with `IllegalArgumentException` before allocating the array. When using the typed-array constructor, supply an array whose component type matches the chosen element type. The example uses fixed capacity and does not implement iteration yet. Demo07 extends the vector design with an inner iterator class.
+Try capacities of zero and one: a vector with capacity zero is already full, and one with capacity one accepts a single element. A negative capacity is rejected with `IllegalArgumentException` before the array is allocated. When you use the typed-array constructor, pass an array whose component type matches the chosen element type. This example has a fixed capacity and does not implement iteration yet; Demo07 extends the same vector design with an inner iterator class.
 
 ## Open and run
 
@@ -37,7 +37,7 @@ bash run.sh
 bash run.sh test
 ```
 
-To compile and run the example directly (also in Windows PowerShell):
+To compile and run the example by hand (this also works in Windows PowerShell):
 
 ```sh
 javac -encoding UTF-8 -d bin src/ds/*.java src/app/*.java
@@ -46,9 +46,9 @@ java -cp bin app.Main
 
 ## Files
 
-- `src/ds/`: the example's classes and interfaces, all in package `ds`.
-- `src/app/Main.java`: the test program with `public static void main`, in package `app`.
-- `tests/tests/ExampleChecks.java`: automated checks, separate from the teaching program.
+- `src/ds/`: the example's classes and interfaces, all in the `ds` package.
+- `src/app/Main.java`: the test program, with `public static void main`, in the `app` package.
+- `tests/tests/ExampleChecks.java`: automated checks, kept apart from the teaching program.
 
 The classes in `ds` are:
 
@@ -56,7 +56,7 @@ The classes in `ds` are:
 - [GenericAlgorithms.java](src/ds/GenericAlgorithms.java)
 - [MyArray.java](src/ds/MyArray.java)
 
-Each example owns its sources and compiled output. Open examples as separate projects: combining their source folders would mix repeated names such as `app.Main` and `ds.Movie`.
+Each example has its own sources and compiled output. Open each one as a separate project: combining their source folders would mix up repeated names such as `app.Main` and `ds.Movie`.
 
 ## Expected output
 
@@ -71,12 +71,12 @@ Attempt to cast the Integer at index 1 to String:
 Object[] accepts mixed values; the wrong cast fails at run time.
 ```
 
-Commented compilation errors are intentional exercises. Restore each comment before continuing.
+The commented-out compilation errors are deliberate exercises. Restore each comment before you continue.
 
 ## Windows
 
 Open a terminal in this folder (PowerShell, Command Prompt or the VS Code
-terminal). Install a JDK 17 or newer and put its `bin` directory on `PATH`;
+terminal). Install JDK 17 or newer and put its `bin` directory on `PATH`;
 `java -version` and `javac -version` should both work. No Bash, WSL or Git Bash
 is required.
 
@@ -86,8 +86,8 @@ is required.
 ```
 
 The first command runs the demonstration; the second compiles and runs its checks.
-The launcher handles its own working directory, paths with spaces and any
-bundled JAR libraries. It uses the included Windows PowerShell 5.1;
-`run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
-remain available when the individual example folder is open.
+The launcher sets its own working directory and copes with paths containing
+spaces and with any bundled JAR libraries. It runs on Windows PowerShell 5.1,
+which comes with Windows, and `run.ps1` also works with PowerShell 7. The VS Code
+**Run** and **Debug** buttons are still available when the example folder is open.
 

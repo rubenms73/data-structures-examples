@@ -3,71 +3,84 @@
 ## Problem statement and prerequisites
 
 Implement a generic singly linked list by extending `AbstractSequentialList<E>`.
-Provide `size()` and `listIterator(int index)` so that the superclass can supply
-indexed access and modification. Implement all cursor operations, including
-backward traversal, insertion, replacement and removal.
+Provide `size()` and `listIterator(int index)`, so that the superclass can
+supply indexed access and modification. Implement all the cursor operations,
+including backward traversal, insertion, replacement and removal.
 
-Prerequisites: references, linked nodes, generics, inheritance, abstract classes,
-`List`, `Iterator` and `ListIterator`. Study a simple forward iterator first.
+You should already know references, linked nodes, generics, inheritance,
+abstract classes, `List`, `Iterator` and `ListIterator`. Study a simple forward
+iterator first.
 
 ## Representation and contracts
 
-`head` references the first node; `count` is the number of nodes. An empty list
-has `head == null` and `count == 0`. Nodes are private inner objects.
-Elements may be null. A null source collection or varargs array is rejected
-with a simple conditional and `NullPointerException`.
+`head` refers to the first node and `count` is the number of nodes. An empty
+list has `head == null` and `count == 0`. The nodes are private inner objects.
 
-The conversion constructor accepts `Collection<? extends E>`. It creates new
-nodes, preserving order and sharing element references. Replacing a list entry
-does not change the other list; mutating a shared element object affects both.
+Elements may be `null`. A `null` source collection or varargs array is rejected
+with a simple conditional that throws `NullPointerException`.
 
-Iterator positions range from zero to size, inclusive. The cursor lies between
-`previousNode` and `nextNode`. `nextIndex` is the index that `next()` would return.
-`lastReturned` has a different purpose: it records the node affected by `set`
-or `remove`, regardless of traversal direction. A null value in this field means
-that those operations are not currently allowed; a node containing null is valid.
+The conversion constructor accepts a `Collection<? extends E>`. It creates new
+nodes in the same order and shares the element references. Replacing an entry in
+one list does not change the other, but modifying a shared element object
+affects both.
 
-`add` inserts before the next node and leaves the cursor after the inserted node.
-Both `add` and `remove` invalidate `lastReturned`. `set` may be repeated and does
-not invalidate it. Exhausted movement throws `NoSuchElementException`.
+Iterator positions range from zero to the size, inclusive. The cursor lies
+between `previousNode` and `nextNode`, and `nextIndex` is the index of the
+element that `next()` would return.
+
+`lastReturned` has a different purpose: it records the node that `set` or
+`remove` would affect, whichever direction the traversal went. When this field
+is `null`, those operations are not currently allowed; a node that contains
+`null` is still a valid node.
+
+`add` inserts before the next node and leaves the cursor after the inserted
+node. Both `add` and `remove` invalidate `lastReturned`, whereas `set` may be
+repeated and does not invalidate it. Moving past either end throws
+`NoSuchElementException`.
 
 ## Guided walkthrough
 
-1. Inspect Node, head and count, then trace construction using iterator insertion.
+1. Look at `Node`, `head` and `count`, and then trace how the constructor builds
+   the list by inserting through an iterator.
 2. Follow the iterator constructor to see how a cursor reaches an index.
-3. Trace next and previous: both record the returned node before moving the cursor.
-4. Follow remove after each direction. After next, the cursor index decreases;
-   after previous, the next node changes and the index stays the same.
-5. Inspect add at the head, in an empty list and at the end.
-6. Run Main. Its get/set/clear and printing operations illustrate inherited reuse.
+3. Trace `next` and `previous`. Both record the returned node before moving the
+   cursor.
+4. Follow `remove` after each direction. After `next`, the cursor index
+   decreases; after `previous`, the next node changes and the index stays the
+   same.
+5. Look at `add` at the head, in an empty list and at the end.
+6. Run `Main`. Its `get`, `set`, `clear` and printing operations show what is
+   reused from the superclass.
 
 ## Costs and limitations
 
 | Operation | Cost |
 |---|---|
-| size, hasNext, hasPrevious, cursor indices | O(1) |
-| listIterator(index) | O(index) |
-| next, iterator add, iterator set | O(1) |
-| previous | O(n) worst case |
-| iterator remove after next | O(n) worst case |
-| iterator remove after previous | O(1) |
+| `size`, `hasNext`, `hasPrevious`, cursor indices | O(1) |
+| `listIterator(index)` | O(index) |
+| `next`, iterator `add`, iterator `set` | O(1) |
+| `previous` | O(n) worst case |
+| iterator `remove` after `next` | O(n) worst case |
+| iterator `remove` after `previous` | O(1) |
 | construction from n elements | O(n) |
 
-A backward step searches from the head for the predecessor. Complete backward
-traversal can therefore cost O(n²). Inherited repeated append operations can
-also cost O(n²); constructors avoid this by reusing one iterator.
+A step backwards has to search for the predecessor from the head, so a complete
+backward traversal can cost O(n²). Repeated appends through the inherited
+operations can also cost O(n²); the constructors avoid this by reusing a single
+iterator.
 
-Only modify the list through the active iterator during traversal. This teaching
-implementation does not detect external modifications. It is not a replacement
-for the standard library's LinkedList. Adding backward links would be a separate
-exercise, with different storage costs and invariants.
+During a traversal, modify the list only through the iterator in use. This
+teaching implementation does not detect changes made by other means, and it is
+not meant to replace the standard library's `LinkedList`. Adding backward links
+would be a separate exercise, with different storage costs and invariants.
 
 ## What to observe and try
 
-Try remove/set before movement, remove twice, and set immediately after add.
-Each must throw IllegalStateException. Test previous followed by set or remove,
-insertion into an empty list, null elements and copying Integer elements into
-a list of Number. Draw the cursor between nodes after each operation.
+Try `remove` or `set` before any movement, `remove` twice in a row, and `set`
+straight after `add`. Each of these must throw `IllegalStateException`. Test
+`previous` followed by `set` or `remove`, insertion into an empty list, `null`
+elements, and copying `Integer` elements into a list of `Number`. Draw the
+cursor between the nodes after each operation.
 
 ## Open and run
 
@@ -116,7 +129,7 @@ Copy after clearing original: [2.5, 3]
 ## Windows
 
 Open a terminal in this folder (PowerShell, Command Prompt or the VS Code
-terminal). Install a JDK 17 or newer and put its `bin` directory on `PATH`;
+terminal). Install JDK 17 or newer and put its `bin` directory on `PATH`;
 `java -version` and `javac -version` should both work. No Bash, WSL or Git Bash
 is required.
 
@@ -126,7 +139,7 @@ is required.
 ```
 
 The first command runs the demonstration; the second compiles and runs its checks.
-The launcher handles its own working directory, paths with spaces and any
-bundled JAR libraries. It uses the included Windows PowerShell 5.1;
-`run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
-remain available when the individual example folder is open.
+The launcher sets its own working directory and copes with paths containing
+spaces and with any bundled JAR libraries. It runs on Windows PowerShell 5.1,
+which comes with Windows, and `run.ps1` also works with PowerShell 7. The VS Code
+**Run** and **Debug** buttons are still available when the example folder is open.

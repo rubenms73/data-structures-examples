@@ -2,24 +2,30 @@
 
 ## Problem statement and prerequisites
 
-Wrap an iterable so peek observes the next value without consuming it from the
-wrapper. Prerequisites: Iterator, generics and composition. Null values are valid;
-a null iterable is not. Construction prefetches one element from the source.
+Wrap an iterable so that `peek` can look at the next value without the wrapper
+consuming it. You should already know `Iterator`, generics and composition.
+`null` values are valid, but a `null` iterable is not. The constructor
+prefetches one element from the source.
 
 ## Guided walkthrough
 
-1. Inspect available and next: presence is independent of the element value.
-2. Repeated peek calls return the same element without advancing the wrapper.
-3. next obtains the buffered element and advances the underlying iterator.
-4. At exhaustion, both peek and next throw NoSuchElementException.
-5. remove is unsupported: prefetching complicates delegation to the underlying iterator.
+1. Look at `available` and `next`. Whether an element is present does not depend
+   on its value.
+2. Repeated calls to `peek` return the same element without advancing the
+   wrapper.
+3. `next` takes the buffered element and advances the underlying iterator.
+4. Once the iterator is exhausted, both `peek` and `next` throw
+   `NoSuchElementException`.
+5. `remove` is not supported, because prefetching makes it awkward to delegate
+   to the underlying iterator.
 
 ## Costs and contracts
 
-The wrapper keeps O(1) extra state. Each next performs one source advancement;
-its cost therefore depends on the source iterator. Do not modify the source
-while traversing. The old use of null as an end marker is removed. This version
-can support later exercises that merge ordered sequences.
+The wrapper keeps O(1) extra state. Each call to `next` advances the source
+once, so its cost depends on the source iterator. Do not modify the source
+during a traversal. The old practice of using `null` as an end marker has been
+dropped. This version can be used in later exercises that merge ordered
+sequences.
 
 ## Open and run
 
@@ -37,9 +43,10 @@ are required. Code and comments use English and Allman style.
 
 ## What to observe and try
 
-Trace Main by hand before running it. Exercise the empty case, boundaries and
-rejected operations described above. Verify that a rejected single operation
-leaves the structure unchanged. Compare the representation with its public contract.
+Trace `Main` by hand before you run it. Try the empty case, the boundary cases
+and the rejected operations described above, and check that an operation that is
+rejected leaves the structure unchanged. Compare the representation with the
+public contract it implements.
 
 ## Expected output
 
@@ -67,7 +74,7 @@ Source after traversal: [A, null, B]
 ## Windows
 
 Open a terminal in this folder (PowerShell, Command Prompt or the VS Code
-terminal). Install a JDK 17 or newer and put its `bin` directory on `PATH`;
+terminal). Install JDK 17 or newer and put its `bin` directory on `PATH`;
 `java -version` and `javac -version` should both work. No Bash, WSL or Git Bash
 is required.
 
@@ -77,7 +84,7 @@ is required.
 ```
 
 The first command runs the demonstration; the second compiles and runs its checks.
-The launcher handles its own working directory, paths with spaces and any
-bundled JAR libraries. It uses the included Windows PowerShell 5.1;
-`run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
-remain available when the individual example folder is open.
+The launcher sets its own working directory and copes with paths containing
+spaces and with any bundled JAR libraries. It runs on Windows PowerShell 5.1,
+which comes with Windows, and `run.ps1` also works with PowerShell 7. The VS Code
+**Run** and **Debug** buttons are still available when the example folder is open.

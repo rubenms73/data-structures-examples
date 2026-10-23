@@ -2,15 +2,18 @@
 
 ## Goal and prerequisites
 
-Choose an origin and destination, compute a route, remove a road, and ask
-Dijkstra for an alternative. Restore the road, give it a large temporary weight,
-and repeat. The program prints the actual road alternatives selected, their
-physical kilometres and the routing cost separately.
+Choose an origin and a destination, compute a route, remove a road and ask
+Dijkstra's algorithm for an alternative. Then restore the road, give it a large
+temporary weight, and repeat. The program prints the road alternatives actually
+selected, together with their physical length in kilometres and, separately, the
+routing cost.
 
-Read Topic 6's adjacency-map representation, nonnegative weights, relaxation
-and Dijkstra invariant first. Maps, sets, comparators and priority queues come
-from earlier topics. `WeightedGraph` and its linear and heap Dijkstra algorithms
-are unchanged. The new navigation layer supplies the roads and incident state.
+First read the Topic 6 material on the adjacency-map representation,
+non-negative weights, relaxation and the invariant of Dijkstra's algorithm.
+Maps, sets, comparators and priority queues come from earlier topics.
+`WeightedGraph` and its two versions of Dijkstra's algorithm, one with a linear
+scan and one with a heap, are unchanged. The new navigation layer supplies the
+roads and the state of the incidents.
 
 <!-- BEGIN GENERATED ROAD GRAPH -->
 ## Graph of the bundled road network
@@ -357,10 +360,10 @@ can run `python tools/update_readme_graph.py` from this demo folder.
 
 ## Run the demonstration
 
-Open this individual folder in VS Code with JDK 17 or newer. Use **Run** on
+Open this folder on its own in VS Code, with JDK 17 or newer, and use **Run** on
 `src/app/Main.java`. The default trip is **Gijón → Madrid**.
 
-Windows, from PowerShell, Command Prompt or the VS Code terminal:
+On Windows, from PowerShell, Command Prompt or the VS Code terminal:
 
 ```powershell
 .\run.cmd
@@ -369,7 +372,7 @@ Windows, from PowerShell, Command Prompt or the VS Code terminal:
 .\run.cmd run data/northern-spain.json "Cudillero" "Cangas de Onís"
 ```
 
-macOS and Linux:
+On macOS and Linux:
 
 ```sh
 bash run.sh
@@ -377,24 +380,25 @@ bash run.sh test
 bash run.sh run data/northern-spain.json 'Oviedo' 'León'
 ```
 
-Supply all three arguments: JSON file, origin and destination. An optional fourth
-argument selects one directed road ID for the incident. Otherwise the demo uses
-the tagged Pajares pass when present, then AP-66, then the first connection.
-For an unreachable destination or an origin equal to the destination, it prints
-the result and does not invent a road to disrupt. Unknown names are errors.
-All scripts select their own working directory. Windows needs `java` and `javac`
-on PATH, without Bash or WSL. Gson and its annotation dependency are bundled in
-`lib`, together with their licences. Running the demo requires no internet.
+Give all three arguments: the JSON file, the origin and the destination. An
+optional fourth argument chooses the ID of one directed road for the incident.
+Without it, the demo uses the tagged Pajares pass if there is one, then the AP-66,
+and otherwise the first connection. If the destination is unreachable or equal
+to the origin, the demo prints the result and does not invent a road to disrupt.
+Unknown names are reported as errors. All the scripts set their own working
+directory. On Windows you need `java` and `javac` on `PATH`, but not Bash or WSL.
+Gson and the annotation library it depends on are bundled in `lib`, together
+with their licences. Running the demo needs no internet connection.
 
 ## Offline graphical demonstration
 
 Every normal run also writes **`bin/navigation-map.html`**. Open that file in a
-browser; it is a self-contained HTML document, so it works from `file://`, offline,
-and when copied to another computer. No web server, API key or browser library
-installation is required. The next run overwrites it with the new origin/destination.
-Generated files stay in the ignored `bin` directory.
+browser. It is a self-contained HTML document, so it works from `file://`, offline
+and after being copied to another computer, and it needs no web server, API key
+or browser library. The next run overwrites it with the new origin and
+destination. Generated files stay in the `bin` directory, which Git ignores.
 
-From the **individual demo folder**, on macOS:
+From **this demo's folder**, on macOS:
 
 ```sh
 bash run.sh run data/northern-spain.json 'Oviedo' 'León'
@@ -404,118 +408,130 @@ open bin/navigation-map.html
 On Windows, after the same run with `.\run.cmd`, use
 `start bin\navigation-map.html` in Command Prompt, or
 `Start-Process .\bin\navigation-map.html` in PowerShell.
-On Linux, use `xdg-open bin/navigation-map.html` or open it from the file manager.
-The `Topic06/run.sh` script selects demos; these route arguments belong to
-`Demo03WeightedGraph/run.sh`.
+On Linux, use `xdg-open bin/navigation-map.html` or open the file from the file
+manager. These route arguments are for `Demo03WeightedGraph/run.sh`.
 
-The viewer opens at **step 1: No incident**. Follow buttons 1–5 in order: these
-are successive moments of the same journey, not five independent route options.
-Blue always shows the original route; orange shows the route for the selected step. Red dashed lines show the **whole
-affected graph connections**, not an exact incident point. Select any of the five
-scenario buttons to see its saved route, physical distance, routing cost and
-per-connection details. Coincident blue/orange strokes mean the routes share a
-road. The table preserves travel order and direction, including reverse edges.
-Use **Fit routes**, **Iberian Peninsula**, the zoom buttons, mouse wheel or drag to
-inspect the map. **Show sampled network** adds the other represented corridors.
-Click a road or select it in the table to inspect its ID, references and penalty.
+The viewer opens at **step 1: No incident**. Use buttons 1–5 in order: they are
+successive moments of the same journey, not five independent route options. Blue
+always shows the original route, and orange shows the route for the selected
+step. Dashed red lines show the **whole graph connections affected**, not the
+exact point of the incident. Select any of the five scenario buttons to see its
+saved route, physical distance and routing cost, and the details of each
+connection. Where blue and orange lines coincide, the routes share a road. The
+table keeps the order and direction of travel, reverse edges included. Use **Fit
+routes**, **Iberian Peninsula**, the zoom buttons, the mouse wheel or dragging to
+explore the map. **Show sampled network** adds the other corridors in the data.
+Click a road, or select it in the table, to see its ID, references and penalty.
 
-The geographic background is an offline Natural Earth country-outline map, not a
-street-level tile map. The routes follow the saved OSRM road geometry. No live
-traffic or remote tiles are loaded. Country outlines are deliberately coarse at
-close zoom; road geometry has higher detail. The peninsula overview covers this
-network's area, not every Spanish territory.
+The geographic background is an offline map of country outlines from Natural
+Earth, not a street-level tile map, and the routes follow the saved OSRM road
+geometry. No live traffic or remote tiles are loaded. When you zoom in, the
+country outlines are deliberately coarse, while the road geometry is more
+detailed. The peninsula view covers the area of this network, not every Spanish
+territory.
 
-`NavigationMapWriter` exports immutable Java route snapshots; `web/navigation-map.html`
-only draws them. Changing a scenario does **not** run Dijkstra in JavaScript. To
-change the origin, destination or incident, rerun Java. The viewer is supporting
-presentation material, separate from the graph and algorithm lesson.
+`NavigationMapWriter` exports immutable snapshots of the Java routes, and
+`web/navigation-map.html` only draws them. Switching scenario does **not** run
+Dijkstra's algorithm in JavaScript; to change the origin, the destination or the
+incident, run the Java program again. The viewer is supporting presentation
+material, separate from the lesson on graphs and algorithms.
 
-An unreachable route is labelled **No route**, with infinite cost; a route from a
-locality to itself has zero cost. Custom JSON without optional coordinates or
-geometry still loads: the viewer omits unavailable shapes and reports missing
-selected-road geometry rather than drawing invented straight-line roads.
+An unreachable route is labelled **No route** and has infinite cost, and a route
+from a locality to itself has zero cost. A custom JSON file without the optional
+coordinates or geometry still loads: the viewer leaves out the shapes it does not
+have and reports that the geometry of a selected road is missing, instead of
+drawing invented straight lines.
 
 ## The map data
 
 `data/northern-spain.json` contains **42 localities and 120 directed road
-alternatives**. It retains the original Asturias/León network and extends it to
-Benavente, Zamora, Salamanca, Valladolid, Palencia, Burgos, Santander, Bilbao,
-Lugo, A Coruña, Santiago de Compostela, Ourense and Madrid.
+alternatives**. It keeps the original network of Asturias and León and extends
+it to Benavente, Zamora, Salamanca, Valladolid, Palencia, Burgos, Santander,
+Bilbao, Lugo, A Coruña, Santiago de Compostela, Ourense and Madrid.
 
-Weights now come from **OSRM routes on OpenStreetMap**, queried on
-18 September 2026. They are map-derived road lengths, not invented distances
-or straight-line measurements. Each locality has an explicit reference coordinate;
-OSRM snaps it to the road network. Forward and reverse directions were queried
-separately, so their lengths need not match.
+The weights now come from **OSRM routes on OpenStreetMap**, queried on 18
+September 2026. They are road lengths taken from the map, not invented distances
+or straight-line measurements. Each locality has an explicit reference
+coordinate, which OSRM snaps to the road network. The two directions were
+queried separately, so their lengths need not be the same.
 
 Each edge represents a **whole directed corridor between two reference points**,
-including any urban access streets. Its name lists the road references returned
-by OSRM, in traversal order. A corridor can use several numbered roads and can
-pass other localities without stopping at their reference points. It is not a
-single physical road segment. Only represented corridors can be chosen or switched
-between; crossings inside a corridor are not additional graph vertices.
+including any access streets in towns. Its name lists the road references
+returned by OSRM, in the order in which they are travelled. A corridor can use
+several numbered roads and can pass other localities without stopping at their
+reference points, so it is not a single physical stretch of road. Only the
+corridors represented in the data can be chosen or combined, and roads crossing
+inside a corridor are not extra vertices of the graph.
 
-OSRM supplies a recommended driving route for each pair; the separately requested
-Pajares alternatives use a waypoint in Pajares/Payares to follow the N-630 corridor.
-The retained alternatives from Oviedo to León distinguish the AP-66 route from
-the N-630 option. Dijkstra minimises distance/cost among this **sampled network**,
-not over every road in Spain. OSRM's route service optimises its driving profile,
-so a returned corridor is not a guarantee of globally minimum physical distance.
+OSRM supplies a recommended driving route for each pair. The Pajares
+alternatives, requested separately, use a waypoint in Pajares/Payares so that
+they follow the N-630 corridor. The alternatives kept between Oviedo and León
+distinguish the AP-66 route from the N-630 option. Dijkstra's algorithm
+minimises distance or cost within this **sampled network**, not over every road
+in Spain. The OSRM route service optimises its own driving profile, so a
+corridor it returns is not guaranteed to be the shortest possible in physical
+distance.
 
-Each road also stores `geometry`: an encoded polyline with precision 5
-(latitude/longitude deltas, in 1e-5 degrees). It concatenates the step geometries
-from the same fingerprinted OSRM response, removing consecutive duplicate points
-without further simplification. Geometry is display metadata and never changes a
-weight. `referenceCoordinates` places locality labels on the map.
+Each road also stores a `geometry`: a polyline encoded with precision 5
+(latitude and longitude differences in units of 1e-5 degrees). It joins the step
+geometries from the same fingerprinted OSRM response, removing consecutive
+duplicate points but not simplifying it any further. The geometry is only used
+for display and never changes a weight. `referenceCoordinates` places the
+locality labels on the map.
 
-`data/map-context.json` contains country outlines for Spain and nearby countries,
-extracted from Natural Earth's 1:50m country dataset. Its source URL and public-domain
-attribution are embedded in that file and in the HTML viewer.
+`data/map-context.json` contains the country outlines of Spain and its
+neighbours, extracted from the 1:50m country dataset of Natural Earth. Its
+source URL and public-domain attribution are included in that file and in the
+HTML viewer.
 
-Every JSON road includes its query URL. `data/route-evidence.json` records the
-returned distance in metres, road steps, snapped coordinates, retrieval time and
-a SHA-256 fingerprint of the original response. Divide metres by 1000 to obtain
-the stored kilometres. The service did not report an OSM extract date, so retrieval
-time must not be mistaken for the underlying map's publication date. Live traffic,
-closures, toll prices and current accessibility are not queried.
+Every road in the JSON includes the URL of its query. `data/route-evidence.json`
+records the distance returned in metres, the road steps, the snapped
+coordinates, the retrieval time and a SHA-256 fingerprint of the original
+response. Dividing the metres by 1000 gives the stored kilometres. The service
+did not report the date of its OSM extract, so the retrieval time must not be
+taken as the publication date of the underlying map. Live traffic, closures,
+toll prices and current accessibility are not queried.
 
 Sources and attribution:
 
 - [OSRM route API](https://project-osrm.org/docs/v5.24.0/api/#route-service).
-- © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright).
-  The map-derived dataset is supplied under ODbL 1.0 with attribution and the
-  corresponding share-alike terms. That licence applies to the dataset, not
-  automatically to the Java implementation.
+- © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright). The
+  dataset derived from the map is supplied under ODbL 1.0, with attribution and
+  the corresponding share-alike terms. That licence applies to the dataset; it
+  does not automatically apply to the Java implementation.
 
-The former invented network is retained only as a regression-test fixture in
+The old invented network is kept only as a fixture for regression tests, in
 `tests/data/illustrative-network.json`; the demonstration never loads it.
 
 ## Classroom sequence
 
-1. **Original route.** Inspect its localities, road IDs and references, kilometres
-   and total cost. With no incidents, cost equals distance.
-2. **Connections removed.** Call `removeRoad(id)` and recompute. Save the removed
-   objects so they can be restored with `addRoad`.
+1. **Original route.** Look at its localities, road IDs and references,
+   kilometres and total cost. With no incidents, the cost equals the distance.
+2. **Connections removed.** Call `removeRoad(id)` and recompute. Keep the
+   removed objects, so that they can be restored with `addRoad`.
 3. **Connections restored.** Recompute with the original network.
 4. **Large temporary penalty.** Add 1000 cost units to each affected connection
-   and recompute. The road still exists and may be chosen if no cheaper route
-   is available. This differs from removing or closing it.
-5. **Penalty removed.** Restore the zero penalty and recompute once more.
+   and recompute. The road still exists, and it may be chosen if no cheaper
+   route is available. This is not the same as removing or closing it.
+5. **Penalty removed.** Set the penalty back to zero and recompute once more.
 
-`try/finally` ensures that temporary changes are undone if recalculation fails.
-The JSON file is never changed by these experiments. Every displayed scenario
-runs both Dijkstra implementations and compares all computed costs.
+`try`/`finally` makes sure that temporary changes are undone even if the
+recalculation fails. These experiments never change the JSON file. Every
+scenario shown runs both implementations of Dijkstra's algorithm and compares
+all the computed costs.
 
-For the Pajares pass, the demonstration removes/penalises **every represented
-connection tagged `N-630-Pajares`, in both directions**. Those tags identify N-630
-route geometry crossing the pass area, not every road with the N-630 reference.
-The JSON documents the coordinate bounds; the evidence records matching points.
-AP-66 is a second corridor tag based on its exact road reference. Grouping avoids
-silently reopening an incident through a different overlapping connection.
-These tags describe this teaching snapshot, not precise real-time incident limits.
-For a localised incident, split corridors at the incident/junction and use separate
-edge IDs. Supplying a road ID explicitly changes only that one directed edge;
-it does not close all other corridors that might share physical road segments.
+For the Pajares pass, the demonstration removes or penalises **every represented
+connection tagged `N-630-Pajares`, in both directions**. These tags identify the
+N-630 route geometry that crosses the area of the pass, not every road with the
+N-630 reference. The JSON documents the coordinate bounds, and the evidence file
+records the matching points. AP-66 is a second corridor tag, based on its exact
+road reference. Grouping connections in this way prevents an incident from being
+silently bypassed through another, overlapping connection. The tags describe
+this teaching snapshot; they are not precise, real-time limits of an incident.
+For a localised incident, split the corridors at the incident or junction and
+give the parts separate edge IDs. Passing a road ID explicitly changes only that
+one directed edge; it does not close the other corridors that may share
+stretches of the same physical road.
 
 ### What the five buttons mean
 
@@ -527,70 +543,83 @@ it does not close all other corridors that might share physical road segments.
 | 4. Heavy traffic (+1000) | Keep the roads and increase their weights | A penalised road remains usable if it is still the best or only option. |
 | 5. Traffic cleared | Reset penalties to zero | Recover the original minimum cost again. |
 
-For the bundled Oviedo → León trip, steps **1, 3 and 5** use Pajares, while
-steps **2 and 4** use AP-66. The repeated results demonstrate restoration.
-Other trips may behave differently; closure and a large penalty are not equivalent.
-The penalty represents a classroom traffic simulation, not measured minutes.
-When blue and orange overlap, the original and selected routes share the same road.
+For the bundled trip from Oviedo to León, steps **1, 3 and 5** use Pajares,
+while steps **2 and 4** use the AP-66; the repeated results show that the
+network has been restored. Other trips may behave differently, because a closure
+and a large penalty are not equivalent. The penalty is a classroom simulation of
+traffic, not a measurement in minutes. Where the blue and orange lines overlap,
+the original route and the selected route share the same road.
 
 ## Distance, cost and alternatives
 
-`Road.kilometres()` never changes. `Road.cost()` is `kilometres + penalty`.
-A penalty uses **equivalent-distance cost units**, not extra kilometres of road
-and not measured minutes of delay. The output prints physical distance separately.
-This is a simple classroom model of a navigator's response, not a live traffic
-or travel-time model. A time-based version would instead need coherent baseline
-travel-time and delay weights for every connection.
+`Road.kilometres()` never changes, and `Road.cost()` is `kilometres + penalty`.
+A penalty is measured in **cost units equivalent to distance**, not in extra
+kilometres of road or in measured minutes of delay, and the output prints the
+physical distance separately. This is a simple classroom model of how a
+navigator responds, not a model of live traffic or travel time. A time-based
+version would need consistent baseline travel times and delay weights for every
+connection.
 
-`Road.setClosed(true)` is another reversible operation: route construction skips
-that road, while `setClosed(false)` reopens it. Closures leave its previous penalty
-intact. `setPenalty(0)` clears a penalty. All weights must be finite and nonnegative;
-invalid changes leave the road unchanged. Equal-cost alternatives are legitimate,
-so restoration guarantees the original optimum cost, not uniqueness of the path.
+`Road.setClosed(true)` is another reversible operation: building a route skips
+that road, and `setClosed(false)` reopens it. Closing a road leaves its previous
+penalty intact, and `setPenalty(0)` clears a penalty. All weights must be finite
+and non-negative, and an invalid change leaves the road unchanged. Alternatives
+with the same cost are perfectly legitimate, so restoring the network guarantees
+the original optimum cost, not that the same path is found.
 
 Parallel roads must not overwrite one another. The navigation network stores
-Road objects by **unique ID**, allowing several roads from A to B. For each query,
-it selects the cheapest open road for each ordered pair and builds a fresh simple
-`WeightedGraph`. With one additive scalar cost, a more expensive parallel edge
-cannot improve any path, so this reduction preserves the optimum. All alternatives
-remain in the navigation network and are reconsidered after an incident.
+`Road` objects by **unique ID**, which allows several roads from A to B. For
+each query, it selects the cheapest open road for each ordered pair and builds a
+new, simple `WeightedGraph`. With a single additive cost, a more expensive
+parallel edge can never improve a path, so this reduction preserves the optimum.
+All the alternatives stay in the navigation network and are considered again
+after an incident.
 
-The chosen Road is retained alongside each graph arc. The returned `Route` takes
-snapshots of IDs, names, distances and penalties. Later changes cannot rewrite a
-previous result. A route with no destination path has infinite cost and distance;
-an origin-to-itself route has zero cost and no legs. This design reuses the existing
-Dijkstra implementations without changing their graph contract.
+The chosen `Road` is kept next to each arc of the graph. The returned `Route`
+takes snapshots of the IDs, names, distances and penalties, so later changes
+cannot rewrite an earlier result. If there is no path to the destination, the
+route has infinite cost and distance; a route from a locality to itself has zero
+cost and no legs. This design reuses the existing implementations of Dijkstra's
+algorithm without changing their graph contract.
 
 ## Code walkthrough
 
-- `Road`: one directed alternative, immutable identifying data and distance,
-  mutable closure/penalty, explicit validation.
-- `NavigationNetwork`: localities, alternative roads, removal/restoration and
-  construction of the current weighted graph.
-- `WeightedGraph`: sorted adjacency maps, linear minimum scan and priority queue
-  with immutable entries and stale-entry skipping. Graph copies own their maps;
-  read-only neighbour views prevent external structural modification.
-- `ShortestPaths`: independent distance/predecessor snapshot and reconstruction.
-- `Route`: the selected roads and their captured costs, kept separate from distance.
-- `NavigationNetworkReader`: strict UTF-8 JSON loading with Gson and simple checks.
+- `Road`: one directed alternative, with immutable identifying data and
+  distance, a closure flag and penalty that can change, and explicit validation.
+- `NavigationNetwork`: the localities and alternative roads, their removal and
+  restoration, and the construction of the current weighted graph.
+- `WeightedGraph`: sorted adjacency maps, plus Dijkstra with a linear scan for
+  the minimum and with a priority queue of immutable entries that skips stale
+  ones. A copy of a graph owns its own maps, and read-only views of the
+  neighbours prevent structural changes from outside.
+- `ShortestPaths`: an independent snapshot of distances and predecessors, and
+  path reconstruction.
+- `Route`: the selected roads and the costs captured for them, kept separate
+  from the distance.
+- `NavigationNetworkReader`: strict UTF-8 JSON loading with Gson and simple
+  checks.
 - `Main`: the five scenarios, with restoration in `finally` blocks.
-- `NavigationMapWriter` and `web/navigation-map.html`: offline visualisation of the saved results.
+- `NavigationMapWriter` and `web/navigation-map.html`: offline visualisation of
+  the saved results.
 
-The basic graph rejects null vertices, non-finite weights and self-loops; an
-existing arc is left unchanged. Finite negative graph weights are permitted but
-Dijkstra rejects them, even in unreachable components. The navigation layer
-requires nonnegative distances and penalties. A nonrepresentable candidate sum
-raises `ArithmeticException` rather than mislabelling a destination unreachable.
-The objects are not thread-safe; do not change them during a query.
+The basic graph rejects `null` vertices, non-finite weights and self-loops, and
+an existing arc is left unchanged. Finite negative weights are allowed in the
+graph, but Dijkstra's algorithm rejects them, even in components that cannot be
+reached. The navigation layer requires non-negative distances and penalties. If
+a candidate sum cannot be represented, `ArithmeticException` is thrown instead
+of wrongly reporting the destination as unreachable. The objects are not
+thread-safe, so do not change them during a query.
 
 ## JSON schema
 
 The root contains `directed: true`, a `vertices` array of locality names and a
-`roads` array. Each road has `id`, `from`, `to`, `name`, `km` and source metadata.
-Endpoints must already be listed. IDs are unique; endpoints may repeat across
-different alternatives. Optional `corridors` is an array of nonblank strings used
-to group connections affected by the same incident. Explicit reverse edges carry their independently queried
-weights. Closure and penalty state start at false and zero in memory.
+`roads` array. Each road has an `id`, `from`, `to`, `name`, `km` and metadata
+about its source. The endpoints must already be listed in `vertices`. IDs are
+unique, but different alternatives may share endpoints. The optional `corridors`
+field is an array of non-blank strings that groups the connections affected by
+the same incident. Reverse edges are listed explicitly, each with its own
+separately queried weight. In memory, every road starts open and with a penalty of
+zero.
 
 ```json
 {
@@ -603,34 +632,38 @@ weights. Closure and penalty state start at false and zero in memory.
 }
 ```
 
-This tiny schema illustration is fictional; the bundled northern-Spain dataset
-uses the sourced distances described above. Unknown metadata fields are ignored.
-Missing fields, invalid types, duplicate IDs, unknown endpoints and invalid
-weights are rejected before a partially loaded network is returned.
+This small illustration of the schema is fictional; the bundled dataset for
+northern Spain uses the sourced distances described above. Unknown metadata
+fields are ignored. Missing fields, invalid types, duplicate IDs, unknown
+endpoints and invalid weights are all rejected, so a partially loaded network is
+never returned.
 
 ## Checks and experiments
 
-The tests verify parallel alternatives, deletion/restoration, closure/reopening,
-penalty changes, unchanged physical distances, result snapshots, unreachable
-vertices, directionality and invalid inputs. Existing graph tests also compare
-both Dijkstra variants with Floyd–Warshall on seeded random graphs and check
-every reconstructed path's arcs and summed weight.
+The tests check parallel alternatives, deletion and restoration, closing and
+reopening, changes of penalty, physical distances that stay the same, result
+snapshots, unreachable vertices, direction and invalid input. The existing graph
+tests also compare both versions of Dijkstra's algorithm with Floyd–Warshall on
+seeded random graphs, and check the arcs and the total weight of every
+reconstructed path.
 
 Try a penalty just below, equal to and just above the difference between two
-parallel alternatives. Ask when the selected road changes. Then close both
-alternatives and distinguish 'unreachable' from 'expensive but still reachable'.
-Try incidents on roads outside the original route and explain why some changes
-have no effect. The main program can be edited to close only one direction.
+parallel alternatives, and work out when the selected road changes. Then close
+both alternatives and tell 'unreachable' apart from 'expensive but still
+reachable'. Try incidents on roads that are not on the original route, and
+explain why some changes have no effect. You can also edit the main program to
+close only one direction.
 
 ## Costs
 
-Let R count road alternatives, V localities and E the selected ordered pairs.
-Building the current graph costs expected O(R + (V + E) log(V + 1)), using hash
-lookup for selecting alternatives and sorted maps for the basic graph.
-The linear Dijkstra version takes O(V² + E log(V + 1)); its heap variant takes
-O((V + E) log(V + 1)) for this simple graph. The demo runs both for comparison.
-Each scenario recomputes from scratch. It does not use an incremental shortest-path
-algorithm. Code follows Java 17, Allman style and four-space indentation.
+Let R be the number of road alternatives, V the number of localities and E the
+number of selected ordered pairs. Building the current graph has an expected
+cost of O(R + (V + E) log(V + 1)), using hash lookups to select the alternatives
+and sorted maps for the basic graph. The linear version of Dijkstra's algorithm
+takes O(V² + E log(V + 1)), and the heap version takes O((V + E) log(V + 1)) on
+this simple graph; the demo runs both for comparison. Each scenario is
+recomputed from scratch rather than with an incremental shortest-path algorithm.
+The code follows Java 17, Allman style and four-space indentation.
 
 ## Expected output
 

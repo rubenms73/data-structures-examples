@@ -10,7 +10,7 @@ Generate the first `n` factorials: `0!, 1!, ..., (n - 1)!`. First compute each f
 
 The iterator needs only three fields: the next factorial, the number of values already returned and the requested number of values. It computes values as requested instead of storing the sequence.
 
-The main program uses a `List<Long>` backed by a `LinkedList` to collect the results. Its `add` operation appends each value. Understanding the list implementation is not required for this example.
+The main program uses a `List<Long>` backed by a `LinkedList` to collect the results. Its `add` operation appends each value. You do not need to know how the list is implemented to follow this example.
 
 ## Follow the iterator state
 
@@ -28,7 +28,7 @@ Before each successful call to `next()`, `currentFactorial` contains `index!`.
 | 2 | 2 = 2! | 6 = 3! |
 | 3 | 6 = 3! | 24 = 4! |
 
-`hasNext()` only checks `index < limit`: repeated calls do not advance the iterator. A limit of zero produces no values. A negative limit throws `IllegalArgumentException`; `next()` throws `NoSuchElementException` when exhausted.
+`hasNext()` only checks `index < limit`: repeated calls do not advance the iterator. A limit of zero produces no values. A negative limit throws `IllegalArgumentException`, and `next()` throws `NoSuchElementException` once the iterator is exhausted.
 
 ## Compare the costs
 
@@ -38,7 +38,7 @@ The iterator performs one multiplication and a fixed amount of bookkeeping per r
 
 The iterator itself uses **O(1)** additional space. The list that stores the `n` results uses **O(n)** space.
 
-Use up to 21 terms (`0!` through `20!`) for exact results with `long`. This example retains the simple iterator; larger factorials exceed the range of `long`.
+Use at most 21 terms (`0!` to `20!`) to get exact results with `long`. Larger factorials do not fit in a `long`, and the example keeps the iterator simple instead of handling them.
 
 ## Open and run
 
@@ -58,7 +58,7 @@ Windows PowerShell or Command Prompt:
 .\run.cmd test
 ```
 
-No external libraries are required. The project includes its own launchers and editor settings.
+No external libraries are needed; the project includes its own launchers and editor settings.
 
 ## Files
 

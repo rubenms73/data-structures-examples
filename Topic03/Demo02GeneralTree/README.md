@@ -2,31 +2,41 @@
 
 ## Problem statement and prerequisites
 
-Represent a nonempty rooted tree with an ordered list of children. This is not
-a search tree: children have a sequence order, not a key ordering. Prerequisites:
-Tree terminology, recursion, interfaces, abstract classes, lists and stacks.
-Null labels and null subtrees are rejected with explicit conditionals.
+Represent a non-empty rooted tree in which each node has an ordered list of
+children. This is not a search tree: the children are kept in a sequence, not
+ordered by key. You should already know tree terminology, recursion, interfaces,
+abstract classes, lists and stacks. `null` labels and `null` subtrees are
+rejected with explicit conditionals.
 
 ## Guided walkthrough
 
-1. Read Tree and AbstractTree: size and height use only the abstract operations.
-2. ListTree owns its child list. addChild copies structure but shares label objects.
-3. children returns a snapshot of child references, so removing from that snapshot
-   cannot alter links. Child objects remain mutable and are not deep-copied there.
-4. Copying on insertion prevents this representation from introducing cycles.
-5. Preorder visits the root, then children in order. Push children in reverse order.
-6. Height counts nodes on a longest root-to-leaf path, as in the presentation;
-   every leaf has height one. This interface represents only nonempty trees.
-   The presentation assigns height zero to an empty binary tree.
+1. Read `Tree` and `AbstractTree`. `size` and `height` use only the abstract
+   operations.
+2. `ListTree` owns its list of children. `addChild` copies the structure of the
+   subtree but shares the label objects.
+3. `children` returns a snapshot of the child references, so removing something
+   from that snapshot cannot change the links. The child objects are still
+   mutable and are not deep-copied there.
+4. Because subtrees are copied on insertion, this representation cannot create
+   cycles.
+5. Preorder visits the root and then the children in order, so the children are
+   pushed onto the stack in reverse order.
+6. As in the presentation, the height counts the nodes on a longest path from
+   the root to a leaf, so every leaf has height one. This interface represents
+   only non-empty trees; the presentation gives an empty binary tree height
+   zero.
 
 ## Costs and contracts
 
-Size, height, copying and traversal cost O(n). The preorder iterator's explicit
-stack can hold O(n) pending nodes for a wide tree, not just O(height). Recursion
-uses O(height) call frames; snapshots add temporary storage. addChild costs the
-size of the copied subtree. Custom Tree sources must be finite and acyclic.
-This introductory version omits parent links and a mutable children iterator:
-those are reserved for instructor exercises. Do not mutate during traversal.
+`size`, `height`, copying and traversal cost O(n). For a wide tree, the explicit
+stack of the preorder iterator can hold O(n) pending nodes, not just O(height).
+Recursion uses O(height) call frames, and snapshots add temporary storage.
+`addChild` costs time proportional to the size of the copied subtree. Any other
+implementation of `Tree` used as a source must be finite and acyclic.
+
+This introductory version leaves out parent links and an iterator over the
+children that can modify them; those are kept for exercises set by the
+instructor. Do not modify the tree during a traversal.
 
 ## Open and run
 
@@ -44,9 +54,10 @@ are required. Code and comments use English and Allman style.
 
 ## What to observe and try
 
-Trace Main by hand before running it. Exercise the empty case, boundaries and
-rejected operations described above. Verify that a rejected single operation
-leaves the structure unchanged. Compare the representation with its public contract.
+Trace `Main` by hand before you run it. Try the empty case, the boundary cases
+and the rejected operations described above, and check that an operation that is
+rejected leaves the structure unchanged. Compare the representation with the
+public contract it implements.
 
 ## Expected output
 
@@ -82,7 +93,7 @@ After removing Support: nodes = 3; height = 3
 ## Windows
 
 Open a terminal in this folder (PowerShell, Command Prompt or the VS Code
-terminal). Install a JDK 17 or newer and put its `bin` directory on `PATH`;
+terminal). Install JDK 17 or newer and put its `bin` directory on `PATH`;
 `java -version` and `javac -version` should both work. No Bash, WSL or Git Bash
 is required.
 
@@ -92,22 +103,27 @@ is required.
 ```
 
 The first command runs the demonstration; the second compiles and runs its checks.
-The launcher handles its own working directory, paths with spaces and any
-bundled JAR libraries. It uses the included Windows PowerShell 5.1;
-`run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
-remain available when the individual example folder is open.
+The launcher sets its own working directory and copes with paths containing
+spaces and with any bundled JAR libraries. It runs on Windows PowerShell 5.1,
+which comes with Windows, and `run.ps1` also works with PowerShell 7. The VS Code
+**Run** and **Debug** buttons are still available when the example folder is open.
 
 ## Reading the text tree
 
-The general tree prints its root first, followed by its ordered children. `+--`, `\--` and vertical `|` lines connect children to their parent; `\--` identifies the last child. It has no binary left/right distinction. Read it with a monospaced font. 
+The general tree prints its root first, followed by its children in order.
+`+--`, `\--` and vertical `|` lines connect each child to its parent, and `\--`
+marks the last child. There is no distinction between left and right as in a
+binary tree. Read it in a monospaced font.
 
-`toTreeString()` returns text; `Main` prints it with `System.out.print`. It does not
-change the tree. The existing ordered traversal remains available. Labels with
-line breaks or tabs are escaped so each node occupies one line. These are views
-of the actual links, not reconstructions from sorted values. They show completed
-operations, not intermediate rotation states. Intended for small classroom trees;
-indentation can make output quadratic in the height of a long chain.
+`toTreeString()` returns text, which `Main` prints with `System.out.print`; it
+does not change the tree. The ordered traversal is still available. Labels that
+contain line breaks or tabs are escaped, so that each node takes up one line.
+The diagrams show the actual links, not a reconstruction from the sorted values,
+and they show completed operations, not intermediate rotation states. They are
+meant for small classroom trees: for a long chain, the indentation can make the
+output quadratic in the height.
 
-Each diagram is separated from its heading and following output by blank lines.
-Removal scenarios have a horizontal separator. Binary diagrams use wider level
-spacing and connector-only lines between parent and child levels.
+Each diagram is separated by blank lines from its heading and from the output
+that follows. Removal scenarios have a horizontal separator. Binary diagrams use
+wider spacing between levels, with lines that contain only connectors between a
+parent level and its children.

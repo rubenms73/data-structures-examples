@@ -2,91 +2,109 @@
 
 ## Problem statement and prerequisites
 
-Implement an unbalanced generic binary search tree supporting insertion, search,
-removal, clearing and in-order iteration. Use an optional `Comparator<? super E>`
-or the elements' natural order. Retain comparison-equivalent duplicates as separate nodes, as in Topic 3.
+Implement an unbalanced generic binary search tree that supports insertion,
+search, removal, clearing and in-order iteration. Use an optional
+`Comparator<? super E>`, or the natural order of the elements. As in Topic 3,
+keep elements that compare as equivalent as separate nodes.
 
-Prerequisites: generic types, Comparable/Comparator, abstract classes, binary
-trees, recursion, inner iterators and stacks. ArrayDeque implements the stack
-used by the iterator; push and pop operate on the same end.
+You should already know generic types, `Comparable` and `Comparator`, abstract
+classes, binary trees, recursion, inner iterators and stacks. The iterator's
+stack is an `ArrayDeque`, whose `push` and `pop` work on the same end.
 
 ## Representation and contracts
 
-Each private inner Node holds a value and references to its left and right
-children. All values on the left compare smaller or equal, and all values on the right
-compare strictly larger. These words refer to the selected ordering, including reverse
-order. `root == null` represents the empty tree; size counts stored nodes.
+Each private inner `Node` holds a value and references to its left and right
+children. Every value in the left subtree compares as smaller than or equal to
+the node's value, and every value in the right subtree compares as strictly
+larger. “Smaller” and “larger” refer to the chosen ordering, which may be a
+reverse order. `root == null` represents the empty tree, and `size` counts the
+stored nodes.
 
-The default constructor uses natural order. The comparator constructor accepts
-null to select natural order too. The conversion constructors accept a
-`Collection<? extends E>` and insert its elements into independent nodes.
-Element objects themselves are shared. Copying does not promise to preserve the
-source's shape or comparator: select the desired comparator explicitly.
+The default constructor uses natural order, and the comparator constructor also
+selects natural order when it receives `null`. The conversion constructors
+accept a `Collection<? extends E>` and insert its elements into new nodes of
+their own, although the element objects themselves are shared. A copy is not
+guaranteed to keep the shape or the comparator of the source, so choose the
+comparator you want explicitly.
 
-Null elements are rejected by add, contains and remove with an explicit if and
-NullPointerException. A null source is also rejected. Without a comparator,
-elements must be mutually comparable; incompatible comparisons may throw
-ClassCastException. The first insertion checks comparison before creating a node.
+`add`, `contains` and `remove` reject `null` elements with an explicit `if` that
+throws `NullPointerException`, and a `null` source is rejected too. Without a
+comparator, the elements must be mutually comparable; comparing incompatible
+elements may throw `ClassCastException`. The first insertion checks that the
+element can be compared before it creates a node.
 
-Each successful add returns true and increases size, including duplicates.
-Remove deletes one occurrence and decreases size once. Iteration includes every
-occurrence in non-decreasing comparator order.
+Every successful `add` returns `true` and increases `size`, duplicates included.
+`remove` deletes one occurrence and decreases `size` once. Iteration visits
+every occurrence in non-decreasing order according to the comparator.
 
-Two elements are comparison-equivalent when comparison returns zero, even if equals returns
-false. For example, comparing strings only by length treats cat and dog as
-equivalent. Choose an ordering consistent with equals when the ordinary
-Collection equality-based contract is required; a different ordering deliberately
-uses comparison-based membership. Do not change stored objects in ways that
-alter their ordering.
+Two elements are comparison-equivalent when the comparison returns zero, even if
+`equals` returns `false`. For example, a comparison of strings by length alone
+treats `cat` and `dog` as equivalent. Choose an ordering consistent with
+`equals` when you need the usual `Collection` contract based on equality; any
+other ordering deliberately makes membership depend on comparison. Do not change
+stored objects in ways that alter their order.
 
 ## Guided walkthrough
 
-1. Read the constructors and compare. The comparator field uses `? super E`.
-2. Follow add and contains from the root. Each comparison selects one subtree.
-3. Follow public remove: search first, replace root with the recursive result,
-   then decrease size exactly once. The preliminary search simplifies recursion.
-4. In recursive remove, a node with no left child is replaced by its right child;
-   a node with no right child is replaced by its left child. This includes leaves.
-5. For two children, copy the maximum value of the left subtree and detach that
-   predecessor node, reconnecting its possible left child. A successor could
-   leave another equal value in the right subtree, violating its strict bound.
-6. Follow pushLeft and next: the stack stores pending visits. After visiting a
-   node, push the leftmost path of its right subtree.
-7. Run Main: each deletion starts from the same tree so cases can be compared.
+1. Read the constructors and `compare`. The comparator field uses `? super E`.
+2. Follow `add` and `contains` from the root. Each comparison chooses one
+   subtree.
+3. Follow the public `remove`. It searches first, replaces `root` with the
+   result of the recursive call, and then decreases `size` exactly once. The
+   preliminary search keeps the recursion simple.
+4. In the recursive `remove`, a node with no left child is replaced by its right
+   child, and a node with no right child is replaced by its left child. Leaves
+   are covered by these two cases.
+5. When the node has two children, copy the maximum value of its left subtree
+   and detach that predecessor node, reconnecting its left child if it has one.
+   Using the successor instead could leave another equal value in the right
+   subtree, which would break the strict bound on that side.
+6. Follow `pushLeft` and `next`. The stack holds the nodes still waiting to be
+   visited; after visiting a node, the iterator pushes the leftmost path of its
+   right subtree.
+7. Run `Main`. Each deletion starts from the same tree, so the cases can be
+   compared.
 
-Main covers leaf removal, one child, two children, the root, an absent value,
-duplicates, reverse ordering, independent copies and clear. The inherited
-toString displays traversal order, not the tree's shape.
+`Main` covers removing a leaf, a node with one child, a node with two children,
+the root and an absent value, as well as duplicates, reverse ordering,
+independent copies and `clear`. The inherited `toString` shows the traversal
+order, not the shape of the tree.
 
 ## Costs and limitations
 
-Search, insertion and removal cost O(h), where h is the tree height. Searching
-before removal repeats a path but does not change this complexity. The tree is
-not balanced: inserting 1, 2, 3, 4, 5 produces a chain of right children with
-height five (five nodes and four edges), following the presentation. Draw it and compare with insertion order 3, 1, 5, 2, 4. Identical
-sorted output does not imply identical shape or search cost.
+Search, insertion and removal cost O(h), where h is the height of the tree.
+Searching before removing repeats a path, but it does not change this
+complexity. The tree is not balanced: following the presentation, inserting 1,
+2, 3, 4, 5 produces a chain of right children of height five (five nodes and
+four edges). Draw it and compare it with the insertion order 3, 1, 5, 2, 4. The
+same sorted output does not mean the same shape or the same search cost.
 
-A complete traversal costs O(n), with O(h) auxiliary stack space. One next call
-may take O(h), although its amortized cost across traversal is O(1). Recursive
-removal also needs O(h) call-stack space and is unsuitable for very deep chains.
-Constructing from sorted input may cost O(n²), including copying a naturally
-ordered tree through its iterator into another naturally ordered tree.
+A complete traversal costs O(n) and uses O(h) auxiliary space for the stack. A
+single call to `next` may take O(h), although its amortised cost over a whole
+traversal is O(1). Recursive removal also needs O(h) space on the call stack, so
+it is not suitable for very deep chains. Building a tree from sorted input may
+cost O(n²), and this includes copying a naturally ordered tree, through its
+iterator, into another naturally ordered tree.
 
-The iterator does not support remove and does not detect external modifications.
-Do not modify the tree during iteration. Inherited removeAll, retainAll and
-removeIf may throw UnsupportedOperationException when removal is needed.
-clear is explicitly implemented by resetting root and size. AbstractCollection
-provides useful reuse, but this is a teaching implementation with optional
-operations, not a replacement for TreeSet. Balancing is a later subject.
+The iterator does not support `remove` and does not detect external changes, so
+do not modify the tree while iterating over it. The inherited `removeAll`,
+`retainAll` and `removeIf` may throw `UnsupportedOperationException` when they
+need to remove something. `clear` is implemented explicitly by resetting `root`
+and `size`. `AbstractCollection` provides useful reuse, but this is a teaching
+implementation with optional operations, not a replacement for `TreeSet`.
+Balancing comes later.
 
 ## What to observe and try
 
-Remove the only element, then insert again. Remove a root with one left child
-and one with one right child. Try 4, 3, 2, 5 and remove 4: the predecessor is the
-immediate left child and itself has a left child. Then try duplicate keys and
-check that each removal deletes exactly one occurrence.
-Try a comparator by string length: both cat and dog are retained, and either can
-match a search for fox under that deliberately non-equality-consistent ordering.
+Remove the only element and then insert again. Remove a root that has only a
+left child, and one that has only a right child. Insert 4, 3, 2, 5 and remove 4:
+the predecessor is the left child itself, and it has a left child of its own.
+Then try duplicate keys and check that each removal deletes exactly one
+occurrence.
+
+Try a comparator by string length: both `cat` and `dog` are kept, and either of
+them can match a search for `fox` under this ordering, which is deliberately
+inconsistent with equality.
 
 ## Open and run
 
@@ -293,7 +311,7 @@ After clear: [], size: 0
 ## Windows
 
 Open a terminal in this folder (PowerShell, Command Prompt or the VS Code
-terminal). Install a JDK 17 or newer and put its `bin` directory on `PATH`;
+terminal). Install JDK 17 or newer and put its `bin` directory on `PATH`;
 `java -version` and `javac -version` should both work. No Bash, WSL or Git Bash
 is required.
 
@@ -303,22 +321,28 @@ is required.
 ```
 
 The first command runs the demonstration; the second compiles and runs its checks.
-The launcher handles its own working directory, paths with spaces and any
-bundled JAR libraries. It uses the included Windows PowerShell 5.1;
-`run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
-remain available when the individual example folder is open.
+The launcher sets its own working directory and copes with paths containing
+spaces and with any bundled JAR libraries. It runs on Windows PowerShell 5.1,
+which comes with Windows, and `run.ps1` also works with PowerShell 7. The VS Code
+**Run** and **Debug** buttons are still available when the example folder is open.
 
 ## Reading the text tree
 
-The binary tree is printed sideways: the right subtree is above its parent and the left subtree below it. `[ROOT]` marks the root. `/--` connects a right child above its parent; `\--` connects a left child below it. Vertical `|` lines continue ancestor branches. Read the output with a monospaced font. Empty child links are omitted and an empty tree is shown as `(empty)`. 
+The binary tree is printed sideways: the right subtree is above its parent and
+the left subtree below it. `[ROOT]` marks the root. `/--` connects a right child
+above its parent, and `\--` connects a left child below it. Vertical `|` lines
+continue the branches of ancestors. Read the output in a monospaced font. Empty
+child links are left out, and an empty tree is shown as `(empty)`.
 
-`toTreeString()` returns text; `Main` prints it with `System.out.print`. It does not
-change the tree. The existing ordered traversal remains available. Labels with
-line breaks or tabs are escaped so each node occupies one line. These are views
-of the actual links, not reconstructions from sorted values. They show completed
-operations, not intermediate rotation states. Intended for small classroom trees;
-indentation can make output quadratic in the height of a long chain.
+`toTreeString()` returns text, which `Main` prints with `System.out.print`; it
+does not change the tree. The ordered traversal is still available. Labels that
+contain line breaks or tabs are escaped, so that each node takes up one line.
+The diagrams show the actual links, not a reconstruction from the sorted values,
+and they show completed operations, not intermediate rotation states. They are
+meant for small classroom trees: for a long chain, the indentation can make the
+output quadratic in the height.
 
-Each diagram is separated from its heading and following output by blank lines.
-Removal scenarios have a horizontal separator. Binary diagrams use wider level
-spacing and connector-only lines between parent and child levels.
+Each diagram is separated by blank lines from its heading and from the output
+that follows. Removal scenarios have a horizontal separator. Binary diagrams use
+wider spacing between levels, with lines that contain only connectors between a
+parent level and its children.

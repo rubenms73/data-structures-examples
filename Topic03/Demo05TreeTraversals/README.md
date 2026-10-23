@@ -2,24 +2,27 @@
 
 ## Problem statement
 
-Build the same binary search tree as Demo01 and visit its nodes in four orders:
-preorder, inorder, postorder and level order. Implement each traversal as a private
-inner class implementing `Iterator<E>`. Display the actual tree with ASCII branches,
-then compare the four sequences without changing its links between traversals.
+Build the same binary search tree as in Demo01 and visit its nodes in four
+orders: preorder, inorder, postorder and level order. Implement each traversal
+as a private inner class that implements `Iterator<E>`. Display the actual tree
+with ASCII branches, and then compare the four sequences without changing the
+links of the tree between traversals.
 
 This folder is self-contained. Its `ds.BinarySearchTree` extends the Demo01 code
-with three new traversal algorithms and an explicitly named inorder factory.
-Insertion, deletion, duplicate handling and the ASCII view retain their behaviour.
-The tree is deliberately unbalanced so its shape stays easy to relate to insertion
-order. These traversal algorithms apply equally to balanced binary trees: balance
-changes height and shape, not the meaning of a traversal.
+with three new traversal algorithms and a factory method that names the inorder
+traversal explicitly. Insertion, deletion, the handling of duplicates and the
+ASCII view behave as before. The tree is deliberately unbalanced, so that its
+shape is easy to relate to the insertion order. The same traversal algorithms
+work just as well on balanced binary trees: balancing changes the height and the
+shape, not what a traversal means.
 
 ## Prerequisites
 
-Topic 1's iterator contract, inner classes and generics; stacks and queues from
-Topic 2; and Topic 3's binary trees, left/right children and traversal orders.
-`ArrayDeque` supplies stack or queue storage. It does not perform the traversal.
-Read `app.Main` first, then each iterator's constructor, `hasNext()` and `next()`.
+You need the iterator contract, inner classes and generics from Topic 1, stacks
+and queues from Topic 2, and binary trees, left and right children and the
+traversal orders from Topic 3. `ArrayDeque` provides the storage for the stack
+or the queue; it does not perform the traversal itself. Read `app.Main` first,
+and then the constructor, `hasNext()` and `next()` of each iterator.
 
 ## Four orders on one tree
 
@@ -30,76 +33,87 @@ Read `app.Main` first, then each iterator's constructor, `hasNext()` and `next()
 | Postorder | Left subtree, right subtree, root | `postOrderIterator()` | One stack holding a path of pending ancestors |
 | Level order | Depth 0, depth 1, depth 2, and so on; left to right | `levelOrderIterator()` | FIFO queue |
 
-`iterator()` remains inorder, so enhanced `for`, collection text output and the
-inherited collection operations retain their existing behaviour. The named factory
-methods return `Iterator<E>`, not `Iterable<E>`; consume them with a `while` loop.
-Every factory creates a new independent cursor. The last part of `Main` advances
-a preorder iterator and a level-order iterator alternately to demonstrate this.
+`iterator()` is still the inorder traversal, so the enhanced `for` loop, the
+text output of the collection and the inherited collection operations behave as
+before. The named factory methods return an `Iterator<E>`, not an `Iterable<E>`,
+so consume them with a `while` loop. Each call to a factory creates a new,
+independent cursor; the last part of `Main` shows this by advancing a preorder
+iterator and a level-order iterator alternately.
 
-All four visit every stored occurrence, including duplicate labels. Only inorder
-is guaranteed to be sorted according to the tree's comparator. Preorder is useful
-when a parent must be handled before its children; postorder when child results
-are needed before their parent; level order when processing by depth. Inorder's
-usual left-root-right definition is specific to binary trees, unlike the general
-ordered tree in Demo02.
+All four traversals visit every stored occurrence, duplicate labels included.
+Only the inorder traversal is guaranteed to follow the order of the tree's
+comparator. Preorder is useful when a parent must be handled before its
+children, postorder when the results for the children are needed before their
+parent, and level order when nodes are processed depth by depth. The usual
+left–root–right definition of inorder only makes sense for binary trees, unlike
+the general ordered tree in Demo02.
 
 ## How the iterators work
 
 ### Preorder
 
-The constructor puts the root on a stack if one exists. `next()` pops one node,
+The constructor puts the root on a stack, if there is one. `next()` pops a node,
 pushes its right child and then its left child, and returns the node's value.
-A stack is LIFO, so pushing right first makes the left subtree get visited first.
-No null reference is pushed into `ArrayDeque`.
+Because a stack is LIFO, pushing the right child first means that the left
+subtree is visited first. A `null` reference is never pushed onto the
+`ArrayDeque`.
 
 ### Inorder
 
-The constructor pushes the root's leftmost path. The stack top is the next node.
-`next()` pops it and pushes the leftmost path of its right subtree. The stack holds
-only nodes whose own visit is still pending. This is the iterator from Demo01.
+The constructor pushes the leftmost path from the root, so the top of the stack
+is always the next node. `next()` pops it and pushes the leftmost path of its
+right subtree. The stack holds only nodes that are still waiting for their own
+visit. This is the iterator from Demo01.
 
 ### Postorder
 
-The constructor follows a path towards the first leaf: prefer the left child;
-if none exists, follow the right. Each node on that path goes onto one stack.
-`next()` pops a completed node. If it was its parent's left child and the parent
-also has a right subtree, the iterator pushes the first path through that right
-subtree. Otherwise the parent is ready to be returned on a later call.
+The constructor follows a path down to the first leaf, going to the left child
+when there is one and to the right child otherwise, and pushes each node on that
+path onto a single stack. `next()` pops a node whose subtrees are finished. If
+that node was its parent's left child and the parent also has a right subtree,
+the iterator pushes the first path through that right subtree. Otherwise, the
+parent is ready to be returned on a later call.
 
-The test `parent.left == node` compares **node identity**, not labels. Equal labels
-can belong to distinct nodes. No second stack of all results and no recursive
-collection of the complete traversal are needed. The iterator keeps the explicit
-state that recursive postorder would otherwise leave on the call stack.
+The test `parent.left == node` compares **node identity**, not labels, because
+equal labels can belong to different nodes. The iterator needs neither a second
+stack holding all the results nor a recursive collection of the whole traversal.
+It keeps, explicitly, the state that a recursive postorder would leave on the
+call stack.
 
 ### Level order
 
-The constructor queues the root if one exists. `next()` removes the front node
-and appends its left and right children at the back. Nodes already waiting at the
-current depth are processed before the newly appended next-depth nodes. This is
-the difference between a FIFO queue and the stack used in depth-first traversals.
+The constructor puts the root in the queue, if there is one. `next()` removes
+the node at the front and appends its left and right children at the back. The
+nodes already waiting at the current depth are therefore processed before the
+nodes just added for the next depth. This is the difference between a FIFO queue
+and the stack used in the depth-first traversals.
 
 ## Iterator contract and changes to the tree
 
-- Empty trees yield four empty iterators.
-- Repeated calls to `hasNext()` never advance a cursor.
-- `next()` throws `NoSuchElementException` after exhaustion, including repeated calls.
-- `remove()` is unsupported; the default method from `Iterator` throws
-  `UnsupportedOperationException` in all four implementations.
-- Iterators retain references to actual nodes and return stored element references;
-  they are not snapshots or deep copies.
-- As in Demo01, **do not structurally modify the tree while any iterator is in use**.
-  There is no fail-fast modification counter in this example. Mutating the tree
-  during traversal has no supported result. After a change, obtain a new iterator.
+- An empty tree gives four empty iterators.
+- Calling `hasNext()` repeatedly never advances a cursor.
+- `next()` throws `NoSuchElementException` once the iterator is exhausted,
+  however many times it is called.
+- `remove()` is not supported: in all four implementations, the default method
+  from `Iterator` throws `UnsupportedOperationException`.
+- The iterators hold references to the actual nodes and return the stored
+  element references; they are neither snapshots nor deep copies.
+- As in Demo01, **do not change the structure of the tree while any iterator is
+  in use**. There is no fail-fast modification counter in this example, and
+  modifying the tree during a traversal has no supported result. After a change,
+  obtain a new iterator.
 
-The ordinary tree contract remains unchanged: null elements are rejected, comparison
-can be natural or supplied through `Comparator<? super E>`, and duplicate occurrences
-are placed on the left. Do not mutate fields that participate in the comparison.
+The ordinary tree contract is unchanged: `null` elements are rejected, the
+comparison can be the natural order or a `Comparator<? super E>` supplied by the
+client, and duplicate occurrences go to the left. Do not modify fields that take
+part in the comparison.
 
 ## Costs
 
-Let n be the node count, h the node-count height and w the maximum width.
-Each complete traversal takes O(n) time. Every node is added to and removed from
-its pending-work container once; none of the iterators materialises the full result.
+Let n be the number of nodes, h the height (counted in nodes) and w the maximum
+width. Each complete traversal takes O(n) time. Every node is added to its
+container of pending work once and removed from it once, and none of the
+iterators builds the full result.
 
 | Iterator | Construction | `hasNext()` | `next()` | Auxiliary storage |
 | --- | --- | --- | --- | --- |
@@ -108,17 +122,18 @@ its pending-work container once; none of the iterators materialises the full res
 | Postorder | O(h) | O(1) | O(h) worst case; amortized O(1) over a full traversal | O(h) |
 | Level order | O(1) | O(1) | Amortized O(1) | O(w) |
 
-`ArrayDeque` can occasionally resize; its stack/queue operations have amortized
-constant cost. An inorder or postorder call may push a whole path, although the
-average work per returned element over a complete traversal is O(1), including
-initialisation for a nonempty tree. This unbalanced tree can have h = n. A wide
-tree can have w proportional to n, so a level-order queue can be much larger than
-a depth-first stack on a balanced tree. The recursive test oracles are not the
-iterator implementation and are not used by the demo.
+`ArrayDeque` occasionally resizes, so its stack and queue operations take
+amortised constant time. A single inorder or postorder call may push a whole
+path, but over a complete traversal the average work per returned element is
+O(1), including the initialisation for a non-empty tree. This unbalanced tree
+can have h = n. A wide tree can have w proportional to n, so on a balanced tree
+the level-order queue can be much larger than a depth-first stack. The recursive
+test oracles are not part of the iterator implementation, and the demo does not
+use them.
 
 ## Run
 
-Use Java 17 or newer. Open this individual folder in VS Code and run/debug
+Use Java 17 or newer. Open this folder on its own in VS Code and run or debug
 `src/app/Main.java`, or use a terminal in this folder:
 
 ```sh
@@ -126,30 +141,33 @@ bash run.sh
 bash run.sh test
 ```
 
-Windows PowerShell or Command Prompt, without Bash or WSL:
+On Windows, from PowerShell or Command Prompt, without Bash or WSL:
 
 ```powershell
 .\run.cmd
 .\run.cmd test
 ```
 
-From Topic03, select `Demo05TreeTraversals` with the topic launcher. The console
-shows a spaced sideways tree: right subtrees above their parent, left below;
-`[ROOT]` identifies the root. The printed order of that diagram is a drawing aid,
-not one of the four traversal sequences shown afterwards.
+From Topic03, choose `Demo05TreeTraversals` with the topic launcher. The console
+shows the tree sideways and spaced out, with right subtrees above their parent
+and left subtrees below it; `[ROOT]` marks the root. The order in which the
+diagram is printed is only a drawing aid, not one of the four traversal sequences
+shown after it.
 
 ## Experiments and validation
 
-Predict the four sequences before running the program. Then try a single node,
-a chain of left children, a chain of right children and a tree with repeated
-labels. Explain why preorder and level order agree initially but later differ.
-Call `hasNext()` twice before every `next()` and confirm that no elements disappear.
+Predict the four sequences before you run the program. Then try a single node, a
+chain of left children, a chain of right children and a tree with repeated
+labels. Explain why preorder and level order agree at first but later differ.
+Call `hasNext()` twice before every `next()` and check that no elements go
+missing.
 
-Tests retain Demo01's insertion/deletion checks and compare the new iterators with
-independent recursive reference traversals. The breadth-first oracle collects one
-depth at a time rather than using the implementation's queue algorithm. Tests cover
-empty and singleton trees, asymmetric shapes, chains, duplicates, seeded random
-trees, iterator independence, repeated `hasNext()`, exhaustion and unsupported removal.
+The tests keep the insertion and deletion checks from Demo01 and compare the new
+iterators with separate recursive reference traversals. The breadth-first oracle
+collects one depth at a time instead of using the queue algorithm of the
+implementation. The tests cover empty and single-node trees, asymmetric shapes,
+chains, duplicates, seeded random trees, independent iterators, repeated calls
+to `hasNext()`, exhaustion and the unsupported removal.
 
 ## Expected output
 

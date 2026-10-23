@@ -1,45 +1,45 @@
 # 07 Iterators
 
-Iteration over the generic vector from Demo03, independent positions and exhaustion.
+Iterating over the generic vector from Demo03, with independent positions and exhaustion.
 
 **Slides:** 43–48 (printed slide numbers).
 
-This folder is a complete Java project. You can copy it anywhere and run it without another example or a shared library. Only the Java standard library is required.
+This folder is a complete Java project. You can copy it anywhere and run it without any other example or shared library; it needs only the Java standard library.
 
 ## Problem statement and prerequisites
 
-Start from Demo03's generic vector and make it iterable. Extend `MyArray<E>` with `Iterable<E>`, and implement `iterator()` in `FixedMyArray<E>`. The iterator must be a **private inner class**, just like the inner iterator in the Fibonacci example.
+Start from Demo03's generic vector and make it iterable. Extend `MyArray<E>` with `Iterable<E>`, and implement `iterator()` in `FixedMyArray<E>`. The iterator must be a **private inner class**, like the inner iterator in the Fibonacci example.
 
-Prerequisites are the generic-array example, interfaces, inner classes and the `Iterable`/`Iterator` contracts.
+You should already know the generic-array example, interfaces, inner classes and the `Iterable` and `Iterator` contracts.
 
 ## What changes from Demo03
 
-The storage, capacity, `add`, `get` and `set` operations keep the same design. `MyArray<E>` now extends `Iterable<E>`. Each call to `FixedMyArray.iterator()` creates a new `ArrayIterator`, whose own `current` field starts at zero. As a non-static inner class, it can access its enclosing vector's private `data` and `size`.
+The storage, the capacity and the `add`, `get` and `set` operations are designed as before. `MyArray<E>` now extends `Iterable<E>`. Each call to `FixedMyArray.iterator()` creates a new `ArrayIterator` with its own `current` field, which starts at zero. Because it is a non-static inner class, it can access the private `data` and `size` fields of the vector that contains it.
 
-The example includes its own copies of these files; it does not import another project.
+The example has its own copies of these files rather than importing another project.
 
 ## Constructors
 
-`FixedMyArray(int capacity)` creates an empty vector with the requested number of slots, as in Demo03. It allocates `data = (E[]) new Object[capacity]`, because Java does not allow `new E[capacity]`. The unchecked cast is confined to this constructor, and the backing field remains a private `E[]`. Zero capacity is valid; negative capacity is explicitly rejected with `IllegalArgumentException` before allocating the array.
+`FixedMyArray(int capacity)` creates an empty vector with the requested number of slots, as in Demo03. It allocates `data = (E[]) new Object[capacity]`, because Java does not allow `new E[capacity]`. The unchecked cast is confined to this constructor, and the backing field is still a private `E[]`. A capacity of zero is valid, whereas a negative capacity is rejected with `IllegalArgumentException` before the array is allocated.
 
-`FixedMyArray(MyArray<? extends E> source)` is a conversion constructor. It delegates with `this(source.size())`, then uses an enhanced `for` loop to add the source elements in order. This loop demonstrates a practical use of the source's iterator. The new vector starts with all copied elements and capacity equal to their number, so it is already full. The wildcard allows, for example, copying a `MyArray<Integer>` into a `FixedMyArray<Number>`.
+`FixedMyArray(MyArray<? extends E> source)` is a conversion constructor. It delegates to `this(source.size())` and then uses an enhanced `for` loop to add the source elements in order, which is a practical use of the source's iterator. The new vector starts with all the copied elements and a capacity equal to their number, so it is already full. Thanks to the wildcard you can, for example, copy a `MyArray<Integer>` into a `FixedMyArray<Number>`.
 
-The vectors have independent backing arrays: replacing an element in one does not change the other. The element references themselves are copied, including nulls; mutable element objects are not duplicated. The earlier `FixedMyArray(E[] storage)` constructor is also retained: it copies the supplied storage array but starts with logical size zero.
+The two vectors have separate backing arrays, so replacing an element in one does not change the other. The element references themselves are copied, including any `null` references, but mutable element objects are not duplicated. The earlier `FixedMyArray(E[] storage)` constructor is still there: it copies the storage array it receives but starts with a logical size of zero.
 
 ## Guided walkthrough
 
-1. Follow construction of `names` with `Ana` and `Ruben`, as in Demo03.
-2. Create two iterators and inspect their separate cursors.
-3. Call `hasNext` twice: it reports availability without advancing.
-4. Follow `next`: check availability, return the current element and advance.
-5. Exhaust the first iterator. A further `next` throws `NoSuchElementException`; the second iterator still has its own position.
-6. Run the enhanced `for` loop. It obtains a fresh iterator automatically. Create the integer vector with a capacity, copy it through the conversion constructor, and compute the sum over the copy.
+1. Follow the construction of `names` with `Ana` and `Ruben`, as in Demo03.
+2. Create two iterators and look at their separate cursors.
+3. Call `hasNext` twice. It reports whether an element is available without advancing.
+4. Follow `next`. It checks that an element is available, returns the current element and advances.
+5. Exhaust the first iterator. One more call to `next` throws `NoSuchElementException`, while the second iterator keeps its own position.
+6. Run the enhanced `for` loop, which obtains a fresh iterator automatically. Create the integer vector with a capacity, copy it with the conversion constructor, and compute the sum over the copy.
 
 ## What to observe and try
 
-Draw the vector once, with two iterator objects pointing to it. Their positions belong to the iterators, not to the vector. The traversal stops at logical size, not capacity.
+Draw the vector once, with two iterator objects pointing to it. The positions belong to the iterators, not to the vector. The traversal stops at the logical size, not at the capacity.
 
-Try an empty vector and a vector containing a null element. Null is a valid stored value and is not an end marker. Iterator `remove` is unsupported. For this introductory implementation, do not modify the vector during an active traversal; concurrent-modification detection is introduced only in the closing bags example.
+Try an empty vector and a vector that contains a `null` element. `null` is a valid stored value, not an end marker. The iterator does not support `remove`. With this introductory implementation, do not modify the vector while a traversal is in progress; detecting concurrent modification is introduced only in the closing bags example.
 
 ## Open and run
 
@@ -52,7 +52,7 @@ bash run.sh
 bash run.sh test
 ```
 
-To compile and run the example directly (also in Windows PowerShell):
+To compile and run the example by hand (this also works in Windows PowerShell):
 
 ```sh
 javac -encoding UTF-8 -d bin src/ds/*.java src/app/*.java
@@ -61,16 +61,16 @@ java -cp bin app.Main
 
 ## Files
 
-- `src/ds/`: the example's classes and interfaces, all in package `ds`.
-- `src/app/Main.java`: the test program with `public static void main`, in package `app`.
-- `tests/tests/ExampleChecks.java`: automated checks, separate from the teaching program.
+- `src/ds/`: the example's classes and interfaces, all in the `ds` package.
+- `src/app/Main.java`: the test program, with `public static void main`, in the `app` package.
+- `tests/tests/ExampleChecks.java`: automated checks, kept apart from the teaching program.
 
 The classes in `ds` are:
 
 - [MyArray.java](src/ds/MyArray.java)
 - [FixedMyArray.java](src/ds/FixedMyArray.java)
 
-Each example owns its sources and compiled output. Open examples as separate projects: combining their source folders would mix repeated names such as `app.Main` and `ds.Movie`.
+Each example has its own sources and compiled output. Open each one as a separate project: combining their source folders would mix up repeated names such as `app.Main` and `ds.Movie`.
 
 ## Expected output
 
@@ -90,12 +90,12 @@ Integer vector sum: 18
 After copy.set(0, 99): copy[0] = 99; source[0] = 8
 ```
 
-Commented compilation errors are intentional exercises. Restore each comment before continuing.
+The commented-out compilation errors are deliberate exercises. Restore each comment before you continue.
 
 ## Windows
 
 Open a terminal in this folder (PowerShell, Command Prompt or the VS Code
-terminal). Install a JDK 17 or newer and put its `bin` directory on `PATH`;
+terminal). Install JDK 17 or newer and put its `bin` directory on `PATH`;
 `java -version` and `javac -version` should both work. No Bash, WSL or Git Bash
 is required.
 
@@ -105,8 +105,8 @@ is required.
 ```
 
 The first command runs the demonstration; the second compiles and runs its checks.
-The launcher handles its own working directory, paths with spaces and any
-bundled JAR libraries. It uses the included Windows PowerShell 5.1;
-`run.ps1` also works with PowerShell 7. VS Code's **Run** and **Debug** buttons
-remain available when the individual example folder is open.
+The launcher sets its own working directory and copes with paths containing
+spaces and with any bundled JAR libraries. It runs on Windows PowerShell 5.1,
+which comes with Windows, and `run.ps1` also works with PowerShell 7. The VS Code
+**Run** and **Debug** buttons are still available when the example folder is open.
 

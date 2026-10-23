@@ -1,6 +1,6 @@
 # Topic 6: expected output
 
-Run `bash run.sh` or `.\run.cmd` inside the corresponding demo folder.
+To reproduce each block, run `bash run.sh` or `.\run.cmd` in that demo's folder.
 
 ## Demo01GraphTraversals
 
