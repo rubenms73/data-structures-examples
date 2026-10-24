@@ -18,30 +18,33 @@ roads and the state of the incidents.
 <!-- BEGIN GENERATED ROAD GRAPH -->
 ## Graph of the bundled road network
 
-The following diagrams cover **all 42 localities and all 120 directed road
-alternatives** in `data/northern-spain.json`. They are schematic graphs,
-not geographic maps: line shapes and positions do not represent road geometry.
-Localities shared by panels refer to the same vertex in the one complete graph.
+The diagrams below show **all 42 localities and all 120 directed road
+alternatives** in `data/northern-spain.json`. They are schematic graphs, not
+geographic maps: the shape and position of the lines say nothing about the roads
+themselves. A locality that appears in more than one panel is the same vertex of
+the single, complete graph.
 
-**Legend:** a node is a locality reference point. For readability, each
-double-headed connection groups **two separate directed arcs**. Its label
-uses compact IDs: `01` means `road-01`, `01R` means `road-01-reverse`.
-`PS` and `PN` mean `pajares-south` and `pajares-north`. Each ID is followed
-by its own physical distance in kilometres, rounded to three decimals.
-Look up the ID in the table for its exact direction, road references and
-incident tags; label order is not a left-to-right or top-to-bottom direction.
-The paired arcs can differ in both distance and road references.
+**Legend:** each node is the reference point of a locality. To keep the diagrams
+readable, each double-headed connection stands for **two separate directed
+arcs**. Its label uses short IDs: `01` means `road-01` and `01R` means
+`road-01-reverse`, while `PS` and `PN` mean `pajares-south` and `pajares-north`.
+Each ID is followed by the physical distance of that arc in kilometres, rounded
+to three decimals. The order of the IDs in a label does not indicate a direction
+on the page; look each ID up in the table to find its direction, road references
+and incident tags. The two arcs of a pair can differ in both distance and road
+references.
 
-At baseline, **weight = kilometres**. With an incident, **weight = kilometres
-+ penalty**; a closure removes the arc instead. These diagrams show the original
-network with zero penalties. Penalties are teaching cost units, not minutes.
-Distances are the saved map-derived snapshot, not live measurements.
+With no incidents, **weight = kilometres**. During an incident, **weight =
+kilometres + penalty**, whereas a closure removes the arc altogether. The
+diagrams show the original network, with every penalty at zero. Penalties are
+cost units for teaching purposes, not minutes, and the distances come from a
+saved snapshot of the map, not from live measurements.
 
-An arc may cover several roads and pass through other places without a graph
-vertex there. A line crossing is not a junction unless there is a labelled node.
-Parallel connections between Oviedo and Leon represent distinct route alternatives.
-For geographic road shapes and the five incident scenarios, use the offline
-HTML viewer described below.
+An arc may follow several roads and pass through other places that are not
+vertices of the graph. Where two lines cross there is no junction unless a
+labelled node is drawn there. The parallel connections between Oviedo and León
+are separate route alternatives. To see the actual shape of the roads and the
+five incident scenarios, use the offline HTML viewer described below.
 
 ### Central coast and western Asturias
 
@@ -184,7 +187,7 @@ flowchart TD
 | `road-23` | Campomanes → La Robla | N-630, A-66, CL-626 | 65.165 | None |
 | `road-23-reverse` | La Robla → Campomanes | N-630, CL-626, AP-66, A-66 | 64.964 | AP-66 |
 
-### Eastern Asturias and eastern Leon
+### Eastern Asturias and eastern León
 
 ```mermaid
 flowchart TD
@@ -336,7 +339,7 @@ flowchart TD
 | `road-54` | Ourense → Ponferrada | N-525, N-540, A-54, A-6, CL-631 | 200.309 | None |
 | `road-54-reverse` | Ponferrada → Ourense | CL-631, A-6, A-54, N-540, N-525 | 200.643 | None |
 
-### Direct Oviedo-Leon alternatives
+### Direct Oviedo–León alternatives
 
 ```mermaid
 flowchart TD
@@ -353,9 +356,9 @@ flowchart TD
 | `pajares-south` | Oviedo → León | O-12, A-66, N-630, N-630A | 114.917 | N-630-Pajares |
 | `pajares-north` | León → Oviedo | N-630, A-66, O-12 | 115.451 | N-630-Pajares |
 
-The diagrams and tables are generated from the JSON, so their IDs and
-distances remain traceable to the input. After changing that file, maintainers
-can run `python tools/update_readme_graph.py` from this demo folder.
+The diagrams and tables are generated from the JSON file, so every ID and
+distance can be traced back to it. After changing that file, run
+`python tools/update_readme_graph.py` from this demo folder to update them.
 <!-- END GENERATED ROAD GRAPH -->
 
 ## Run the demonstration

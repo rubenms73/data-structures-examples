@@ -24,35 +24,38 @@ def generate():
         ('Central coast and western Asturias', list(range(1, 11))),
         ('Western mountains and El Bierzo', list(range(11, 14)) + list(range(34, 40))),
         ('Central Asturias and the mountain passes', list(range(14, 24))),
-        ('Eastern Asturias and eastern Leon', list(range(24, 34)) + [40]),
+        ('Eastern Asturias and eastern León', list(range(24, 34)) + [40]),
         ('Castile and the connection to Madrid', list(range(41, 47)) + list(range(55, 59))),
         ('Cantabrian coast', list(range(47, 50))),
         ('Galicia', list(range(50, 55))),
-        ('Direct Oviedo-Leon alternatives', [59]),
+        ('Direct Oviedo–León alternatives', [59]),
     ]
     ids = {name: 'v' + str(i) for i, name in enumerate(data['vertices'])}
     sections = [START, '## Graph of the bundled road network', '',
-        'The following diagrams cover **all 42 localities and all 120 directed road',
-        'alternatives** in `data/northern-spain.json`. They are schematic graphs,',
-        'not geographic maps: line shapes and positions do not represent road geometry.',
-        'Localities shared by panels refer to the same vertex in the one complete graph.', '',
-        '**Legend:** a node is a locality reference point. For readability, each',
-        'double-headed connection groups **two separate directed arcs**. Its label',
-        'uses compact IDs: `01` means `road-01`, `01R` means `road-01-reverse`.',
-        '`PS` and `PN` mean `pajares-south` and `pajares-north`. Each ID is followed',
-        'by its own physical distance in kilometres, rounded to three decimals.',
-        'Look up the ID in the table for its exact direction, road references and',
-        'incident tags; label order is not a left-to-right or top-to-bottom direction.',
-        'The paired arcs can differ in both distance and road references.', '',
-        'At baseline, **weight = kilometres**. With an incident, **weight = kilometres',
-        '+ penalty**; a closure removes the arc instead. These diagrams show the original',
-        'network with zero penalties. Penalties are teaching cost units, not minutes.',
-        'Distances are the saved map-derived snapshot, not live measurements.', '',
-        'An arc may cover several roads and pass through other places without a graph',
-        'vertex there. A line crossing is not a junction unless there is a labelled node.',
-        'Parallel connections between Oviedo and Leon represent distinct route alternatives.',
-        'For geographic road shapes and the five incident scenarios, use the offline',
-        'HTML viewer described below.', '']
+        'The diagrams below show **all 42 localities and all 120 directed road',
+        'alternatives** in `data/northern-spain.json`. They are schematic graphs, not',
+        'geographic maps: the shape and position of the lines say nothing about the roads',
+        'themselves. A locality that appears in more than one panel is the same vertex of',
+        'the single, complete graph.', '',
+        '**Legend:** each node is the reference point of a locality. To keep the diagrams',
+        'readable, each double-headed connection stands for **two separate directed',
+        'arcs**. Its label uses short IDs: `01` means `road-01` and `01R` means',
+        '`road-01-reverse`, while `PS` and `PN` mean `pajares-south` and `pajares-north`.',
+        'Each ID is followed by the physical distance of that arc in kilometres, rounded',
+        'to three decimals. The order of the IDs in a label does not indicate a direction',
+        'on the page; look each ID up in the table to find its direction, road references',
+        'and incident tags. The two arcs of a pair can differ in both distance and road',
+        'references.', '',
+        'With no incidents, **weight = kilometres**. During an incident, **weight =',
+        'kilometres + penalty**, whereas a closure removes the arc altogether. The',
+        'diagrams show the original network, with every penalty at zero. Penalties are',
+        'cost units for teaching purposes, not minutes, and the distances come from a',
+        'saved snapshot of the map, not from live measurements.', '',
+        'An arc may follow several roads and pass through other places that are not',
+        'vertices of the graph. Where two lines cross there is no junction unless a',
+        'labelled node is drawn there. The parallel connections between Oviedo and León',
+        'are separate route alternatives. To see the actual shape of the roads and the',
+        'five incident scenarios, use the offline HTML viewer described below.', '']
     covered = []
     for title, numbers in groups:
         selected = [r for r in roads if any(r['id'] in (f'road-{n:02}', f'road-{n:02}-reverse') for n in numbers)
@@ -79,9 +82,9 @@ def generate():
     assert len(covered) == len(set(covered)) == len(roads), 'Missing or duplicated roads'
     assert set(covered) == {r['id'] for r in roads}
     assert {r[k] for r in roads for k in ('from', 'to')} == set(data['vertices'])
-    sections += ['The diagrams and tables are generated from the JSON, so their IDs and',
-                 'distances remain traceable to the input. After changing that file, maintainers',
-                 'can run `python tools/update_readme_graph.py` from this demo folder.', END]
+    sections += ['The diagrams and tables are generated from the JSON file, so every ID and',
+                 'distance can be traced back to it. After changing that file, run',
+                 '`python tools/update_readme_graph.py` from this demo folder to update them.', END]
     return '\n'.join(sections)
 
 
