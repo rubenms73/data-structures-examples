@@ -16,7 +16,7 @@ public final class ExampleChecks
             super(label);
         }
 
-        ConstructorProbe(ds.Tree<? extends String> source)
+        ConstructorProbe(ds.Tree<String> source)
         {
             super(source);
         }
@@ -30,7 +30,7 @@ public final class ExampleChecks
         }
 
         @Override
-        public void addChild(ds.Tree<? extends String> child)
+        public void addChild(ds.Tree<String> child)
         {
             if (!ready)
                 throw new AssertionError("Child override called during construction");
@@ -100,6 +100,15 @@ public final class ExampleChecks
         equal("root", it.next());
         rejects(NoSuchElementException.class, it::next);
         rejects(UnsupportedOperationException.class, it::remove);
+        equal(false, root.isLeaf());
+        ChildrenIterator<Tree<String>> children = root.childrenIterator();
+        equal("child", children.next().label());
+        equal(false, children.hasNext());
+        rejects(NoSuchElementException.class, children::next);
+        rejects(UnsupportedOperationException.class, () -> children.set(new ListTree<>("x")));
+        rejects(UnsupportedOperationException.class, () -> children.add(new ListTree<>("x")));
+        rejects(UnsupportedOperationException.class, children::remove);
+        equal(true, root.childrenIterator().next().childrenIterator().next().isLeaf());
         System.out.println("All " + checks + " checks passed.");
     }
 }

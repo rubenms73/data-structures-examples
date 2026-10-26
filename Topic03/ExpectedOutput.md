@@ -200,6 +200,9 @@ Company hierarchy:
 |   \-- Developer
 \-- Support
 
+childrenIterator() of Company: Team Support (leaf)
+This iterator is read-only: add throws UnsupportedOperationException.
+
 Preorder traversal: parent before its children.
 Visit: Company
 Visit: Team

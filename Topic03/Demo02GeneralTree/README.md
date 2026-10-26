@@ -10,18 +10,21 @@ rejected with explicit conditionals.
 
 ## Guided walkthrough
 
-1. Read `Tree` and `AbstractTree`. `size` and `height` use only the abstract
-   operations.
-2. `ListTree` owns its list of children. `addChild` copies the structure of the
-   subtree but shares the label objects.
-3. `children` returns a snapshot of the child references, so removing something
-   from that snapshot cannot change the links. The child objects are still
-   mutable and are not deep-copied there.
-4. Because subtrees are copied on insertion, this representation cannot create
+1. Read `Tree` and `ChildrenIterator`. They are the interfaces used in the
+   presentation and in Session 7: `isLeaf`, `label`, `setLabel` and
+   `childrenIterator`, which returns the child subtrees from first to last.
+2. `AbstractTree` computes `size` and `height` using only those operations.
+3. `ListTree` owns its list of children. `addChild` copies the structure of the
+   subtree but shares the label objects, and `removeChild` detaches one child.
+4. Its children iterator is read-only: the optional `set` and `add`, and
+   `remove`, throw `UnsupportedOperationException`. It returns the actual child
+   subtrees, not copies. Session 7 implements a children iterator that can
+   replace and insert children.
+5. Because subtrees are copied on insertion, this representation cannot create
    cycles.
-5. Preorder visits the root and then the children in order, so the children are
+6. Preorder visits the root and then the children in order, so the children are
    pushed onto the stack in reverse order.
-6. As in the presentation, the height counts the nodes on a longest path from
+7. As in the presentation, the height counts the nodes on a longest path from
    the root to a leaf, so every leaf has height one. This interface represents
    only non-empty trees; the presentation gives an empty binary tree height
    zero.
@@ -30,13 +33,12 @@ rejected with explicit conditionals.
 
 `size`, `height`, copying and traversal cost O(n). For a wide tree, the explicit
 stack of the preorder iterator can hold O(n) pending nodes, not just O(height).
-Recursion uses O(height) call frames, and snapshots add temporary storage.
+Recursion uses O(height) call frames.
 `addChild` costs time proportional to the size of the copied subtree. Any other
 implementation of `Tree` used as a source must be finite and acyclic.
 
-This introductory version leaves out parent links and an iterator over the
-children that can modify them; those are kept for exercises set by the
-instructor. Do not modify the tree during a traversal.
+This introductory version leaves out parent links, `equals` and an iterator
+over the children that can modify them; those are left for Session 7. Do not modify the tree during a traversal.
 
 ## Open and run
 
@@ -72,6 +74,9 @@ Company hierarchy:
 +-- Team
 |   \-- Developer
 \-- Support
+
+childrenIterator() of Company: Team Support (leaf)
+This iterator is read-only: add throws UnsupportedOperationException.
 
 Preorder traversal: parent before its children.
 Visit: Company

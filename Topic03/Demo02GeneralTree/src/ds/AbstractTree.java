@@ -1,29 +1,38 @@
 package ds;
 
-import java.util.Iterator;
-
 /** Recursive algorithms depend only on the interface, not the representation. */
 public abstract class AbstractTree<E> implements Tree<E>
 {
-    @Override
+    /** Number of nodes in this tree. */
     public int size()
     {
+        return size(this);
+    }
+
+    private static <E> int size(Tree<E> t)
+    {
         int result = 1;
-        for (Tree<E> child : children())
+        ChildrenIterator<Tree<E>> itr = t.childrenIterator();
+        while (itr.hasNext())
         {
-            result += child.size();
+            result += size(itr.next());
         }
         return result;
     }
 
     /** Height counts nodes on a longest root-to-leaf path: a leaf has height one. */
-    @Override
     public int height()
     {
+        return height(this);
+    }
+
+    private static <E> int height(Tree<E> t)
+    {
         int result = 1;
-        for (Tree<E> child : children())
+        ChildrenIterator<Tree<E>> itr = t.childrenIterator();
+        while (itr.hasNext())
         {
-            int candidate = 1 + child.height();
+            int candidate = 1 + height(itr.next());
             if (candidate > result)
                 result = candidate;
         }
@@ -34,8 +43,7 @@ public abstract class AbstractTree<E> implements Tree<E>
      * Returns the ordered hierarchy with the root first, one node per line.
      * ASCII branches show parent-child relationships. This general tree
      * has no binary left/right links. The method only uses the Tree interface.
-     * Recursion follows tree height and preserves child order; children() may
-     * allocate additional snapshots according to the concrete representation.
+     * Recursion follows tree height and preserves child order.
      */
     public String toTreeString()
     {
@@ -62,11 +70,11 @@ public abstract class AbstractTree<E> implements Tree<E>
         String childPrefix = prefix;
         if (!root)
             childPrefix += last ? "    " : "|   ";
-        Iterator<? extends Tree<E>> children = node.children().iterator();
-        while (children.hasNext())
+        ChildrenIterator<Tree<E>> itr = node.childrenIterator();
+        while (itr.hasNext())
         {
-            Tree<E> child = children.next();
-            appendTree(child, childPrefix, !children.hasNext(), false, result);
+            Tree<E> child = itr.next();
+            appendTree(child, childPrefix, !itr.hasNext(), false, result);
         }
     }
 }

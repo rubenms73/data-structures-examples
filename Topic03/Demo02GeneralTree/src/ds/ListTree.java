@@ -1,9 +1,10 @@
 package ds;
 
-import java.util.ArrayList;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /** Child subtrees are copied on insertion, so sharing cannot introduce cycles. */
@@ -12,22 +13,29 @@ public class ListTree<E> extends AbstractTree<E> implements Iterable<E>
     // Element at the root of this subtree.
     private E label;
     // Ordered child subtrees, each with its own independently copied links.
-    private final ArrayList<ListTree<E>> children = new ArrayList<>();
+    private final List<ListTree<E>> children = new ArrayList<>();
 
     public ListTree(E label)
     {
         assignLabel(label);
     }
 
-    public ListTree(Tree<? extends E> source)
+    public ListTree(Tree<E> source)
     {
         if (source == null)
             throw new NullPointerException("Source must not be null");
         assignLabel(source.label());
-        for (Tree<? extends E> child : source.children())
+        ChildrenIterator<Tree<E>> itr = source.childrenIterator();
+        while (itr.hasNext())
         {
-            copyChild(child);
+            copyChild(itr.next());
         }
+    }
+
+    @Override
+    public boolean isLeaf()
+    {
+        return children.isEmpty();
     }
 
     @Override
@@ -36,6 +44,7 @@ public class ListTree<E> extends AbstractTree<E> implements Iterable<E>
         return label;
     }
 
+    @Override
     public void setLabel(E label)
     {
         assignLabel(label);
@@ -49,12 +58,12 @@ public class ListTree<E> extends AbstractTree<E> implements Iterable<E>
         this.label = label;
     }
 
-    public void addChild(Tree<? extends E> child)
+    public void addChild(Tree<E> child)
     {
         copyChild(child);
     }
 
-    private void copyChild(Tree<? extends E> child)
+    private void copyChild(Tree<E> child)
     {
         if (child == null)
             throw new NullPointerException("Child must not be null");
@@ -68,11 +77,31 @@ public class ListTree<E> extends AbstractTree<E> implements Iterable<E>
         return children.remove(index);
     }
 
-    /** A snapshot of the child references protects the internal list of links. */
     @Override
-    public Iterable<? extends Tree<E>> children()
+    public ChildrenIterator<Tree<E>> childrenIterator()
     {
-        return new ArrayList<>(children);
+        return new ReadOnlyChildrenIterator();
+    }
+
+    // Read-only: set, add and remove keep their default UnsupportedOperationException.
+    private class ReadOnlyChildrenIterator implements ChildrenIterator<Tree<E>>
+    {
+        private int index;  // position of the child that next() returns
+
+        @Override
+        public boolean hasNext()
+        {
+            return index < children.size();
+        }
+
+        @Override
+        public Tree<E> next()
+        {
+            if (!hasNext())
+                throw new NoSuchElementException();
+            index++;
+            return children.get(index - 1);
+        }
     }
 
     @Override

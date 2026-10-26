@@ -1,7 +1,6 @@
 package app;
 
 import ds.*;
-import java.util.*;
 
 public final class Main
 {
@@ -20,6 +19,23 @@ public final class Main
         System.out.println("Company hierarchy:");
         System.out.println();
         System.out.print(company.toTreeString());
+        System.out.println();
+        System.out.print("childrenIterator() of Company:");
+        ChildrenIterator<Tree<String>> itr = company.childrenIterator();
+        while (itr.hasNext())
+        {
+            Tree<String> child = itr.next();
+            System.out.print(" " + child.label() + (child.isLeaf() ? " (leaf)" : ""));
+        }
+        System.out.println();
+        try
+        {
+            company.childrenIterator().add(new ListTree<>("Sales"));
+        }
+        catch (UnsupportedOperationException e)
+        {
+            System.out.println("This iterator is read-only: add throws UnsupportedOperationException.");
+        }
         System.out.println();
         System.out.println("Preorder traversal: parent before its children.");
         for (String label : company)
