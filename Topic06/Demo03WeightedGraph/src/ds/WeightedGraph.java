@@ -21,19 +21,19 @@ import java.util.TreeMap;
 public class WeightedGraph<V>
 {
     // Ordering shared by vertex maps and adjacency maps.
-    private final Comparator<? super V> order;
+    private final Comparator<? super V> cmp;
     // Origin vertex to destination-to-weight map; empty maps retain isolated vertices.
     private final SortedMap<V, SortedMap<V, Double>> edges;
     // Number of directed arcs across all adjacency maps.
     private int edgeCount;
 
     /** Creates an empty graph using the same ordering for all adjacency maps. */
-    public WeightedGraph(Comparator<? super V> order)
+    public WeightedGraph(Comparator<? super V> cmp)
     {
-        if (order == null)
+        if (cmp == null)
             throw new NullPointerException("Comparator must not be null");
-        this.order = order;
-        edges = new TreeMap<>(order);
+        this.cmp = cmp;
+        edges = new TreeMap<>(cmp);
     }
 
     /** Copies all maps; the vertex objects themselves are shared. */
@@ -41,11 +41,11 @@ public class WeightedGraph<V>
     {
         if (source == null)
             throw new NullPointerException("Source must not be null");
-        order = source.order;
-        edges = new TreeMap<>(order);
+        cmp = source.cmp;
+        edges = new TreeMap<>(cmp);
         for (V vertex : source.edges.keySet())
         {
-            SortedMap<V, Double> neighbours = new TreeMap<>(order);
+            SortedMap<V, Double> neighbours = new TreeMap<>(cmp);
             neighbours.putAll(source.edges.get(vertex));
             edges.put(vertex, neighbours);
         }
@@ -59,7 +59,7 @@ public class WeightedGraph<V>
             throw new NullPointerException("Vertex must not be null");
         if (edges.containsKey(vertex))
             return false;
-        edges.put(vertex, new TreeMap<>(order));
+        edges.put(vertex, new TreeMap<>(cmp));
         return true;
     }
 
@@ -83,7 +83,7 @@ public class WeightedGraph<V>
             throw new NullPointerException("Endpoints must not be null");
         if (Double.isNaN(weight) || Double.isInfinite(weight))
             throw new IllegalArgumentException("Weight must be finite");
-        if (order.compare(from, to) == 0 || hasEdge(from, to))
+        if (cmp.compare(from, to) == 0 || hasEdge(from, to))
             return false;
         addVertex(from);
         addVertex(to);
@@ -209,9 +209,9 @@ public class WeightedGraph<V>
     private class Search
     {
         // Best source-to-vertex costs found so far; infinity means not yet reached.
-        private final SortedMap<V, Double> distances = new TreeMap<>(order);
+        private final SortedMap<V, Double> distances = new TreeMap<>(cmp);
         // Predecessor on each current best path, updated when a shorter path is found.
-        private final Map<V, V> previous = new TreeMap<>(order);
+        private final Map<V, V> previous = new TreeMap<>(cmp);
 
         private Search(V start)
         {
@@ -279,7 +279,7 @@ public class WeightedGraph<V>
             int comparison = Double.compare(distance, other.distance);
             if (comparison != 0)
                 return comparison;
-            return order.compare(vertex, other.vertex);
+            return cmp.compare(vertex, other.vertex);
         }
     }
 

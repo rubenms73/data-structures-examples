@@ -7,7 +7,7 @@ import java.util.Comparator;
 public final class SortedMutableBag<E> extends MutableBag<E>
 {
     // Ordering used on insertion; null selects the elements' natural ordering.
-    private final Comparator<? super E> comparator;
+    private final Comparator<? super E> cmp;
 
     public SortedMutableBag()
     {
@@ -19,15 +19,15 @@ public final class SortedMutableBag<E> extends MutableBag<E>
         this(capacity, null);
     }
 
-    public SortedMutableBag(Comparator<? super E> comparator)
+    public SortedMutableBag(Comparator<? super E> cmp)
     {
-        this(10, comparator);
+        this(10, cmp);
     }
 
-    public SortedMutableBag(int capacity, Comparator<? super E> comparator)
+    public SortedMutableBag(int capacity, Comparator<? super E> cmp)
     {
         super(capacity);
-        this.comparator = comparator;
+        this.cmp = cmp;
     }
 
     public SortedMutableBag(Collection<? extends E> source)
@@ -35,17 +35,17 @@ public final class SortedMutableBag<E> extends MutableBag<E>
         this(source, null);
     }
 
-    public SortedMutableBag(Collection<? extends E> source, Comparator<? super E> comparator)
+    public SortedMutableBag(Collection<? extends E> source, Comparator<? super E> cmp)
     {
-        this(source.size(), comparator);
+        this(source.size(), cmp);
         addAll(source);
     }
 
     @SuppressWarnings("unchecked")
     private int compare(E a, E b)
     {
-        if (comparator != null)
-            return comparator.compare(a, b);
+        if (cmp != null)
+            return cmp.compare(a, b);
         if (!(a instanceof Comparable<?>))
             throw new ClassCastException("Element does not implement Comparable");
         return ((Comparable<? super E>) a).compareTo(b);

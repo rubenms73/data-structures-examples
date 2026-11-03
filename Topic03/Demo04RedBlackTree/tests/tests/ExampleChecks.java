@@ -127,10 +127,10 @@ public final class ExampleChecks
         }
     }
 
-    private static void randomUpdates(Comparator<Integer> order, long seed)
+    private static void randomUpdates(Comparator<Integer> cmp, long seed)
     {
-        RedBlackTree<Integer> tree = new RedBlackTree<>(order);
-        TreeSet<Integer> oracle = new TreeSet<>(order);
+        RedBlackTree<Integer> tree = new RedBlackTree<>(cmp);
+        TreeSet<Integer> oracle = new TreeSet<>(cmp);
         Random random = new Random(seed);
         for (int i = 0; i < 6000; i++)
         {

@@ -36,16 +36,16 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
     // Number of nodes, including repeated comparison keys.
     private int size;
     // Search ordering; null selects natural ordering.
-    private final Comparator<? super E> order;
+    private final Comparator<? super E> cmp;
 
     public BinarySearchTree()
     {
-        order = null;
+        cmp = null;
     }
 
-    public BinarySearchTree(Comparator<? super E> order)
+    public BinarySearchTree(Comparator<? super E> cmp)
     {
-        this.order = order;
+        this.cmp = cmp;
     }
 
     public BinarySearchTree(Collection<? extends E> source)
@@ -54,9 +54,9 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
     }
 
     public BinarySearchTree(Collection<? extends E> source,
-                            Comparator<? super E> order)
+                            Comparator<? super E> cmp)
     {
-        this(order);
+        this(cmp);
         if (source == null)
             throw new NullPointerException("Source must not be null");
         // The subclass is not initialised yet: use private insertion logic.
@@ -69,8 +69,8 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
     @SuppressWarnings("unchecked")
     private int compare(E first, E second)
     {
-        if (order != null)
-            return order.compare(first, second);
+        if (cmp != null)
+            return cmp.compare(first, second);
         if (!(first instanceof Comparable<?>))
             throw new ClassCastException("Elements must implement Comparable");
         return ((Comparable<? super E>) first).compareTo(second);
@@ -96,8 +96,6 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
             throw new NullPointerException("Null elements are not supported");
         if (root == null)
         {
-            // Check comparison even when inserting the first element.
-            compare(value, value);
             root = new Node(value);
             size++;
             return true;

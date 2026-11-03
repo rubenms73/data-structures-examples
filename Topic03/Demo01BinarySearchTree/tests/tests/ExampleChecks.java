@@ -50,13 +50,13 @@ public final class ExampleChecks
     }
 
     private static void checkInvariant(BinarySearchTree<Integer> tree,
-                                       Comparator<Integer> order)
+                                       Comparator<Integer> cmp)
     {
         try
         {
             java.lang.reflect.Field root = BinarySearchTree.class.getDeclaredField("root");
             root.setAccessible(true);
-            equal(true, valid(root.get(tree), null, null, order));
+            equal(true, valid(root.get(tree), null, null, cmp));
         }
         catch (ReflectiveOperationException exception)
         {
@@ -65,7 +65,7 @@ public final class ExampleChecks
     }
 
     private static boolean valid(Object node, Integer lower, Integer upper,
-                                 Comparator<Integer> order)
+                                 Comparator<Integer> cmp)
         throws ReflectiveOperationException
     {
         if (node == null)
@@ -78,13 +78,13 @@ public final class ExampleChecks
         left.setAccessible(true);
         right.setAccessible(true);
         int item = (Integer) value.get(node);
-        Comparator<Integer> comparison = order == null ? Comparator.naturalOrder() : order;
+        Comparator<Integer> comparison = cmp == null ? Comparator.naturalOrder() : cmp;
         if (lower != null && comparison.compare(item, lower) <= 0)
             return false;
         if (upper != null && comparison.compare(item, upper) > 0)
             return false;
-        return valid(left.get(node), lower, item, order)
-            && valid(right.get(node), item, upper, order);
+        return valid(left.get(node), lower, item, cmp)
+            && valid(right.get(node), item, upper, cmp);
     }
 
     public static void main(String[] args)
@@ -98,8 +98,10 @@ public final class ExampleChecks
         rejects(NullPointerException.class,
             () -> new BinarySearchTree<Integer>((Collection<Integer>) null));
         BinarySearchTree<Object> invalid = new BinarySearchTree<>();
+        // The first element is not compared with anything; the second one is.
+        equal(true, invalid.add(new Object()));
         rejects(ClassCastException.class, () -> invalid.add(new Object()));
-        equal(0, invalid.size());
+        equal(1, invalid.size());
         equal(true, tree.add(2));
         equal(1, tree.size());
         equal(true, tree.add(2));
@@ -160,9 +162,9 @@ public final class ExampleChecks
         }
         equal(9, occurrences.size());
         Random random = new Random(17);
-        for (Comparator<Integer> order : Arrays.<Comparator<Integer>>asList(null, Comparator.reverseOrder()))
+        for (Comparator<Integer> cmp : Arrays.<Comparator<Integer>>asList(null, Comparator.reverseOrder()))
         {
-            BinarySearchTree<Integer> actual = new BinarySearchTree<>(order);
+            BinarySearchTree<Integer> actual = new BinarySearchTree<>(cmp);
             List<Integer> expected = new ArrayList<>();
             for (int i = 0; i < 10000; i++)
             {
@@ -171,7 +173,7 @@ public final class ExampleChecks
                 if (operation == 0)
                 {
                     equal(expected.add(value), actual.add(value));
-                    expected.sort(order);
+                    expected.sort(cmp);
                 }
                 else if (operation == 1)
                     equal(expected.remove(Integer.valueOf(value)), actual.remove(value));
@@ -179,7 +181,7 @@ public final class ExampleChecks
                     equal(expected.contains(value), actual.contains(value));
                 equal(expected.size(), actual.size());
                 equal(expected, new ArrayList<>(actual));
-                checkInvariant(actual, order);
+                checkInvariant(actual, cmp);
 
             }
             actual.clear();

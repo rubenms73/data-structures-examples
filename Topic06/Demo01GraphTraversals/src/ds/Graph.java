@@ -11,17 +11,17 @@ import java.util.TreeSet;
 public class Graph<V>
 {
     // Ordering that makes vertex and neighbour traversal deterministic.
-    private final Comparator<? super V> order;
+    private final Comparator<? super V> cmp;
     // For each vertex, the set of vertices reached by its outgoing arcs.
     private final SortedMap<V, Set<V>> adjacency;
 
     /** Creates an empty graph with deterministic vertex and neighbour order. */
-    public Graph(Comparator<? super V> order)
+    public Graph(Comparator<? super V> cmp)
     {
-        if (order == null)
+        if (cmp == null)
             throw new IllegalArgumentException("Null comparator");
-        this.order = order;
-        adjacency = new TreeMap<>(order);
+        this.cmp = cmp;
+        adjacency = new TreeMap<>(cmp);
     }
 
     /** Adds a non-null vertex; returns false if already present. */
@@ -31,7 +31,7 @@ public class Graph<V>
             throw new IllegalArgumentException("Null vertex");
         if (adjacency.containsKey(vertex))
             return false;
-        adjacency.put(vertex, new TreeSet<>(order));
+        adjacency.put(vertex, new TreeSet<>(cmp));
         return true;
     }
 
@@ -40,7 +40,7 @@ public class Graph<V>
     {
         if (from == null || to == null)
             throw new IllegalArgumentException("Null endpoint");
-        if (order.compare(from, to) == 0)
+        if (cmp.compare(from, to) == 0)
             return false;
         addVertex(from);
         addVertex(to);

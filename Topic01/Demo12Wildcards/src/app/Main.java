@@ -37,8 +37,8 @@ public final class Main
 
         System.out.println("\n? super Rectangle: reuse a comparator that accepts any Shape.");
         Comparator<Shape> byArea = (a, b) -> Double.compare(a.area(), b.area());
-        Comparator<? super Rectangle> comparator = byArea;
-        System.out.println("Rectangle comparison: " + comparator.compare(rectangles.get(0), rectangles.get(1)));
+        Comparator<? super Rectangle> cmp = byArea;
+        System.out.println("Rectangle comparison: " + cmp.compare(rectangles.get(0), rectangles.get(1)));
         Rectangle largest = FlexibleMaximum.max(new Rectangle[] {rectangles.get(0), rectangles.get(1)}, byArea);
         System.out.println("Largest rectangle area: " + largest.area());
         Shape largestShape = FlexibleMaximum.max(new Shape[] {new Circle(1), largest}, byArea);

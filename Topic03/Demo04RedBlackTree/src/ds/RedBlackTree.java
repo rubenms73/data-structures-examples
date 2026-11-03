@@ -33,18 +33,18 @@ public final class RedBlackTree<E> implements Iterable<E>
     }
 
     // Ordering used for searching and for detecting equivalent keys.
-    private final Comparator<? super E> order;
+    private final Comparator<? super E> cmp;
     // Root after updates and rotations; null means empty.
     private Node root;
     // Number of distinct comparison keys.
     private int size;
 
     /** Creates an empty tree using the supplied total ordering. */
-    public RedBlackTree(Comparator<? super E> order)
+    public RedBlackTree(Comparator<? super E> cmp)
     {
-        if (order == null)
+        if (cmp == null)
             throw new NullPointerException("Comparator must not be null");
-        this.order = order;
+        this.cmp = cmp;
     }
 
     /** Number of distinct comparison keys, in O(1) time. */
@@ -70,7 +70,7 @@ public final class RedBlackTree<E> implements Iterable<E>
         Node current = root;
         while (current != null)
         {
-            int comparison = order.compare(value, current.label);
+            int comparison = cmp.compare(value, current.label);
             if (comparison == 0)
                 return true;
             if (comparison < 0)
@@ -91,7 +91,7 @@ public final class RedBlackTree<E> implements Iterable<E>
         if (value == null)
             throw new NullPointerException("Element must not be null");
         // Even the first element must be acceptable to the comparator.
-        order.compare(value, value);
+        cmp.compare(value, value);
         if (contains(value))
             return false;
         root = insert(root, value);
@@ -264,7 +264,7 @@ public final class RedBlackTree<E> implements Iterable<E>
     {
         if (node == null)
             return new Node(value);
-        if (order.compare(value, node.label) < 0)
+        if (cmp.compare(value, node.label) < 0)
             node.left = insert(node.left, value);
         else
             node.right = insert(node.right, value);
@@ -288,7 +288,7 @@ public final class RedBlackTree<E> implements Iterable<E>
     // level. The public contains check guarantees that the search path exists.
     private Node delete(Node node, E value)
     {
-        if (order.compare(value, node.label) < 0)
+        if (cmp.compare(value, node.label) < 0)
         {
             if (!isRed(node.left) && !isRed(node.left.left))
                 node = prepareLeft(node);
@@ -299,11 +299,11 @@ public final class RedBlackTree<E> implements Iterable<E>
             if (isRed(node.left))
                 node = rotateRight(node);
             // Recompare after rotations: the subtree root may have changed.
-            if (order.compare(value, node.label) == 0 && node.right == null)
+            if (cmp.compare(value, node.label) == 0 && node.right == null)
                 return null;
             if (!isRed(node.right) && !isRed(node.right.left))
                 node = prepareRight(node);
-            if (order.compare(value, node.label) == 0)
+            if (cmp.compare(value, node.label) == 0)
             {
                 node.label = minimum(node.right).label;
                 node.right = deleteMinimum(node.right);
@@ -387,9 +387,9 @@ public final class RedBlackTree<E> implements Iterable<E>
     {
         if (node == null)
             return 1;
-        if (lower != null && order.compare(node.label, lower) <= 0)
+        if (lower != null && cmp.compare(node.label, lower) <= 0)
             return -1;
-        if (upper != null && order.compare(node.label, upper) >= 0)
+        if (upper != null && cmp.compare(node.label, upper) >= 0)
             return -1;
         if (isRed(node.right))
             return -1;

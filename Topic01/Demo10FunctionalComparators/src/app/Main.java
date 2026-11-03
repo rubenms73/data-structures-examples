@@ -28,12 +28,12 @@ public final class Main
         show("Lambda", lambda);
     }
 
-    private static void show(String label, Comparator<? super String> order)
+    private static void show(String label, Comparator<? super String> cmp)
     {
         String[] words = {"pear", "banana", "fig"};
         System.out.println("\n" + label + " input: " + Arrays.toString(words));
-        System.out.println("compare(pear, banana): " + order.compare("pear", "banana"));
-        Arrays.sort(words, order);
+        System.out.println("compare(pear, banana): " + cmp.compare("pear", "banana"));
+        Arrays.sort(words, cmp);
         System.out.println(label + ": " + Arrays.toString(words));
     }
 }

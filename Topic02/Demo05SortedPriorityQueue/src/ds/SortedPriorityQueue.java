@@ -13,21 +13,21 @@ public class SortedPriorityQueue<E> extends AbstractQueue<E>
     // Elements in priority order; index 0 is the next element to leave.
     private final List<E> data = new DoublyLinkedList<>();
     // Comparison rule; null uses natural ordering. Smaller values leave first.
-    private final Comparator<? super E> order;
+    private final Comparator<? super E> cmp;
 
     public SortedPriorityQueue()
     {
-        order = null;
+        cmp = null;
     }
 
-    public SortedPriorityQueue(Comparator<? super E> order)
+    public SortedPriorityQueue(Comparator<? super E> cmp)
     {
-        this.order = order;
+        this.cmp = cmp;
     }
 
-    public SortedPriorityQueue(Collection<? extends E> source, Comparator<? super E> order)
+    public SortedPriorityQueue(Collection<? extends E> source, Comparator<? super E> cmp)
     {
-        this(order);
+        this(cmp);
         if (source == null)
             throw new NullPointerException("Source must not be null");
         // Initialise through a private helper, avoiding overridable offer/add.
@@ -40,8 +40,8 @@ public class SortedPriorityQueue<E> extends AbstractQueue<E>
     @SuppressWarnings("unchecked")
     private int compare(E first, E second)
     {
-        if (order != null)
-            return order.compare(first, second);
+        if (cmp != null)
+            return cmp.compare(first, second);
         if (!(first instanceof Comparable<?>))
             throw new ClassCastException("Elements must implement Comparable");
         return ((Comparable<? super E>) first).compareTo(second);

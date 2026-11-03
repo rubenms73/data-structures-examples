@@ -30,8 +30,9 @@ comparator you want explicitly.
 `add`, `contains` and `remove` reject `null` elements with an explicit `if` that
 throws `NullPointerException`, and a `null` source is rejected too. Without a
 comparator, the elements must be mutually comparable; comparing incompatible
-elements may throw `ClassCastException`. The first insertion checks that the
-element can be compared before it creates a node.
+elements may throw `ClassCastException`. The first element is not compared
+with anything, so an incompatible element is only detected when another one is
+added.
 
 Every successful `add` returns `true` and increases `size`, duplicates included.
 `remove` deletes one occurrence and decreases `size` once. Iteration visits

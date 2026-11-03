@@ -34,18 +34,18 @@ public final class AVLTree<E> implements Iterable<E>
     }
 
     // Ordering used for searching and for detecting equivalent keys.
-    private final Comparator<? super E> order;
+    private final Comparator<? super E> cmp;
     // Root after the latest update or rotation; null means empty.
     private Node root;
     // Number of distinct comparison keys.
     private int size;
 
     /** Creates an empty tree using the supplied total ordering. */
-    public AVLTree(Comparator<? super E> order)
+    public AVLTree(Comparator<? super E> cmp)
     {
-        if (order == null)
+        if (cmp == null)
             throw new NullPointerException("Comparator must not be null");
-        this.order = order;
+        this.cmp = cmp;
     }
 
     /** Number of distinct comparison keys, in O(1) time. */
@@ -71,7 +71,7 @@ public final class AVLTree<E> implements Iterable<E>
         Node current = root;
         while (current != null)
         {
-            int comparison = order.compare(value, current.label);
+            int comparison = cmp.compare(value, current.label);
             if (comparison == 0)
                 return true;
             if (comparison < 0)
@@ -92,7 +92,7 @@ public final class AVLTree<E> implements Iterable<E>
         if (value == null)
             throw new NullPointerException("Element must not be null");
         // Even the first element must be acceptable to the comparator.
-        order.compare(value, value);
+        cmp.compare(value, value);
         if (contains(value))
             return false;
         root = insert(root, value);
@@ -256,7 +256,7 @@ public final class AVLTree<E> implements Iterable<E>
     {
         if (node == null)
             return new Node(value);
-        if (order.compare(value, node.label) < 0)
+        if (cmp.compare(value, node.label) < 0)
             node.left = insert(node.left, value);
         else
             node.right = insert(node.right, value);
@@ -266,7 +266,7 @@ public final class AVLTree<E> implements Iterable<E>
     // The public method has already checked that the key exists.
     private Node delete(Node node, E value)
     {
-        int comparison = order.compare(value, node.label);
+        int comparison = cmp.compare(value, node.label);
         if (comparison < 0)
             node.left = delete(node.left, value);
         else if (comparison > 0)
@@ -344,9 +344,9 @@ public final class AVLTree<E> implements Iterable<E>
     {
         if (node == null)
             return 0;
-        if (lower != null && order.compare(node.label, lower) <= 0)
+        if (lower != null && cmp.compare(node.label, lower) <= 0)
             return -1;
-        if (upper != null && order.compare(node.label, upper) >= 0)
+        if (upper != null && cmp.compare(node.label, upper) >= 0)
             return -1;
         int left = audit(node.left, lower, node.label);
         int right = audit(node.right, node.label, upper);

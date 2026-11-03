@@ -108,8 +108,8 @@ public final class ExampleChecks
         overflow.addEdge(2, 3, Double.MAX_VALUE);
         rejects(ArithmeticException.class, () -> overflow.dijkstra(1));
         rejects(ArithmeticException.class, () -> overflow.dijkstraHeap(1));
-        Comparator<Number> order = (a, b) -> Double.compare(a.doubleValue(), b.doubleValue());
-        WeightedGraph<Integer> broadComparator = new WeightedGraph<>(order);
+        Comparator<Number> cmp = (a, b) -> Double.compare(a.doubleValue(), b.doubleValue());
+        WeightedGraph<Integer> broadComparator = new WeightedGraph<>(cmp);
         broadComparator.addEdge(1, 2, 0);
         equal(0.0, broadComparator.dijkstraHeap(1).distanceTo(2));
     }
