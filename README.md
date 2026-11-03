@@ -18,7 +18,8 @@ comparison of stacks in Java, C++, C# and Python in Topic 2. Start with [Topic 1
 inner `ListIterator` and reuse through `AbstractSequentialList`.
 
 [Topic 3](Topic03/README.md) contains the binary search tree example, with
-comparison, recursive removal and an inner in-order iterator that uses a stack. It also
+comparison, removal through `removeTop` as in the slides, and an inner in-order
+iterator that uses a stack. It also
 includes full AVL and red-black implementations; their balancing algorithms are
 clearly marked as optional study of the implementation, not as exam requirements.
 
@@ -30,6 +31,12 @@ has its own commands to run and test the C++, C# and Python versions.
 
 The launchers target Java 17 with `--release 17` and keep `-Xlint:all -Werror` enabled.
 GitHub Actions checks JDK 17, 21 and 25 on Windows, macOS and Linux.
+
+## Practical exam solutions
+
+[PracticalExamSolutions](PracticalExamSolutions/README.md) holds the handouts and
+complete solutions of past practical exams, by academic year, starting with the
+2026–2027 midterms.
 
 ## Run an example
 
