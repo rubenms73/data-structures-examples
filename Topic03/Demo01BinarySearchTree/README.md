@@ -49,16 +49,17 @@ stored objects in ways that alter their order.
 1. Read the constructors and `compare`. The comparator field uses `? super E`.
 2. Follow `add` and `contains` from the root. Each comparison chooses one
    subtree.
-3. Follow the public `remove`. It searches first, replaces `root` with the
-   result of the recursive call, and then decreases `size` exactly once. The
-   preliminary search keeps the recursion simple.
-4. In the recursive `remove`, a node with no left child is replaced by its right
-   child, and a node with no right child is replaced by its left child. Leaves
-   are covered by these two cases.
-5. When the node has two children, copy the maximum value of its left subtree
-   and detach that predecessor node, reconnecting its left child if it has one.
-   Using the successor instead could leave another equal value in the right
-   subtree, which would break the strict bound on that side.
+3. Follow `remove`, as in the presentation. It searches like `contains`, with
+   `parent` one step behind `current`. Then it stores what `removeTop(current)`
+   returns in the link that led to `current`: `root` if `parent` is `null`,
+   otherwise `parent.left` or `parent.right`. Finally it decreases `size` once.
+4. `removeTop(t)` removes the element at the root of subtree `t` and returns the
+   root of what remains. With no left child it returns `t.right`, and with no
+   right child `t.left`; leaves are covered by these two cases.
+5. When `t` has two children, `removeTop` copies the maximum of its left subtree
+   into `t` and detaches that node, reconnecting its left child if it has one.
+   Using the minimum of the right subtree instead could leave another equal
+   value on the right, which would break the strict bound on that side.
 6. Follow `pushLeft` and `next`. The stack holds the nodes still waiting to be
    visited; after visiting a node, the iterator pushes the leftmost path of its
    right subtree.
@@ -72,17 +73,16 @@ order, not the shape of the tree.
 
 ## Costs and limitations
 
-Search, insertion and removal cost O(h), where h is the height of the tree.
-Searching before removing repeats a path, but it does not change this
-complexity. The tree is not balanced: following the presentation, inserting 1,
+Search, insertion and removal cost O(h), where h is the height of the tree:
+removal follows one path to the node and then one path to the maximum of its
+left subtree. The tree is not balanced: following the presentation, inserting 1,
 2, 3, 4, 5 produces a chain of right children of height five (five nodes and
 four edges). Draw it and compare it with the insertion order 3, 1, 5, 2, 4. The
 same sorted output does not mean the same shape or the same search cost.
 
 A complete traversal costs O(n) and uses O(h) auxiliary space for the stack. A
 single call to `next` may take O(h), although its amortised cost over a whole
-traversal is O(1). Recursive removal also needs O(h) space on the call stack, so
-it is not suitable for very deep chains. Building a tree from sorted input may
+traversal is O(1). Removal is iterative and needs no extra space. Building a tree from sorted input may
 cost O(n²), and this includes copying a naturally ordered tree, through its
 iterator, into another naturally ordered tree.
 

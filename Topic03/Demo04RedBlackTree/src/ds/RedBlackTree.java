@@ -19,16 +19,16 @@ public final class RedBlackTree<E> implements Iterable<E>
     private final class Node
     {
         // Element used as the comparison key at this node.
-        E value;
+        E label;
         // Root of the left subtree, or null if absent.
         Node left;
         // Root of the right subtree, or null if absent.
         Node right;
         boolean red = true;
 
-        Node(E value)
+        Node(E label)
         {
-            this.value = value;
+            this.label = label;
         }
     }
 
@@ -70,7 +70,7 @@ public final class RedBlackTree<E> implements Iterable<E>
         Node current = root;
         while (current != null)
         {
-            int comparison = order.compare(value, current.value);
+            int comparison = order.compare(value, current.label);
             if (comparison == 0)
                 return true;
             if (comparison < 0)
@@ -123,7 +123,7 @@ public final class RedBlackTree<E> implements Iterable<E>
     {
         if (root == null)
             throw new NoSuchElementException("Empty tree");
-        return minimum(root).value;
+        return minimum(root).label;
     }
 
     /** Last element in comparator order; throws if this tree is empty. */
@@ -136,7 +136,7 @@ public final class RedBlackTree<E> implements Iterable<E>
         {
             current = current.right;
         }
-        return current.value;
+        return current.label;
     }
 
     private Node minimum(Node node)
@@ -229,7 +229,7 @@ public final class RedBlackTree<E> implements Iterable<E>
                 throw new NoSuchElementException();
             Node node = pending.pop();
             pushLeft(node.right);
-            return node.value;
+            return node.label;
         }
 
         @Override
@@ -264,7 +264,7 @@ public final class RedBlackTree<E> implements Iterable<E>
     {
         if (node == null)
             return new Node(value);
-        if (order.compare(value, node.value) < 0)
+        if (order.compare(value, node.label) < 0)
             node.left = insert(node.left, value);
         else
             node.right = insert(node.right, value);
@@ -288,7 +288,7 @@ public final class RedBlackTree<E> implements Iterable<E>
     // level. The public contains check guarantees that the search path exists.
     private Node delete(Node node, E value)
     {
-        if (order.compare(value, node.value) < 0)
+        if (order.compare(value, node.label) < 0)
         {
             if (!isRed(node.left) && !isRed(node.left.left))
                 node = prepareLeft(node);
@@ -299,13 +299,13 @@ public final class RedBlackTree<E> implements Iterable<E>
             if (isRed(node.left))
                 node = rotateRight(node);
             // Recompare after rotations: the subtree root may have changed.
-            if (order.compare(value, node.value) == 0 && node.right == null)
+            if (order.compare(value, node.label) == 0 && node.right == null)
                 return null;
             if (!isRed(node.right) && !isRed(node.right.left))
                 node = prepareRight(node);
-            if (order.compare(value, node.value) == 0)
+            if (order.compare(value, node.label) == 0)
             {
-                node.value = minimum(node.right).value;
+                node.label = minimum(node.right).label;
                 node.right = deleteMinimum(node.right);
             }
             else
@@ -387,16 +387,16 @@ public final class RedBlackTree<E> implements Iterable<E>
     {
         if (node == null)
             return 1;
-        if (lower != null && order.compare(node.value, lower) <= 0)
+        if (lower != null && order.compare(node.label, lower) <= 0)
             return -1;
-        if (upper != null && order.compare(node.value, upper) >= 0)
+        if (upper != null && order.compare(node.label, upper) >= 0)
             return -1;
         if (isRed(node.right))
             return -1;
         if (isRed(node) && isRed(node.left))
             return -1;
-        int left = audit(node.left, lower, node.value);
-        int right = audit(node.right, node.value, upper);
+        int left = audit(node.left, lower, node.label);
+        int right = audit(node.right, node.label, upper);
         if (left < 0 || right < 0 || left != right)
             return -1;
         if (node.red)
@@ -445,7 +445,7 @@ public final class RedBlackTree<E> implements Iterable<E>
             result.append("\\-- ");
         else
             result.append("/-- ");
-        String label = String.valueOf(node.value).replace("\r", "\\r").replace("\n", "\\n")
+        String label = String.valueOf(node.label).replace("\r", "\\r").replace("\n", "\\n")
                 .replace("\t", "\\t");
         result.append(label);
         if (isRoot)

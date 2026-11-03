@@ -19,15 +19,15 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
     private class Node
     {
         // Element used as the comparison key at this node.
-        E value;
+        E label;
         // Root of the left subtree, or null if absent.
         Node left;
         // Root of the right subtree, or null if absent.
         Node right;
 
-        Node(E value)
+        Node(E label)
         {
-            this.value = value;
+            this.label = label;
         }
     }
 
@@ -105,7 +105,7 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
         Node current = root;
         while (true)
         {
-            int result = compare(value, current.value);
+            int result = compare(value, current.label);
             // Equal values go left, as in the Topic 3 presentation.
             if (result <= 0)
             {
@@ -140,7 +140,7 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
         Node current = root;
         while (current != null)
         {
-            int result = compare(item, current.value);
+            int result = compare(item, current.label);
             if (result == 0)
                 return true;
             if (result < 0)
@@ -156,45 +156,58 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
     @SuppressWarnings("unchecked")
     public boolean remove(Object value)
     {
-        // A preliminary search keeps recursive removal simple: the value exists.
-        if (!contains(value))
+        if (value == null)
+            throw new NullPointerException("Null elements are not supported");
+        E item = (E) value;
+        // Find the node, keeping its parent one step behind.
+        Node parent = null;
+        Node current = root;
+        while (current != null)
+        {
+            int result = compare(item, current.label);
+            if (result == 0)
+                break;
+            parent = current;
+            if (result < 0)
+                current = current.left;
+            else
+                current = current.right;
+        }
+        if (current == null)
             return false;
-        root = remove(root, (E) value);
+        // Store what removeTop returns in the link that led to current.
+        if (parent == null)
+            root = removeTop(current);
+        else if (parent.left == current)
+            parent.left = removeTop(current);
+        else
+            parent.right = removeTop(current);
         size--;
         return true;
     }
 
-    // Returns the new root of this subtree, including when deleting the root.
-    private Node remove(Node node, E value)
+    // Removes the element at the root of subtree t and returns the root of what remains.
+    private Node removeTop(Node t)
     {
-        int result = compare(value, node.value);
-        if (result < 0)
-            node.left = remove(node.left, value);
-        else if (result > 0)
-            node.right = remove(node.right, value);
-        else
+        if (t.left == null)
+            return t.right;
+        if (t.right == null)
+            return t.left;
+        // With duplicates on the left, use the maximum of the left subtree.
+        // The minimum of the right subtree could leave an equal value on the right.
+        Node parent = t;
+        Node p = t.left;
+        while (p.right != null)
         {
-            if (node.left == null)
-                return node.right;
-            if (node.right == null)
-                return node.left;
-            // With duplicates on the left, use the greatest value on the left.
-            // A successor could leave an equal value in the strictly greater
-            // right subtree. Detach the actual predecessor node, not any match.
-            Node parent = node;
-            Node predecessor = node.left;
-            while (predecessor.right != null)
-            {
-                parent = predecessor;
-                predecessor = predecessor.right;
-            }
-            node.value = predecessor.value;
-            if (parent == node)
-                parent.left = predecessor.left;
-            else
-                parent.right = predecessor.left;
+            parent = p;
+            p = p.right;
         }
-        return node;
+        t.label = p.label;
+        if (parent == t)
+            parent.left = p.left;
+        else
+            parent.right = p.left;
+        return t;
     }
 
     @Override
@@ -262,7 +275,7 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
                 stack.push(node.right);
             if (node.left != null)
                 stack.push(node.left);
-            return node.value;
+            return node.label;
         }
     }
 
@@ -308,7 +321,7 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
                 if (parent.left == node && parent.right != null)
                     pushPathToLeaf(parent.right);
             }
-            return node.value;
+            return node.label;
         }
     }
 
@@ -339,7 +352,7 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
                 queue.addLast(node.left);
             if (node.right != null)
                 queue.addLast(node.right);
-            return node.value;
+            return node.label;
         }
     }
 
@@ -375,7 +388,7 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
                 throw new NoSuchElementException();
             Node node = stack.pop();
             pushLeft(node.right);
-            return node.value;
+            return node.label;
         }
     }
 
@@ -420,7 +433,7 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
             result.append("\\-- ");
         else
             result.append("/-- ");
-        String label = String.valueOf(node.value).replace("\r", "\\r").replace("\n", "\\n")
+        String label = String.valueOf(node.label).replace("\r", "\\r").replace("\n", "\\n")
                 .replace("\t", "\\t");
         result.append(label);
         if (isRoot)

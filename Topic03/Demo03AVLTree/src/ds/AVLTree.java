@@ -19,7 +19,7 @@ public final class AVLTree<E> implements Iterable<E>
     private final class Node
     {
         // Element used as the comparison key at this node.
-        E value;
+        E label;
         // Root of the left subtree, or null if absent.
         Node left;
         // Root of the right subtree, or null if absent.
@@ -27,9 +27,9 @@ public final class AVLTree<E> implements Iterable<E>
         // Cached subtree height in nodes; a newly created leaf has height one.
         int height = 1;
 
-        Node(E value)
+        Node(E label)
         {
-            this.value = value;
+            this.label = label;
         }
     }
 
@@ -71,7 +71,7 @@ public final class AVLTree<E> implements Iterable<E>
         Node current = root;
         while (current != null)
         {
-            int comparison = order.compare(value, current.value);
+            int comparison = order.compare(value, current.label);
             if (comparison == 0)
                 return true;
             if (comparison < 0)
@@ -121,7 +121,7 @@ public final class AVLTree<E> implements Iterable<E>
     {
         if (root == null)
             throw new NoSuchElementException("Empty tree");
-        return minimum(root).value;
+        return minimum(root).label;
     }
 
     /** Last element in comparator order; throws if this tree is empty. */
@@ -134,7 +134,7 @@ public final class AVLTree<E> implements Iterable<E>
         {
             current = current.right;
         }
-        return current.value;
+        return current.label;
     }
 
     private Node minimum(Node node)
@@ -227,7 +227,7 @@ public final class AVLTree<E> implements Iterable<E>
                 throw new NoSuchElementException();
             Node node = pending.pop();
             pushLeft(node.right);
-            return node.value;
+            return node.label;
         }
 
         @Override
@@ -256,7 +256,7 @@ public final class AVLTree<E> implements Iterable<E>
     {
         if (node == null)
             return new Node(value);
-        if (order.compare(value, node.value) < 0)
+        if (order.compare(value, node.label) < 0)
             node.left = insert(node.left, value);
         else
             node.right = insert(node.right, value);
@@ -266,7 +266,7 @@ public final class AVLTree<E> implements Iterable<E>
     // The public method has already checked that the key exists.
     private Node delete(Node node, E value)
     {
-        int comparison = order.compare(value, node.value);
+        int comparison = order.compare(value, node.label);
         if (comparison < 0)
             node.left = delete(node.left, value);
         else if (comparison > 0)
@@ -278,8 +278,8 @@ public final class AVLTree<E> implements Iterable<E>
             if (node.right == null)
                 return node.left;
             // Replace by the inorder successor, then remove its old node.
-            node.value = minimum(node.right).value;
-            node.right = delete(node.right, node.value);
+            node.label = minimum(node.right).label;
+            node.right = delete(node.right, node.label);
         }
         return rebalance(node);
     }
@@ -344,12 +344,12 @@ public final class AVLTree<E> implements Iterable<E>
     {
         if (node == null)
             return 0;
-        if (lower != null && order.compare(node.value, lower) <= 0)
+        if (lower != null && order.compare(node.label, lower) <= 0)
             return -1;
-        if (upper != null && order.compare(node.value, upper) >= 0)
+        if (upper != null && order.compare(node.label, upper) >= 0)
             return -1;
-        int left = audit(node.left, lower, node.value);
-        int right = audit(node.right, node.value, upper);
+        int left = audit(node.left, lower, node.label);
+        int right = audit(node.right, node.label, upper);
         if (left < 0 || right < 0 || Math.abs(left - right) > 1)
             return -1;
         int actual = 1 + Math.max(left, right);
@@ -399,7 +399,7 @@ public final class AVLTree<E> implements Iterable<E>
             result.append("\\-- ");
         else
             result.append("/-- ");
-        String label = String.valueOf(node.value).replace("\r", "\\r").replace("\n", "\\n")
+        String label = String.valueOf(node.label).replace("\r", "\\r").replace("\n", "\\n")
                 .replace("\t", "\\t");
         result.append(label);
         if (isRoot)

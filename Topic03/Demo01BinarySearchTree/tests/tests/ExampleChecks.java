@@ -71,7 +71,7 @@ public final class ExampleChecks
         if (node == null)
             return true;
         Class<?> type = node.getClass();
-        java.lang.reflect.Field value = type.getDeclaredField("value");
+        java.lang.reflect.Field value = type.getDeclaredField("label");
         java.lang.reflect.Field left = type.getDeclaredField("left");
         java.lang.reflect.Field right = type.getDeclaredField("right");
         value.setAccessible(true);
