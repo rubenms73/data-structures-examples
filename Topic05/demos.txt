@@ -1,1 +1,3 @@
 Demo01ChainedHashSet
+Demo02MinHeap
+Demo03LinearProbingSet

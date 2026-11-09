@@ -11,7 +11,7 @@ comparison of stacks in Java, C++, C# and Python in Topic 2. Start with [Topic 1
 - [Topic 2 — Lists, stacks, queue policies and iterators](Topic02/README.md).
 - [Topic 3 — Search trees, general trees, AVL and red-black trees](Topic03/README.md).
 - [Topic 4 — Sets, maps, polynomials and sparse storage](Topic04/README.md).
-- [Topic 5 — Hashing with separate chaining](Topic05/README.md).
+- [Topic 5 — Binary heaps and hash tables](Topic05/README.md).
 - [Topic 6 — Weighted graphs and shortest paths](Topic06/README.md): a road network in northern Spain with sourced distances, parallel alternative roads and rerouting after incidents.
 
 [Topic 2](Topic02/README.md) contains the linked-list example, with a complete

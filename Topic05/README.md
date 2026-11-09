@@ -1,8 +1,10 @@
-# Hashing
+# Priority queues and hashing
 
 Each example is self-contained and targets Java 17; open the folder of the demo you want to study.
 
 - [Hash set with separate chaining](Demo01ChainedHashSet/README.md).
+- [A binary min-heap](Demo02MinHeap/README.md).
+- [A set with linear probing](Demo03LinearProbingSet/README.md).
 
 Run `bash run.sh list`, `bash run.sh all` or `bash run.sh test`, or choose one of the listed demos.
 
