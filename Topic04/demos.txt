@@ -2,3 +2,4 @@ Demo01ListSetMap
 Demo02Polynomial
 Demo03SparseStorage
 Demo04Collections
+Demo05BitArraySet

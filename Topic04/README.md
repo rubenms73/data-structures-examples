@@ -8,10 +8,11 @@ you want to study.
 - [Sparse vectors and matrices](Demo03SparseStorage/README.md).
 - [Lists, sets and inherited collection
   operations](Demo04Collections/README.md).
+- [A set stored as an array of bits](Demo05BitArraySet/README.md).
 
 Demo04 follows the part of the presentation on the `Set` contract,
 `AbstractCollection` and `LinkedHashSet`. It compares the behaviour of lists and
-sets before returning to an array-backed bag. The folders are numbered for
+sets before returning to an array-backed bag. Demo05 is the complete version of the bit-array set from the slides, which show only its main parts. The folders are numbered for
 convenience; you do not have to study them in that order.
 
 Run `bash run.sh list`, `bash run.sh all` or `bash run.sh test`, or choose one

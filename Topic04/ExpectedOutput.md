@@ -82,3 +82,33 @@ Inherited isEmpty(): false
 Adding to the bag: UnsupportedOperationException
 Bag after rejected add: [pear, fig, pear, pear]; size = 4
 ```
+
+## Demo05BitArraySet
+
+```text
+1. Each letter is one position of the bit array
+Initial: []; size = 0
+add(c): true; set = [c]; size = 1
+add(f): true; set = [c, f]; size = 2
+add(c): false; set = [c, f]; size = 2
+            abcdefghijklmnopqrstuvwxyz
+bits:       00100100000000000000000000
+
+2. Membership and removal read or write one position
+contains(c): true; contains(z): false
+remove(c): true; set = [f]
+remove(c) again: false; set = [f]
+
+3. A traversal follows the indices, not the insertion order
+After adding z, a and m: [a, f, m, z]
+Iterator removes the first element: [f, m, z]; size = 3
+
+4. Only the 26 lowercase letters belong to the universe
+contains(A): false
+add(A): Outside universe: A; set = [f, m, z]
+
+5. Inherited bulk operations combine sets
+set = [f, m, z]; other = [b, f, z]
+Union: [b, f, m, z]; intersection: [f, z]
+clear(): set = []; size = 0
+```
