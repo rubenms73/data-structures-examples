@@ -22,6 +22,9 @@ jobs:
           - os: macos-latest
             jdk: '25'
     runs-on: ${{ matrix.os }}
+    # When no macOS runner is available, the job is cancelled; that must not
+    # fail the run, while Ubuntu and Windows still decide the result.
+    continue-on-error: ${{ matrix.os == 'macos-latest' }}
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
