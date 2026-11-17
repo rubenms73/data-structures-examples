@@ -8,7 +8,7 @@ capacity must be positive and `null` keys are rejected.
 
 ## Guided walkthrough
 
-1. Each slot is EMPTY, OCCUPIED or DELETED. The `byte` array starts filled with
+1. Each slot is EMPTY, BUSY or DELETED. The `byte` array starts filled with
    zeros, so every slot starts EMPTY.
 2. `start` reduces the hash code to a valid index; a negative remainder is
    corrected by adding the capacity.
