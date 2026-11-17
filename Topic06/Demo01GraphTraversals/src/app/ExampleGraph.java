@@ -4,7 +4,7 @@ import java.util.Comparator;
 import ds.Graph;
 
 /** Exact directed graph from Topic 6's "Example graph for DFS and BFS" slide. */
-public final class ExampleGraph
+public class ExampleGraph
 {
     private ExampleGraph()
     {

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public final class Main
+public class Main
 {
     public static void main(String[] args)
     {

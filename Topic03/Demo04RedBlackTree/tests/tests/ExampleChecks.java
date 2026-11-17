@@ -8,10 +8,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 /** Independent content oracle plus structural audits after every update. */
-public final class ExampleChecks
+public class ExampleChecks
 {
     private static int checks;
 
@@ -42,7 +43,7 @@ public final class ExampleChecks
         throw new AssertionError("Expected " + expected.getSimpleName());
     }
 
-    private static <E> void verify(RedBlackTree<E> tree, TreeSet<E> oracle)
+    private static <E> void verify(RedBlackTree<E> tree, SortedSet<E> oracle)
     {
         check(tree.invariantsHold());
         check(tree.size() == oracle.size());
@@ -112,7 +113,7 @@ public final class ExampleChecks
     private static void orderedUpdates(boolean descending, boolean removeMinimum)
     {
         RedBlackTree<Integer> tree = new RedBlackTree<>(Comparator.naturalOrder());
-        TreeSet<Integer> oracle = new TreeSet<>();
+        SortedSet<Integer> oracle = new TreeSet<>();
         for (int i = 0; i < 256; i++)
         {
             int value = descending ? 255 - i : i;
@@ -130,7 +131,7 @@ public final class ExampleChecks
     private static void randomUpdates(Comparator<Integer> cmp, long seed)
     {
         RedBlackTree<Integer> tree = new RedBlackTree<>(cmp);
-        TreeSet<Integer> oracle = new TreeSet<>(cmp);
+        SortedSet<Integer> oracle = new TreeSet<>(cmp);
         Random random = new Random(seed);
         for (int i = 0; i < 6000; i++)
         {
@@ -160,7 +161,7 @@ public final class ExampleChecks
             for (boolean reverse : new boolean[] {false, true})
             {
                 RedBlackTree<Integer> tree = new RedBlackTree<>(Comparator.naturalOrder());
-                TreeSet<Integer> oracle = new TreeSet<>();
+                SortedSet<Integer> oracle = new TreeSet<>();
                 for (int value : values)
                 {
                     check(tree.add(value) == oracle.add(value));

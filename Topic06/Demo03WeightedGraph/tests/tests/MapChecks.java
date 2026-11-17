@@ -13,7 +13,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 /** Verifies snapshot export, unreachable routes and safe embedded JSON. */
-final class MapChecks
+class MapChecks
 {
     private MapChecks()
     {

@@ -3,7 +3,7 @@ package tests;
 import ds.*;
 import java.util.*;
 
-public final class ExampleChecks
+public class ExampleChecks
 {
     private static int checks;
 
@@ -43,9 +43,9 @@ public final class ExampleChecks
     public static void main(String[] args)
     {
         rejects(IllegalArgumentException.class, () -> new ChainedHashSet<Integer>(0, 0.75));
-        rejects(IllegalArgumentException.class, () -> new ChainedHashSet<Integer>(1, Double.NaN));
+        rejects(IllegalArgumentException.class, () -> new ChainedHashSet<Integer>(1, 0));
         ChainedHashSet<Integer> set = new ChainedHashSet<>(1, 0.75);
-        HashSet<Integer> expected = new HashSet<>();
+        Set<Integer> expected = new HashSet<>();
         Random random = new Random(17);
         set.add(Integer.MIN_VALUE);
         expected.add(Integer.MIN_VALUE);

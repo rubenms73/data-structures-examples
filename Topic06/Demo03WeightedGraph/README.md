@@ -605,12 +605,10 @@ algorithm without changing their graph contract.
 - `NavigationMapWriter` and `web/navigation-map.html`: offline visualisation of
   the saved results.
 
-The basic graph rejects `null` vertices, non-finite weights and self-loops, and
+The basic graph rejects `null` vertices and self-loops, and
 an existing arc is left unchanged. Finite negative weights are allowed in the
 graph, but Dijkstra's algorithm rejects them, even in components that cannot be
-reached. The navigation layer requires non-negative distances and penalties. If
-a candidate sum cannot be represented, `ArithmeticException` is thrown instead
-of wrongly reporting the destination as unreachable. The objects are not
+reached. The navigation layer requires non-negative distances and penalties. The objects are not
 thread-safe, so do not change them during a query.
 
 ## JSON schema

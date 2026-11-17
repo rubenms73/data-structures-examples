@@ -4,7 +4,7 @@ import ds.Graph;
 import ds.Traversals;
 
 /** Runs BFS and DFS on the exact directed graph used in the theory presentation. */
-public final class Main
+public class Main
 {
     private Main()
     {

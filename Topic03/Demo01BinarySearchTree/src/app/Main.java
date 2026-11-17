@@ -3,7 +3,7 @@ package app;
 import ds.BinarySearchTree;
 import java.util.Comparator;
 
-public final class Main
+public class Main
 {
     private static BinarySearchTree<Integer> example()
     {

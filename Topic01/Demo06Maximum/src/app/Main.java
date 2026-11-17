@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import ds.Maximum;
 
-public final class Main
+public class Main
 {
     public static void main(String[] args)
     {

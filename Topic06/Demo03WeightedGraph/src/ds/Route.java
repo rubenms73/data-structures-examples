@@ -5,10 +5,10 @@ import java.util.Collections;
 import java.util.List;
 
 /** Immutable snapshot of a route, with physical distance separate from routing cost. */
-public final class Route
+public class Route
 {
     /** One selected directed road, capturing its penalty at query time. */
-    public static final class Leg
+    public static class Leg
     {
         public final String roadId;
         public final String from;

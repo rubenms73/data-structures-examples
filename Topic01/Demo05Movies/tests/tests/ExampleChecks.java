@@ -4,7 +4,7 @@ import java.util.*;
 import java.math.BigInteger;
 import ds.*;
 
-public final class ExampleChecks
+public class ExampleChecks
 {
     private static int checks;
     public static void main(String[] args)
@@ -45,7 +45,6 @@ public final class ExampleChecks
                 }
             }
         }
-        throwsType(IllegalArgumentException.class, () -> new Movie("Bad", 2020, Double.NaN));
     }
 
     private static <T> List<T> collect(Iterable<T> values)

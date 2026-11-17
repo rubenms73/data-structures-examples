@@ -1,13 +1,14 @@
 package ds;
 
 import java.util.Map;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 /** Sparse polynomial: only nonzero coefficients are stored. */
 public class Polynomial
 {
     // Exponent-to-coefficient mapping; absent exponents have coefficient zero.
-    private final TreeMap<Integer, Double> terms = new TreeMap<>();
+    private final SortedMap<Integer, Double> terms = new TreeMap<>();
 
     public Polynomial()
     {

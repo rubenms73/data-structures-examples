@@ -1,7 +1,7 @@
 package ds;
 
 /** Fixed-capacity storage using an ordinary array. */
-public final class FixedMyArray<E> implements MyArray<E>
+public class FixedMyArray<E> implements MyArray<E>
 {
     // Fixed-capacity storage; only positions below size belong to the collection.
     private final E[] data;

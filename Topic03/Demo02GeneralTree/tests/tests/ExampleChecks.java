@@ -3,11 +3,11 @@ package tests;
 import ds.*;
 import java.util.*;
 
-public final class ExampleChecks
+public class ExampleChecks
 {
     private static int checks;
 
-    private static final class ConstructorProbe extends ds.ListTree<String>
+    private static class ConstructorProbe extends ds.ListTree<String>
     {
         private boolean ready = true;
 

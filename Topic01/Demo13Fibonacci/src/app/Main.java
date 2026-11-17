@@ -3,7 +3,7 @@ package app;
 import java.util.Iterator;
 import ds.Fibonacci;
 
-public final class Main
+public class Main
 {
     public static void main(String[] args)
     {

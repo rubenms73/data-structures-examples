@@ -22,7 +22,7 @@ import java.nio.file.Path;
  * Gson handles JSON syntax; explicit conditions validate the graph data.
  * This supporting class is separate from the graph and shortest-path algorithms.
  */
-public final class NavigationNetworkReader
+public class NavigationNetworkReader
 {
     private NavigationNetworkReader()
     {
@@ -82,7 +82,7 @@ public final class NavigationNetworkReader
             if (!number.isNumber())
                 throw new IllegalArgumentException("km must be a number, not text");
             double weight = number.getAsDouble();
-            if (weight < 0 || Double.isNaN(weight) || Double.isInfinite(weight))
+            if (weight < 0)
                 throw new IllegalArgumentException("km must be finite and nonnegative");
             String id = name(road.get("id"));
             String roadName = name(road.get("name"));

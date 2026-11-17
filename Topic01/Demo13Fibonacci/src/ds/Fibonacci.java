@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /** An iterable prefix of F0=0, F1=1, F2=1, ...; each iterator starts again. */
-public final class Fibonacci implements Iterable<Long>
+public class Fibonacci implements Iterable<Long>
 {
     // Number of terms produced by the no-argument constructor.
     private static final int DEFAULT = 10;
@@ -30,7 +30,7 @@ public final class Fibonacci implements Iterable<Long>
         return new FibIterator();
     }
 
-    private final class FibIterator implements Iterator<Long>
+    private class FibIterator implements Iterator<Long>
     {
         // Length of the requested prefix, shared by all new iterators.
         // Number of terms this iterator still has to return.

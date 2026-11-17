@@ -1,7 +1,7 @@
 package ds;
 
 /** An integer sequence with fixed backing storage. */
-public final class FixedMyIntArray extends AbstractMyIntArray
+public class FixedMyIntArray extends AbstractMyIntArray
 {
     // Fixed-capacity storage; only the prefix of length size is in use.
     private final int[] data;

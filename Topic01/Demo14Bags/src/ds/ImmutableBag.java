@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /** Structurally immutable snapshot. Element objects themselves are not deep-copied. */
-public final class ImmutableBag<E> extends AbstractBag<E>
+public class ImmutableBag<E> extends AbstractBag<E>
 {
     // Private array containing exactly the stored element references.
     private final Object[] data;
@@ -64,7 +64,7 @@ public final class ImmutableBag<E> extends AbstractBag<E>
         return new BagIterator();
     }
 
-    private final class BagIterator implements Iterator<E>
+    private class BagIterator implements Iterator<E>
     {
         // Index of the next element to return from this iterator.
         private int current;

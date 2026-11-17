@@ -80,7 +80,7 @@ public class MutableBag<E> extends AbstractBag<E>
         return new BagIterator();
     }
 
-    private final class BagIterator implements Iterator<E>
+    private class BagIterator implements Iterator<E>
     {
         // Index of the next element to return.
         private int current;

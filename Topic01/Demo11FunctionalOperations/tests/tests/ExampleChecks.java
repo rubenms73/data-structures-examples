@@ -2,7 +2,7 @@ package tests;
 
 import ds.FunctionalOperations;
 
-public final class ExampleChecks
+public class ExampleChecks
 {
     private static int checks;
 

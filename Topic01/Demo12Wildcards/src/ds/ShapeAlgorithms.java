@@ -1,6 +1,6 @@
 package ds;
 
-public final class ShapeAlgorithms
+public class ShapeAlgorithms
 {
     private ShapeAlgorithms()
     {

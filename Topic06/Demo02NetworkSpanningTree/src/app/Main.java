@@ -4,7 +4,7 @@ import ds.Network;
 import ds.Prim;
 
 /** Selects links for a small campus network, then simulates one unavailable link. */
-public final class Main
+public class Main
 {
     private Main()
     {

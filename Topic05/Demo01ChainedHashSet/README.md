@@ -9,7 +9,7 @@ Implement a set based on equality, with linked lists as buckets. You should
 already know `Set`, `hashCode` and `equals`, iterators and rehashing. The
 elements do not have to be `Comparable`. The capacity must be positive (unlike a
 vector, which may have capacity zero), and `null` elements are rejected. The
-load threshold must be positive and finite, so `NaN` is rejected too.
+load threshold must be positive.
 
 ## Guided walkthrough
 

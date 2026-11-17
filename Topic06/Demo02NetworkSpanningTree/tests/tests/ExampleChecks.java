@@ -7,7 +7,7 @@ import ds.Network;
 import ds.Prim;
 
 /** Checks optimality against exhaustive edge subsets on small networks. */
-public final class ExampleChecks
+public class ExampleChecks
 {
     private static int checks;
 

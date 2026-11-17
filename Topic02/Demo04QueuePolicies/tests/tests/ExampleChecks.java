@@ -3,11 +3,11 @@ package tests;
 import ds.*;
 import java.util.*;
 
-public final class ExampleChecks
+public class ExampleChecks
 {
     private static int checks;
 
-    private static final class FifoQueueProbe extends ds.FifoQueue<Integer>
+    private static class FifoQueueProbe extends ds.FifoQueue<Integer>
     {
         private boolean ready = true;
 
@@ -25,7 +25,7 @@ public final class ExampleChecks
         }
     }
 
-    private static final class LifoQueueProbe extends ds.LifoQueue<Integer>
+    private static class LifoQueueProbe extends ds.LifoQueue<Integer>
     {
         private boolean ready = true;
 

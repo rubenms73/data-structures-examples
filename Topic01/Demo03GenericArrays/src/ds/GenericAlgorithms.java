@@ -1,6 +1,6 @@
 package ds;
 
-public final class GenericAlgorithms
+public class GenericAlgorithms
 {
     private GenericAlgorithms()
     {

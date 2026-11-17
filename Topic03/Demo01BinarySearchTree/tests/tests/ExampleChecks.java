@@ -3,11 +3,11 @@ package tests;
 import ds.BinarySearchTree;
 import java.util.*;
 
-public final class ExampleChecks
+public class ExampleChecks
 {
     private static int checks;
 
-    private static final class ConstructorProbe extends ds.BinarySearchTree<Integer>
+    private static class ConstructorProbe extends ds.BinarySearchTree<Integer>
     {
         private boolean ready = true;
 

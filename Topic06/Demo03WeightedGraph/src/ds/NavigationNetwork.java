@@ -15,7 +15,7 @@ import java.util.Set;
  * Every query builds a fresh weighted graph from the current incident state.
  * The basic WeightedGraph and its two Dijkstra algorithms remain unchanged.
  */
-public final class NavigationNetwork
+public class NavigationNetwork
 {
     // Known localities, including those with no currently usable road.
     private final Set<String> localities = new LinkedHashSet<>();

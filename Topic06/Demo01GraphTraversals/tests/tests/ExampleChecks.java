@@ -13,7 +13,7 @@ import ds.Graph;
 import ds.Traversals;
 
 /** Behaviour checks, including an independent shortest-hop oracle for BFS. */
-public final class ExampleChecks
+public class ExampleChecks
 {
     private static int checks;
 

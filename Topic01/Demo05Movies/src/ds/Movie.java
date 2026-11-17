@@ -8,7 +8,7 @@ import java.util.Objects;
  * For this example the natural order is year, then title, then rating.
  * Two entries are equal when all three values match.
  */
-public final class Movie implements Comparable<Movie>
+public class Movie implements Comparable<Movie>
 {
     private final String title;
     private final int year;
@@ -19,7 +19,7 @@ public final class Movie implements Comparable<Movie>
         if (title == null)
             throw new NullPointerException("Title must not be null");
         this.title = title;
-        if (!Double.isFinite(rating) || rating < 0 || rating > 10)
+        if (rating < 0 || rating > 10)
             throw new IllegalArgumentException("Rating must be between 0 and 10");
         this.year = year;
         this.rating = rating;

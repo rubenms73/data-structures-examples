@@ -1,6 +1,6 @@
 package ds;
 
-public final class Circle implements Shape
+public class Circle implements Shape
 {
     private final double radius;
 

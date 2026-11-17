@@ -3,7 +3,7 @@ package tests;
 import java.util.*;
 import ds.*;
 
-public final class ExampleChecks
+public class ExampleChecks
 {
     private static int checks;
     public static void main(String[] args)

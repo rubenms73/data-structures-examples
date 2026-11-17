@@ -20,7 +20,7 @@ import java.util.Comparator;
  * Gson handles JSON syntax; explicit conditions validate the graph data.
  * This supporting class is separate from the graph and shortest-path algorithms.
  */
-public final class RoadNetworkReader
+public class RoadNetworkReader
 {
     private RoadNetworkReader()
     {
@@ -79,7 +79,7 @@ public final class RoadNetworkReader
             if (!number.isNumber())
                 throw new IllegalArgumentException("km must be a number, not text");
             double weight = number.getAsDouble();
-            if (weight < 0 || Double.isNaN(weight) || Double.isInfinite(weight))
+            if (weight < 0)
                 throw new IllegalArgumentException("km must be finite and nonnegative");
             if (!graph.addEdge(from, to, weight))
                 throw new IllegalArgumentException("Duplicate road or self-loop: " + from + " -> " + to);

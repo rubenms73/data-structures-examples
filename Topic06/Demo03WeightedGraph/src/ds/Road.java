@@ -3,7 +3,7 @@ package ds;
 import java.util.List;
 
 /** One directed road alternative. Kilometres and its identifier never change. */
-public final class Road
+public class Road
 {
     private final String id;
     private final String from;
@@ -38,8 +38,8 @@ public final class Road
             throw new IllegalArgumentException("Road fields must not be blank");
         if (from.equals(to))
             throw new IllegalArgumentException("A road must connect different localities");
-        if (kilometres < 0 || Double.isNaN(kilometres) || Double.isInfinite(kilometres))
-            throw new IllegalArgumentException("Distance must be finite and nonnegative");
+        if (kilometres < 0)
+            throw new IllegalArgumentException("Distance must not be negative");
         this.id = id;
         this.from = from;
         this.to = to;
@@ -119,9 +119,8 @@ public final class Road
     /** Changes only the cost penalty; invalid changes leave this road unchanged. */
     public void setPenalty(double penalty)
     {
-        if (penalty < 0 || Double.isNaN(penalty) || Double.isInfinite(penalty)
-                || kilometres + penalty == Double.POSITIVE_INFINITY)
-            throw new IllegalArgumentException("Penalty and resulting cost must be finite and nonnegative");
+        if (penalty < 0)
+            throw new IllegalArgumentException("Penalty must not be negative");
         this.penalty = penalty;
     }
 

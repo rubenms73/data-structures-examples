@@ -9,14 +9,14 @@ import java.util.List;
  * Only the minimum spanning tree concept is mentioned in class.
  * Prim's algorithm is not taught and is not required for the exam.
  */
-public final class Prim
+public class Prim
 {
     private Prim()
     {
     }
 
     /** Immutable result. Long total avoids overflow when adding int costs. */
-    public static final class Result
+    public static class Result
     {
         private final List<Network.Link> links;
         private final long totalCost;

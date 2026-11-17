@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
  * A snapshot of a collection's element references, preserving duplicates and nulls.
  * Elements cannot be added or removed; the element objects are not copied.
  */
-public final class ArrayBag<E> extends AbstractCollection<E>
+public class ArrayBag<E> extends AbstractCollection<E>
 {
     // Snapshot storage with no spare positions; its length is the bag size.
     private final E[] data;
@@ -40,7 +40,7 @@ public final class ArrayBag<E> extends AbstractCollection<E>
         return new BagIterator();
     }
 
-    private final class BagIterator implements Iterator<E>
+    private class BagIterator implements Iterator<E>
     {
         // Index of the next element, independent for each iterator.
         private int index;

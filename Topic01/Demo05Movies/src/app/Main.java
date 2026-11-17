@@ -5,7 +5,7 @@ import ds.Movie;
 import ds.RatingComparator;
 import ds.TitleComparator;
 
-public final class Main
+public class Main
 {
     public static void main(String[] args)
     {

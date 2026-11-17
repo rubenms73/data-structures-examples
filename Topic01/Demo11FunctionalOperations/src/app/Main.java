@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import ds.FunctionalOperations;
 
-public final class Main
+public class Main
 {
     public static void main(String[] args)
     {

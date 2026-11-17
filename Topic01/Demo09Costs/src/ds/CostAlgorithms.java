@@ -1,7 +1,7 @@
 package ds;
 
 /** Algorithms whose work is discussed by the client. */
-public final class CostAlgorithms
+public class CostAlgorithms
 {
     private CostAlgorithms()
     {

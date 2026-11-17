@@ -4,13 +4,14 @@ import java.util.AbstractSet;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /** Separate chaining with equality-based buckets; no Comparable requirement. */
 public class ChainedHashSet<E> extends AbstractSet<E>
 {
     // Each position holds a chain of elements assigned the same bucket index.
-    private ArrayList<LinkedList<E>> buckets;
+    private List<List<E>> buckets;
     // Total element count across all buckets, not the number of buckets.
     private int size;
     // Maximum average elements per bucket before growing the table.
@@ -25,15 +26,15 @@ public class ChainedHashSet<E> extends AbstractSet<E>
     {
         if (capacity <= 0)
             throw new IllegalArgumentException("Capacity must be positive");
-        if (!(loadLimit > 0) || loadLimit == Double.POSITIVE_INFINITY)
-            throw new IllegalArgumentException("Load limit must be positive and finite");
+        if (loadLimit <= 0)
+            throw new IllegalArgumentException("Load limit must be positive");
         this.loadLimit = loadLimit;
         buckets = newBuckets(capacity);
     }
 
-    private ArrayList<LinkedList<E>> newBuckets(int capacity)
+    private List<List<E>> newBuckets(int capacity)
     {
-        ArrayList<LinkedList<E>> result = new ArrayList<>();
+        List<List<E>> result = new ArrayList<>();
         for (int i = 0; i < capacity; i++)
         {
             result.add(new LinkedList<>());
@@ -78,8 +79,8 @@ public class ChainedHashSet<E> extends AbstractSet<E>
 
     private void grow()
     {
-        ArrayList<LinkedList<E>> larger = newBuckets(buckets.size() * 2 + 1);
-        for (LinkedList<E> bucket : buckets)
+        List<List<E>> larger = newBuckets(buckets.size() * 2 + 1);
+        for (List<E> bucket : buckets)
         {
             for (E value : bucket)
             {

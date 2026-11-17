@@ -4,7 +4,7 @@ import ds.BinarySearchTree;
 import java.util.Iterator;
 
 /** Compare four incremental iterators over exactly the same tree. */
-public final class Main
+public class Main
 {
     private Main()
     {

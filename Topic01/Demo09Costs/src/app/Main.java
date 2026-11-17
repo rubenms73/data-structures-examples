@@ -3,7 +3,7 @@ package app;
 import java.util.Arrays;
 import ds.CostAlgorithms;
 
-public final class Main
+public class Main
 {
     public static void main(String[] args)
     {

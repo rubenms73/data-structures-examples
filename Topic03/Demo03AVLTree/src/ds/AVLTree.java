@@ -13,10 +13,10 @@ import java.util.NoSuchElementException;
  * This is a teaching container, not an implementation of java.util.Set.
  * Iteration follows comparator order and does not support iterator removal.
  */
-public final class AVLTree<E> implements Iterable<E>
+public class AVLTree<E> implements Iterable<E>
 {
     /** Nodes and links are private: clients cannot break the tree invariants. */
-    private final class Node
+    private class Node
     {
         // Element used as the comparison key at this node.
         E label;
@@ -195,7 +195,7 @@ public final class AVLTree<E> implements Iterable<E>
         return new TreeIterator();
     }
 
-    private final class TreeIterator implements Iterator<E>
+    private class TreeIterator implements Iterator<E>
     {
         // Ancestors whose inorder visit is still pending; the next node is on top.
         private final Deque<Node> pending = new ArrayDeque<>();
@@ -228,12 +228,6 @@ public final class AVLTree<E> implements Iterable<E>
             Node node = pending.pop();
             pushLeft(node.right);
             return node.label;
-        }
-
-        @Override
-        public void remove()
-        {
-            throw new UnsupportedOperationException("Use the tree's remove method");
         }
     }
 

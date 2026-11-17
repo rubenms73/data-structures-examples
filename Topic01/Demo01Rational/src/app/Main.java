@@ -4,7 +4,7 @@ import ds.Rational;
 import ds.RationalImp1;
 import ds.RationalImp2;
 
-public final class Main
+public class Main
 {
     public static void main(String[] args)
     {

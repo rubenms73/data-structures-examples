@@ -11,7 +11,7 @@ import java.util.Map;
  * Maps cannot be changed by callers. Vertex objects themselves are shared.
  * @param <V> vertex type
  */
-public final class ShortestPaths<V>
+public class ShortestPaths<V>
 {
     // Final source-to-vertex costs from one search; infinity means unreachable.
     private final Map<V, Double> distances;
@@ -54,7 +54,7 @@ public final class ShortestPaths<V>
      */
     public List<V> pathTo(V target)
     {
-        LinkedList<V> path = new LinkedList<>();
+        List<V> path = new LinkedList<>();
         if (distanceTo(target) == Double.POSITIVE_INFINITY)
             return path;
         V current = target;
@@ -62,7 +62,7 @@ public final class ShortestPaths<V>
         {
             // Follow predecessor links backwards, inserting at the front
             // so the returned list runs from source to target.
-            path.addFirst(current);
+            path.add(0, current);
             current = predecessors.get(current);
         }
         return path;

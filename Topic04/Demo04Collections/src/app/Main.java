@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import ds.ArrayBag;
 
-public final class Main
+public class Main
 {
     public static void main(String[] args)
     {

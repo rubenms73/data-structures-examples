@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
 import java.util.Random;
 
 /** Recursive reference traversals verify the independent iterative algorithms. */
-final class TraversalChecks
+class TraversalChecks
 {
     private static int checks;
 
@@ -16,7 +16,7 @@ final class TraversalChecks
     {
     }
 
-    private static final class ReferenceNode
+    private static class ReferenceNode
     {
         int value;
         ReferenceNode left;

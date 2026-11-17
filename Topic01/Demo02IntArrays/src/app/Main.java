@@ -6,7 +6,7 @@ import ds.DynamicMyIntArray;
 import ds.FixedMyIntArray;
 import ds.MyIntArray;
 
-public final class Main
+public class Main
 {
     public static void main(String[] args)
     {

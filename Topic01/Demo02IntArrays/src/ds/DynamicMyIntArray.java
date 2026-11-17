@@ -3,7 +3,7 @@ package ds;
 import java.util.Arrays;
 
 /** An integer sequence with growing backing storage. */
-public final class DynamicMyIntArray extends AbstractMyIntArray
+public class DynamicMyIntArray extends AbstractMyIntArray
 {
     // Resizable storage; the first size positions contain the logical elements.
     private int[] data;

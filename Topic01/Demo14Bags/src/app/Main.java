@@ -11,7 +11,7 @@ import ds.ImmutableBag;
 import ds.MutableBag;
 import ds.SortedMutableBag;
 
-public final class Main
+public class Main
 {
     private static Collection<String> getWords(Path file) throws IOException
     {

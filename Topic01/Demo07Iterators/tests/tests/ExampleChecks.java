@@ -6,7 +6,7 @@ import java.util.Objects;
 import ds.FixedMyArray;
 import ds.MyArray;
 
-public final class ExampleChecks
+public class ExampleChecks
 {
     private static int checks;
 

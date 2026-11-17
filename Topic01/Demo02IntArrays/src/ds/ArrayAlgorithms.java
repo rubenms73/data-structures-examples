@@ -1,6 +1,6 @@
 package ds;
 
-public final class ArrayAlgorithms
+public class ArrayAlgorithms
 {
     private ArrayAlgorithms()
     {

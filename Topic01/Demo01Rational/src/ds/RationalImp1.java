@@ -1,7 +1,7 @@
 package ds;
 
 /** A rational number represented by two integer fields. */
-public final class RationalImp1 implements Rational
+public class RationalImp1 implements Rational
 {
     private final int num;
     private final int den;

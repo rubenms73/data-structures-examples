@@ -4,13 +4,13 @@ import ds.AVLTree;
 import java.util.Comparator;
 
 /** Observe balance and search cost; the repair algorithms are optional study. */
-public final class Main
+public class Main
 {
     private Main()
     {
     }
 
-    private static final class CountingOrder implements Comparator<Integer>
+    private static class CountingOrder implements Comparator<Integer>
     {
         private int comparisons;
 

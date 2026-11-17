@@ -4,7 +4,7 @@ import ds.ChainedHashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public final class Main
+public class Main
 {
     public static void main(String[] args)
     {

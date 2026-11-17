@@ -5,7 +5,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 /** Uses operations supplied by the caller, without collections or streams. */
-public final class FunctionalOperations
+public class FunctionalOperations
 {
     private FunctionalOperations()
     {

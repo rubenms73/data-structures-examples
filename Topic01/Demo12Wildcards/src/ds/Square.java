@@ -1,6 +1,6 @@
 package ds;
 
-public final class Square extends Rectangle
+public class Square extends Rectangle
 {
     public Square(double side)
     {

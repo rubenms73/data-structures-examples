@@ -2,17 +2,19 @@ package app;
 
 import ds.RedBlackTree;
 import java.util.Comparator;
+import java.util.SortedMap;
+import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 /** Observe balance and search cost; the repair algorithms are optional study. */
-public final class Main
+public class Main
 {
     private Main()
     {
     }
 
-    private static final class CountingOrder implements Comparator<Integer>
+    private static class CountingOrder implements Comparator<Integer>
     {
         private int comparisons;
 
@@ -77,8 +79,8 @@ public final class Main
 
         // A brief preview of Topic 4: a set stores unique elements; a map
         // associates keys with values. Neither exposes its internal rotations.
-        TreeSet<Integer> librarySet = new TreeSet<>();
-        TreeMap<Integer, String> libraryMap = new TreeMap<>();
+        SortedSet<Integer> librarySet = new TreeSet<>();
+        SortedMap<Integer, String> libraryMap = new TreeMap<>();
         for (int value : new int[] {30, 10, 20})
         {
             librarySet.add(value);

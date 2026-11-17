@@ -17,7 +17,7 @@ import java.util.List;
  * This presentation helper does not run Dijkstra or modify the network.
  * Geometry and country outlines are display data, never algorithm inputs.
  */
-public final class NavigationMapWriter
+public class NavigationMapWriter
 {
     private NavigationMapWriter()
     {

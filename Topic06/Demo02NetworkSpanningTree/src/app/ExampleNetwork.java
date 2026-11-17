@@ -3,7 +3,7 @@ package app;
 import ds.Network;
 
 /** Six campus buildings and nine possible cable connections. */
-public final class ExampleNetwork
+public class ExampleNetwork
 {
     private ExampleNetwork()
     {

@@ -73,7 +73,7 @@ public final class FixedMyArray<E> implements MyArray<E>
         return new ArrayIterator();
     }
 
-    private final class ArrayIterator implements Iterator<E>
+    private class ArrayIterator implements Iterator<E>
     {
         // Index of the next element returned by this iterator.
         private int current;

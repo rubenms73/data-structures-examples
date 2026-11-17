@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /** A classroom navigation demo: remove a road, restore it and penalise it temporarily. */
-public final class Main
+public class Main
 {
     private Main()
     {

@@ -2,7 +2,7 @@ package ds;
 
 import java.util.Comparator;
 
-public final class Maximum
+public class Maximum
 {
     private Maximum()
     {

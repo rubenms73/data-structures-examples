@@ -3,12 +3,12 @@ package tests;
 import ds.MyLinkedList;
 import java.util.*;
 
-public final class ExampleChecks
+public class ExampleChecks
 {
     private static int checks;
 
     // A constructor must not dispatch to subclass code before this flag is set.
-    private static final class ConstructorProbe extends ds.MyLinkedList<Integer>
+    private static class ConstructorProbe extends ds.MyLinkedList<Integer>
     {
         private boolean ready = true;
 

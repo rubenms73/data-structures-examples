@@ -3,7 +3,7 @@ package ds;
 import java.util.Comparator;
 
 /** Appendix alternative to comparison.Maximum, kept in a separate class. */
-public final class FlexibleMaximum
+public class FlexibleMaximum
 {
     private FlexibleMaximum()
     {

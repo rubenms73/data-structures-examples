@@ -1,7 +1,7 @@
 package ds;
 
 /** A rational number represented by an array of two integers. */
-public final class RationalImp2 implements Rational
+public class RationalImp2 implements Rational
 {
     private final int[] r;
 

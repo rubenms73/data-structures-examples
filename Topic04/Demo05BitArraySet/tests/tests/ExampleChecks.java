@@ -3,7 +3,7 @@ package tests;
 import ds.*;
 import java.util.*;
 
-public final class ExampleChecks
+public class ExampleChecks
 {
     private static int checks;
 
@@ -37,7 +37,7 @@ public final class ExampleChecks
         for (int round = 0; round < 2000; round++)
         {
             LetterSet set = new LetterSet();
-            TreeSet<Character> ref = new TreeSet<>();
+            SortedSet<Character> ref = new TreeSet<>();
             for (int step = 0; step < 40; step++)
             {
                 char c = (char) ('a' + random.nextInt(26));

@@ -5,7 +5,7 @@ import ds.MinPriorityQueue;
 import java.util.Comparator;
 import java.util.List;
 
-public final class Main
+public class Main
 {
     public static void main(String[] args)
     {

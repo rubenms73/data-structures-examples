@@ -2,7 +2,7 @@ package app;
 
 import ds.*;
 
-public final class Main
+public class Main
 {
     public static void main(String[] args)
     {

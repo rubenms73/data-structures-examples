@@ -3,7 +3,7 @@ package ds;
 import java.util.Comparator;
 
 /** Highest rating first; ties use the movie's natural order. */
-public final class RatingComparator implements Comparator<Movie>
+public class RatingComparator implements Comparator<Movie>
 {
     @Override
     public int compare(Movie a, Movie b)

@@ -81,8 +81,6 @@ public class WeightedGraph<V>
     {
         if (from == null || to == null)
             throw new NullPointerException("Endpoints must not be null");
-        if (Double.isNaN(weight) || Double.isInfinite(weight))
-            throw new IllegalArgumentException("Weight must be finite");
         if (cmp.compare(from, to) == 0 || hasEdge(from, to))
             return false;
         addVertex(from);
@@ -226,8 +224,7 @@ public class WeightedGraph<V>
     /**
      * Dijkstra using a linear scan to select each minimum-distance vertex.
      * Unreachable distances remain positive infinity. Negative weights anywhere
-     * in the graph are rejected. A nonrepresentable candidate sum throws
-     * ArithmeticException. The returned result is an independent snapshot.
+     * in the graph are rejected. The returned result is an independent snapshot.
      */
     public ShortestPaths<V> dijkstra(V start)
     {
@@ -316,8 +313,6 @@ public class WeightedGraph<V>
     private boolean relax(Search result, V from, double distance, Map.Entry<V, Double> edge)
     {
         double candidate = distance + edge.getValue();
-        if (candidate == Double.POSITIVE_INFINITY)
-            throw new ArithmeticException("Path cost overflow");
         if (candidate >= result.distances.get(edge.getKey()))
             return false;
         result.distances.put(edge.getKey(), candidate);

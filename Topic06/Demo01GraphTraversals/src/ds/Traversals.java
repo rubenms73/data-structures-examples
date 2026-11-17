@@ -12,14 +12,14 @@ import java.util.Queue;
 import java.util.Set;
 
 /** DFS with a stack of vertices and BFS with a queue of vertices. */
-public final class Traversals
+public class Traversals
 {
     private Traversals()
     {
     }
 
     /** Immutable snapshots; roots have no entry in parent. */
-    public static final class Result<V>
+    public static class Result<V>
     {
         private final List<V> order;
         private final Map<V, V> parent;
