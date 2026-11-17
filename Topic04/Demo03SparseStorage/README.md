@@ -2,7 +2,7 @@
 
 ## Problem statement and prerequisites
 
-Store only the non-zero integer values, while keeping fixed logical dimensions.
+Store only the non-zero `double` values, while keeping fixed logical dimensions.
 You should already know maps, composition and index validation. Zero dimensions
 are valid and negative dimensions are rejected. Every access checks the logical
 bounds.
@@ -23,8 +23,9 @@ bounds.
 Under the usual assumptions about hashing, `get` and `set` have an expected cost
 of O(1). The storage depends on the number of non-zero entries and non-empty
 rows rather than on rows × columns. Because of the overhead of `HashMap`, dense
-arrays are a better choice for dense data. Integer values avoid the need for
-floating-point tolerances when testing for zero. Arithmetic on vectors and
+arrays are a better choice for dense data. Only an exact 0.0 is treated as zero:
+there are no tolerances, so a result that should be zero but has a rounding error
+is still stored. Arithmetic on vectors and
 matrices is a separate exercise.
 
 ## Open and run
@@ -53,20 +54,20 @@ public contract it implements.
 ```text
 1. Logical length and stored entries are different
 Initial vector: length = 1000000; stored entries = 0
-Unset get(123): 0
-set(999999, 7): stored entries = 1; logical length = 1000000
-set(3, -2): stored entries = 2; logical length = 1000000
-set(999999, 9): replacing a value: stored entries = 2; logical length = 1000000
+Unset get(123): 0.0
+set(999999, 7.5): stored entries = 1; logical length = 1000000
+set(3, -2.25): stored entries = 2; logical length = 1000000
+set(999999, 9.0): replacing a value: stored entries = 2; logical length = 1000000
 set(999999, 0): remove its stored entry: stored entries = 1; logical length = 1000000
-get(999999) after removal: 0
+get(999999) after removal: 0.0
 
 2. A 1000 x 1000 matrix stores only nonempty rows
 Initial stored rows: 0
-Unset get(5, 9): 0
-set(5, 9, 12): value = 12; stored rows = 1
-set(5, 10, 4): stored rows = 1
-set(8, 2, -3): stored rows = 2
-Clear (5, 9): stored rows = 2; row 5 still contains (5, 10) = 4
+Unset get(5, 9): 0.0
+set(5, 9, 12.5): value = 12.5; stored rows = 1
+set(5, 10, 4.0): stored rows = 1
+set(8, 2, -3.5): stored rows = 2
+Clear (5, 9): stored rows = 2; row 5 still contains (5, 10) = 4.0
 Clear last entry of row 5: stored rows = 1
 Clear last entry of row 8: stored rows = 0
 ```

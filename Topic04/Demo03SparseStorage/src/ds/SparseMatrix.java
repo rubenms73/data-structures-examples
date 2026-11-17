@@ -27,7 +27,7 @@ public class SparseMatrix
             throw new IndexOutOfBoundsException("Invalid matrix position");
     }
 
-    public int get(int row, int column)
+    public double get(int row, int column)
     {
         checkPosition(row, column);
         SparseVector vector = data.get(row);
@@ -36,7 +36,7 @@ public class SparseMatrix
         return vector.get(column);
     }
 
-    public void set(int row, int column, int value)
+    public void set(int row, int column, double value)
     {
         checkPosition(row, column);
         SparseVector vector = data.get(row);

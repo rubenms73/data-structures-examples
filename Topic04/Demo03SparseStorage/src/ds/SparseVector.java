@@ -3,13 +3,13 @@ package ds;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Fixed logical length; only nonzero integer entries occupy map positions. */
+/** Fixed logical length; only nonzero entries occupy map positions. */
 public class SparseVector
 {
     // Logical vector length, including positions whose value is zero.
     private final int length;
     // Index-to-value mapping containing only nonzero entries.
-    private final Map<Integer, Integer> values = new HashMap<>();
+    private final Map<Integer, Double> values = new HashMap<>();
 
     public SparseVector(int length)
     {
@@ -34,16 +34,16 @@ public class SparseVector
             throw new IndexOutOfBoundsException("Invalid index: " + index);
     }
 
-    public int get(int index)
+    public double get(int index)
     {
         checkIndex(index);
-        Integer value = values.get(index);
+        Double value = values.get(index);
         if (value == null)
             return 0;
         return value;
     }
 
-    public void set(int index, int value)
+    public void set(int index, double value)
     {
         checkIndex(index);
         if (value == 0)

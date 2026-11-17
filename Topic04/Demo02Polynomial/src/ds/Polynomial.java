@@ -3,7 +3,7 @@ package ds;
 import java.util.Map;
 import java.util.TreeMap;
 
-/** Sparse polynomial: only nonzero finite coefficients are stored. */
+/** Sparse polynomial: only nonzero coefficients are stored. */
 public class Polynomial
 {
     // Exponent-to-coefficient mapping; absent exponents have coefficient zero.
@@ -25,13 +25,8 @@ public class Polynomial
     {
         if (exponent < 0)
             throw new IllegalArgumentException("Exponent must not be negative");
-        if (coefficient != coefficient || coefficient == Double.POSITIVE_INFINITY
-            || coefficient == Double.NEGATIVE_INFINITY)
-            throw new IllegalArgumentException("Coefficient must be finite");
         double previous = coefficient(exponent);
         double result = previous + coefficient;
-        if (result == Double.POSITIVE_INFINITY || result == Double.NEGATIVE_INFINITY)
-            throw new ArithmeticException("Coefficient overflow");
         // Cancellation removes the entry, keeping the representation sparse.
         if (result == 0)
             terms.remove(exponent);
@@ -60,8 +55,6 @@ public class Polynomial
 
     public double evaluate(double x)
     {
-        if (x != x || x == Double.POSITIVE_INFINITY || x == Double.NEGATIVE_INFINITY)
-            throw new IllegalArgumentException("Argument must be finite");
         double result = 0;
         for (Map.Entry<Integer, Double> term : terms.entrySet())
         {

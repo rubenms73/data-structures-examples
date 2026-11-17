@@ -3,12 +3,13 @@ package ds;
 import java.util.AbstractSet;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /** An equality-based set backed by a list. Null is supported. */
 public class ListSet<E> extends AbstractSet<E>
 {
     // Distinct elements in insertion order; add prevents equality duplicates.
-    private final ArrayList<E> data = new ArrayList<>();
+    private final List<E> data = new ArrayList<>();
 
     @Override
     public boolean add(E value)

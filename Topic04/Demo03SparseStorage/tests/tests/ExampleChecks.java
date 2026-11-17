@@ -47,13 +47,13 @@ public final class ExampleChecks
         SparseVector empty = new SparseVector(0);
         rejects(IndexOutOfBoundsException.class, () -> empty.get(0));
         SparseMatrix matrix = new SparseMatrix(7, 9);
-        int[][] dense = new int[7][9];
+        double[][] dense = new double[7][9];
         Random random = new Random(17);
         for (int i = 0; i < 300; i++)
         {
             int row = random.nextInt(7);
             int column = random.nextInt(9);
-            int value = random.nextInt(3);
+            double value = random.nextInt(3) * 0.5;
             dense[row][column] = value;
             matrix.set(row, column, value);
             for (int r = 0; r < 7; r++)

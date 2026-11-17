@@ -103,36 +103,40 @@ public abstract class BitArraySet<E> extends AbstractSet<E>
     @Override
     public Iterator<E> iterator()
     {
-        return new Iterator<>()
+        return new BitIterator();
+    }
+
+    private class BitIterator implements Iterator<E>
+    {
+        // Index of the next element, or -1 at the end.
+        private int next = nextIndex(0);
+        // Index of the element returned by next, or -1 if it cannot be removed.
+        private int last = -1;
+
+        @Override
+        public boolean hasNext()
         {
-            private int next = nextIndex(0);
-            private int last = -1;
+            return next >= 0;
+        }
 
-            @Override
-            public boolean hasNext()
-            {
-                return next >= 0;
-            }
+        @Override
+        public E next()
+        {
+            if (!hasNext())
+                throw new NoSuchElementException();
+            last = next;
+            next = nextIndex(next + 1);
+            return element(last);
+        }
 
-            @Override
-            public E next()
-            {
-                if (!hasNext())
-                    throw new NoSuchElementException();
-                last = next;
-                next = nextIndex(next + 1);
-                return element(last);
-            }
-
-            @Override
-            public void remove()
-            {
-                if (last < 0)
-                    throw new IllegalStateException();
-                bits[last] = false;
-                count--;
-                last = -1;
-            }
-        };
+        @Override
+        public void remove()
+        {
+            if (last < 0)
+                throw new IllegalStateException();
+            bits[last] = false;
+            count--;
+            last = -1;
+        }
     }
 }

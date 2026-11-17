@@ -48,8 +48,6 @@ public final class ExampleChecks
         equal(3.0, p.addTerm(2, -3));
         equal(-1, p.degree());
         rejects(IllegalArgumentException.class, () -> p.addTerm(-1, 1));
-        rejects(IllegalArgumentException.class, () -> p.addTerm(1, Double.NaN));
-        rejects(IllegalArgumentException.class, () -> p.addTerm(1, Double.POSITIVE_INFINITY));
         p.addTerm(0, 1);
         p.addTerm(2, 3);
         Polynomial copy = new Polynomial(p);

@@ -10,7 +10,7 @@ returns the previous coefficient even when the terms cancel out.
 
 ## Guided walkthrough
 
-1. Follow `addTerm`: it validates its arguments, combines the new coefficient
+1. Follow `addTerm`: it rejects negative exponents, combines the new coefficient
    with the old one, and removes the entry if the result is exactly zero.
 2. `coefficient` returns zero when there is no entry, so no dense array is ever
    allocated.
@@ -28,9 +28,7 @@ With k non-zero terms, lookups and updates cost O(log k) and the storage is
 O(k). Addition uses map insertion; O((k+m) log(k+m)) is a simple upper bound for
 its cost, and no claim of linear merging is made. Evaluation visits the k terms,
 plus the cost of `Math.pow`. Floating-point rounding applies, and cancellation
-is detected only when the result is exactly zero. The inputs and the stored
-coefficients must be finite, although evaluation may still overflow with finite
-inputs. Merging with a peeking iterator is left as an extension for the
+is detected only when the result is exactly zero. Merging with a peeking iterator is left as an extension for the
 instructor rather than hidden in the introductory code.
 
 ## Open and run
