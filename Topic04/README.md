@@ -3,16 +3,17 @@
 Each example is self-contained and targets Java 17; open the folder of the demo
 you want to study.
 
-- [Sets and maps backed by lists](Demo01ListSetMap/README.md).
-- [Sparse polynomial as an ordered map](Demo02Polynomial/README.md).
-- [Sparse vectors and matrices](Demo03SparseStorage/README.md).
+- [A set stored as an array of bits](Demo01BitArraySet/README.md).
+- [Sets and maps backed by lists](Demo02ListSetMap/README.md).
+- [Sparse polynomial as an ordered map](Demo03Polynomial/README.md).
+- [Sparse vectors and matrices](Demo04SparseStorage/README.md).
 - [Lists, sets and inherited collection
-  operations](Demo04Collections/README.md).
-- [A set stored as an array of bits](Demo05BitArraySet/README.md).
+  operations](Demo05Collections/README.md).
 
-Demo04 follows the part of the presentation on the `Set` contract,
-`AbstractCollection` and `LinkedHashSet`. It compares the behaviour of lists and
-sets before returning to an array-backed bag. Demo05 is the complete version of the bit-array set from the slides, which show only its main parts. The folders are numbered for
+Demo01 is the complete version of the bit-array set from the slides, which show
+only its main parts. Demo05 follows the part of the presentation on the `Set`
+contract, `AbstractCollection` and `LinkedHashSet`. It compares the behaviour of
+lists and sets before returning to an array-backed bag. The folders are numbered for
 convenience; you do not have to study them in that order.
 
 Run `bash run.sh list`, `bash run.sh all` or `bash run.sh test`, or choose one
@@ -31,7 +32,7 @@ is required.
 .\run.cmd test
 ```
 
-Select a demo by passing its name from `list`, for example `.\run.cmd Demo01ListSetMap`.
+Select a demo by passing its name from `list`, for example `.\run.cmd Demo01BitArraySet`.
 The launcher sets its own working directory and copes with paths containing
 spaces and with any bundled JAR libraries. It runs on Windows PowerShell 5.1,
 which comes with Windows, and `run.ps1` also works with PowerShell 7. The VS Code

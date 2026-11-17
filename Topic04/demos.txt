@@ -1,5 +1,5 @@
-Demo01ListSetMap
-Demo02Polynomial
-Demo03SparseStorage
-Demo04Collections
-Demo05BitArraySet
+Demo01BitArraySet
+Demo02ListSetMap
+Demo03Polynomial
+Demo04SparseStorage
+Demo05Collections

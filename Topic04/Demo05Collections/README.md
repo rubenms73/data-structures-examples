@@ -100,7 +100,7 @@ bash run.sh
 bash run.sh test
 ```
 
-From the Topic04 directory, use `bash run.sh Demo04Collections` or
+From the Topic04 directory, use `bash run.sh Demo05Collections` or
 `bash run.sh test`. The sources are in the `ds` and `app` packages, and the tests
 in the `tests` package. The example is self-contained and uses only the Java
 standard library.
