@@ -2,12 +2,12 @@ package ds;
 
 /**
  * A fixed-capacity set with open addressing and linear probing. Each slot is
- * EMPTY, BUSY or DELETED; a removed key leaves DELETED so that searches
+ * EMPTY, OCCUPIED or DELETED; a removed key leaves DELETED so that searches
  * continue past it.
  */
 public class ProbingSet<E>
 {
-    private static final byte EMPTY = 0, BUSY = 1, DELETED = 2;
+    private static final byte EMPTY = 0, OCCUPIED = 1, DELETED = 2;
     private E[] keys;
     private byte[] state;
     private int size;
@@ -40,7 +40,7 @@ public class ProbingSet<E>
         {
             if (state[pos] == EMPTY)
                 return -1;
-            if (state[pos] == BUSY && key.equals(keys[pos]))
+            if (state[pos] == OCCUPIED && key.equals(keys[pos]))
                 return pos;
             pos = (pos + 1) % keys.length;
         }
@@ -55,7 +55,7 @@ public class ProbingSet<E>
     private void insertAt(int pos, E key)
     {
         keys[pos] = key;
-        state[pos] = BUSY;
+        state[pos] = OCCUPIED;
         size++;
     }
 
@@ -65,7 +65,7 @@ public class ProbingSet<E>
         int firstDeleted = -1;      // first DELETED slot seen, if any
         for (int probes = 0; probes < keys.length; probes++)
         {
-            if (state[pos] == BUSY && key.equals(keys[pos]))
+            if (state[pos] == OCCUPIED && key.equals(keys[pos]))
                 return false;
             if (state[pos] == DELETED && firstDeleted < 0)
                 firstDeleted = pos;
@@ -110,7 +110,7 @@ public class ProbingSet<E>
         {
             if (i > 0)
                 result.append(", ");
-            if (state[i] == BUSY)
+            if (state[i] == OCCUPIED)
                 result.append(keys[i]);
             else if (state[i] == DELETED)
                 result.append("DEL");
