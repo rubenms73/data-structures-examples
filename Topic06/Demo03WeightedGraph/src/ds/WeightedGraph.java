@@ -231,29 +231,36 @@ public class WeightedGraph<V>
         checkDijkstra(start);
         Search result = new Search(start);
         Set<V> settled = new HashSet<>();
-        while (true)
+        // null means no finite candidate is left: the rest are unreachable.
+        V selected = minimumUnsettled(result.distances, settled);
+        while (selected != null)
         {
-            V selected = null;
-            double minimum = Double.POSITIVE_INFINITY;
-            for (Map.Entry<V, Double> entry : result.distances.entrySet())
-            {
-                if (!settled.contains(entry.getKey()) && entry.getValue() < minimum)
-                {
-                    selected = entry.getKey();
-                    minimum = entry.getValue();
-                }
-            }
-            // No finite candidate remains: the remaining vertices are unreachable.
-            if (selected == null)
-                break;
             settled.add(selected);
+            double distance = result.distances.get(selected);
             for (Map.Entry<V, Double> edge : edges.get(selected).entrySet())
             {
                 if (!settled.contains(edge.getKey()))
-                    relax(result, selected, minimum, edge);
+                    relax(result, selected, distance, edge);
             }
+            selected = minimumUnsettled(result.distances, settled);
         }
         return new ShortestPaths<>(result.distances, result.previous);
+    }
+
+    // The unsettled vertex with the smallest finite distance, or null if none.
+    private V minimumUnsettled(Map<V, Double> distances, Set<V> settled)
+    {
+        V best = null;
+        double minimum = Double.POSITIVE_INFINITY;
+        for (Map.Entry<V, Double> entry : distances.entrySet())
+        {
+            if (!settled.contains(entry.getKey()) && entry.getValue() < minimum)
+            {
+                best = entry.getKey();
+                minimum = entry.getValue();
+            }
+        }
+        return best;
     }
 
     // Queue priorities are immutable snapshots, not references to mutable distances.
@@ -295,15 +302,16 @@ public class WeightedGraph<V>
         while (!queue.isEmpty())
         {
             QueueEntry selected = queue.remove();
-            if (settled.contains(selected.vertex))
-                continue;
-            settled.add(selected.vertex);
-            for (Map.Entry<V, Double> edge : edges.get(selected.vertex).entrySet())
+            // An entry for a settled vertex is outdated: skip it.
+            if (!settled.contains(selected.vertex))
             {
-                if (settled.contains(edge.getKey()))
-                    continue;
-                if (relax(result, selected.vertex, selected.distance, edge))
-                    queue.add(new QueueEntry(edge.getKey(), result.distances.get(edge.getKey())));
+                settled.add(selected.vertex);
+                for (Map.Entry<V, Double> edge : edges.get(selected.vertex).entrySet())
+                {
+                    if (!settled.contains(edge.getKey())
+                            && relax(result, selected.vertex, selected.distance, edge))
+                        queue.add(new QueueEntry(edge.getKey(), result.distances.get(edge.getKey())));
+                }
             }
         }
         return new ShortestPaths<>(result.distances, result.previous);
