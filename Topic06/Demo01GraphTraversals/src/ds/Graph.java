@@ -19,7 +19,7 @@ public class Graph<V>
     public Graph(Comparator<? super V> cmp)
     {
         if (cmp == null)
-            throw new IllegalArgumentException("Null comparator");
+            throw new NullPointerException("Null comparator");
         this.cmp = cmp;
         adjacency = new TreeMap<>(cmp);
     }
@@ -28,7 +28,7 @@ public class Graph<V>
     public boolean addVertex(V vertex)
     {
         if (vertex == null)
-            throw new IllegalArgumentException("Null vertex");
+            throw new NullPointerException("Null vertex");
         if (adjacency.containsKey(vertex))
             return false;
         adjacency.put(vertex, new TreeSet<>(cmp));
@@ -39,7 +39,7 @@ public class Graph<V>
     public boolean addEdge(V from, V to)
     {
         if (from == null || to == null)
-            throw new IllegalArgumentException("Null endpoint");
+            throw new NullPointerException("Null endpoint");
         if (cmp.compare(from, to) == 0)
             return false;
         addVertex(from);
@@ -56,7 +56,9 @@ public class Graph<V>
     /** Returns a read-only outgoing-neighbour view; rejects unknown vertices. */
     public Set<V> neighbours(V vertex)
     {
-        if (vertex == null || !adjacency.containsKey(vertex))
+        if (vertex == null)
+            throw new NullPointerException("Null vertex");
+        if (!adjacency.containsKey(vertex))
             throw new IllegalArgumentException("Unknown vertex");
         return Collections.unmodifiableSet(adjacency.get(vertex));
     }

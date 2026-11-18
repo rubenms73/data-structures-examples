@@ -47,10 +47,10 @@ public class ExampleChecks
         check(Traversals.breadthFirstForest(empty).order().isEmpty());
         check(Traversals.depthFirstForest(empty).order().isEmpty());
         expect(IllegalArgumentException.class, () -> Traversals.breadthFirst(empty, 0));
-        expect(IllegalArgumentException.class, () -> Traversals.depthFirst(empty, null));
-        expect(IllegalArgumentException.class, () -> Traversals.depthFirstForest(null));
-        expect(IllegalArgumentException.class, () -> new Graph<Integer>(null));
-        expect(IllegalArgumentException.class, () -> empty.addEdge(1, null));
+        expect(NullPointerException.class, () -> Traversals.depthFirst(empty, null));
+        expect(NullPointerException.class, () -> Traversals.depthFirstForest(null));
+        expect(NullPointerException.class, () -> new Graph<Integer>(null));
+        expect(NullPointerException.class, () -> empty.addEdge(1, null));
         check(empty.vertices().isEmpty());
         check(!empty.addEdge(1, 1));
         check(empty.vertices().isEmpty());

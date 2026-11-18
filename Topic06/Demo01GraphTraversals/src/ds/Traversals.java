@@ -27,7 +27,7 @@ public class Traversals
         public Result(List<V> order, Map<V, V> parent)
         {
             if (order == null || parent == null)
-                throw new IllegalArgumentException("Null result data");
+                throw new NullPointerException("Null result data");
             this.order = Collections.unmodifiableList(new ArrayList<>(order));
             this.parent = Collections.unmodifiableMap(new LinkedHashMap<>(parent));
         }
@@ -78,7 +78,7 @@ public class Traversals
     private static <V> Result<V> forest(Graph<V> graph, boolean breadthFirst)
     {
         if (graph == null)
-            throw new IllegalArgumentException("Null graph");
+            throw new NullPointerException("Null graph");
         Set<V> marked = new HashSet<>();
         List<V> order = new ArrayList<>();
         Map<V, V> parent = new LinkedHashMap<>();
@@ -98,7 +98,7 @@ public class Traversals
     private static <V> void checkSource(Graph<V> graph, V source)
     {
         if (graph == null)
-            throw new IllegalArgumentException("Null graph");
+            throw new NullPointerException("Null graph");
         graph.neighbours(source);
     }
 
@@ -148,8 +148,9 @@ public class Traversals
             for (V neighbour : graph.neighbours(vertex))
             {
                 // Mark on enqueue: two incoming arcs cannot enqueue it twice.
-                if (marked.add(neighbour))
+                if (!marked.contains(neighbour))
                 {
+                    marked.add(neighbour);
                     parent.put(neighbour, vertex);
                     pending.add(neighbour);
                 }

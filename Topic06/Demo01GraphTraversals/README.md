@@ -276,8 +276,8 @@ therefore 10 - 2 = 8 parent arcs.
 
 ## Contracts and design choices
 
-- Vertices and the comparator must not be `null`. Invalid arguments throw
-  `IllegalArgumentException` from simple, explicit conditionals.
+- Vertices and the comparator must not be `null`. A `null` argument throws
+  `NullPointerException` from a simple, explicit conditional.
 - The comparator must be consistent with `equals`, and so must the hash codes of
   the vertices. Do not modify the fields used by these operations while a vertex
   is stored.
