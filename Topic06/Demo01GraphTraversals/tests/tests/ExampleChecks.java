@@ -58,9 +58,9 @@ public class ExampleChecks
         check(!empty.addVertex(1));
         check(empty.addEdge(1, 2));
         check(!empty.addEdge(1, 2));
-        check(empty.neighbours(2).isEmpty());
+        check(empty.adjacentsTo(2).isEmpty());
         expect(UnsupportedOperationException.class, () -> empty.vertices().clear());
-        expect(UnsupportedOperationException.class, () -> empty.neighbours(1).clear());
+        expect(UnsupportedOperationException.class, () -> empty.adjacentsTo(1).clear());
         Traversals.Result<Integer> saved = Traversals.breadthFirst(empty, 1);
         empty.addEdge(2, 3);
         check(saved.order().equals(List.of(1, 2)));
@@ -168,7 +168,7 @@ public class ExampleChecks
     {
         marked.add(vertex);
         order.add(vertex);
-        for (int neighbour : graph.neighbours(vertex))
+        for (int neighbour : graph.adjacentsTo(vertex))
         {
             if (!marked.contains(neighbour))
             {
@@ -182,16 +182,16 @@ public class ExampleChecks
     {
         Graph<String> graph = ExampleGraph.create();
         check(graph.vertices().equals(Set.of("A", "B", "C", "D", "E", "F", "G", "H", "I", "J")));
-        check(graph.neighbours("A").equals(Set.of("B", "D", "E")));
-        check(graph.neighbours("B").equals(Set.of("C", "D")));
-        check(graph.neighbours("C").equals(Set.of("A")));
-        check(graph.neighbours("D").equals(Set.of()));
-        check(graph.neighbours("E").equals(Set.of("B", "D")));
-        check(graph.neighbours("F").equals(Set.of("G", "I", "J")));
-        check(graph.neighbours("G").equals(Set.of("E", "H")));
-        check(graph.neighbours("H").equals(Set.of("C", "D")));
-        check(graph.neighbours("I").equals(Set.of("D", "H")));
-        check(graph.neighbours("J").equals(Set.of("G", "I")));
+        check(graph.adjacentsTo("A").equals(Set.of("B", "D", "E")));
+        check(graph.adjacentsTo("B").equals(Set.of("C", "D")));
+        check(graph.adjacentsTo("C").equals(Set.of("A")));
+        check(graph.adjacentsTo("D").equals(Set.of()));
+        check(graph.adjacentsTo("E").equals(Set.of("B", "D")));
+        check(graph.adjacentsTo("F").equals(Set.of("G", "I", "J")));
+        check(graph.adjacentsTo("G").equals(Set.of("E", "H")));
+        check(graph.adjacentsTo("H").equals(Set.of("C", "D")));
+        check(graph.adjacentsTo("I").equals(Set.of("D", "H")));
+        check(graph.adjacentsTo("J").equals(Set.of("G", "I")));
         Traversals.Result<String> dfs = Traversals.depthFirstForest(graph);
         Traversals.Result<String> bfs = Traversals.breadthFirstForest(graph);
         check(dfs.order().equals(List.of("A", "B", "C", "D", "E", "F", "G", "H", "I", "J")));
@@ -216,7 +216,7 @@ public class ExampleChecks
             {
                 int parent = result.parent().get(vertex);
                 check(seen.contains(parent));
-                check(graph.neighbours(parent).contains(vertex));
+                check(graph.adjacentsTo(parent).contains(vertex));
             }
             seen.add(vertex);
         }

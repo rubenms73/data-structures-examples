@@ -99,7 +99,7 @@ public class Traversals
     {
         if (graph == null)
             throw new NullPointerException("Null graph");
-        graph.neighbours(source);
+        graph.adjacentsTo(source);
     }
 
     private static <V> void dfs(Graph<V> graph, V source, Set<V> marked,
@@ -114,7 +114,7 @@ public class Traversals
             V vertex = path.peek();
             V next = null;
             // Choose just one unvisited neighbour of the current top vertex.
-            for (V neighbour : graph.neighbours(vertex))
+            for (V neighbour : graph.adjacentsTo(vertex))
             {
                 if (!marked.contains(neighbour))
                 {
@@ -145,7 +145,7 @@ public class Traversals
         {
             V vertex = pending.remove();
             order.add(vertex);
-            for (V neighbour : graph.neighbours(vertex))
+            for (V neighbour : graph.adjacentsTo(vertex))
             {
                 // Mark on enqueue: two incoming arcs cannot enqueue it twice.
                 if (!marked.contains(neighbour))

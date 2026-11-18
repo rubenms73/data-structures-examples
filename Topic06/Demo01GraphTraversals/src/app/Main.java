@@ -16,7 +16,7 @@ public class Main
         System.out.println("Directed graph (outgoing neighbours):");
         for (String vertex : graph.vertices())
         {
-            System.out.println(vertex + " -> " + graph.neighbours(vertex));
+            System.out.println(vertex + " -> " + graph.adjacentsTo(vertex));
         }
         show("BFS from A", Traversals.breadthFirst(graph, "A"));
         show("DFS from A", Traversals.depthFirst(graph, "A"));

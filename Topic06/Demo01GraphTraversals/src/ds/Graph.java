@@ -54,7 +54,7 @@ public class Graph<V>
     }
 
     /** Returns a read-only outgoing-neighbour view; rejects unknown vertices. */
-    public Set<V> neighbours(V vertex)
+    public Set<V> adjacentsTo(V vertex)
     {
         if (vertex == null)
             throw new NullPointerException("Null vertex");
