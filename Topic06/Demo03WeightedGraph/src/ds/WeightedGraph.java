@@ -230,31 +230,31 @@ public class WeightedGraph<V>
     {
         checkDijkstra(start);
         Search result = new Search(start);
-        Set<V> settled = new HashSet<>();
+        Set<V> visited = new HashSet<>();
         // null means no finite candidate is left: the rest are unreachable.
-        V selected = minimumUnsettled(result.distances, settled);
+        V selected = minimumUnvisited(result.distances, visited);
         while (selected != null)
         {
-            settled.add(selected);
+            visited.add(selected);
             double distance = result.distances.get(selected);
             for (Map.Entry<V, Double> edge : edges.get(selected).entrySet())
             {
-                if (!settled.contains(edge.getKey()))
+                if (!visited.contains(edge.getKey()))
                     relax(result, selected, distance, edge);
             }
-            selected = minimumUnsettled(result.distances, settled);
+            selected = minimumUnvisited(result.distances, visited);
         }
         return new ShortestPaths<>(result.distances, result.previous);
     }
 
-    // The unsettled vertex with the smallest finite distance, or null if none.
-    private V minimumUnsettled(Map<V, Double> distances, Set<V> settled)
+    // The unvisited vertex with the smallest finite distance, or null if none.
+    private V minimumUnvisited(Map<V, Double> distances, Set<V> visited)
     {
         V best = null;
         double minimum = Double.POSITIVE_INFINITY;
         for (Map.Entry<V, Double> entry : distances.entrySet())
         {
-            if (!settled.contains(entry.getKey()) && entry.getValue() < minimum)
+            if (!visited.contains(entry.getKey()) && entry.getValue() < minimum)
             {
                 best = entry.getKey();
                 minimum = entry.getValue();
@@ -290,25 +290,25 @@ public class WeightedGraph<V>
     /**
      * Dijkstra with a priority queue, with the same contract as dijkstra.
      * Every improvement inserts a new entry. Old entries are skipped when their
-     * vertex has already been settled; no decrease-key operation is required.
+     * vertex has already been visited; no decrease-key operation is required.
      */
     public ShortestPaths<V> dijkstraHeap(V start)
     {
         checkDijkstra(start);
         Search result = new Search(start);
-        Set<V> settled = new HashSet<>();
+        Set<V> visited = new HashSet<>();
         PriorityQueue<QueueEntry> queue = new PriorityQueue<>();
         queue.add(new QueueEntry(start, 0.0));
         while (!queue.isEmpty())
         {
             QueueEntry selected = queue.remove();
-            // An entry for a settled vertex is outdated: skip it.
-            if (!settled.contains(selected.vertex))
+            // An entry for a visited vertex is outdated: skip it.
+            if (!visited.contains(selected.vertex))
             {
-                settled.add(selected.vertex);
+                visited.add(selected.vertex);
                 for (Map.Entry<V, Double> edge : edges.get(selected.vertex).entrySet())
                 {
-                    if (!settled.contains(edge.getKey())
+                    if (!visited.contains(edge.getKey())
                             && relax(result, selected.vertex, selected.distance, edge))
                         queue.add(new QueueEntry(edge.getKey(), result.distances.get(edge.getKey())));
                 }
