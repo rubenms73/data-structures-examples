@@ -240,7 +240,7 @@ public class WeightedGraph<V>
             for (Map.Entry<V, Double> edge : edges.get(selected).entrySet())
             {
                 if (!visited.contains(edge.getKey()))
-                    relax(result, selected, distance, edge);
+                    updateDistance(result, selected, distance, edge);
             }
             selected = minimumUnvisited(result.distances, visited);
         }
@@ -309,7 +309,7 @@ public class WeightedGraph<V>
                 for (Map.Entry<V, Double> edge : edges.get(selected.vertex).entrySet())
                 {
                     if (!visited.contains(edge.getKey())
-                            && relax(result, selected.vertex, selected.distance, edge))
+                            && updateDistance(result, selected.vertex, selected.distance, edge))
                         queue.add(new QueueEntry(edge.getKey(), result.distances.get(edge.getKey())));
                 }
             }
@@ -317,8 +317,8 @@ public class WeightedGraph<V>
         return new ShortestPaths<>(result.distances, result.previous);
     }
 
-    // Both selection strategies use exactly the same relaxation rule.
-    private boolean relax(Search result, V from, double distance, Map.Entry<V, Double> edge)
+    // Both selection strategies update the distances with exactly the same rule.
+    private boolean updateDistance(Search result, V from, double distance, Map.Entry<V, Double> edge)
     {
         double candidate = distance + edge.getValue();
         if (candidate >= result.distances.get(edge.getKey()))

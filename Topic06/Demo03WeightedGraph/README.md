@@ -9,7 +9,7 @@ selected, together with their physical length in kilometres and, separately, the
 routing cost.
 
 First read the Topic 6 material on the adjacency-map representation,
-non-negative weights, relaxation and the invariant of Dijkstra's algorithm.
+non-negative weights, distance updates and the invariant of Dijkstra's algorithm.
 Maps, sets, comparators and priority queues come from earlier topics.
 `WeightedGraph` and its two versions of Dijkstra's algorithm, one with a linear
 scan and one with a heap, are unchanged. The new navigation layer supplies the
