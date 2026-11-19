@@ -12,10 +12,10 @@ an array. The comparator must not be `null`, and `null` elements are rejected.
    at `(i - 1) / 2`. Every parent is less than or equal to its children.
 2. `add` opens a gap at the next leaf and moves parents down into it while they
    are larger than the new value; the value is stored once, at the end.
-3. `remove` returns the root and sifts the last element down from the root:
+3. `remove` returns the root and sinks the last element from the root:
    at each step the smaller child moves up into the gap.
 4. The second constructor copies a collection and builds the heap bottom-up,
-   sifting down the internal nodes from the last one to the root.
+   sinking the internal nodes from the last one to the root.
 5. With `Comparator.reverseOrder()` the same class removes the largest element
    first.
 
@@ -54,7 +54,7 @@ example strings by length.
 ## Expected output
 
 ```text
-1. Inserting sifts the new value up
+1. Inserting floats the new value up
 add(20): array = [20]
 add(30): array = [20, 30]
 add(25): array = [20, 30, 25]
@@ -62,7 +62,7 @@ add(25): array = [20, 25, 25, 30]
 add(10): array = [10, 20, 25, 30, 25]
 element(): 10; size = 5
 
-2. Removing the minimum sifts the last element down
+2. Removing the minimum sinks the last element
 remove(): 10; array = [20, 25, 25, 30]
 remove(): 20; array = [25, 30, 25]
 remove(): 25; array = [25, 30]

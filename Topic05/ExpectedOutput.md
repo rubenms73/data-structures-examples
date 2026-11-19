@@ -34,7 +34,7 @@ Reuse with add(42): [42]; size = 1
 ## Demo02MinHeap
 
 ```text
-1. Inserting sifts the new value up
+1. Inserting floats the new value up
 add(20): array = [20]
 add(30): array = [20, 30]
 add(25): array = [20, 30, 25]
@@ -42,7 +42,7 @@ add(25): array = [20, 25, 25, 30]
 add(10): array = [10, 20, 25, 30, 25]
 element(): 10; size = 5
 
-2. Removing the minimum sifts the last element down
+2. Removing the minimum sinks the last element
 remove(): 10; array = [20, 25, 25, 30]
 remove(): 20; array = [25, 30, 25]
 remove(): 25; array = [25, 30]

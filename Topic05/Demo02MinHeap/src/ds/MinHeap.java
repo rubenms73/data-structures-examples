@@ -39,10 +39,10 @@ public class MinHeap<E> implements MinPriorityQueue<E>
             data[size] = e;
             size++;
         }
-        // The leaves already satisfy heap order: sift down the internal nodes.
+        // The leaves already satisfy heap order: sink the internal nodes.
         for (int i = size / 2 - 1; i >= 0; i--)
         {
-            siftDown(i, data[i]);
+            sink(i, data[i]);
         }
     }
 
@@ -73,7 +73,7 @@ public class MinHeap<E> implements MinPriorityQueue<E>
     }
 
     // Places e in the subtree rooted at pos, moving smaller children up.
-    private void siftDown(int pos, E e)
+    private void sink(int pos, E e)
     {
         while (pos < size / 2)   // pos has a left child
         {
@@ -105,7 +105,7 @@ public class MinHeap<E> implements MinPriorityQueue<E>
         E last = data[size];     // the last element replaces the root
         data[size] = null;
         if (size > 0)
-            siftDown(0, last);
+            sink(0, last);
         return result;
     }
 

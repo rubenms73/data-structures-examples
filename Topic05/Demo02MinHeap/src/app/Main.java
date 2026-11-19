@@ -9,7 +9,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        System.out.println("1. Inserting sifts the new value up");
+        System.out.println("1. Inserting floats the new value up");
         MinPriorityQueue<Integer> heap = new MinHeap<>(Comparator.naturalOrder());
         for (int value : new int[] {20, 30, 25, 25, 10})
         {
@@ -18,7 +18,7 @@ public class Main
         }
         System.out.println("element(): " + heap.element() + "; size = " + heap.size());
 
-        System.out.println("\n2. Removing the minimum sifts the last element down");
+        System.out.println("\n2. Removing the minimum sinks the last element");
         while (!heap.isEmpty())
         {
             int min = heap.remove();
