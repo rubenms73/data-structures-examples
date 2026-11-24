@@ -28,9 +28,7 @@ public class Main
     {
         BinarySearchTree<Integer> tree = new BinarySearchTree<>();
         for (int value : new int[] {8, 3, 10, 1, 6, 14, 4, 7, 13})
-        {
             tree.add(value);
-        }
         System.out.println("Insertion order: [8, 3, 10, 1, 6, 14, 4, 7, 13]");
         System.out.println("Same tree, four traversal orders (right subtree above):");
         System.out.println();
@@ -46,9 +44,7 @@ public class Main
         Iterator<Integer> levels = tree.levelOrderIterator();
         System.out.println("Independent iterators, advanced alternately:");
         for (int i = 0; i < 3; i++)
-        {
             System.out.println("preorder=" + preorder.next() + ", level order=" + levels.next());
-        }
         System.out.println("Iterator creation does not materialise the complete traversal.");
         System.out.println("After all traversals: " + tree + "; size = " + tree.size());
     }

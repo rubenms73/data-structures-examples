@@ -92,10 +92,8 @@ public abstract class BitArraySet<E> extends AbstractSet<E>
     private int nextIndex(int from)
     {
         for (int i = from; i < bits.length; i++)
-        {
             if (bits[i])
                 return i;
-        }
         return -1;
     }
 

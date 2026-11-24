@@ -11,10 +11,8 @@ public class Main
         System.out.println("1. Collisions move on to the next slot");
         System.out.println("Initial: " + set);
         for (int key : new int[] {7, 1, 8, 15})
-        {
             System.out.println("add(" + key + "), start " + key % 7 + ": "
                     + set.add(key) + "; table = " + set);
-        }
 
         System.out.println("\n2. A removed key leaves a DELETED marker");
         System.out.println("remove(8): " + set.remove(8) + "; table = " + set);

@@ -64,9 +64,7 @@ public class ExampleChecks
         FactorialIterator largest = new FactorialIterator(21);
         long last = 0;
         while (largest.hasNext())
-        {
             last = largest.next();
-        }
         check(last == 2432902008176640000L); // 20!
         System.out.println("All " + checks + " checks passed.");
     }

@@ -105,9 +105,8 @@ Each example's README includes its problem statement, prerequisites, a guided co
 Apply these rules to all Java sources, including tests and future examples:
 
 - Use **Allman style**: opening and closing block braces go on separate lines at the same indentation level, with four spaces per indentation level and no tabs.
-- For `if` and `else`, omit braces when the branch contains a single statement. Put that statement on the next line, indented by four spaces.
-- Keep braces around branches containing multiple statements, and whenever removing them would change which `if` an `else` belongs to.
-- Keep braces around all loop bodies (`for`, enhanced `for`, `while` and `do`), including single-statement bodies.
+- For `if`, `else`, `for`, enhanced `for` and `while`, omit braces when the body contains a single statement, including a single nested `if` or loop. Put that statement on the next line, indented by four spaces.
+- Keep braces around bodies containing multiple statements, around `do`-`while` bodies, and whenever removing them would change which `if` an `else` belongs to.
 - Preserve each example's packages and behaviour, and compile with Java 17.
 
 Array initializer braces may remain inline because they delimit data rather than a code block.

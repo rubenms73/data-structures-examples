@@ -22,20 +22,14 @@ public class Network
             if (names[i] == null || names[i].isBlank())
                 throw new IllegalArgumentException("Missing device name");
             for (int j = 0; j < i; j++)
-            {
                 if (names[i].equals(names[j]))
                     throw new IllegalArgumentException("Duplicate device name");
-            }
         }
         this.names = names.clone();
         cost = new int[names.length][names.length];
         for (int i = 0; i < names.length; i++)
-        {
             for (int j = 0; j < names.length; j++)
-            {
                 cost[i][j] = -1;
-            }
-        }
     }
 
     /** Number of devices, including isolated ones. */
@@ -90,13 +84,9 @@ public class Network
     {
         List<Link> result = new ArrayList<>();
         for (int i = 0; i < size(); i++)
-        {
             for (int j = i + 1; j < size(); j++)
-            {
                 if (cost[i][j] >= 0)
                     result.add(new Link(i, j, cost[i][j]));
-            }
-        }
         return Collections.unmodifiableList(result);
     }
 

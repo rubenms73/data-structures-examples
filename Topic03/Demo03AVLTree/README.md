@@ -140,8 +140,8 @@ equivalent duplicates, extreme integer values, invalid input, iterator
 exhaustion and iterators invalidated by updates. The JCF class is only a test
 oracle; it does not store this implementation's data.
 
-The code uses Java 17, Allman braces, four spaces per indentation level and
-braces around every loop body.
+The code uses Java 17, Allman braces and four spaces per indentation level;
+single-statement loop and conditional bodies go without braces.
 
 ## How this implementation keeps balance (optional)
 

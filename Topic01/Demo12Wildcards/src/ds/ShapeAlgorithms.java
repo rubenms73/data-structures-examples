@@ -11,9 +11,7 @@ public class ShapeAlgorithms
     {
         double total = 0;
         for (int i = 0; i < shapes.size(); i++)
-        {
             total += shapes.get(i).area();
-        }
         return total;
     }
 }

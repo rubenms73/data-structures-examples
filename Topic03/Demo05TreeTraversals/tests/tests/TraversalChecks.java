@@ -102,9 +102,7 @@ class TraversalChecks
             {
                 // Independent breadth-first oracle: collect one depth at a time.
                 for (int depth = 0; depth < values.length; depth++)
-                {
                     atDepth(root, depth, expected);
-                }
             }
             Iterator<Integer> first = iterator(tree, order);
             Iterator<Integer> second = iterator(tree, order);
@@ -157,9 +155,7 @@ class TraversalChecks
         {
             int[] values = new int[random.nextInt(70)];
             for (int i = 0; i < values.length; i++)
-            {
                 values[i] = random.nextInt(30);
-            }
             verify(values);
         }
         return checks;

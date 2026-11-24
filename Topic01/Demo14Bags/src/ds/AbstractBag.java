@@ -10,10 +10,8 @@ public abstract class AbstractBag<E> extends AbstractCollection<E>
     {
         int count = 0;
         for (E item : this)
-        {
             if (Objects.equals(item, value))
                 count++;
-        }
         return count;
     }
 
@@ -25,10 +23,8 @@ public abstract class AbstractBag<E> extends AbstractCollection<E>
         if (!(other instanceof AbstractBag<?> bag) || size() != bag.size())
             return false;
         for (E item : this)
-        {
             if (occurrences(item) != bag.occurrences(item))
                 return false;
-        }
         return true;
     }
 
@@ -37,9 +33,7 @@ public abstract class AbstractBag<E> extends AbstractCollection<E>
     {
         int hash = 0;
         for (E item : this)
-        {
             hash += Objects.hashCode(item);
-        }
         return hash;
     }
 }

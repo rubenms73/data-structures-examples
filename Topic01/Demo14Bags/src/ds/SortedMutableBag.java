@@ -60,9 +60,7 @@ public final class SortedMutableBag<E> extends MutableBag<E>
         compare(item, item);
         int position = 0;
         while (position < numItems && compare(item, data[position]) >= 0)
-        {
             position++;
-        }
         // Let the base class grow the array and update its size.
         // Then move the appended item to the sorted insertion position.
         super.add(item);

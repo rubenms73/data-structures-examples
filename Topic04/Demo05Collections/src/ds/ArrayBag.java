@@ -23,9 +23,7 @@ public class ArrayBag<E> extends AbstractCollection<E>
         data = (E[]) new Object[source.size()];
         int index = 0;
         for (E element : source)
-        {
             data[index++] = element;
-        }
     }
 
     @Override

@@ -133,18 +133,14 @@ public class RedBlackTree<E> implements Iterable<E>
             throw new NoSuchElementException("Empty tree");
         Node current = root;
         while (current.right != null)
-        {
             current = current.right;
-        }
         return current.label;
     }
 
     private Node minimum(Node node)
     {
         while (node.left != null)
-        {
             node = node.left;
-        }
         return node;
     }
 

@@ -41,9 +41,7 @@ public class MinHeap<E> implements MinPriorityQueue<E>
         }
         // The leaves already satisfy heap order: sink the internal nodes.
         for (int i = size / 2 - 1; i >= 0; i--)
-        {
             sink(i, data[i]);
-        }
     }
 
     private void ensureCapacity()

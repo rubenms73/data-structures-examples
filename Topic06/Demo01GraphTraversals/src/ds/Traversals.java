@@ -83,15 +83,11 @@ public class Traversals
         List<V> order = new ArrayList<>();
         Map<V, V> parent = new LinkedHashMap<>();
         for (V vertex : graph.vertices())
-        {
             if (!marked.contains(vertex))
-            {
                 if (breadthFirst)
                     bfs(graph, vertex, marked, order, parent);
                 else
                     dfs(graph, vertex, marked, order, parent);
-            }
-        }
         return new Result<>(order, parent);
     }
 
@@ -115,13 +111,11 @@ public class Traversals
             V next = null;
             // Choose just one unvisited neighbour of the current top vertex.
             for (V neighbour : graph.adjacentsTo(vertex))
-            {
                 if (!marked.contains(neighbour))
                 {
                     next = neighbour;
                     break;
                 }
-            }
             if (next == null)
                 path.pop();
             else

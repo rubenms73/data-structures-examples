@@ -27,10 +27,8 @@ public class Main
         // This implementation iterates in sorted order; both copies of 2 remain.
         System.out.println("peek(): " + queue.peek() + "; contents unchanged = " + queue);
         while (!queue.isEmpty())
-        {
             System.out.println("remove(): " + queue.remove() + "; remaining = " + queue
                     + "; size = " + queue.size());
-        }
         System.out.println("Empty peek(): " + queue.peek() + "; empty poll(): " + queue.poll());
     }
 }

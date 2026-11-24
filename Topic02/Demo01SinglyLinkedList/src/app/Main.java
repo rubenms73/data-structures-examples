@@ -18,9 +18,7 @@ public class Main
         }
         System.out.println("\nTraversal with for-each:");
         for (String value : values)
-        {
             System.out.println("Visit: " + value);
-        }
         System.out.println("After traversal: " + values);
         System.out.println("\nRemove C through the iterator:");
         Iterator<String> it = values.iterator();

@@ -33,18 +33,14 @@ public class ExampleChecks
         throwsType(UnsupportedOperationException.class, second::remove);
         StringBuilder output = new StringBuilder();
         for (String name : names)
-        {
             output.append(name).append(";");
-        }
         equal("Ana;Ruben;", output.toString());
         MyArray<Integer> scores = new FixedMyArray<>(new Integer[3]);
         scores.add(8);
         scores.add(10);
         int sum = 0;
         for (Integer score : scores)
-        {
             sum += score;
-        }
         equal(18, sum);
         scores.add(null);
         Iterator<Integer> withNull = scores.iterator();

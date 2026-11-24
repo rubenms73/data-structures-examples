@@ -39,9 +39,7 @@ public class Main
         System.out.println();
         System.out.println("Preorder traversal: parent before its children.");
         for (String label : company)
-        {
             System.out.println("Visit: " + label);
-        }
         System.out.println("Nodes: " + company.size() + "; height: " + company.height());
         System.out.println("removeChild(1) returns: " + company.removeChild(1).label());
         System.out.println();

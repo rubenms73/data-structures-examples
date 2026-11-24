@@ -83,13 +83,9 @@ public class ExampleChecks
         {
             Network graph = new Network(new String[] { "A", "B", "C", "D", "E" });
             for (int i = 0; i < graph.size(); i++)
-            {
                 for (int j = i + 1; j < graph.size(); j++)
-                {
                     if (random.nextBoolean())
                         graph.addLink(i, j, random.nextInt(6));
-                }
-            }
             long best = bruteForce(graph);
             if (best == Long.MAX_VALUE)
                 expect(IllegalStateException.class, () -> Prim.minimumSpanningTree(graph));
@@ -133,7 +129,6 @@ public class ExampleChecks
             boolean[][] connected = new boolean[graph.size()][graph.size()];
             long total = 0;
             for (int e = 0; e < edges.size(); e++)
-            {
                 if ((mask & (1 << e)) != 0)
                 {
                     Network.Link link = edges.get(e);
@@ -141,7 +136,6 @@ public class ExampleChecks
                     connected[link.to()][link.from()] = true;
                     total += link.cost();
                 }
-            }
             if (isConnected(connected) && total < best)
                 best = total;
         }
@@ -152,20 +146,12 @@ public class ExampleChecks
     private static boolean isConnected(boolean[][] connected)
     {
         for (int k = 0; k < connected.length; k++)
-        {
             for (int i = 0; i < connected.length; i++)
-            {
                 for (int j = 0; j < connected.length; j++)
-                {
                     connected[i][j] |= connected[i][k] && connected[k][j];
-                }
-            }
-        }
         for (int i = 1; i < connected.length; i++)
-        {
             if (!connected[0][i])
                 return false;
-        }
         return true;
     }
 }

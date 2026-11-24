@@ -88,32 +88,20 @@ public class ExampleChecks
             {
                 graph.addVertex(i);
                 for (int j = 0; j < n; j++)
-                {
                     distance[i][j] = i == j ? 0 : 1000;
-                }
             }
             for (int i = 0; i < n; i++)
-            {
                 for (int j = 0; j < n; j++)
-                {
                     if (i != j && random.nextInt(4) == 0)
                     {
                         graph.addEdge(i, j);
                         distance[i][j] = 1;
                     }
-                }
-            }
             // Floyd-Warshall computes shortest hop counts independently of BFS.
             for (int k = 0; k < n; k++)
-            {
                 for (int i = 0; i < n; i++)
-                {
                     for (int j = 0; j < n; j++)
-                    {
                         distance[i][j] = Math.min(distance[i][j], distance[i][k] + distance[k][j]);
-                    }
-                }
-            }
             for (int source = 0; source < n; source++)
             {
                 Traversals.Result<Integer> bfs = Traversals.breadthFirst(graph, source);
@@ -142,9 +130,7 @@ public class ExampleChecks
                     previous = depth;
                 }
                 for (int vertex = 0; vertex < n; vertex++)
-                {
                     check(bfs.order().contains(vertex) == (distance[source][vertex] < 1000));
-                }
             }
             Traversals.Result<Integer> forest = Traversals.depthFirstForest(graph);
             check(forest.order().size() == n);
@@ -155,9 +141,7 @@ public class ExampleChecks
         }
         Graph<Integer> chain = new Graph<>(Comparator.naturalOrder());
         for (int i = 0; i < 20000; i++)
-        {
             chain.addEdge(i, i + 1);
-        }
         check(Traversals.depthFirst(chain, 0).order().size() == 20001);
         System.out.println("All " + checks + " checks passed.");
     }
@@ -169,13 +153,11 @@ public class ExampleChecks
         marked.add(vertex);
         order.add(vertex);
         for (int neighbour : graph.adjacentsTo(vertex))
-        {
             if (!marked.contains(neighbour))
             {
                 parent.put(neighbour, vertex);
                 referenceDfs(graph, neighbour, marked, order, parent);
             }
-        }
     }
 
     private static void checkTheoryGraph()

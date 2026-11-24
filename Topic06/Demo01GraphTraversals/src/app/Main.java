@@ -15,9 +15,7 @@ public class Main
         Graph<String> graph = ExampleGraph.create();
         System.out.println("Directed graph (outgoing neighbours):");
         for (String vertex : graph.vertices())
-        {
             System.out.println(vertex + " -> " + graph.adjacentsTo(vertex));
-        }
         show("BFS from A", Traversals.breadthFirst(graph, "A"));
         show("DFS from A", Traversals.depthFirst(graph, "A"));
         show("BFS forest", Traversals.breadthFirstForest(graph));
@@ -34,10 +32,8 @@ public class Main
         System.out.println("Visited vertices: " + result.order().size());
         System.out.print("Traversal roots:");
         for (String vertex : result.order())
-        {
             if (!result.parent().containsKey(vertex))
                 System.out.print(" " + vertex);
-        }
         System.out.println();
     }
 }

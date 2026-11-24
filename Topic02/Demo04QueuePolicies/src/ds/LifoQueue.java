@@ -21,9 +21,7 @@ public class LifoQueue<E> extends AbstractQueue<E>
             throw new NullPointerException("Source must not be null");
         // Initialise through a private helper, avoiding overridable offer/add.
         for (E value : source)
-        {
             insert(value);
-        }
     }
 
     @Override

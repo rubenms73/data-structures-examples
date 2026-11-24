@@ -9,9 +9,7 @@ public class Main
     {
         BinarySearchTree<Integer> tree = new BinarySearchTree<>();
         for (int value : new int[] {8, 3, 10, 1, 6, 14, 4, 7, 13})
-        {
             tree.add(value);
-        }
         return tree;
     }
 
@@ -62,9 +60,7 @@ public class Main
         // Ordered insertion creates a chain of right children, not a balanced tree.
         BinarySearchTree<Integer> chain = new BinarySearchTree<>();
         for (int value = 1; value <= 5; value++)
-        {
             chain.add(value);
-        }
         System.out.println("Ordered insertion: " + chain);
         System.out.println();
         System.out.print(chain.toTreeString());

@@ -60,7 +60,7 @@ java -cp bin app.Main
 java -cp bin app.Main text.txt
 ```
 
-The example is self-contained. Teaching classes are in `src/ds`, the runnable client in `src/app`, and automated checks in `tests/tests`. Test code uses standard-library collections as reference implementations; follow `app.Main` for the teaching sequence. Code uses Allman braces, four spaces and unbraced single-statement conditional branches; loops retain braces.
+The example is self-contained. Teaching classes are in `src/ds`, the runnable client in `src/app`, and automated checks in `tests/tests`. Test code uses standard-library collections as reference implementations; follow `app.Main` for the teaching sequence. Code uses Allman braces, four spaces and unbraced single-statement loop and conditional bodies.
 
 ## Text processing
 

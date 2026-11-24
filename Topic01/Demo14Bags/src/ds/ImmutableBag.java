@@ -31,10 +31,8 @@ public class ImmutableBag<E> extends AbstractBag<E>
     {
         data = source.toArray();
         for (Object item : data)
-        {
             if (item == null)
                 throw new NullPointerException("Null elements are not supported");
-        }
     }
 
     public ImmutableBag<E> withAdded(E item)

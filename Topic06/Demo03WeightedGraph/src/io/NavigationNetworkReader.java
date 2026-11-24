@@ -88,12 +88,8 @@ public class NavigationNetworkReader
             String roadName = name(road.get("name"));
             List<String> corridors = new ArrayList<>();
             if (road.has("corridors"))
-            {
                 for (JsonElement corridor : array(road, "corridors"))
-                {
                     corridors.add(name(corridor));
-                }
-            }
             graph.addRoad(new Road(id, from, to, roadName, weight, corridors));
         }
         return graph;

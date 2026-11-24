@@ -32,9 +32,7 @@ public class Main
     {
         System.out.println("\n" + heading + " (" + movies.length + " movies):");
         for (Movie movie : movies)
-        {
             System.out.println("  " + movie);
-        }
     }
 }
 

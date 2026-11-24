@@ -32,9 +32,7 @@ public class SortedPriorityQueue<E> extends AbstractQueue<E>
             throw new NullPointerException("Source must not be null");
         // Initialise through a private helper, avoiding overridable offer/add.
         for (E value : source)
-        {
             insert(value);
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -62,7 +60,6 @@ public class SortedPriorityQueue<E> extends AbstractQueue<E>
         compare(value, value);
         ListIterator<E> it = data.listIterator();
         while (it.hasNext())
-        {
             if (compare(value, it.next()) < 0)
             {
                 // next() crossed the first larger element. Step back so add()
@@ -71,7 +68,6 @@ public class SortedPriorityQueue<E> extends AbstractQueue<E>
                 it.add(value);
                 return true;
             }
-        }
         // Equal priorities retain arrival order.
         it.add(value);
         return true;

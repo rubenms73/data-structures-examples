@@ -112,9 +112,7 @@ public class ExampleChecks
         equal(true, tree.remove(2));
         equal(0, tree.size());
         for (int value : new int[] {2, 1, 3, 4})
-        {
             tree.add(value);
-        }
         equal(true, tree.remove(2));
         equal(Arrays.asList(1, 3, 4), new ArrayList<>(tree));
         tree.clear();

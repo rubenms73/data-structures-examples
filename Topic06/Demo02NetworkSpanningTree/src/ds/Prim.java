@@ -71,13 +71,11 @@ public class Prim
             int next = -1;
             long minimum = Long.MAX_VALUE;
             for (int vertex = 0; vertex < n; vertex++)
-            {
                 if (!selected[vertex] && cheapest[vertex] < minimum)
                 {
                     next = vertex;
                     minimum = cheapest[vertex];
                 }
-            }
             if (next == -1)
                 throw new IllegalStateException("Disconnected network: no spanning tree");
             selected[next] = true;

@@ -34,9 +34,7 @@ public class ExampleChecks
     {
         List<E> result = new ArrayList<>();
         for (E value : source)
-        {
             result.add(value);
-        }
         return result;
     }
 
@@ -57,12 +55,8 @@ public class ExampleChecks
             dense[row][column] = value;
             matrix.set(row, column, value);
             for (int r = 0; r < 7; r++)
-            {
                 for (int c = 0; c < 9; c++)
-                {
                     equal(dense[r][c], matrix.get(r, c));
-                }
-            }
         }
         rejects(IndexOutOfBoundsException.class, () -> matrix.set(7, 0, 1));
         SparseMatrix one = new SparseMatrix(1, 1);

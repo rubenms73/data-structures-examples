@@ -44,19 +44,15 @@ public class ExampleChecks
             {
                 int key = random.nextInt(31) - 15;
                 if (random.nextBoolean())
-                {
                     if (!ref.contains(key) && ref.size() == capacity)
                         rejects(IllegalStateException.class, () -> set.add(key));
                     else
                         equal(ref.add(key), set.add(key));
-                }
                 else
                     equal(ref.remove(key), set.remove(key));
                 equal(ref.size(), set.size());
                 for (int k = -15; k <= 15; k++)
-                {
                     equal(ref.contains(k), set.contains(k));
-                }
             }
         }
 

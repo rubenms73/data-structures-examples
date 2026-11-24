@@ -57,9 +57,7 @@ public class Route
             return Double.POSITIVE_INFINITY;
         double sum = 0;
         for (Leg leg : legs)
-        {
             sum += leg.kilometres;
-        }
         return sum;
     }
 }

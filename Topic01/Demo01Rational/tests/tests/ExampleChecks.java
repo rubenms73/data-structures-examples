@@ -16,17 +16,13 @@ public class ExampleChecks
     private static void rational()
     {
         for (int n : new int[] {0, 3, -7, Integer.MIN_VALUE})
-        {
             for (int d : new int[] {4, -2, Integer.MAX_VALUE})
-            {
                 for (Rational r : new Rational[] {new RationalImp1(n, d), new RationalImp2(n, d)})
                 {
                     equal(n, r.numerator());
                     equal(d, r.denominator());
                     equal((double) n / d, r.value());
                 }
-            }
-        }
         throwsType(IllegalArgumentException.class, () -> new RationalImp1(1, 0));
         throwsType(IllegalArgumentException.class, () -> new RationalImp2(1, 0));
     }
@@ -35,9 +31,7 @@ public class ExampleChecks
     {
         List<T> result = new ArrayList<>();
         for (T value : values)
-        {
             result.add(value);
-        }
         return result;
     }
 

@@ -34,15 +34,11 @@ public class ExampleChecks
         bag.removeIf(x -> x == 2);
         equal(0, bag.size());
         for (int i = 0; i < 100; i++)
-        {
             bag.add(i);
-        }
         equal(100, bag.size());
         int expected = 0;
         for (int item : bag)
-        {
             equal(expected++, item);
-        }
         bag.add(100);
         throwsType(NullPointerException.class, () -> bag.add(null));
         throwsType(IllegalArgumentException.class, () -> new MutableBag<Integer>(-1));

@@ -12,9 +12,7 @@ public class Main
     {
         StringBuilder result = new StringBuilder();
         for (char c = 'a'; c <= 'z'; c++)
-        {
             result.append(set.contains(c) ? '1' : '0');
-        }
         return result.toString();
     }
 
@@ -24,10 +22,8 @@ public class Main
         System.out.println("1. Each letter is one position of the bit array");
         System.out.println("Initial: " + set + "; size = " + set.size());
         for (char c : new char[] {'c', 'f', 'c'})
-        {
             System.out.println("add(" + c + "): " + set.add(c) + "; set = " + set
                     + "; size = " + set.size());
-        }
         System.out.println("            abcdefghijklmnopqrstuvwxyz");
         System.out.println("bits:       " + bits(set));
 

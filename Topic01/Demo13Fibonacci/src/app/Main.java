@@ -10,9 +10,7 @@ public class Main
         Fibonacci sequence = new Fibonacci(10);
         System.out.print("First ten terms:");
         for (long value : sequence)
-        {
             System.out.print(" " + value);
-        }
         System.out.println();
         System.out.println("A fresh iterator starts again; traversal does not consume the sequence.");
         Iterator<Long> a = sequence.iterator();

@@ -61,9 +61,7 @@ public class BinarySearchTree<E> extends AbstractCollection<E>
             throw new NullPointerException("Source must not be null");
         // The subclass is not initialised yet: use private insertion logic.
         for (E value : source)
-        {
             insert(value);
-        }
     }
 
     @SuppressWarnings("unchecked")

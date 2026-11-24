@@ -53,9 +53,7 @@ public class ExampleChecks
     {
         List<E> result = new ArrayList<>();
         for (E value : source)
-        {
             result.add(value);
-        }
         return result;
     }
 
@@ -72,9 +70,7 @@ public class ExampleChecks
             ref.offer(value);
         }
         while (!ref.isEmpty())
-        {
             equal(ref.poll(), q.poll());
-        }
         equal(null, q.poll());
         rejects(NullPointerException.class, () -> q.offer(null));
         rejects(NullPointerException.class, () -> new SortedPriorityQueue<Integer>(null, null));

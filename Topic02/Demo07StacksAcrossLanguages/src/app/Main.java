@@ -16,16 +16,12 @@ public class Main
         }
         System.out.print("Traversal from top to bottom:");
         for (int value : stack)
-        {
             System.out.print(" " + value);
-        }
         System.out.println();
         System.out.println("After traversal: size = " + stack.size() + "; top = " + stack.peek());
         while (!stack.isEmpty())
-        {
             System.out.println("pop(): " + stack.pop() + "; size = " + stack.size()
                     + "; top = " + (stack.isEmpty() ? "(empty)" : stack.peek()));
-        }
         stack.push(9);
         System.out.println("Reuse with push(9): size = " + stack.size() + "; top = " + stack.peek());
         System.out.println("pop(): " + stack.pop() + "; size = " + stack.size() + "; top = (empty)");

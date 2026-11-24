@@ -119,35 +119,24 @@ public class ExampleChecks
                 expected[i][i] = 0;
             }
             for (int i = 0; i < 8; i++)
-            {
                 for (int j = 0; j < 8; j++)
-                {
                     if (i != j && random.nextBoolean())
                     {
                         double weight = random.nextInt(10);
                         graph.addEdge(i, j, weight);
                         expected[i][j] = weight;
                     }
-                }
-            }
             // Floyd-Warshall is an independent oracle, not a second Dijkstra.
             for (int k = 0; k < 8; k++)
-            {
                 for (int i = 0; i < 8; i++)
-                {
                     for (int j = 0; j < 8; j++)
-                    {
                         expected[i][j] = Math.min(expected[i][j], expected[i][k] + expected[k][j]);
-                    }
-                }
-            }
             for (int i = 0; i < 8; i++)
             {
                 ShortestPaths<Integer> linear = graph.dijkstra(i);
                 ShortestPaths<Integer> heap = graph.dijkstraHeap(i);
                 equal(linear.distances(), heap.distances());
                 for (ShortestPaths<Integer> result : List.of(linear, heap))
-                {
                     for (int j = 0; j < 8; j++)
                     {
                         equal(expected[i][j], result.distanceTo(j));
@@ -159,13 +148,10 @@ public class ExampleChecks
                             equal(j, path.get(path.size() - 1));
                             double cost = 0;
                             for (int step = 1; step < path.size(); step++)
-                            {
                                 cost += graph.weightEdge(path.get(step - 1), path.get(step));
-                            }
                             equal(expected[i][j], cost);
                         }
                     }
-                }
             }
         }
     }
@@ -178,9 +164,7 @@ public class ExampleChecks
         for (String from : roads.vertices())
         {
             for (String to : roads.adjacentsTo(from))
-            {
                 equal(roads.weightEdge(from, to), roads.weightEdge(to, from));
-            }
             equal(roads.dijkstra(from).distances(), roads.dijkstraHeap(from).distances());
         }
         String valid = "{\"directed\":true,\"vertices\":[\"A\",\"B\",\"C\"],"
@@ -198,9 +182,7 @@ public class ExampleChecks
                 valid.replace("\"A\",\"B\",\"C\"", "\"A\",\"B\",\"A\""),
                 valid.replace("\"A\",\"B\",\"C\"", "\" A\",\"B\",\"C\""),
                 valid.replace("\"directed\":true", "\"directed\":\"true\"")))
-        {
             rejects(IllegalArgumentException.class, () -> RoadNetworkReader.read(new StringReader(invalid)));
-        }
         rejects(com.google.gson.JsonParseException.class,
                 () -> RoadNetworkReader.read(new StringReader(valid + " trailing")));
         String duplicate = valid.replace("}]}", "},{\"from\":\"A\",\"to\":\"B\",\"km\":3}]}");

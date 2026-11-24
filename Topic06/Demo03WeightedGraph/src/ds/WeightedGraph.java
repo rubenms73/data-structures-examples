@@ -141,10 +141,8 @@ public class WeightedGraph<V>
         // Incoming arcs must also be removed from every remaining adjacency map.
         edgeCount -= removed.size();
         for (Map<V, Double> adjacency : edges.values())
-        {
             if (adjacency.remove(vertex) != null)
                 edgeCount--;
-        }
         return true;
     }
 
@@ -176,10 +174,8 @@ public class WeightedGraph<V>
         checkVertex(vertex);
         int count = 0;
         for (Map<V, Double> neighbours : edges.values())
-        {
             if (neighbours.containsKey(vertex))
                 count++;
-        }
         return count;
     }
 
@@ -194,13 +190,9 @@ public class WeightedGraph<V>
     {
         checkVertex(start);
         for (Map<V, Double> neighbours : edges.values())
-        {
             for (double weight : neighbours.values())
-            {
                 if (weight < 0)
                     throw new IllegalArgumentException("Dijkstra requires nonnegative weights");
-            }
-        }
     }
 
     // Mutable working state belongs to one search, never to the graph itself.
@@ -214,9 +206,7 @@ public class WeightedGraph<V>
         private Search(V start)
         {
             for (V vertex : edges.keySet())
-            {
                 distances.put(vertex, Double.POSITIVE_INFINITY);
-            }
             distances.put(start, 0.0);
         }
     }
@@ -238,10 +228,8 @@ public class WeightedGraph<V>
             visited.add(selected);
             double distance = result.distances.get(selected);
             for (Map.Entry<V, Double> edge : edges.get(selected).entrySet())
-            {
                 if (!visited.contains(edge.getKey()))
                     updateDistance(result, selected, distance, edge);
-            }
             selected = minimumUnvisited(result.distances, visited);
         }
         return new ShortestPaths<>(result.distances, result.previous);
@@ -253,13 +241,11 @@ public class WeightedGraph<V>
         V best = null;
         double minimum = Double.POSITIVE_INFINITY;
         for (Map.Entry<V, Double> entry : distances.entrySet())
-        {
             if (!visited.contains(entry.getKey()) && entry.getValue() < minimum)
             {
                 best = entry.getKey();
                 minimum = entry.getValue();
             }
-        }
         return best;
     }
 
@@ -307,11 +293,9 @@ public class WeightedGraph<V>
             {
                 visited.add(selected.vertex);
                 for (Map.Entry<V, Double> edge : edges.get(selected.vertex).entrySet())
-                {
                     if (!visited.contains(edge.getKey())
                             && updateDistance(result, selected.vertex, selected.distance, edge))
                         queue.add(new QueueEntry(edge.getKey(), result.distances.get(edge.getKey())));
-                }
             }
         }
         return new ShortestPaths<>(result.distances, result.previous);

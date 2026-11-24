@@ -12,10 +12,8 @@ public class Main
         System.out.println("1. Separate chaining; initial capacity 3, load limit 0.75");
         System.out.println("Initial: " + set + "; size = " + set.size());
         for (int value : new int[] {-1, Integer.MIN_VALUE, 7})
-        {
             System.out.println("add(" + value + "): " + set.add(value)
                     + "; contents = " + set + "; size = " + set.size());
-        }
         System.out.println("The third distinct insertion exceeds 3 * 0.75 and triggers rehashing.");
         System.out.println("Iteration follows buckets; it is not sorted or arrival order.");
         System.out.println("contains(-1): " + set.contains(-1));

@@ -31,9 +31,7 @@ public class Main
         CountingOrder order = new CountingOrder();
         RedBlackTree<Integer> tree = new RedBlackTree<>(order);
         for (int value = 1; value <= 15; value++)
-        {
             tree.add(value);
-        }
         System.out.println("Inserted 1 through 15 in ascending order.");
         System.out.println("Tree structure (right above, left below):");
         System.out.println();

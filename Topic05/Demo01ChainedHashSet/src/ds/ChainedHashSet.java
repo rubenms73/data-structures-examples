@@ -36,9 +36,7 @@ public class ChainedHashSet<E> extends AbstractSet<E>
     {
         List<List<E>> result = new ArrayList<>();
         for (int i = 0; i < capacity; i++)
-        {
             result.add(new LinkedList<>());
-        }
         return result;
     }
 
@@ -81,13 +79,11 @@ public class ChainedHashSet<E> extends AbstractSet<E>
     {
         List<List<E>> larger = newBuckets(buckets.size() * 2 + 1);
         for (List<E> bucket : buckets)
-        {
             for (E value : bucket)
             {
                 // A different capacity changes bucket indices: rehash every element.
                 larger.get(index(value, larger.size())).add(value);
             }
-        }
         buckets = larger;
     }
 
@@ -119,9 +115,7 @@ public class ChainedHashSet<E> extends AbstractSet<E>
         public boolean hasNext()
         {
             while (!current.hasNext() && bucketIndex + 1 < buckets.size())
-            {
                 current = buckets.get(++bucketIndex).iterator();
-            }
             return current.hasNext();
         }
 

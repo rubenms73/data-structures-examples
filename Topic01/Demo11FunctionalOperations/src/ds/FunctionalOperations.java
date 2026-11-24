@@ -16,9 +16,7 @@ public class FunctionalOperations
             Function<Integer, String> transform, Consumer<String> action)
     {
         for (Integer value : values)
-        {
             if (condition.test(value))
                 action.accept(transform.apply(value));
-        }
     }
 }

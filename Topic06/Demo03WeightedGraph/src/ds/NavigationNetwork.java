@@ -89,9 +89,7 @@ public class NavigationNetwork
             throw new IllegalArgumentException("Unknown locality");
         Map<String, Map<String, Road>> selected = new LinkedHashMap<>();
         for (String locality : localities)
-        {
             selected.put(locality, new LinkedHashMap<>());
-        }
         for (Road road : roads.values())
         {
             if (road.isClosed())
@@ -103,16 +101,10 @@ public class NavigationNetwork
         }
         WeightedGraph<String> graph = new WeightedGraph<>(Comparator.naturalOrder());
         for (String locality : localities)
-        {
             graph.addVertex(locality);
-        }
         for (Map<String, Road> outgoing : selected.values())
-        {
             for (Road road : outgoing.values())
-            {
                 graph.addEdge(road.from(), road.to(), road.cost());
-            }
-        }
         ShortestPaths<String> linear = graph.dijkstra(from);
         ShortestPaths<String> heap = graph.dijkstraHeap(from);
         if (!linear.distances().equals(heap.distances()))

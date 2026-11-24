@@ -11,9 +11,7 @@ public class ArrayAlgorithms
     {
         int total = 0;
         for (int i = 0; i < values.size(); i++)
-        {
             total += values.get(i);
-        }
         return total;
     }
 

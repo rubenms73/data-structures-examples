@@ -35,14 +35,10 @@ public class ExampleChecks
         ArrayStack<Integer> zero = new ArrayStack<>(0);
         check(zero.isEmpty());
         for (int value = 0; value < 100; value++)
-        {
             zero.push(value);
-        }
         check(zero.size() == 100);
         for (int value = 99; value >= 0; value--)
-        {
             check(zero.pop() == value);
-        }
         check(zero.isEmpty());
         ArrayStack<Integer> stack = new ArrayStack<>(3);
         expect(NoSuchElementException.class, stack::pop);
@@ -75,13 +71,9 @@ public class ExampleChecks
         for (int cycle = 0; cycle < 100; cycle++)
         {
             for (int value = 0; value < 3; value++)
-            {
                 stack.push(value);
-            }
             for (int value = 2; value >= 0; value--)
-            {
                 check(stack.peek() == value && stack.pop() == value);
-            }
             check(stack.size() == 0);
         }
         System.out.println("All " + checks + " checks passed.");

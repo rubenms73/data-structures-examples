@@ -61,9 +61,7 @@ public class DoublyLinkedList<E> extends AbstractSequentialList<E>
         // before their own fields have been initialised.
         MyListIterator it = new MyListIterator(0);
         for (E item : items)
-        {
             it.add(item);
-        }
     }
 
     /** Conversion constructor: creates independent nodes in source order. */
@@ -75,9 +73,7 @@ public class DoublyLinkedList<E> extends AbstractSequentialList<E>
         // before their own fields have been initialised.
         MyListIterator it = new MyListIterator(0);
         for (E item : source)
-        {
             it.add(item);
-        }
     }
 
     @Override
@@ -118,9 +114,7 @@ public class DoublyLinkedList<E> extends AbstractSequentialList<E>
             {
                 nextNode = head;
                 for (int i = 0; i < index; i++)
-                {
                     nextNode = nextNode.next;
-                }
             }
             else
             {

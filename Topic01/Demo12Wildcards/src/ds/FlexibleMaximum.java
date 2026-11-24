@@ -20,10 +20,8 @@ public class FlexibleMaximum
             throw new IllegalArgumentException("Empty array");
         T result = values[0];
         for (T value : values)
-        {
             if (cmp.compare(result, value) < 0)
                 result = value;
-        }
         return result;
     }
 }

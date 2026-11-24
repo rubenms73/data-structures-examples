@@ -46,9 +46,7 @@ class NavigationChecks
     {
         NavigationNetwork network = new NavigationNetwork();
         for (String name : List.of("A", "B", "C", "D"))
-        {
             network.addLocality(name);
-        }
         Road motorway = new Road("motorway", "A", "B", "AP-test", 10);
         Road national = new Road("national", "A", "B", "N-test", 15);
         Road finish = new Road("finish", "B", "C", "local", 5);
@@ -107,16 +105,12 @@ class NavigationChecks
         check(real.route("Oviedo", "León").legs.get(0).roadId.equals("pajares-south"));
         List<Road> affected = new ArrayList<>();
         for (Road road : real.roads())
-        {
             if (road.usesCorridor("N-630-Pajares"))
                 affected.add(road);
-        }
         check(affected.size() == 4);
         check(!real.road("road-02").usesCorridor("N-630-Pajares"));
         for (Road road : affected)
-        {
             real.removeRoad(road.id());
-        }
         check(real.route("Oviedo", "León").legs.get(0).roadId.equals("road-59"));
         double detourCost = real.route("Gijón", "Madrid").cost;
         check(detourCost > originalCost);
@@ -127,9 +121,7 @@ class NavigationChecks
         }
         check(real.route("Gijón", "Madrid").cost == detourCost);
         for (Road road : affected)
-        {
             road.setPenalty(0);
-        }
         check(real.route("Gijón", "Madrid").cost == originalCost);
         rejects(IllegalArgumentException.class,
                 () -> new Road("x", "A", "B", "N", 1, List.of("")));

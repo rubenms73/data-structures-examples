@@ -39,10 +39,8 @@ public class Main
         System.out.println("Cost = kilometres + teaching penalty (equivalent-distance units).");
         System.out.println("Parallel alternatives from Oviedo to León:");
         for (Road road : network.roads())
-        {
             if (road.from().equals("Oviedo") && road.to().equals("León"))
                 System.out.printf(Locale.ROOT, "  %s | %s | %.3f km%n", road.id(), road.name(), road.kilometres());
-        }
         List<Route> snapshots = new ArrayList<>();
         Route baseline = network.route(from, to);
         show(snapshots, "1. No incident (original weights)", baseline);
@@ -57,14 +55,12 @@ public class Main
         for (String candidate : List.of("N-630-Pajares", "AP-66"))
         {
             for (Route.Leg leg : baseline.legs)
-            {
                 if (network.road(leg.roadId).usesCorridor(candidate))
                 {
                     roadId = leg.roadId;
                     corridor = candidate;
                     break;
                 }
-            }
             if (corridor != null)
                 break;
         }
@@ -76,10 +72,8 @@ public class Main
             // Corridors overlap. An incident must affect EVERY connection using it,
             // including the separately measured reverse directions.
             for (Road road : network.roads())
-            {
                 if (road.usesCorridor(corridor))
                     affected.add(road);
-            }
             System.out.println("\nIncident: " + corridor + " in both directions (" + affected.size()
                     + " represented connections)");
         }
@@ -89,9 +83,7 @@ public class Main
             System.out.println("\nIncident: directed connection " + roadId);
         }
         for (Road road : affected)
-        {
             network.removeRoad(road.id());
-        }
         try
         {
             show(snapshots, "2. Road closed (affected connections removed)", network.route(from, to));
@@ -99,16 +91,12 @@ public class Main
         finally
         {
             for (Road road : affected)
-            {
                 network.addRoad(road);
-            }
         }
         show(snapshots, "3. Road reopened (original weights restored)", network.route(from, to));
         // The JSON loader starts every road with zero penalty.
         for (Road road : affected)
-        {
             road.setPenalty(1000);
-        }
         try
         {
             show(snapshots, "4. Heavy traffic (+1000 cost units per affected connection; roads remain usable)", network.route(from, to));
@@ -116,9 +104,7 @@ public class Main
         finally
         {
             for (Road road : affected)
-            {
                 road.setPenalty(0);
-            }
         }
         show(snapshots, "5. Traffic cleared (penalties removed)", network.route(from, to));
         System.out.println("Both algorithms give the same distances for every scenario.");
@@ -145,10 +131,8 @@ public class Main
         System.out.println("Localities: " + route.localities);
         System.out.println("Selected directed road connections: " + route.legs.size());
         for (Route.Leg leg : route.legs)
-        {
             System.out.printf(Locale.ROOT, "  %s -> %s | %s | %s | %.3f km | penalty %.3f%n",
                     leg.from, leg.to, leg.roadId, leg.name, leg.kilometres, leg.penalty);
-        }
         System.out.printf(Locale.ROOT, "Physical distance: %.3f km; routing cost: %.3f%n",
                 route.kilometres(), route.cost);
     }

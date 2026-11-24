@@ -71,9 +71,7 @@ public class ExampleChecks
     {
         List<E> result = new ArrayList<>();
         for (E value : source)
-        {
             result.add(value);
-        }
         return result;
     }
 

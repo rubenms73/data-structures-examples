@@ -21,39 +21,29 @@ public class ExampleChecks
         List<Movie> movies = Arrays.asList(early, late, new Movie("A", 2018, 8),
                 new Movie("B", 2018, 8), new Movie("A", 2018, 9), new Movie("A", 2018, 8));
         for (Movie a : movies)
-        {
             for (Movie b : movies)
             {
                 equal(a.equals(b), a.compareTo(b) == 0);
                 if (a.equals(b))
                     equal(a.hashCode(), b.hashCode());
             }
-        }
         for (Comparator<Movie> order : Arrays.asList(Comparator.<Movie>naturalOrder(),
                 new RatingComparator(), new TitleComparator()))
-        {
             for (Movie a : movies)
-            {
                 for (Movie b : movies)
                 {
                     equal(Integer.signum(order.compare(a, b)), -Integer.signum(order.compare(b, a)));
                     for (Movie c : movies)
-                    {
                         if (order.compare(a, b) <= 0 && order.compare(b, c) <= 0)
                             check(order.compare(a, c) <= 0, "transitive comparison");
-                    }
                 }
-            }
-        }
     }
 
     private static <T> List<T> collect(Iterable<T> values)
     {
         List<T> result = new ArrayList<>();
         for (T value : values)
-        {
             result.add(value);
-        }
         return result;
     }
 

@@ -36,12 +36,8 @@ public class ExampleChecks
         String text = heap.toString();
         List<Integer> a = new ArrayList<>();
         if (text.length() > 2)
-        {
             for (String part : text.substring(1, text.length() - 1).split(", "))
-            {
                 a.add(Integer.parseInt(part));
-            }
-        }
         equal(heap.size(), a.size());
         for (int i = 1; i < a.size(); i++)
         {
@@ -83,18 +79,14 @@ public class ExampleChecks
         {
             List<Integer> values = new ArrayList<>();
             for (int i = 0; i < n; i++)
-            {
                 values.add(random.nextInt(20));
-            }
             MinHeap<Integer> built = new MinHeap<>(values, Comparator.naturalOrder());
             isHeap(built);
             List<Integer> sorted = new ArrayList<>(values);
             Collections.sort(sorted);
             List<Integer> removed = new ArrayList<>();
             while (!built.isEmpty())
-            {
                 removed.add(built.remove());
-            }
             equal(sorted, removed);
         }
 

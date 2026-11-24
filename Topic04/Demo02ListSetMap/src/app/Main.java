@@ -13,10 +13,8 @@ public class Main
         System.out.println("1. A set stores each distinct element once");
         System.out.println("Initial: " + set + "; size = " + set.size());
         for (String value : new String[] {"A", "A", "B"})
-        {
             System.out.println("add(" + value + "): " + set.add(value)
                     + "; set = " + set + "; size = " + set.size());
-        }
         System.out.println("contains(A): " + set.contains("A") + "; contains(X): " + set.contains("X"));
         System.out.println("remove(A): " + set.remove("A") + "; set = " + set);
         System.out.println("remove(A) again: " + set.remove("A") + "; set = " + set);

@@ -58,9 +58,7 @@ public class Polynomial
     {
         double result = 0;
         for (Map.Entry<Integer, Double> term : terms.entrySet())
-        {
             result += term.getValue() * Math.pow(x, term.getKey());
-        }
         return result;
     }
 
@@ -71,9 +69,7 @@ public class Polynomial
             throw new NullPointerException("Operand must not be null");
         Polynomial result = new Polynomial(this);
         for (Map.Entry<Integer, Double> term : other.terms.entrySet())
-        {
             result.addTerm(term.getKey(), term.getValue());
-        }
         return result;
     }
 

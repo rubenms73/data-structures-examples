@@ -40,9 +40,7 @@ public class Main
     {
         System.out.print(label + ":");
         for (String value : values)
-        {
             System.out.print(" " + value);
-        }
         System.out.println();
     }
 }

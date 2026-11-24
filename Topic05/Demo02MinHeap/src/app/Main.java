@@ -33,14 +33,10 @@ public class Main
         System.out.println("\n4. A reversed comparator gives a max-heap");
         MinHeap<String> words = new MinHeap<>(Comparator.reverseOrder());
         for (String word : new String[] {"pear", "apple", "plum", "fig"})
-        {
             words.add(word);
-        }
         StringBuilder order = new StringBuilder();
         while (!words.isEmpty())
-        {
             order.append(words.remove()).append(' ');
-        }
         System.out.println("Removed in order: " + order.toString().trim());
     }
 }

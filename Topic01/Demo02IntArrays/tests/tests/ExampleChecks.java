@@ -63,18 +63,14 @@ public class ExampleChecks
             equal(expected.contains(value), dynamic.contains(value));
         }
         for (int i = 0; i < expected.size(); i++)
-        {
             equal(expected.get(i), dynamic.get(i));
-        }
     }
 
     private static <T> List<T> collect(Iterable<T> values)
     {
         List<T> result = new ArrayList<>();
         for (T value : values)
-        {
             result.add(value);
-        }
         return result;
     }
 

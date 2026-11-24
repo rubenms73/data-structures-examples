@@ -67,9 +67,7 @@ public class NavigationMapWriter
         payload.add("scenarios", scenarios);
         JsonArray incidents = new JsonArray();
         for (Road road : affected)
-        {
             incidents.add(road.id());
-        }
         payload.add("affected", incidents);
         String template = Files.readString(Path.of("web/navigation-map.html"));
         String marker = "__NAVIGATION_DATA__";

@@ -27,10 +27,8 @@ public class Road
         if (corridors == null)
             throw new NullPointerException("Corridors must not be null");
         for (String corridor : corridors)
-        {
             if (corridor == null || corridor.isBlank())
                 throw new IllegalArgumentException("Corridor tags must not be null or blank");
-        }
         this.corridors = List.copyOf(corridors);
         if (id == null || from == null || to == null || name == null)
             throw new NullPointerException("Road fields must not be null");
@@ -77,10 +75,8 @@ public class Road
         if (reference == null)
             throw new NullPointerException("Road reference must not be null");
         for (String part : name.split(","))
-        {
             if (part.trim().equals(reference))
                 return true;
-        }
         return false;
     }
 

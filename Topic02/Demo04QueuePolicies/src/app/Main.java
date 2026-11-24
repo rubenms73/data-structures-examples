@@ -36,9 +36,7 @@ public class Main
         System.out.println("offer(4) to both queues:");
         show(fifo, lifo);
         while (!fifo.isEmpty())
-        {
             removeBoth(fifo, lifo);
-        }
 
         System.out.println("\n4. Empty queues: special values and exceptions");
         emptyOperations("FIFO", fifo);
@@ -64,9 +62,7 @@ public class Main
     {
         System.out.print(label + " for-each:");
         for (int value : queue)
-        {
             System.out.print(" " + value);
-        }
         System.out.println();
     }
 

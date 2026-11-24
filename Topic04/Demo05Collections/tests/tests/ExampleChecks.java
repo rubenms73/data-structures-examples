@@ -45,9 +45,7 @@ public class ExampleChecks
     {
         List<T> result = new ArrayList<>();
         for (T value : values)
-        {
             result.add(value);
-        }
         return result;
     }
 

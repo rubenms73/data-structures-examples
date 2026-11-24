@@ -40,9 +40,7 @@ public class ExampleChecks
     {
         MyArray<E> result = new FixedMyArray<>(values);
         for (E value : values)
-        {
             result.add(value);
-        }
         return result;
     }
 

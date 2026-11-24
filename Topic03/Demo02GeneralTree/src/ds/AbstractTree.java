@@ -14,9 +14,7 @@ public abstract class AbstractTree<E> implements Tree<E>
         int result = 1;
         ChildrenIterator<Tree<E>> itr = t.childrenIterator();
         while (itr.hasNext())
-        {
             result += size(itr.next());
-        }
         return result;
     }
 

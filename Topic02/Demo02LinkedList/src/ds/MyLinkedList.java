@@ -54,9 +54,7 @@ public class MyLinkedList<E> extends AbstractSequentialList<E>
         // before their own fields have been initialised.
         MyListIterator it = new MyListIterator(0);
         for (E item : items)
-        {
             it.add(item);
-        }
     }
 
     /** Conversion constructor: creates independent nodes in source order. */
@@ -68,9 +66,7 @@ public class MyLinkedList<E> extends AbstractSequentialList<E>
         // before their own fields have been initialised.
         MyListIterator it = new MyListIterator(0);
         for (E item : source)
-        {
             it.add(item);
-        }
     }
 
     @Override
@@ -129,9 +125,7 @@ public class MyLinkedList<E> extends AbstractSequentialList<E>
             // Walk from head until the next link reaches the target node.
             Node current = head;
             while (current != null && current.next != node)
-            {
                 current = current.next;
-            }
             return current;
         }
 

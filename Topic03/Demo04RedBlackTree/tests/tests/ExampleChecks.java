@@ -50,9 +50,7 @@ public class ExampleChecks
         check(tree.isEmpty() == oracle.isEmpty());
         List<E> contents = new ArrayList<>();
         for (E value : tree)
-        {
             contents.add(value);
-        }
         check(contents.equals(new ArrayList<>(oracle)));
         if (oracle.isEmpty())
             check(tree.height() == 0);
@@ -192,12 +190,8 @@ public class ExampleChecks
     {
         edgeCases();
         for (boolean descending : new boolean[] {false, true})
-        {
             for (boolean minimum : new boolean[] {false, true})
-            {
                 orderedUpdates(descending, minimum);
-            }
-        }
         randomUpdates(Comparator.naturalOrder(), 202627);
         randomUpdates(Comparator.reverseOrder(), 1703);
         permutations(new int[] {1, 2, 3, 4, 5, 6}, 0);

@@ -27,9 +27,7 @@ public class ListTree<E> extends AbstractTree<E> implements Iterable<E>
         assignLabel(source.label());
         ChildrenIterator<Tree<E>> itr = source.childrenIterator();
         while (itr.hasNext())
-        {
             copyChild(itr.next());
-        }
     }
 
     @Override
@@ -134,9 +132,7 @@ public class ListTree<E> extends AbstractTree<E> implements Iterable<E>
             ListTree<E> node = pending.pop();
             // Push in reverse order so that the first child is visited next.
             for (int i = node.children.size() - 1; i >= 0; i--)
-            {
                 pending.push(node.children.get(i));
-            }
             return node.label;
         }
     }

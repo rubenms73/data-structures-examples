@@ -36,9 +36,7 @@ public class Main
 
         System.out.print("A fresh enhanced for loop:");
         for (String name : names)
-        {
             System.out.print(" " + name);
-        }
         System.out.println();
 
         MyArray<Integer> scores = new FixedMyArray<>(4);
@@ -49,9 +47,7 @@ public class Main
         System.out.println("Copy of scores: [" + copy.get(0) + ", " + copy.get(1) + "]");
         int sum = 0;
         for (int score : copy)
-        {
             sum += score;
-        }
         System.out.println("Integer vector sum: " + sum);
         copy.set(0, 99);
         System.out.println("After copy.set(0, 99): copy[0] = " + copy.get(0)

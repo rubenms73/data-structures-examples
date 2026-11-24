@@ -25,9 +25,7 @@ public final class FixedMyArray<E> implements MyArray<E>
     {
         this(source.size());
         for (E item : source)
-        {
             add(item);
-        }
     }
 
     /** The supplied array determines the capacity; a private copy is used. */

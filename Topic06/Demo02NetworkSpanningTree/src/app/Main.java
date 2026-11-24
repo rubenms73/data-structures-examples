@@ -38,17 +38,13 @@ public class Main
         Prim.Result result = Prim.minimumSpanningTree(network);
         System.out.println("\n" + title + ":");
         for (Network.Link link : result.links())
-        {
             showLink(network, link);
-        }
         System.out.println("Selected links: " + result.links().size()
                 + " for " + network.size() + " nodes");
         System.out.println("Total cost: " + result.totalCost());
         long availableCost = 0;
         for (Network.Link link : network.links())
-        {
             availableCost += link.cost();
-        }
         System.out.println("All currently available links: " + availableCost
                 + "; saving with this tree: " + (availableCost - result.totalCost()));
     }

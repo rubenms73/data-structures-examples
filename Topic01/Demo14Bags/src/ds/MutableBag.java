@@ -34,9 +34,7 @@ public class MutableBag<E> extends AbstractBag<E>
         this(source.size());
         // Do not call an overridable method from a constructor.
         for (E item : source)
-        {
             append(item);
-        }
     }
 
     @Override
