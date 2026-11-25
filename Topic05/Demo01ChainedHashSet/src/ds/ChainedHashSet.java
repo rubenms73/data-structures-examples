@@ -77,7 +77,8 @@ public class ChainedHashSet<E> extends AbstractSet<E>
 
     private void grow()
     {
-        List<List<E>> larger = newBuckets(buckets.size() * 2 + 1);
+        // A prime capacity spreads keys with a common divisor over all the buckets.
+        List<List<E>> larger = newBuckets(nextPrime(buckets.size() * 2));
         for (List<E> bucket : buckets)
             for (E value : bucket)
             {
@@ -85,6 +86,25 @@ public class ChainedHashSet<E> extends AbstractSet<E>
                 larger.get(index(value, larger.size())).add(value);
             }
         buckets = larger;
+    }
+
+    // Smallest prime greater than or equal to n.
+    private static int nextPrime(int n)
+    {
+        int candidate = n;
+        while (!isPrime(candidate))
+            candidate++;
+        return candidate;
+    }
+
+    private static boolean isPrime(int n)
+    {
+        if (n < 2)
+            return false;
+        for (int d = 2; d * d <= n; d++)
+            if (n % d == 0)
+                return false;
+        return true;
     }
 
     @Override

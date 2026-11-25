@@ -1,7 +1,7 @@
 # Hash set with separate chaining
 
 This teaching example does not deal with extremely large capacities; the table
-grows by the simple geometric rule.
+grows to the smallest prime that is at least twice its capacity.
 
 ## Problem statement and prerequisites
 
@@ -20,7 +20,8 @@ load threshold must be positive.
 3. Before inserting a new element, the table grows once if the load after the
    insertion would exceed the threshold.
 4. Rehashing recomputes the index of every entry from the new capacity; the old
-   bucket indices are never copied.
+   bucket indices are never copied. The new capacity is a prime, so keys that
+   share a divisor do not crowd into a few buckets.
 5. The iterator scans the buckets. It keeps `lastUsed` in a separate field,
    because `hasNext` may already have moved on.
 6. Removing through the iterator must also decrease the `size` of the enclosing
@@ -31,7 +32,7 @@ load threshold must be positive.
 With a suitable load and a good distribution of hash codes, lookups and updates
 have an expected cost of O(1); the worst case is O(n). Rehashing costs O(n + new
 capacity), and iteration costs O(n + capacity). A single insertion triggers at
-most one growth step (doubling plus one), so a very small threshold may be
+most one growth step (to a prime at least twice as large), so a very small threshold may be
 exceeded for a while. Structural changes during an iteration are not supported,
 except through the iterator itself. Hash codes and equality must not change
 while an element is stored.
